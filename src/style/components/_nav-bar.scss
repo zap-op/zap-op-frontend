@@ -1,0 +1,47 @@
+#nav-bar {
+    background-color: aqua;
+    display: flex;
+    height: 5rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding: 1rsem;
+
+    div.logo {
+        cursor: pointer;
+        height: inherit;
+        margin-left: 2rem;
+
+        img {
+            max-height: 100%;
+        }
+    }
+
+    ul {
+        background-color: antiquewhite;
+        display: inherit;
+        flex-flow: row wrap;
+        list-style-type: none;
+
+        li {
+            align-items: center;
+            background-color: aquamarine;
+            cursor: pointer;
+            display: inherit;
+        }
+    }
+
+    ul.nav-bar {
+
+        li.nav-item {
+            margin: 0.5rem 5rem 0.5rem 5rem;
+        }
+    }
+
+    ul.nav-bar-id {
+        margin-right: 2rem;
+
+        li {
+            margin: 0.5rem;
+        }
+    }
+}

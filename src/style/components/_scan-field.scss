@@ -1,0 +1,20 @@
+div.scan-field-container {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 1rem 0;
+
+    h4 {
+        margin: 0.5rem 0;
+    }
+
+    div.field-container {
+        
+        input {
+            margin-right: 0.5rem;
+        }
+
+        a {
+            margin-left: 0.5rem;
+        }
+    }
+}
