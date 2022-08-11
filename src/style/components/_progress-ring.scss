@@ -1,0 +1,33 @@
+@use '../utils/variables' as *;
+@use '../utils/mixins' as *;
+
+div.progress-ring-container {
+
+    div.progress-ring {
+        align-items: center;
+        border: 3px solid;
+        border-color: #84E8A9;
+        border-radius: $border-radius-ring;
+        display: flex;
+        height: $ring-size;
+        justify-content: center;
+        position: relative;
+        width: $ring-size;
+
+        div.core {
+            background-color: black;
+            border-radius: $border-radius-ring;
+            height: $core-size;
+            width: $core-size;
+
+            &.complete {
+                background-color: #84E8A9;
+            }
+        }
+    }
+
+    .spin {
+        animation: spin 2s linear infinite;
+        border-color: $color-3 $color-3 transparent !important;
+    }
+}

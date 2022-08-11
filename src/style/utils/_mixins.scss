@@ -1,0 +1,29 @@
+@use './variables' as *;
+
+@mixin keyframes($animation-name) {
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+    -webkit-animation: #{$str};
+    -moz-animation: #{$str};
+    -ms-animation: #{$str};
+    -o-animation: #{$str};
+    animation: #{$str};
+}
+
+@mixin button-primary {
+    // background-color: $color-1;
+    border-color: $color-1;
+}
+
+@mixin button-outline-primary {
+    border-color: $color-1;
+    color: $color-1;
+}
+
+@include keyframes(spin) {
+    100% {transform: rotate(360deg);}
+}
