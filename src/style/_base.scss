@@ -1,11 +1,18 @@
 @use './utils/mixins' as *;
 
+// font-family: 'Montserrat', sans-serif;
+// font-family: 'Noto Sans', sans-serif;
+// font-family: 'Open Sans', sans-serif;
+
 html {
     font-size: 16px;
 }
 
 body {
     margin: 0;
+    // font-family: 'Montserrat', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
+    // font-family: 'Open Sans', sans-serif;
 }
 
 h1,

@@ -2,15 +2,19 @@
 @use '../utils/mixins' as *;
 
 div.progress-ring-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
 
     div.progress-ring {
         align-items: center;
         border: 3px solid;
         border-color: #84E8A9;
         border-radius: $border-radius-ring;
-        display: flex;
+        display: inherit;
         height: $ring-size;
         justify-content: center;
+        margin-right: 0.25rem;
         position: relative;
         width: $ring-size;
 
@@ -24,6 +28,12 @@ div.progress-ring-container {
                 background-color: #84E8A9;
             }
         }
+    }
+
+    div.progress-status {
+        font-size: 0.85rem;
+        margin-left: 0.25rem;
+        font-family: 'Montserrat', sans-serif;
     }
 
     .spin {

@@ -4,10 +4,15 @@ import ReactDOM from 'react-dom/client';
 // REDUX IMPORT
 // import { Provider } from 'react-redux'
 // import store from './store/store';
+// CONFIG IMPORT
+import * as config from './utils/config'
 // COMPONENT IMPORT
 import NavBar from './components/nav-bar';
 import ScanField from './components/scan-field';
-import ProgressLive from './components/progress-live';
+import ProgressTable from './components/progress-table';
+import TABLEHEAD_TS_ZAP from './components/tables/th-ts-zap';
+import TABLEROW_TS_ZAP from './components/tables/tr-ts-zap';
+import ProgressBar from './components/progress-bar';
 // STYLE IMPORT
 import './style/style.scss';
 
@@ -26,8 +31,18 @@ root.render(
                     </div>
                     <div className='free-scan-container'>
                         {/* TS = Traditional Spider */}
-                        <ScanField title="Traditional ZAP Spider" typeScan="TS"/>
-                        <ProgressLive status={ProgressLive.COMPLETE}/>
+                        <ScanField title={config.TYPE_SCAN_NAME.TS_ZAP} typeScan="TS_ZAP" />
+                        {/* <ProgressRing status={ProgressRing.COMPLETE}/> */}
+                        <ProgressTable
+                            tableHead={
+                                <TABLEHEAD_TS_ZAP />
+                            }
+                            tableBody={
+                                <>
+                                <TABLEROW_TS_ZAP number="1" url="awdas" />
+                                <TABLEROW_TS_ZAP number="2" url="loremasdasdqwgdnma absndbawdnkabdhw" />  
+                                </>
+                            } />
                     </div>
                 </div>
             </section>

@@ -1,0 +1,23 @@
+@use '../utils/variables' as *;
+
+div.progress-table-container {
+    ul {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        padding: 15px 30px;
+    }
+
+    div.table-head-container {}
+
+    div.table-body-container {
+        ul {
+            border-top: 1px solid $color-1;
+        }
+    }
+}

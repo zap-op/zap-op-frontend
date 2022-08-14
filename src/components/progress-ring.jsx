@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 
-class ProgressLive extends Component {
+class ProgressRing extends Component {
     static PROCESSING = "PROCESSING";
     static COMPLETE = "COMPLETE";
 
     render() {
         let progressRing;
         if (this.props.status) {
-            if (this.props.status === ProgressLive.PROCESSING) {
+            if (this.props.status === ProgressRing.PROCESSING) {
                 progressRing = <div className="progress-ring spin">
                     <div className="core">
 
                     </div>
                 </div>;
             }
-            if (this.props.status === ProgressLive.COMPLETE) {
+            if (this.props.status === ProgressRing.COMPLETE) {
                 progressRing = <div className="progress-ring">
                     <div className="core complete">
 
@@ -32,4 +32,4 @@ class ProgressLive extends Component {
         );
     }
 }
-export default ProgressLive;
+export default ProgressRing;
