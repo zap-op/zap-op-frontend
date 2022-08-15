@@ -15,28 +15,30 @@ class NavBar extends Component {
                 <div className="logo" onClick={this.logoOnClickHandler}>
                     <img src="/logo192.png" alt="" />
                 </div>
-                <ul className='nav-bar'>
-                    <li className='nav-item'>
-                        Lorems
-                    </li>
-                    <li className='nav-item'>
-                        Lorems
-                    </li>
-                    <li className='nav-item'>
-                        Lorems
-                    </li>
-                    <li className='nav-item'>
-                        Lorems
-                    </li>
-                </ul>
-                <ul className="nav-bar-id">
-                    <li className='sign-in'>
-                        Sign in
-                    </li>
-                    <li className='create-account'>
-                        Create Account
-                    </li>
-                </ul>
+                <div className='nav-wrap'>
+                    <ul className='nav-bar'>
+                        <li className='nav-item'>
+                            Lorems
+                        </li>
+                        <li className='nav-item'>
+                            Lorems
+                        </li>
+                        <li className='nav-item'>
+                            Lorems
+                        </li>
+                        <li className='nav-item'>
+                            Lorems
+                        </li>
+                    </ul>
+                    <ul className="nav-bar-id">
+                        <li className='sign-in'>
+                            Sign in
+                        </li>
+                        <li className='create-account'>
+                            Create Account
+                        </li>
+                    </ul>
+                </div>
             </div>
         );
     }

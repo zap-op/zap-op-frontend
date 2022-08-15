@@ -26,8 +26,23 @@ root.render(
                     </div>
                     <div className='free-scan-container'>
                         {/* TS = Traditional Spider */}
+<<<<<<< HEAD
                         <ScanField title="Traditional ZAP Spider" typeScan="TS"/>
                         <ProgressLive status={ProgressLive.COMPLETE}/>
+=======
+                        <ScanField title={config.TYPE_SCAN_NAME.TS_ZAP} typeScan="TS_ZAP" />
+                        {/* <ProgressRing status={ProgressRing.COMPLETE}/> */}
+                        {/* <ProgressTable
+                            tableHead={
+                                <TABLEHEAD_TS_ZAP />
+                            }
+                            tableBody={
+                                <>
+                                <TABLEROW_TS_ZAP number="1" url="awdas" />
+                                <TABLEROW_TS_ZAP number="2" url="loremasdasdqwgdnma absndbawdnkabdhw" />  
+                                </>
+                            } /> */}
+>>>>>>> c5be489 (ZO-31 Update responsive layout navigator)
                     </div>
                 </div>
             </section>

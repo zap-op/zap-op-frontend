@@ -1,0 +1,26 @@
+@use '../utils/variables' as *;
+
+div.progress-bar-container {
+    border: 2px solid $color-1;
+    border-radius: 2rem;
+    // box-shadow: 0 0 5px $color-1;
+    height: 2rem;
+    transition: all 0.5s;
+
+    .progress-bar {
+        align-items: center;
+        background-color: $color-4;
+        border-radius: inherit;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        transition: all 1s ease;
+        width: 100%;
+
+        span.finish-text {
+            &.hidden {
+                display: none;
+            }
+        }
+    }
+}

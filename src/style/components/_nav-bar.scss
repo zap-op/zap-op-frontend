@@ -1,10 +1,11 @@
+@use '../utils/variables' as *;
+
 #nav-bar {
-    background-color: aqua;
     display: flex;
     height: 5rem;
     justify-content: space-between;
     margin-bottom: 2rem;
-    padding: 1rsem;
+    position: relative;
 
     div.logo {
         cursor: pointer;
@@ -17,31 +18,64 @@
     }
 
     ul {
-        background-color: antiquewhite;
         display: inherit;
         flex-flow: row wrap;
         list-style-type: none;
+        margin: 0;
+        padding: 0;
 
         li {
             align-items: center;
-            background-color: aquamarine;
             cursor: pointer;
             display: inherit;
         }
     }
 
-    ul.nav-bar {
+    div.nav-wrap {
+        display: inherit;
+        justify-content: end;
+        margin-top: 0.5rem;
+        position: absolute;
+        width: 100%;
 
-        li.nav-item {
-            margin: 0.5rem 5rem 0.5rem 5rem;
+        ul.nav-bar {
+            li.nav-item {
+                margin: 0 5rem;
+            }
+        }
+
+        ul.nav-bar-id {
+            margin-right: 2rem;
+
+            li {
+                margin: 0.5rem;
+            }
         }
     }
 
-    ul.nav-bar-id {
-        margin-right: 2rem;
 
-        li {
-            margin: 0.5rem;
+    @media screen and (max-width: $SM) {
+
+        div.nav-wrap {
+            align-items: end;
+            flex-flow: column-reverse;
+
+            ul {
+                flex-flow: column;
+            }
+
+            ul.nav-bar {
+                display: none;
+                margin-right: 1rem;
+
+                li.nav-item {
+                    margin: 1rem;
+                }
+            }
+
+            ul.nav-bar-id {
+                margin-right: 4rem;
+            }
         }
     }
 }
