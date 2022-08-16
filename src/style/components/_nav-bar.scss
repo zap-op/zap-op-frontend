@@ -7,8 +7,7 @@
     margin-bottom: 2rem;
     position: relative;
 
-    div.logo {
-        cursor: pointer;
+    a.logo {
         height: inherit;
         margin-left: 2rem;
 
@@ -24,10 +23,11 @@
         margin: 0;
         padding: 0;
 
-        li {
+        a {
             align-items: center;
-            cursor: pointer;
+            color: black;
             display: inherit;
+            text-decoration: none;
         }
     }
 
@@ -39,7 +39,10 @@
         width: 100%;
 
         ul.nav-bar {
-            li.nav-item {
+            justify-content: end;
+            margin-left: 4rem; // Do not collapse logo
+
+            a.nav-item {
                 margin: 0 5rem;
             }
         }
@@ -47,7 +50,7 @@
         ul.nav-bar-id {
             margin-right: 2rem;
 
-            li {
+            a {
                 margin: 0.5rem;
             }
         }
@@ -68,7 +71,7 @@
                 display: none;
                 margin-right: 1rem;
 
-                li.nav-item {
+                a.nav-item {
                     margin: 1rem;
                 }
             }

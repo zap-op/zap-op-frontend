@@ -1,42 +1,39 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     constructor(props) {
         super(props);
     }
 
-    logoOnClickHandler() {
-        console.log("Logo on click");
-    }
-
     render() {
         return (
             <div id='nav-bar' className="nav-bar-container">
-                <div className="logo" onClick={this.logoOnClickHandler}>
+                <Link to="/" className="logo">
                     <img src="/logo192.png" alt="" />
-                </div>
+                </Link>
                 <div className='nav-wrap'>
                     <ul className='nav-bar'>
-                        <li className='nav-item'>
+                        <Link to="/" className='nav-item'>
                             Lorems
-                        </li>
-                        <li className='nav-item'>
+                        </Link>
+                        <Link to="/" className='nav-item'>
                             Lorems
-                        </li>
-                        <li className='nav-item'>
+                        </Link>
+                        <Link to="/" className='nav-item'>
                             Lorems
-                        </li>
-                        <li className='nav-item'>
+                        </Link>
+                        <Link to="/" className='nav-item'>
                             Lorems
-                        </li>
+                        </Link>
                     </ul>
                     <ul className="nav-bar-id">
-                        <li className='sign-in'>
+                        <Link to="/" className='sign-in'>
                             Sign in
-                        </li>
-                        <li className='create-account'>
+                        </Link>
+                        <Link to="/" className='create-account'>
                             Create Account
-                        </li>
+                        </Link>
                     </ul>
                 </div>
             </div>
