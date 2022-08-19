@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class AuthGoogle extends Component {
     static SIGN_UP = "Sign up with Google";
@@ -17,6 +18,7 @@ class AuthGoogle extends Component {
 
     componentDidMount() {
         this.renderGoogleButton();
+        console.log(this.props.thisStore);
     }
     
     renderGoogleButton() {
@@ -47,4 +49,10 @@ class AuthGoogle extends Component {
     }
 }
 
-export default AuthGoogle;
+const mapStateToProps = state => {
+    return {
+        thisStore: state
+    }
+}
+
+export default connect(mapStateToProps)(AuthGoogle);
