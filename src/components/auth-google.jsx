@@ -22,14 +22,20 @@ class AuthGoogle extends Component {
     }
     
     renderGoogleButton() {
+        // Config ID to use Google auth
         window.google.accounts.id.initialize({
             client_id: `${process.env.REACT_APP_GOOGLE_OAUTH2_CLIENT_ID}`,
             callback: this.handleCredentialResponse
         });
 
+        let buttonText = "continue_with"; // Defaut is Sign in text
+        if (this.props.option === AuthGoogle.LOG_IN) {
+            buttonText = "signin_with"
+        }
+
         window.google.accounts.id.renderButton(
             document.getElementById(AuthGoogle.GOOGLE_BUTTON_ID_ELEMENT), {
-            text: 'continue_with'
+            text: buttonText
         });
     }
 

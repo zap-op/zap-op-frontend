@@ -10,6 +10,7 @@ import store from './store/store';
 import NavBar from './components/nav-bar';
 import Home from './pages/home';
 import SignUp from './pages/sign-up';
+import LogIn from './pages/log-in';
 // STYLE IMPORT
 import './style/style.scss';
 
@@ -24,6 +25,9 @@ root.render(
                 </Routes>
                 <Routes>
                     <Route path='/signup' element={<SignUp />} />
+                </Routes>
+                <Routes>
+                    <Route path='/login' element={<LogIn />} />
                 </Routes>
             </div>
         </Router>
