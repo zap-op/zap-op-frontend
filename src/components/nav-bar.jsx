@@ -31,7 +31,7 @@ class NavBar extends Component {
                         <Link to="/" className='sign-in'>
                             Sign in
                         </Link>
-                        <Link to="/" className='create-account'>
+                        <Link to="/signup" className='create-account'>
                             Create Account
                         </Link>
                     </ul>

@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // COMPONENT IMPORT
 import NavBar from './components/nav-bar';
 import Home from './pages/home';
+import SignUp from './pages/sign-up';
 // STYLE IMPORT
 import './style/style.scss';
 
@@ -19,6 +20,9 @@ root.render(
         <div id='body'>
             <Routes>
                 <Route path='/' element={<Home/>}/>
+            </Routes>
+            <Routes>
+                <Route path='/signup' element={<SignUp/>}/>
             </Routes>
         </div>
     </Router>
