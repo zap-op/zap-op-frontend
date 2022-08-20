@@ -10,7 +10,7 @@ div.progress-ring-container {
         align-items: center;
         border: 3px solid;
         border-color: #84E8A9;
-        border-radius: $border-radius-ring;
+        border-radius: $ring-border-radius;
         display: inherit;
         height: $ring-size;
         justify-content: center;
@@ -20,9 +20,9 @@ div.progress-ring-container {
 
         div.core {
             background-color: black;
-            border-radius: $border-radius-ring;
-            height: $core-size;
-            width: $core-size;
+            border-radius: $ring-border-radius;
+            height: $ring-core-size;
+            width: $ring-core-size;
 
             &.complete {
                 background-color: #84E8A9;

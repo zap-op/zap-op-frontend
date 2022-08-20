@@ -3,7 +3,32 @@ $color-1: black;
 $color-2: green;
 $color-3: blue;
 $color-4: gray;
-// 
+
+// PROGRESS RING
 $ring-size: 25px;
+<<<<<<< HEAD
 $core-size: 15px;
 $border-radius-ring: 50%;
+=======
+$ring-core-size: 15px;
+$ring-border-radius: 50%;
+
+// TOGGLE BUTTON
+$toggle-indicator-size: 24px;
+
+$toggle-track-height: $toggle-indicator-size + 5;
+$toggle-track-width: $toggle-indicator-size * 2.5;
+
+$toggle-focus-ring: 0px 0px 0px 2px $color-1;
+
+$toggle-indicator-speed: 0.25s;
+
+$toggle-check-mark-height: $toggle-indicator-size - 4;
+$toggle-check-mark-width: $toggle-check-mark-height;
+
+// MEDIA
+$XS: 480px;
+$SM: 768px;
+$MD: 1024px;
+$XL: 1170px;
+>>>>>>> 10e58b5 (ZO-33 Update Progress Table, Add Auto Scroll toggle)
