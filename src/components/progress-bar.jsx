@@ -7,13 +7,13 @@ class ProgressBar extends Component {
             progressPercent: 0, 
             isComplete: false
         }
-        this.progressBar = React.createRef();
+        this.ref_progressBar = React.createRef();
     }
 
     componentDidMount() {
         for (let index = 0; index < 101; index++) {
             setTimeout(() => {
-                this.progressBar.current.style.width = `${index}%`;
+                this.ref_progressBar.current.style.width = `${index}%`;
             }, 100 * index);
         }
     }
@@ -21,7 +21,7 @@ class ProgressBar extends Component {
     render() { 
         return ( 
             <div className="progress-bar-container">
-                <div className="progress-bar" ref={this.progressBar}>
+                <div className="progress-bar" ref={this.ref_progressBar}>
                     <span className={`finish-text ${this.state.isComplete ? "" : "hidden"}`}>
                         Scan Complete!
                     </span>

@@ -21,6 +21,8 @@ export default function Home() {
                     {/* TS = Traditional Spider */}
                     <ScanField title={config.TYPE_SCAN_NAME.TS_ZAP} typeScan="TS_ZAP" />
                     <ProgressTable
+                    <ProgressTable 
+                        autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                         tableHead={
                             <TABLEHEAD_TS_ZAP />
                         }
@@ -29,10 +31,14 @@ export default function Home() {
                                 {/* {
                                     arrItem.map((item, index) =>
                                         <TABLEROW_TS_ZAP number={index} url={item} />
+                                        <TABLEROW_TS_ZAP key={index} number={index} url={item} />
                                     )
                                 } */}
                                 <TABLEROW_TS_ZAP number="1" url="awdas" />
                                 <TABLEROW_TS_ZAP number="2" url="loremasdasdqwgdnma absndbawdnkabdhw" />
+                                }
+                                {/* <TABLEROW_TS_ZAP number="1" url="awdas" />
+                                <TABLEROW_TS_ZAP number="2" url="loremasdasdqwgdnma absndbawdnkabdhw" /> */}
                             </>
                         } />
                 </div>

@@ -4,60 +4,76 @@ div.progress-table-container {
 
     // TOGGLE BUTTON
     div.view-options-container {
-        label.toggle-button {
-            display: inline-flex;
+        div.auto-scroll-container {
+            align-items: center;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: right;
+            margin: 1rem;
 
-            input.checkbox-input {
-                clip: rect(0 0 0 0);
-                position: absolute;
+            label.toggle-button {
+                display: inline-flex;
 
-                &:checked+span.toggle-track {
+                input.checkbox-input {
+                    clip: rect(0 0 0 0);
+                    position: absolute;
+
+                    &:checked+span.toggle-track {
+                        span.toggle-indicator {
+                            background-color: black;
+                            transform: translateX($toggle-track-width - $toggle-track-height);
+
+                            span.check-mark {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    &:not([disabled]):active+span.toggle-track,
+                    &:not([disabled]):focus+span.toggle-track {
+                        border: 1px solid transparent;
+                        box-shadow: $toggle-focus-ring;
+                    }
+                }
+
+                span.toggle-track {
+                    border: 1px solid $color-1;
+                    border-radius: 100px;
+                    cursor: pointer;
+                    display: flex;
+                    height: $toggle-track-height;
+                    position: relative;
+                    width: $toggle-track-width;
+
                     span.toggle-indicator {
-                        transform: translateX($toggle-track-width - $toggle-track-height);
+                        align-items: center;
+                        background-color: #555;
+                        border-radius: $toggle-indicator-size;
+                        bottom: 2px;
+                        display: inherit;
+                        height: $toggle-indicator-size;
+                        justify-content: center;
+                        left: 2px;
+                        position: absolute;
+                        transition: $toggle-indicator-speed;
+                        width: $toggle-indicator-size;
 
                         span.check-mark {
-                            opacity: 1;
+                            display: inherit;
+                            fill: white;
+                            height: $toggle-check-mark-height;
+                            opacity: 0;
+                            transition: opacity $toggle-indicator-speed ease-in-out;
+                            width: $toggle-check-mark-width;
                         }
                     }
                 }
-
-                &:not([disabled]):active+span.toggle-track,
-                &:not([disabled]):focus+span.toggle-track {
-                    border: 1px solid transparent;
-                    box-shadow: $toggle-focus-ring;
-                }
             }
 
-            span.toggle-track {
-                border: 1px solid $color-1;
-                border-radius: 100px;
-                cursor: pointer;
-                display: flex;
-                height: $toggle-track-height;
-                position: relative;
-                width: $toggle-track-width;
-
-                span.toggle-indicator {
-                    align-items: center;
-                    background-color: black;
-                    border-radius: $toggle-indicator-size;
-                    bottom: 2px;
-                    display: inherit;
-                    height: $toggle-indicator-size;
-                    justify-content: center;
-                    left: 2px;
-                    position: absolute;
-                    transition: $toggle-indicator-speed;
-                    width: $toggle-indicator-size;
-
-                    span.check-mark {
-                        fill: white;
-                        height: $toggle-check-mark-height;
-                        opacity: 0;
-                        transition: opacity $toggle-indicator-speed ease-in-out;
-                        width: $toggle-check-mark-width;
-                    }
-                }
+            h4.option-title {
+                font-size: 0.9rem;
+                margin: 0 0.25rem;
+                opacity: 0.9;
             }
         }
     }
