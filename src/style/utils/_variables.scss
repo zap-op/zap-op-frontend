@@ -5,12 +5,9 @@ $color-3: blue;
 $color-4: gray;
 
 // PROGRESS RING
-$ring-size: 25px;
-<<<<<<< HEAD
-$core-size: 15px;
-$border-radius-ring: 50%;
-=======
-$ring-core-size: 15px;
+$ring-size: 15px;
+$ring-core-size: 0.6 * $ring-size;
+$ring-border-size: 0.12 * $ring-size;
 $ring-border-radius: 50%;
 
 // TOGGLE BUTTON

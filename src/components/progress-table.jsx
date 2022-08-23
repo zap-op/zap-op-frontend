@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ProgressRing from './progress-ring';
 
 class ProgressTable extends Component {
     static AUTO_SCROLL_ACTIVE = true;
@@ -25,11 +24,7 @@ class ProgressTable extends Component {
     }
 
     onTableChangeHandler(prevProps) {
-        if (this.isTableBodyEmpty()) {
-            return;
-        }
-
-        if (!this.ref_autoScrollCheckbox.current.checked) {
+        if (this.isTableBodyEmpty() || !this.ref_autoScrollCheckbox.current.checked) {
             return;
         }
 
@@ -57,7 +52,6 @@ class ProgressTable extends Component {
     }
 
     render() {
-        {/* <ProgressRing status={ProgressRing.COMPLETE}/> */ }
         return (
             <div className="progress-table-container" >
                 <div className="view-options-container">

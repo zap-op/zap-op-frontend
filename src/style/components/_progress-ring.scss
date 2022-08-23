@@ -3,18 +3,17 @@
 
 div.progress-ring-container {
     align-items: center;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
 
     div.progress-ring {
         align-items: center;
-        border: 3px solid;
+        border: $ring-border-size solid;
         border-color: #84E8A9;
         border-radius: $ring-border-radius;
-        display: inherit;
+        display: flex;
         height: $ring-size;
         justify-content: center;
-        margin-right: 0.25rem;
         position: relative;
         width: $ring-size;
 
@@ -30,10 +29,17 @@ div.progress-ring-container {
         }
     }
 
+<<<<<<< HEAD
     div.progress-status {
         font-size: 0.85rem;
         margin-left: 0.25rem;
         font-family: 'Montserrat', sans-serif;
+=======
+    div.progress-state-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.85rem;
+        margin-left: 0.5rem;
+>>>>>>> d765d42 (ZO-33 Update style, logic Scan Field and Progress Ring component)
     }
 
     .spin {

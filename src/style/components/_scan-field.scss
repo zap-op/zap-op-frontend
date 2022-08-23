@@ -8,12 +8,19 @@ div.scan-field-container {
     }
 
     div.field-container {
+<<<<<<< HEAD
         
+=======
+        align-items: center;
+        display: inherit;
+
+>>>>>>> d765d42 (ZO-33 Update style, logic Scan Field and Progress Ring component)
         input {
             margin-right: 0.5rem;
         }
 
         a {
+            height: fit-content;
             margin-left: 0.5rem;
         }
     }
