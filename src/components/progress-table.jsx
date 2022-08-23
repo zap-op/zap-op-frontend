@@ -10,6 +10,7 @@ class ProgressTable extends Component {
         this.onTableChangeHandler = this.onTableChangeHandler.bind(this);
         this.scrollToBottomTable = this.scrollToBottomTable.bind(this);
         this.setAutoScrollCheckBox = this.setAutoScrollCheckBox.bind(this);
+        this.isTableBodyEmpty = this.isTableBodyEmpty.bind(this);
         this.ref_autoScrollCheckbox = React.createRef();
         this.ref_tableBottomScroller = React.createRef();
     }
@@ -18,19 +19,30 @@ class ProgressTable extends Component {
         this.scrollToBottomTable();
         this.setAutoScrollCheckBox(this.props.autoScrollState);
     }
-    
+
     componentDidUpdate(prevProps) {
-        this.onTableChangeHandler(prevProps.tableBody.props.children.length);
+        this.onTableChangeHandler(prevProps);
     }
 
-    onTableChangeHandler(prevLengthTableBody) {
+    onTableChangeHandler(prevProps) {
+        if (this.isTableBodyEmpty()) {
+            return;
+        }
+
         if (!this.ref_autoScrollCheckbox.current.checked) {
             return;
         }
 
-        if (this.props.tableBody.props.children.length != prevLengthTableBody) {
+        if (this.props.tableBody.props.children.length != prevProps.tableBody.prevProps.children.length) {
             this.scrollToBottomTable();
         }
+    }
+
+    isTableBodyEmpty() {
+        if (typeof this.props.tableBody.props.children === "undefined") {
+            return true;
+        }
+        return false;
     }
 
     scrollToBottomTable() {
