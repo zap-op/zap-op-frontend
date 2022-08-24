@@ -27,12 +27,18 @@ class ScanField extends Component {
                 <div className="field-container">
                     <input type="text" placeholder='Enter a URL, IP address, or hostname...' />
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <a className="scan-button button" href="">Scan</a>
 =======
                     <a className="scan-button button" href="" onClick={this.clickScanHandler}>
                         {this.state.isProcessing ? <ProgressRing/> : "Scan"}
                     </a>
 >>>>>>> d765d42 (ZO-33 Update style, logic Scan Field and Progress Ring component)
+=======
+                    <div className="scan-button button" href="" onClick={this.clickScanHandler}>
+                        {this.state.isProcessing ? <ProgressRing/> : "Scan"}
+                    </div>
+>>>>>>> 0e23551 (ZO-33 Update scan api and Landing page UI)
                 </div>
             </div>
         );
