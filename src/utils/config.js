@@ -1,3 +1,6 @@
-export const TYPE_SCAN_NAME = {
-    TS_ZAP: "Traditonal Spider ZAP"
+export const TYPE_SCAN = {
+    TS_ZAP: {
+        STRING: "Traditonal Spider ZAP",
+        CODE: "TS_ZAP"
+    }
 }

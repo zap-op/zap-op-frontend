@@ -19,7 +19,7 @@ export default function Home() {
                 </div>
                 <div className='free-scan-container'>
                     {/* TS = Traditional Spider */}
-                    <ScanField title={config.TYPE_SCAN_NAME.TS_ZAP} typeScan="TS_ZAP" />
+                    <ScanField title={config.TYPE_SCAN.TS_ZAP.STRING} typeScan={config.TYPE_SCAN.TS_ZAP.CODE} />
                     <ProgressTable
                         autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                         tableHead={
