@@ -1,10 +1,13 @@
-import * as config from '../utils/config'
-
 import ScanField from '../components/scan-field';
 import ProgressTable from '../components/progress-table';
 import TABLEHEAD_TS_ZAP from '../components/tables/th-ts-zap';
 import TABLEROW_TS_ZAP from '../components/tables/tr-ts-zap';
 import ProgressBar from '../components/progress-bar';
+<<<<<<< HEAD
+=======
+import { useState } from 'react';
+import TS_ZAP from '../entities/ts-zap';
+>>>>>>> 04d0425 (ZO-51 Reconstruct)
 
 export default function Home() {
     return (
@@ -18,6 +21,7 @@ export default function Home() {
                 </div>
                 <div className='free-scan-container'>
                     {/* TS = Traditional Spider */}
+<<<<<<< HEAD
                     <ScanField title={config.TYPE_SCAN_NAME.TS_ZAP} typeScan="TS_ZAP" />
                     {/* <ProgressRing status={ProgressRing.COMPLETE}/> */}
                     {/* <ProgressTable
@@ -30,6 +34,26 @@ export default function Home() {
                                 <TABLEROW_TS_ZAP number="2" url="loremasdasdqwgdnma absndbawdnkabdhw" />  
                                 </>
                             } /> */}
+=======
+                    <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode}/>
+                    <ProgressTable
+                        autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
+                        tableHead={
+                            <TABLEHEAD_TS_ZAP />
+                        }
+                        tableBody={
+                            <>
+                                {/* {
+                                    arrItem.map((item, index) =>
+                                        <TABLEROW_TS_ZAP number={index} url={item} />
+                                        <TABLEROW_TS_ZAP key={index} number={index} url={item} />
+                                    )
+                                } */}
+                                {/* <TABLEROW_TS_ZAP number="1" url="awdas" />
+                                <TABLEROW_TS_ZAP number="2" url="loremasdasdqwgdnma absndbawdnkabdhw" /> */}
+                            </>
+                        } />
+>>>>>>> 04d0425 (ZO-51 Reconstruct)
                 </div>
             </div>
         </section>
