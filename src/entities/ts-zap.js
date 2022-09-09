@@ -7,8 +7,9 @@ import ZAP from "./zap";
 class TS_ZAP extends ZAP {
     static fullName = "Traditonal Spider ZAP";
     static typeCode = "TS_ZAP";
-    #event_source_address = this.service.defaults.baseURL + "/" + TS_ZAP.typeCode;
-    
+    #event_source_address = this.service.defaults.baseURL + this.req_address + "/" + TS_ZAP.typeCode;
+    #event_source = undefined;
+
     max_childen = 0;
     recurse = true;
     subtree_only = false;
@@ -31,7 +32,7 @@ class TS_ZAP extends ZAP {
      * @param {number} max_childen Must greater than 1
      * @param {boolean} recurse 
      * @param {boolean} subtree_only
-     * @throws {TypeError} in case do not have expect type
+     * @throws {TypeError}
      * @returns {Object} Object
      */
     config(max_childen = this.max_childen, recurse = this.recurse, subtree_only = this.subtree_only) {
@@ -76,14 +77,48 @@ class TS_ZAP extends ZAP {
         }
     }
 
+    /**
+     * Request scan
+     * @throws {ReferenceError} 
+     * @returns {Promise} POST AxiosResponse
+     */
     async request() {
+        if (!this.scan_url) {
+            throw ReferenceError("scan_url is not defined")
+        }
         return this.service.post(this.req_address, this.#createScanRequest());
     }
 
-    async connect() {
-        
+    /**
+     * Connect Server-Send Events
+     */
+    connect() {
+        if (this.#event_source) {
+            this.#event_source.close();
+        }
+        this.#event_source = new EventSource(this.#event_source_address);
+    }
+    
+    /**
+     * Get Event Source connected to server
+     * @throws {ReferenceError}
+     * @returns {EventSource} EventSource object
+     */
+    connectionSource() {
+        if (!this.#event_source) {
+            throw ReferenceError("event_source is not connected yet")
+        }
+        return this.#event_source;
     }
 
+    /**
+     * Disconnect Server-Send Events
+     */
+    disconnect() {
+        if (this.#event_source) {
+            this.#event_source.close();
+        }
+    }
 }
 
 export default TS_ZAP;
