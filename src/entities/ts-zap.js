@@ -69,10 +69,10 @@ class TS_ZAP extends ZAP {
      * Create scan request object
      * @returns {Object} Object
      */
-    #createScanRequest() {
+    #createScanRequestObject() {
         return {
             url: this.scan_url,
-            type: this.type,
+            type: TS_ZAP.typeCode,
             scanConfig: this.#createConfigObject()
         }
     }
@@ -86,7 +86,7 @@ class TS_ZAP extends ZAP {
         if (!this.scan_url) {
             throw ReferenceError("scan_url is not defined")
         }
-        return this.service.post(this.req_address, this.#createScanRequest());
+        return this.service.post(this.req_address, this.#createScanRequestObject());
     }
 
     /**
