@@ -39,9 +39,9 @@ a.button {
 
 
 .primary-button {
+    background-color: $primary-button-background-color;
     color: white !important;
     font-weight: 500;
-    background-color: $primary-button-background-color;
 
     &:hover {
         background-color: $primary-button-background-color-hover;
@@ -49,9 +49,9 @@ a.button {
 }
 
 .secondary-button {
-    color: black !important;
     background-color: white;
     box-shadow: $secondary-button-shadow;
+    color: black !important;
 
     &:hover {
         box-shadow: $secondary-button-shadow-hover;
