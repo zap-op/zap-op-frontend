@@ -1,8 +1,17 @@
 // COLOR PALETTE
 $color-1: black;
-$color-2: green;
-$color-3: blue;
-$color-4: gray;
+$color-2: black;
+$color-3: black;
+$color-4: black;
+
+// COLOR SPEC
+$disable-color: #555555;
+
+$secondary-button-boder-color: #d8d8da;
+$secondary-button-boder-color-hover: #b1b0b5;
+
+// NAVBAR
+$nav-shadow: rgb(0 0 0 / 8%) 0 1px;
 
 // PROGRESS RING
 $ring-size: 15px;
@@ -10,13 +19,19 @@ $ring-core-size: 0.6 * $ring-size;
 $ring-border-size: 0.12 * $ring-size;
 $ring-border-radius: 50%;
 
+// BUTTON
+$primary-button-background-color: #0066ff;
+$primary-button-background-color-hover: #005ce6;
+$secondary-button-shadow: inset $secondary-button-boder-color 0 0 0 1px;
+$secondary-button-shadow-hover: inset $secondary-button-boder-color-hover 0 0 0 1px;
+
 // TOGGLE BUTTON
 $toggle-indicator-size: 18px;
 
 $toggle-track-height: $toggle-indicator-size + 5;
 $toggle-track-width: $toggle-indicator-size * 2.5;
 
-$toggle-focus-ring: 0px 0px 0px 2px $color-1;
+$toggle-focus-ring: 0px 0px 0px 2px black;
 
 $toggle-indicator-speed: 0.25s;
 

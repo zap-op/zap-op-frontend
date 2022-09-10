@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery'
 
 class ProgressTable extends Component {
     static AUTO_SCROLL_ACTIVE = true;
@@ -6,17 +7,19 @@ class ProgressTable extends Component {
 
     constructor(props) {
         super(props);
+        this.onToggleAutoScrollCheckboxHandler = this.onToggleAutoScrollCheckboxHandler.bind(this);
         this.onTableChangeHandler = this.onTableChangeHandler.bind(this);
         this.scrollToBottomTable = this.scrollToBottomTable.bind(this);
         this.setAutoScrollCheckBox = this.setAutoScrollCheckBox.bind(this);
         this.isTableBodyEmpty = this.isTableBodyEmpty.bind(this);
         this.ref_autoScrollCheckbox = React.createRef();
+        this.ref_autoScrollContainer = React.createRef();
         this.ref_tableBottomScroller = React.createRef();
     }
 
     componentDidMount() {
-        this.scrollToBottomTable();
         this.setAutoScrollCheckBox(this.props.autoScrollState);
+        this.onTableChangeHandler();
     }
 
     componentDidUpdate(prevProps) {
@@ -31,6 +34,10 @@ class ProgressTable extends Component {
         if (this.props.tableBody.props.children.length != prevProps.tableBody.prevProps.children.length) {
             this.scrollToBottomTable();
         }
+    }
+
+    onToggleAutoScrollCheckboxHandler() {
+        $(this.ref_autoScrollContainer.current).toggleClass("uncheck")
     }
 
     isTableBodyEmpty() {
@@ -55,9 +62,9 @@ class ProgressTable extends Component {
         return (
             <div className="progress-table-container" >
                 <div className="view-options-container">
-                    <div className="auto-scroll-container">
+                    <div className="auto-scroll-container" ref={this.ref_autoScrollContainer}>
                         <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox">
-                            <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" onClick={this.onToggleAutoScrollHandler} ref={this.ref_autoScrollCheckbox} />
+                            <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" onClick={this.onToggleAutoScrollCheckboxHandler} ref={this.ref_autoScrollCheckbox} />
                             <span className="toggle-track">
                                 <span className="toggle-indicator">
                                     <span className="check-mark">

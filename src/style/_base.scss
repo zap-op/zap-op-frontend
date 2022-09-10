@@ -29,13 +29,33 @@ section {
     width: 80%;
 }
 
-div.button {
-    border: 1px solid;
+div.button,
+a.button {
     border-radius: 0.25rem;
-    color: inherit;
     cursor: pointer;
     padding: 0.375rem 0.75rem;
-    @include button-primary;
+}
+
+
+
+.primary-button {
+    color: white !important;
+    font-weight: 500;
+    background-color: $primary-button-background-color;
+
+    &:hover {
+        background-color: $primary-button-background-color-hover;
+    }
+}
+
+.secondary-button {
+    color: black !important;
+    background-color: white;
+    box-shadow: $secondary-button-shadow;
+
+    &:hover {
+        box-shadow: $secondary-button-shadow-hover;
+    }
 }
 
 input {
