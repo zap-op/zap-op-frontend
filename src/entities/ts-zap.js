@@ -10,7 +10,7 @@ class TS_ZAP extends ZAP {
     #event_source_address = this.service.defaults.baseURL + this.req_address + "/" + TS_ZAP.typeCode;
     #event_source = undefined;
 
-    maxChilden = 0;
+    maxChildren = 1;
     recurse = true;
     contextName = "";
     subtreeOnly = false;
@@ -30,16 +30,16 @@ class TS_ZAP extends ZAP {
 
     /**
      * Config scan properties
-     * @param {number} maxChilden Must greater than 1
+     * @param {number} maxChildren Must greater than 1
      * @param {boolean} recurse
      * @param {string} contextName
      * @param {boolean} subtreeOnly
      * @throws {TypeError}
      * @returns {Object} Object
      */
-    config(maxChilden = this.maxChilden, recurse = this.recurse, contextName = this.contextName, subtreeOnly = this.subtreeOnly) {
-        if (typeof maxChilden !== "number") {
-            throw new TypeError("maxChilden should be number");
+    config(maxChildren = this.maxChildren, recurse = this.recurse, contextName = this.contextName, subtreeOnly = this.subtreeOnly) {
+        if (typeof maxChildren !== "number") {
+            throw new TypeError("maxChildren should be number");
         }
 
         if (typeof recurse !== "boolean") {
@@ -54,8 +54,9 @@ class TS_ZAP extends ZAP {
             throw new TypeError("subtreeOnly shoul be boolean");
         }
 
-        this.maxChilden = maxChilden;
+        this.maxChildren = maxChildren;
         this.recurse = recurse;
+        this.contextName = contextName;
         this.subtreeOnly = subtreeOnly;
     }
 
@@ -65,8 +66,9 @@ class TS_ZAP extends ZAP {
      */
     #createConfigObject() {
         return {
-            maxChilden: this.maxChilden,
+            maxChildren: this.maxChildren,
             recurse: this.recurse,
+            contextName: this.contextName, 
             subtreeOnly: this.subtreeOnly
         }
     }
