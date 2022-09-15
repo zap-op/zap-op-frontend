@@ -2,7 +2,7 @@ import api from "../services/api";
 
 class Scan {
     service = api;
-    scan_url = "";
+    url = "";
     req_address = "/scan";
     
     constructor() {

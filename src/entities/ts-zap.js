@@ -10,9 +10,10 @@ class TS_ZAP extends ZAP {
     #event_source_address = this.service.defaults.baseURL + this.req_address + "/" + TS_ZAP.typeCode;
     #event_source = undefined;
 
-    max_childen = 0;
+    maxChilden = 0;
     recurse = true;
-    subtree_only = false;
+    contextName = "";
+    subtreeOnly = false;
 
     constructor() {
         super();
@@ -29,28 +30,33 @@ class TS_ZAP extends ZAP {
 
     /**
      * Config scan properties
-     * @param {number} max_childen Must greater than 1
-     * @param {boolean} recurse 
-     * @param {boolean} subtree_only
+     * @param {number} maxChilden Must greater than 1
+     * @param {boolean} recurse
+     * @param {string} contextName
+     * @param {boolean} subtreeOnly
      * @throws {TypeError}
      * @returns {Object} Object
      */
-    config(max_childen = this.max_childen, recurse = this.recurse, subtree_only = this.subtree_only) {
-        if (typeof max_childen !== "number") {
-            throw new TypeError("max_childen should be number");
+    config(maxChilden = this.maxChilden, recurse = this.recurse, contextName = this.contextName, subtreeOnly = this.subtreeOnly) {
+        if (typeof maxChilden !== "number") {
+            throw new TypeError("maxChilden should be number");
         }
 
         if (typeof recurse !== "boolean") {
             throw new TypeError("recurse should be boolean");
         }
 
-        if (typeof subtree_only !== "boolean") {
-            throw new TypeError("subtree_only shoul be boolean");
+        if (typeof contextName !== "string") {
+            throw new TypeError("contextName should be string");
         }
 
-        this.max_childen = max_childen;
+        if (typeof subtreeOnly !== "boolean") {
+            throw new TypeError("subtreeOnly shoul be boolean");
+        }
+
+        this.maxChilden = maxChilden;
         this.recurse = recurse;
-        this.subtree_only = subtree_only;
+        this.subtreeOnly = subtreeOnly;
     }
 
     /**
@@ -59,9 +65,9 @@ class TS_ZAP extends ZAP {
      */
     #createConfigObject() {
         return {
-            max_childen: this.max_childen,
+            maxChilden: this.maxChilden,
             recurse: this.recurse,
-            subtree_only: this.subtree_only
+            subtreeOnly: this.subtreeOnly
         }
     }
 
@@ -71,7 +77,7 @@ class TS_ZAP extends ZAP {
      */
     #createScanRequestObject() {
         return {
-            url: this.scan_url,
+            url: this.url,
             type: TS_ZAP.typeCode,
             scanConfig: this.#createConfigObject()
         }
@@ -83,8 +89,8 @@ class TS_ZAP extends ZAP {
      * @returns {Promise} POST AxiosResponse
      */
     async request() {
-        if (!this.scan_url) {
-            throw ReferenceError("scan_url is not defined")
+        if (!this.url) {
+            throw ReferenceError("url is not defined")
         }
         return this.service.post(this.req_address, this.#createScanRequestObject());
     }
