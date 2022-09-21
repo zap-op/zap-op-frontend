@@ -1,24 +1,20 @@
 import api from "../services/api";
 
 class Scan {
-    service = api;
+    _service = api;
     url = "";
-    req_address = "/scan";
-    
+    static reqAddress = "/scan";
+
     constructor() {
     }
 
-    // getService() {
-    //     return this.#service;
-    // }
+    getService() {
+        return this._service;
+    }
 
-    // changeService(api) {
-    //     this.#service = api;
-    // }
-
-    // getReqAddress() {
-    //     return this.#req_address;
-    // }
+    changeService(api) {
+        this._service = api;
+    }
 }
 
 export default Scan;

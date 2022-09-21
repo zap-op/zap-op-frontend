@@ -1,3 +1,4 @@
+import Scan from "./scan";
 import ZAP from "./zap";
 
 /**
@@ -7,7 +8,7 @@ import ZAP from "./zap";
 class TS_ZAP extends ZAP {
     static fullName = "Traditonal Spider ZAP";
     static typeCode = "TS_ZAP";
-    #event_source_address = this.service.defaults.baseURL + this.req_address + "/" + TS_ZAP.typeCode;
+    #event_source_address = this._service.defaults.baseURL + Scan.reqAddress + "/" + TS_ZAP.typeCode;
     #event_source = undefined;
 
     maxChildren = 1;
@@ -68,7 +69,7 @@ class TS_ZAP extends ZAP {
         return {
             maxChildren: this.maxChildren,
             recurse: this.recurse,
-            contextName: this.contextName, 
+            contextName: this.contextName,
             subtreeOnly: this.subtreeOnly
         }
     }
@@ -90,11 +91,11 @@ class TS_ZAP extends ZAP {
      * @throws {ReferenceError} 
      * @returns {Promise} POST AxiosResponse
      */
-    async request() {
+    request() {
         if (!this.url) {
             throw ReferenceError("url is not defined")
         }
-        return this.service.post(this.req_address, this.#createScanRequestObject());
+        return this._service.post(Scan.reqAddress, this.#createScanRequestObject());
     }
 
     /**
@@ -104,9 +105,11 @@ class TS_ZAP extends ZAP {
         if (this.#event_source) {
             this.#event_source.close();
         }
-        this.#event_source = new EventSource(this.#event_source_address);
+        this.#event_source = new EventSource(this.#event_source_address, {
+            withCredentials: true
+        });
     }
-    
+
     /**
      * Get Event Source connected to server
      * @throws {ReferenceError}
