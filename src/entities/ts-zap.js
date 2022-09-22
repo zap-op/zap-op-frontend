@@ -1,3 +1,4 @@
+import SCAN_TYPE from "../utils/scan-type";
 import Scan from "./scan";
 import ZAP from "./zap";
 
@@ -7,7 +8,7 @@ import ZAP from "./zap";
  */
 class TS_ZAP extends ZAP {
     static fullName = "Traditonal Spider ZAP";
-    static typeCode = "TS_ZAP";
+    static typeCode = SCAN_TYPE.ZAP.SPIDER;
     #event_source_address = this._service.defaults.baseURL + Scan.reqAddress + "/" + TS_ZAP.typeCode;
     #event_source = undefined;
 
@@ -31,8 +32,8 @@ class TS_ZAP extends ZAP {
 
     /**
      * Config scan properties
-     * @param {number} maxChildren Must greater than 1
-     * @param {boolean} recurse
+     * @param {number} maxChildren Must positive numbers | '0' is unlimited
+     * @param {boolean} recurse 
      * @param {string} contextName
      * @param {boolean} subtreeOnly
      * @throws {TypeError}
