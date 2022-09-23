@@ -12,3 +12,5 @@ const SCAN_STATUS = {
         message: "Invalid URL"
     },
 }
+
+export default SCAN_STATUS;
