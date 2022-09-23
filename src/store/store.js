@@ -1,26 +1,6 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
-
-const authSlice = createSlice({
-    name: "authentication",
-    initialState: {
-        isAuth: false,
-        token: null,
-        tokenExpiration: null
-    },
-    reducers: {
-
-    }
-})
-
-const scanSlice = createSlice({
-    name: "scan-storage",
-    initialState: {
-        isScanning: false
-    },
-    reducers: {
-
-    }
-})
+import { configureStore } from '@reduxjs/toolkit';
+import authSlice from './slice/authSlice';
+import scanSlice from './slice/scanSlice';
 
 const reducers = {
     auth: authSlice.reducer,
