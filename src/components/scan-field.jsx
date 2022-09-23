@@ -3,6 +3,8 @@ import ProgressRing from './progress-ring';
 import TS_ZAP from '../entities/ts-zap';
 import validator from '../utils/validator';
 import $ from 'jquery';
+import { connect } from 'react-redux';
+import { concatScanInfosDisplay, clearScanInfosDisplay } from '../store/slice/scanSlice';
 
 class ScanField extends Component {
     static INVALID_URL_ERROR_MESS = "Invalid URL!";
@@ -18,20 +20,44 @@ class ScanField extends Component {
         }
     }
 
-    clickScanHandler() {
+    toggleProcessing() {
+        this.setState(prevState => ({
+            isProcessing: !prevState.isProcessing
+        }));
+    }
+
+    async clickScanHandler() {
+        this.toggleProcessing();
         const SpiderZAPScan = TS_ZAP.getIntance();
         const scan_url = this.ref_urlInput.current.value;
 
-        if (!validator.isValidString(scan_url)) {
+        if (!validator.isEmptyString(scan_url)) {
             $(this.ref_mess.current).toggleClass("error-message");
             this.ref_mess.current.innerText = ScanField.EMPTY_URL_ERROR_MESS;
+            this.toggleProcessing();
+            return;
         }
         SpiderZAPScan.url = scan_url;
-        SpiderZAPScan.connect();
-        SpiderZAPScan.request()
-        .then((res) => {
-            console.log(res);
-        });
+        SpiderZAPScan.config(2, SpiderZAPScan.recurse, SpiderZAPScan.contextName, SpiderZAPScan.subtreeOnly);
+        try {
+            await SpiderZAPScan.request()
+                .then((res) => {
+                    console.log(res);
+                });
+            SpiderZAPScan.connect();
+            const eventSource = SpiderZAPScan.connectionSource();
+            this.props.clearScanInfosDisplay();
+            eventSource.onmessage = (event) => {
+                console.log(event);
+                const data = JSON.parse(event.data);
+                this.props.concatScanInfosDisplay({listUrl: data.results});
+            }
+        } catch (error) {
+            console.log(error);
+            // $(this.ref_mess.current).toggleClass("error-message");
+            // this.ref_mess.current.innerText = ScanField.EMPTY_URL_ERROR_MESS;
+        }
+        this.toggleProcessing();
     }
 
     render() {
@@ -53,4 +79,9 @@ class ScanField extends Component {
     }
 }
 
-export default ScanField;
+const mapDispatchToProps = {
+    concatScanInfosDisplay,
+    clearScanInfosDisplay,
+}
+
+export default connect(null, mapDispatchToProps)(ScanField);
