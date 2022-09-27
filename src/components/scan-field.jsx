@@ -5,10 +5,12 @@ import validator from '../utils/validator';
 import $ from 'jquery';
 import { connect } from 'react-redux';
 import { concatScanInfosDisplay, clearScanInfosDisplay } from '../store/slice/scanSlice';
+import { AxiosError } from 'axios';
 
 class ScanField extends Component {
-    static INVALID_URL_ERROR_MESS = "Invalid URL!";
+    static UNKOWN_ERROR_MESS = "Unknown error"
     static EMPTY_URL_ERROR_MESS = "URL is empty!";
+    static CANNOT_REQUEST_ERROR_MESS = "Cannot request session!";
 
     constructor(props) {
         super(props);
@@ -26,36 +28,59 @@ class ScanField extends Component {
         }));
     }
 
+    displayErrorMess(errorMess) {
+        if (!validator.isString(errorMess)) {
+            return;
+        }
+        $(this.ref_mess.current).addClass("error-message");
+        this.ref_mess.current.innerText = errorMess;
+    }
+
     async clickScanHandler() {
         this.toggleProcessing();
+
         const SpiderZAPScan = TS_ZAP.getIntance();
         const scan_url = this.ref_urlInput.current.value;
-
-        if (!validator.isEmptyString(scan_url)) {
-            $(this.ref_mess.current).toggleClass("error-message");
-            this.ref_mess.current.innerText = ScanField.EMPTY_URL_ERROR_MESS;
+        if (validator.isEmptyString(scan_url)) {
+            this.displayErrorMess(ScanField.EMPTY_URL_ERROR_MESS);
             this.toggleProcessing();
             return;
         }
-        SpiderZAPScan.url = scan_url;
-        SpiderZAPScan.config(2, SpiderZAPScan.recurse, SpiderZAPScan.contextName, SpiderZAPScan.subtreeOnly);
+
         try {
+            SpiderZAPScan.url = scan_url;
+            SpiderZAPScan.config(1, SpiderZAPScan.recurse, SpiderZAPScan.contextName, SpiderZAPScan.subtreeOnly);
             await SpiderZAPScan.request()
                 .then((res) => {
-                    console.log(res);
+                    console.log("res: ", res);
                 });
             SpiderZAPScan.connect();
             const eventSource = SpiderZAPScan.connectionSource();
             this.props.clearScanInfosDisplay();
+
             eventSource.onmessage = (event) => {
-                console.log(event);
+                console.log("onmessage: ", event);
                 const data = JSON.parse(event.data);
-                this.props.concatScanInfosDisplay({listUrl: data.results});
+                this.props.concatScanInfosDisplay({ listUrl: data.results });
+            }
+
+            eventSource.onerror = (event) => {
+                console.log("onerror: ", event);
+                const data = JSON.parse(event.data);
+                this.displayErrorMess(data.message);
             }
         } catch (error) {
-            console.log(error);
-            // $(this.ref_mess.current).toggleClass("error-message");
-            // this.ref_mess.current.innerText = ScanField.EMPTY_URL_ERROR_MESS;
+            console.log("error: ", error);
+            if (error instanceof AxiosError) {
+                const errorData = error.response.data;
+                if (!errorData.scanStatus) {
+                    this.displayErrorMess(ScanField.CANNOT_REQUEST_ERROR_MESS);
+                } else {
+                    this.displayErrorMess(errorData.message);
+                }
+            } else if (error instanceof TypeError) {
+
+            }
         }
         this.toggleProcessing();
     }
