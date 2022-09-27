@@ -62,9 +62,14 @@ class ScanField extends Component {
                 console.log("onmessage: ", event);
                 const data = JSON.parse(event.data);
                 this.props.concatScanInfosDisplay({ listUrl: data.results });
+                if (data.scanProgress === 100) {
+                    SpiderZAPScan.disconnect();
+                }
             }
 
             eventSource.onerror = (event) => {
+                SpiderZAPScan.disconnect();
+
                 console.log("onerror: ", event);
                 const data = JSON.parse(event.data);
                 this.displayErrorMess(data.message);
@@ -81,6 +86,7 @@ class ScanField extends Component {
             } else if (error instanceof TypeError) {
 
             }
+            SpiderZAPScan.disconnect();
         }
         this.toggleProcessing();
     }
