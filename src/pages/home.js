@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function Home() {
     const listScanInfo = useSelector(state => state.scan.scanInfosDisplay);
+    const scanProgress = useSelector(state => state.scan.scanProgressDisplay);
     return (
         <section className='welcome-section'>
             <div className='welcome-content-container'>
@@ -20,6 +21,7 @@ export default function Home() {
                     <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode} />
                     <ProgressTable
                         autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
+                        scanProgress={scanProgress}
                         tableHead={
                             <TABLEHEAD_TS_ZAP />
                         }
