@@ -2,7 +2,6 @@ import ScanField from '../components/scan-field';
 import ProgressTable from '../components/progress-table';
 import TABLEHEAD_TS_ZAP from '../components/tables/th-ts-zap';
 import TABLEROW_TS_ZAP from '../components/tables/tr-ts-zap';
-import ProgressBar from '../components/progress-bar';
 import TS_ZAP from '../entities/ts-zap';
 import { useSelector } from 'react-redux';
 

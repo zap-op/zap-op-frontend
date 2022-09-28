@@ -1,25 +1,39 @@
 @use '../utils/variables' as *;
 
 div.progress-bar-container {
-    border: 2px solid $color-1;
-    // box-shadow: 0 0 5px $color-1;
-    height: 2rem;
+    border: $progress-bar-border;
+    border-radius: $progress-bar-border-radius;
+    box-shadow: $progress-bar-shadow;
+    height: $progress-bar-size;
     transition: all 0.5s;
-    border-radius: 2rem;
+
     .progress-bar {
         align-items: center;
-        background-color: $color-4;
+        animation-direction: alternate;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-name: pulse;
+        background-color: $progress-bar-background-color;
         border-radius: inherit;
         display: flex;
         height: 100%;
         justify-content: center;
-        width: 100%;
         transition: all 1s ease;
 
         span.finish-text {
             &.hidden {
                 display: none;
             }
+        }
+    }
+
+    @keyframes pulse {
+        from {
+            background-color: $progress-bar-background-color;
+        }
+
+        to {
+            background-color: $progress-bar-background-color-pulse;
         }
     }
 }
