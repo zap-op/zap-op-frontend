@@ -5,6 +5,7 @@ div.progress-bar-container {
     border-radius: $progress-bar-border-radius;
     box-shadow: $progress-bar-shadow;
     height: $progress-bar-size;
+    overflow: hidden;
     transition: all 0.5s;
 
     .progress-bar {
@@ -20,10 +21,9 @@ div.progress-bar-container {
         justify-content: center;
         transition: all 1s ease;
 
-        span.finish-text {
-            &.hidden {
-                display: none;
-            }
+        span.percent {
+            color: white;
+            font-size: 0.75rem;
         }
     }
 

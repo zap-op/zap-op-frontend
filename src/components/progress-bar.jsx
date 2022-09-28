@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
+
 class ProgressBar extends Component {
     constructor(props) {
         super(props);
@@ -18,17 +18,22 @@ class ProgressBar extends Component {
         }
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div className="progress-bar-container">
-                <div className="progress-bar" ref={this.ref_progressBar}>
-                    <span className={`finish-text ${this.state.isComplete ? "" : "hidden"}`}>
-                        Scan Complete!
+                <div className="progress-bar"
+                    style={{
+                        width: `${this.props.scanProgress}%`,
+                        animationPlayState: `${this.props.isScanning ? "running" : "paused"}`
+                    }}
+                    ref={this.ref_progressBar}>
+                    <span className="percent">
+                        {`${this.props.scanProgress}%`}
                     </span>
                 </div>
             </div>
-         );
+        );
     }
 }
- 
+
 export default ProgressBar;
