@@ -14,9 +14,6 @@ class ProgressTable extends Component {
         this.scrollToBottomTable = this.scrollToBottomTable.bind(this);
         this.setAutoScrollCheckBox = this.setAutoScrollCheckBox.bind(this);
         this.isTableBodyEmpty = this.isTableBodyEmpty.bind(this);
-        this.state = {
-            isStartedScan: false,
-        }
         this.ref_autoScrollCheckbox = React.createRef();
         this.ref_autoScrollContainer = React.createRef();
         this.ref_tableBottomScroller = React.createRef();
@@ -65,7 +62,7 @@ class ProgressTable extends Component {
     render() {
         return (
             <>
-                {this.state.isStartedScan ? <ProgressBar scanProgress={this.props.scanProgress} isScanning={this.props.isScanning}/> : <></>}     
+                <ProgressBar scanProgress={this.props.scanProgress} />
                 <div className="progress-table-container" >
                     <div className="view-options-container">
                         <div className="auto-scroll-container" ref={this.ref_autoScrollContainer}>
@@ -105,10 +102,4 @@ class ProgressTable extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        isScanning: state.scan.isScanning,
-    }
-}
-
-export default connect(mapStateToProps)(ProgressTable);
+export default ProgressTable;

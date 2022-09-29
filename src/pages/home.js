@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 export default function Home() {
     const listScanInfo = useSelector(state => state.scan.scanInfosDisplay);
     const scanProgress = useSelector(state => state.scan.scanProgressDisplay);
+    const isStartScanProgress = useSelector(state => state.scan.isStartScanProgress);
     return (
         <section className='welcome-section'>
             <div className='welcome-content-container'>
@@ -19,17 +20,14 @@ export default function Home() {
                 </div>
                 <div className='free-scan-container'>
                     <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode} />
-                    <ProgressTable
+                    {isStartScanProgress ? <ProgressTable
                         autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                         scanProgress={scanProgress}
-                        tableHead={
-                            <TABLEHEAD_TS_ZAP />
-                        }
-                        tableBody={
-                            listScanInfo.map((item, index) => {
-                                return <TABLEROW_TS_ZAP key={index} number={index} url={item} />
-                            })
-                        } />
+                        tableHead={<TABLEHEAD_TS_ZAP />}
+                        tableBody={listScanInfo.map((item, index) => {
+                            return <TABLEROW_TS_ZAP key={index} number={index} url={item} />
+                        })} /> : <></>}
+
                 </div>
             </div>
         </section>

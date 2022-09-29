@@ -4,8 +4,22 @@ import TS_ZAP from '../entities/ts-zap';
 import validator from '../utils/validator';
 import $ from 'jquery';
 import { connect } from 'react-redux';
-import { concatScanInfosDisplay, clearScanInfosDisplay } from '../store/slice/scanSlice';
+import { startScanProgress, endScanProgress, concatScanInfosDisplay, updateScanProgressDisplay, resetScanDisplay } from '../store/slice/scanSlice';
 import { AxiosError } from 'axios';
+
+const mapStateToProps = state => {
+    return {
+        isStartScanProgress: state.scan.isStartScanProgress,
+    }
+}
+
+const mapDispatchToProps = {
+    startScanProgress,
+    endScanProgress,
+    concatScanInfosDisplay,
+    updateScanProgressDisplay,
+    resetScanDisplay,
+}
 
 class ScanField extends Component {
     static UNKOWN_ERROR_MESS = "Unknown error"
@@ -37,6 +51,10 @@ class ScanField extends Component {
     }
 
     async clickScanHandler() {
+        if (this.state.isProcessing) {
+            return;
+        }
+
         this.toggleProcessing();
 
         const SpiderZAPScan = TS_ZAP.getIntance();
@@ -49,21 +67,25 @@ class ScanField extends Component {
 
         try {
             SpiderZAPScan.url = scan_url;
-            SpiderZAPScan.config(1, SpiderZAPScan.recurse, SpiderZAPScan.contextName, SpiderZAPScan.subtreeOnly);
+            SpiderZAPScan.config(2, SpiderZAPScan.recurse, SpiderZAPScan.contextName, SpiderZAPScan.subtreeOnly);
             await SpiderZAPScan.request()
                 .then((res) => {
                     console.log("res: ", res);
                 });
             SpiderZAPScan.connect();
             const eventSource = SpiderZAPScan.connectionSource();
-            this.props.clearScanInfosDisplay();
+            this.props.resetScanDisplay();
+            this.props.startScanProgress();
 
             eventSource.onmessage = (event) => {
                 console.log("onmessage: ", event);
                 const data = JSON.parse(event.data);
                 this.props.concatScanInfosDisplay({ listUrl: data.results });
+                this.props.updateScanProgressDisplay({ scanProgress: data.scanProgress });
+
                 if (data.scanProgress === 100) {
                     SpiderZAPScan.disconnect();
+                    this.toggleProcessing();
                 }
             }
 
@@ -78,7 +100,7 @@ class ScanField extends Component {
             console.log("error: ", error);
             if (error instanceof AxiosError) {
                 const errorData = error.response.data;
-                if (!errorData.scanStatus) {
+                if (!errorData || !errorData.scanStatus) {
                     this.displayErrorMess(ScanField.CANNOT_REQUEST_ERROR_MESS);
                 } else {
                     this.displayErrorMess(errorData.message);
@@ -87,8 +109,8 @@ class ScanField extends Component {
 
             }
             SpiderZAPScan.disconnect();
+            this.toggleProcessing();
         }
-        this.toggleProcessing();
     }
 
     render() {
@@ -110,9 +132,4 @@ class ScanField extends Component {
     }
 }
 
-const mapDispatchToProps = {
-    concatScanInfosDisplay,
-    clearScanInfosDisplay,
-}
-
-export default connect(null, mapDispatchToProps)(ScanField);
+export default connect(mapStateToProps, mapDispatchToProps)(ScanField);

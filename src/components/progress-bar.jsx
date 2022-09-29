@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
 class ProgressBar extends Component {
+    static progressBarAnimationName = "pulse";
+
     constructor(props) {
         super(props);
-        this.ref_progressBar = React.createRef();
     }
 
     render() {
@@ -12,7 +13,7 @@ class ProgressBar extends Component {
                 <div className="progress-bar"
                     style={{
                         width: `${this.props.scanProgress}%`,
-                        animationPlayState: `${this.props.isScanning ? "running" : "paused"}`
+                        animationName: `${this.props.scanProgress === 100 ? "none" : ProgressBar.progressBarAnimationName}`
                     }}
                     ref={this.ref_progressBar}>
                     <span className="percent">
