@@ -33,12 +33,12 @@ h6 {
 
 section {
     min-width: 540px;
-    width: 80%;
+    width: 70%;
 }
 
 div.button,
 a.button {
-    border-radius: 0.25rem;
+    border-radius: $button-border-radius;
     cursor: pointer;
     padding: 0.375rem 0.75rem;
 }

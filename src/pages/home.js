@@ -12,9 +12,9 @@ export default function Home() {
     return (
         <section className='welcome-section'>
             <div className='welcome-content-container'>
-                <h2>
+                <h1>
                     Lorem Ipsum is simply dummy text of the printing
-                </h2>
+                </h1>
                 <div className='description'>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
                 </div>

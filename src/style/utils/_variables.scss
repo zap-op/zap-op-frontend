@@ -11,14 +11,15 @@ $blue-color-1: #005ce6;
 $blue-color-2: lighten($blue-color-1, 5%);
 $blue-color-3: lighten($blue-color-1, 20%);
 $blue-color-4: lighten($blue-color-1, 30%);
-$blue-color-5: #00ADB5;
+$blue-color-5: lighten($blue-color-1, 50%);
+$blue-color-6: #00ADB5;
 
 // COLOR SPEC
 $disable-color: $black-color-2;
 $error-color: #ff4949;
 
 // NAVBAR
-$nav-shadow: rgb(0 0 0 / 8%) 0 1px;
+$nav-shadow:  0 1px rgb(0 0 0 / 8%);
 
 // PROGRESS RING
 $ring-size: 15px;
@@ -35,6 +36,7 @@ $progress-bar-background-color: $blue-color-3;
 $progress-bar-background-color-pulse: $blue-color-4;
 
 // BUTTON
+$button-border-radius: 0.25rem;
 $primary-button-background-color: $blue-color-2;
 $primary-button-background-color-hover: $blue-color-1;
 $secondary-button-boder-color: $black-color-4;
