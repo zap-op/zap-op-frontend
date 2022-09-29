@@ -18,7 +18,6 @@ const scanSlice = createSlice({
             state.scanInfosDisplay = state.scanInfosDisplay.concat(action.payload.listUrl);
         },
         clearScanInfosDisplay: (state) => {
-            console.log(state);
             state.scanInfosDisplay = [];
         },
         updateScanProgressDisplay: (state, action) => {

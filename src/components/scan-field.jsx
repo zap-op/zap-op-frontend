@@ -10,6 +10,7 @@ import { AxiosError } from 'axios';
 const mapStateToProps = state => {
     return {
         isStartScanProgress: state.scan.isStartScanProgress,
+        scanProgressDisplay: state.scan.scanProgressDisplay,
     }
 }
 
@@ -95,8 +96,12 @@ class ScanField extends Component {
                 console.log("onerror: ", event);
                 const data = JSON.parse(event.data);
                 this.displayErrorMess(data.message);
+                
                 SpiderZAPScan.disconnect();
                 this.toggleProcessing();
+                if (this.props.scanProgressDisplay === 0) {
+                    this.props.endScanProgress();
+                }
             }
         } catch (error) {
             console.log("error: ", error);
@@ -112,6 +117,9 @@ class ScanField extends Component {
             }
             SpiderZAPScan.disconnect();
             this.toggleProcessing();
+            if (this.props.scanProgressDisplay === 0) {
+                this.props.endScanProgress();
+            }
         }
     }
 
