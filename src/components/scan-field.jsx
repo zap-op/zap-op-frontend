@@ -95,6 +95,8 @@ class ScanField extends Component {
                 console.log("onerror: ", event);
                 const data = JSON.parse(event.data);
                 this.displayErrorMess(data.message);
+                SpiderZAPScan.disconnect();
+                this.toggleProcessing();
             }
         } catch (error) {
             console.log("error: ", error);
