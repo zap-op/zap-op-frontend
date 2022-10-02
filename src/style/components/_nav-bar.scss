@@ -1,0 +1,84 @@
+@use '../utils/variables' as *;
+
+#nav-bar {
+    display: flex;
+    height: 5rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+
+    a.logo {
+        height: inherit;
+        margin-left: 2rem;
+
+        img {
+            max-height: 100%;
+        }
+    }
+
+    ul {
+        display: inherit;
+        flex-flow: row wrap;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        a {
+            align-items: center;
+            color: black;
+            display: inherit;
+            text-decoration: none;
+        }
+    }
+
+    div.nav-wrap {
+        display: inherit;
+        justify-content: end;
+        margin-top: 0.5rem;
+        position: absolute;
+        width: 100%;
+
+        ul.nav-bar {
+            justify-content: end;
+            margin-left: 4rem; // Do not collapse logo
+
+            a.nav-item {
+                margin: 0 5rem;
+            }
+        }
+
+        ul.nav-bar-id {
+            margin-right: 2rem;
+
+            a {
+                margin: 0.5rem;
+            }
+        }
+    }
+
+
+    @media screen and (max-width: $SM) {
+
+        div.nav-wrap {
+            align-items: end;
+            flex-flow: column-reverse;
+
+            ul {
+                flex-flow: column;
+            }
+
+            ul.nav-bar {
+                display: none;
+                margin-right: 1rem;
+
+                a.nav-item {
+                    margin: 1rem;
+                }
+            }
+
+            ul.nav-bar-id {
+                margin-right: 4rem;
+            }
+        }
+    }
+}

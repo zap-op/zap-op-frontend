@@ -1,0 +1,43 @@
+@use '../utils/variables' as *;
+@use '../utils/mixins' as *;
+
+div.progress-ring-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+
+    div.progress-ring {
+        align-items: center;
+        border: 3px solid;
+        border-color: #84E8A9;
+        border-radius: $border-radius-ring;
+        display: inherit;
+        height: $ring-size;
+        justify-content: center;
+        margin-right: 0.25rem;
+        position: relative;
+        width: $ring-size;
+
+        div.core {
+            background-color: black;
+            border-radius: $border-radius-ring;
+            height: $core-size;
+            width: $core-size;
+
+            &.complete {
+                background-color: #84E8A9;
+            }
+        }
+    }
+
+    div.progress-status {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.85rem;
+        margin-left: 0.25rem;
+    }
+
+    .spin {
+        animation: spin 2s linear infinite;
+        border-color: $color-3 $color-3 transparent !important;
+    }
+}
