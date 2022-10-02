@@ -28,10 +28,10 @@ class NavBar extends Component {
                         </Link>
                     </ul>
                     <ul className="nav-bar-id">
-                        <Link to="/" className='sign-in'>
-                            Sign in
+                        <Link to="/login" className='log-in'>
+                            Log in
                         </Link>
-                        <Link to="/" className='create-account'>
+                        <Link to="/signup" className='create-account'>
                             Create Account
                         </Link>
                     </ul>
