@@ -19,7 +19,7 @@ class ProgressTable extends Component {
 
     componentDidMount() {
         this.setAutoScrollCheckBox(this.props.autoScrollState);
-        this.onTableChangeHandler();
+        this.onTableChangeHandler(this.props);
     }
 
     componentDidUpdate(prevProps) {
@@ -30,8 +30,7 @@ class ProgressTable extends Component {
         if (this.isTableBodyEmpty() || !this.ref_autoScrollCheckbox.current.checked) {
             return;
         }
-
-        if (this.props.tableBody.props.children.length != prevProps.tableBody.prevProps.children.length) {
+        if (this.props.tableBody.length != prevProps.tableBody.length) {
             this.scrollToBottomTable();
         }
     }
@@ -41,7 +40,7 @@ class ProgressTable extends Component {
     }
 
     isTableBodyEmpty() {
-        if (typeof this.props.tableBody.props.children === "undefined") {
+        if (typeof this.props.tableBody === "undefined") {
             return true;
         }
         return false;
