@@ -9,7 +9,7 @@ import ZAP from "./zap";
 class TS_ZAP extends ZAP {
     static fullName = "Traditonal Spider ZAP";
     static typeCode = SCAN_TYPE.ZAP.SPIDER;
-    #event_source_address = this._service.defaults.baseURL + Scan.reqAddress + "/" + TS_ZAP.typeCode;
+    #event_source_address = this._service.defaults.baseURL + Scan.reqAddress + "/" + SCAN_TYPE.ZAP.SPIDER;
     #event_source = undefined;
 
     maxChildren = 1;

@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 class ProgressBar extends Component {
     static progressBarAnimationName = "pulse";
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="progress-bar-container">

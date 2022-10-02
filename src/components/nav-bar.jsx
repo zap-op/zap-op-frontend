@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import { NAV_BAR_STRING } from '../utils/string';
 
 class NavBar extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div id='nav-bar' className="nav-bar-container">

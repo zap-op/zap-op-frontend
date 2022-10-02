@@ -5,9 +5,6 @@ class Scan {
     url = "";
     static reqAddress = "/scan";
 
-    constructor() {
-    }
-
     getService() {
         return this._service;
     }

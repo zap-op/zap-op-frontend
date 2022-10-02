@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import ProgressBar from '../components/progress-bar';
-import { connect } from 'react-redux';
 
 class ProgressTable extends Component {
     static AUTO_SCROLL_ACTIVE = true;
@@ -32,7 +31,7 @@ class ProgressTable extends Component {
         if (this.isTableBodyEmpty() || !this.ref_autoScrollCheckbox.current.checked) {
             return;
         }
-        if (this.props.tableBody.length != prevProps.tableBody.length) {
+        if (this.props.tableBody.length !== prevProps.tableBody.length) {
             this.scrollToBottomTable();
         }
     }
