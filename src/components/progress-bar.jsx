@@ -1,34 +1,28 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
+
 class ProgressBar extends Component {
+    static progressBarAnimationName = "pulse";
+
     constructor(props) {
         super(props);
-        this.state = {
-            progressPercent: 0, 
-            isComplete: false
-        }
-        this.ref_progressBar = React.createRef();
     }
 
-    componentDidMount() {
-        for (let index = 0; index < 101; index++) {
-            setTimeout(() => {
-                this.ref_progressBar.current.style.width = `${index}%`;
-            }, 100 * index);
-        }
-    }
-
-    render() { 
-        return ( 
+    render() {
+        return (
             <div className="progress-bar-container">
-                <div className="progress-bar" ref={this.ref_progressBar}>
-                    <span className={`finish-text ${this.state.isComplete ? "" : "hidden"}`}>
-                        Scan Complete!
+                <div className="progress-bar"
+                    style={{
+                        width: `${this.props.scanProgress}%`,
+                        animationName: `${this.props.scanProgress === 100 ? "none" : ProgressBar.progressBarAnimationName}`
+                    }}
+                    ref={this.ref_progressBar}>
+                    <span className="percent">
+                        {`${this.props.scanProgress}%`}
                     </span>
                 </div>
             </div>
-         );
+        );
     }
 }
- 
+
 export default ProgressBar;
