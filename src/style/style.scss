@@ -1,7 +1,4 @@
-@import './base/base';
-@import './mixins/mixins';
+@use './base';
 
-@import './header/header';
-@import './footer/footer';
-
-@import './components/components';
+@use './components';
+@use './pages';

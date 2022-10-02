@@ -1,6 +1,8 @@
+@use '../utils/variables' as *;
+
 div.scan-field-container {
     display: flex;
-    flex-flow: column wrap;
+    flex-direction: column;
     margin: 1rem 0;
 
     h4 {
@@ -8,13 +10,30 @@ div.scan-field-container {
     }
 
     div.field-container {
+        align-items: center;
+        display: inherit;
 
         input {
             margin-right: 0.5rem;
         }
 
-        a {
+        div.scan-button {
+            height: fit-content;
             margin-left: 0.5rem;
+        }
+    }
+
+    div.message {
+        border-radius: 3px;
+        font-size: 0.9rem;
+        margin: 0.5rem 0 0.5rem 0.5rem;
+        padding: 0.35rem 1rem;
+        width: fit-content;
+
+        &.error-message {
+            background-color: $error-color;
+            color: white;
+            font-weight: 500;
         }
     }
 }

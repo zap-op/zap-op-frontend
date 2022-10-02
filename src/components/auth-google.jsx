@@ -18,7 +18,6 @@ class AuthGoogle extends Component {
 
     componentDidMount() {
         this.renderGoogleButton();
-        console.log(this.props.thisStore);
     }
     
     renderGoogleButton() {

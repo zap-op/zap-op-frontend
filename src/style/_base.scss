@@ -1,20 +1,21 @@
 @use './utils/variables' as *;
 @use './utils/mixins' as *;
 
+// font-family: 'Montserrat', sans-serif;
+// font-family: 'Noto Sans', sans-serif;
+// font-family: 'Open Sans', sans-serif;
+
 html {
     font-size: 16px;
 }
 
 body {
-<<<<<<< HEAD
     margin: 0;
-=======
     // font-family: 'Montserrat', sans-serif;
     font-family: 'Noto Sans', sans-serif;
     margin: 0;
     min-width: $XS;
     // font-family: 'Open Sans', sans-serif;
->>>>>>> c5be489 (ZO-31 Update responsive layout navigator)
 }
 
 #body {
@@ -35,13 +36,33 @@ section {
     width: 80%;
 }
 
+div.button,
 a.button {
-    border: 1px solid;
     border-radius: 0.25rem;
-    color: inherit;
+    cursor: pointer;
     padding: 0.375rem 0.75rem;
-    text-decoration: none;
-    @include button-primary;
+}
+
+
+
+.primary-button {
+    background-color: $primary-button-background-color;
+    color: white !important;
+    font-weight: 500;
+
+    &:hover {
+        background-color: $primary-button-background-color-hover;
+    }
+}
+
+.secondary-button {
+    background-color: white;
+    box-shadow: $secondary-button-shadow;
+    color: black !important;
+
+    &:hover {
+        box-shadow: $secondary-button-shadow-hover;
+    }
 }
 
 input {

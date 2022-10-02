@@ -2,11 +2,10 @@
 
 div.progress-bar-container {
     border: 2px solid $color-1;
-    border-radius: 2rem;
     // box-shadow: 0 0 5px $color-1;
     height: 2rem;
     transition: all 0.5s;
-
+    border-radius: 2rem;
     .progress-bar {
         align-items: center;
         background-color: $color-4;
@@ -14,8 +13,8 @@ div.progress-bar-container {
         display: flex;
         height: 100%;
         justify-content: center;
-        transition: all 1s ease;
         width: 100%;
+        transition: all 1s ease;
 
         span.finish-text {
             &.hidden {
