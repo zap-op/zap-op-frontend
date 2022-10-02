@@ -101,12 +101,11 @@ class TS_ZAP extends ZAP {
 
     /**
      * Connect Server-Send Events
+     * @param {string} scanSession
      */
-    connect() {
+    connect(scanSession) {
         this.disconnect();
-        this.#event_source = new EventSource(this.#event_source_address, {
-            withCredentials: true
-        });
+        this.#event_source = new EventSource(`${this.#event_source_address}?scanSession=${scanSession}`);
     }
 
     /**

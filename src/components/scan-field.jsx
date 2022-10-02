@@ -69,11 +69,12 @@ class ScanField extends Component {
         try {
             SpiderZAPScan.url = scan_url;
             SpiderZAPScan.config(2, SpiderZAPScan.recurse, SpiderZAPScan.contextName, SpiderZAPScan.subtreeOnly);
-            await SpiderZAPScan.request()
+            const scanSession = await SpiderZAPScan.request()
                 .then((res) => {
                     console.log("res: ", res);
+                    return res.data.scanSession;
                 });
-            SpiderZAPScan.connect();
+            SpiderZAPScan.connect(scanSession);
             const eventSource = SpiderZAPScan.connectionSource();
             this.props.resetScanDisplay();
             this.props.startScanProgress();
@@ -96,7 +97,7 @@ class ScanField extends Component {
                 console.log("onerror: ", event);
                 const data = JSON.parse(event.data);
                 this.displayErrorMess(data.message);
-                
+
                 SpiderZAPScan.disconnect();
                 this.toggleProcessing();
                 if (this.props.scanProgressDisplay === 0) {
