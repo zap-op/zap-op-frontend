@@ -41,19 +41,19 @@ class TS_ZAP extends ZAP {
      */
     config(maxChildren = this.maxChildren, recurse = this.recurse, contextName = this.contextName, subtreeOnly = this.subtreeOnly) {
         if (typeof maxChildren !== "number") {
-            throw new TypeError("maxChildren should be number");
+            throw TypeError("maxChildren should be number");
         }
 
         if (typeof recurse !== "boolean") {
-            throw new TypeError("recurse should be boolean");
+            throw TypeError("recurse should be boolean");
         }
 
         if (typeof contextName !== "string") {
-            throw new TypeError("contextName should be string");
+            throw TypeError("contextName should be string");
         }
 
         if (typeof subtreeOnly !== "boolean") {
-            throw new TypeError("subtreeOnly shoul be boolean");
+            throw TypeError("subtreeOnly shoul be boolean");
         }
 
         this.maxChildren = maxChildren;
@@ -103,9 +103,7 @@ class TS_ZAP extends ZAP {
      * Connect Server-Send Events
      */
     connect() {
-        if (this.#event_source) {
-            this.#event_source.close();
-        }
+        this.disconnect();
         this.#event_source = new EventSource(this.#event_source_address, {
             withCredentials: true
         });

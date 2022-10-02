@@ -9,7 +9,6 @@ const scanSlice = createSlice({
     reducers: {
         concatScanInfosDisplay: (state, action) => {
             state.scanInfosDisplay = state.scanInfosDisplay.concat(action.payload.listUrl);
-            console.log(state.scanInfosDisplay);
         },
         clearScanInfosDisplay: (state, action) => {
             state.scanInfosDisplay = [];
