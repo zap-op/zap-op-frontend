@@ -35,5 +35,9 @@ div.scan-field-container {
             color: white;
             font-weight: 500;
         }
+
+        &.hidden {
+            display: none;
+        }
     }
 }

@@ -47,8 +47,12 @@ class ScanField extends Component {
         if (!validator.isString(errorMess)) {
             return;
         }
-        $(this.ref_mess.current).addClass("error-message");
+        $(this.ref_mess.current).removeClass("error-message");
         this.ref_mess.current.innerText = errorMess;
+    }
+
+    hideErrorMess() {
+        $(this.ref_mess.current).addClass("hidden");
     }
 
     async clickScanHandler() {
@@ -56,6 +60,7 @@ class ScanField extends Component {
             return;
         }
 
+        this.hideErrorMess();
         this.toggleProcessing();
 
         const SpiderZAPScan = TS_ZAP.getIntance();
