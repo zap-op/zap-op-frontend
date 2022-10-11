@@ -1,5 +1,5 @@
 import api from "../services/api";
-import type { AxiosInstance }from "../services/api";
+import type { AxiosInstance } from "../services/api";
 
 class Scan {
     protected service = api;

@@ -1,12 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+type ScanState = {
+    isStartScanProgress: boolean,
+    scanProgressDisplay: number,
+    scanInfosDisplay: string[],
+}
+
+const initialState: ScanState = {
+    isStartScanProgress: false,
+    scanProgressDisplay: 0,
+    scanInfosDisplay: [],
+}
 
 const scanSlice = createSlice({
     name: "scan-storage",
-    initialState: {
-        isStartScanProgress: false,
-        scanProgressDisplay: 0,
-        scanInfosDisplay: []
-    },
+    initialState,
     reducers: {
         startScanProgress: (state) => {
             state.isStartScanProgress = true;
@@ -14,13 +22,17 @@ const scanSlice = createSlice({
         endScanProgress: (state) => {
             state.isStartScanProgress = false;
         },
-        concatScanInfosDisplay: (state, action) => {
+        concatScanInfosDisplay: (state, action: PayloadAction<{
+            listUrl: typeof initialState.scanInfosDisplay,
+        }>) => {
             state.scanInfosDisplay = state.scanInfosDisplay.concat(action.payload.listUrl);
         },
         clearScanInfosDisplay: (state) => {
             state.scanInfosDisplay = [];
         },
-        updateScanProgressDisplay: (state, action) => {
+        updateScanProgressDisplay: (state, action: PayloadAction<{
+            scanProgress: typeof initialState.scanProgressDisplay,
+        }>) => {
             state.scanProgressDisplay = action.payload.scanProgress;
         },
         resetScanProgressDisplay: (state) => {

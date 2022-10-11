@@ -7,10 +7,10 @@ const reducers = {
     scan: scanSlice.reducer
 }
 
-const store = () => {
-    return configureStore({
-        reducer: reducers
-    })
-}
+const store = configureStore({
+    reducer: reducers
+})
 
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispach = typeof store.dispatch;
 export default store;
