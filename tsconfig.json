@@ -3,33 +3,36 @@
     /* Projects */
 
     /* Language and Environment */
-    "target": "ES6",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "ES6", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ESNext",
-    ],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "jsx": "react-jsx",                                /* Specify what JSX code is generated. */
+    ], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "jsx": "react-jsx", /* Specify what JSX code is generated. */
 
     /* Modules */
-    "module": "ES6",                                /* Specify what module code is generated. */
-    "moduleResolution": "Node16",                       /* Specify how TypeScript looks up a file from a given module specifier. */
+    "module": "ES6", /* Specify what module code is generated. */
+    "moduleResolution": "Node16", /* Specify how TypeScript looks up a file from a given module specifier. */
 
     /* JavaScript Support */
 
     /* Emit */
-    "noEmit": true,                                   /* Disable emitting files from a compilation. */
+    "noEmit": true, /* Disable emitting files from a compilation. */
 
     /* Interop Constraints */
-    "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "isolatedModules": true, /* Ensure that each file can be safely transpiled without relying on other imports. */
+    "forceConsistentCasingInFileNames": true, /* Ensure that casing is correct in imports. */
 
     /* Type Checking */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
-
+    "allowUnreachableCode": true, /* Disable error reporting for unreachable code. */                 
+    "noFallthroughCasesInSwitch": true, /* Enable error reporting for fallthrough cases in switch statements. */
+    "noImplicitOverride": true, /* Ensure overriding members in derived classes are marked with an override modifier. */
+    "noImplicitReturns": true, /* Enable error reporting for codepaths that do not explicitly return in a function. */
+    "noPropertyAccessFromIndexSignature": true, /* Enforces using indexed accessors for keys declared using an indexed type. */
+    "strict": true, /* Enable all strict type-checking options. */
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
   },
   "include": [
     "src/**/*"
