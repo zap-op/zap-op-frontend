@@ -1,17 +1,17 @@
 import AuthGoogle from "../components/auth-google";
 
-export default function LogIn() {
+function SignUp() {
     return (
-        <div className="log-in-container">
+        <div className="sign-up-container">
             <h2 className="title">
-                Log in
+                Get started
             </h2>
             <h4 className="title">
-                Log in your account with
+                Create your account with
             </h4>
             <div className="options-container">
                 <div className="google-option">
-                    <AuthGoogle option={AuthGoogle.LOG_IN}/>
+                    <AuthGoogle option={AuthGoogle.SIGN_UP_BUTTON_TEXT}/>
                 </div>
                 <div className="github-option">
                 </div>
@@ -19,3 +19,5 @@ export default function LogIn() {
         </div>
     )
 }
+
+export default SignUp;

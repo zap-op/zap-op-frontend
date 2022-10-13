@@ -1,4 +1,4 @@
-export default function TABLEHEAD_TS_ZAP() {
+function TABLEHEAD_TS_ZAP() {
     return (
         <ul className="th-ts-zap">
             <li className="no">
@@ -10,3 +10,5 @@ export default function TABLEHEAD_TS_ZAP() {
         </ul>
     )
 }
+
+export default TABLEHEAD_TS_ZAP;
