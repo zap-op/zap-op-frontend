@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type ScanState = {
+type TScanState = {
     isStartScanProgress: boolean,
     scanProgressDisplay: number,
     scanInfosDisplay: string[],
 }
 
-const initialState: ScanState = {
+const initialState: TScanState = {
     isStartScanProgress: false,
     scanProgressDisplay: 0,
     scanInfosDisplay: [],
@@ -23,7 +23,7 @@ const scanSlice = createSlice({
             state.isStartScanProgress = false;
         },
         concatScanInfosDisplay: (state, action: PayloadAction<{
-            listUrl: typeof initialState.scanInfosDisplay,
+            listUrl: TScanState["scanInfosDisplay"],
         }>) => {
             state.scanInfosDisplay = state.scanInfosDisplay.concat(action.payload.listUrl);
         },
@@ -31,7 +31,7 @@ const scanSlice = createSlice({
             state.scanInfosDisplay = [];
         },
         updateScanProgressDisplay: (state, action: PayloadAction<{
-            scanProgress: typeof initialState.scanProgressDisplay,
+            scanProgress: TScanState["scanProgressDisplay"],
         }>) => {
             state.scanProgressDisplay = action.payload.scanProgress;
         },

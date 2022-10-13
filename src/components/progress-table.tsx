@@ -68,7 +68,7 @@ class ProgressTable extends Component<TProgressTableProps> {
                 <ProgressBar scanProgress={this.props.scanProgress} />
                 <div className="progress-table-container" >
                     <div className="view-options-container">
-                        <div className={`auto-scroll-container ${this.ref_autoScrollCheckbox.current!.checked ? "" : "uncheck"}`} ref={this.ref_autoScrollContainer}>
+                        <div className={`auto-scroll-container ${this.ref_autoScrollCheckbox.current?.checked ? "" : "uncheck"}`} ref={this.ref_autoScrollContainer}>
                             <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox">
                                 <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" /*onClick={this.onToggleAutoScrollCheckboxHandler}*/ ref={this.ref_autoScrollCheckbox} />
                                 <span className="toggle-track">

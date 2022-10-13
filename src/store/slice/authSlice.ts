@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type AuthState = {
+type TAuthState = {
     isAuth: boolean,
     token: string | undefined,
     tokenExpiration: string | undefined,
 }
 
-const initialState: AuthState = {
+const initialState: TAuthState = {
     isAuth: false,
     token: undefined,
     tokenExpiration: undefined,
