@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { NAV_BAR_STRING } from '../utils/string';
 
 class NavBar extends Component {
-    render() {
+    override render() {
         return (
             <div id='nav-bar' className="nav-bar-container">
                 <Link to="/" className="logo">

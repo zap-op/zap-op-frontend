@@ -1,4 +1,3 @@
-import SCAN_TYPE from "../utils/scan-type";
 import Scan from "./scan";
 import ZAP from "./zap";
 
@@ -8,8 +7,8 @@ import ZAP from "./zap";
  */
 class TS_ZAP extends Scan {
     private static _instance: TS_ZAP;
-    public readonly fullName: string = "Traditonal Spider ZAP";
-    public readonly typeCode: string = SCAN_TYPE.ZAP.SPIDER;
+    static readonly fullName = "Traditonal Spider ZAP";
+    static readonly typeCode = "TS_ZAP";
     private event_source_address!: string;
     private event_source!: EventSource;
 
@@ -23,7 +22,7 @@ class TS_ZAP extends Scan {
         if (TS_ZAP._instance) {
             return TS_ZAP._instance;
         }
-        this.event_source_address = this.service.defaults.baseURL + this.reqAddress + "/" + this.typeCode;
+        this.event_source_address = this.service.defaults.baseURL + this.reqAddress + "/" + TS_ZAP.typeCode;
         TS_ZAP._instance = this;
     }
 
@@ -50,7 +49,7 @@ class TS_ZAP extends Scan {
         }
         return {
             url: this.url,
-            type: this.typeCode,
+            type: TS_ZAP.typeCode,
             scanConfig: {
                 maxChildren: this.maxChildren,
                 recurse: this.recurse,
@@ -64,7 +63,7 @@ class TS_ZAP extends Scan {
      * Request scan
      * @throws {ReferenceError} 
      */
-    public request(): ReturnType<(typeof this.service.post)> {
+    public request() {
         if (!this.url) {
             throw ReferenceError("url is not defined")
         }

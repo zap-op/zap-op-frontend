@@ -4,11 +4,13 @@ import TABLEHEAD_TS_ZAP from '../components/tables/th-ts-zap';
 import TABLEROW_TS_ZAP from '../components/tables/tr-ts-zap';
 import TS_ZAP from '../entities/ts-zap';
 import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
-export default function Home() {
-    const listScanInfo = useSelector(state => state.scan.scanInfosDisplay);
-    const scanProgress = useSelector(state => state.scan.scanProgressDisplay);
-    const isStartScanProgress = useSelector(state => state.scan.isStartScanProgress);
+function Home() {
+    const listScanInfo = useSelector((state: RootState) => state.scan.scanInfosDisplay);
+    const scanProgress = useSelector((state: RootState) => state.scan.scanProgressDisplay);
+    const isStartScanProgress = useSelector((state: RootState) => state.scan.isStartScanProgress);
+    
     return (
         <section className='welcome-section'>
             <div className='welcome-content-container'>
@@ -33,3 +35,5 @@ export default function Home() {
         </section>
     )
 }
+
+export default Home;

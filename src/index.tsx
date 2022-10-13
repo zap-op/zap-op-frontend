@@ -1,6 +1,5 @@
 // REACT IMPORT
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // REDUX IMPORT
 import { Provider } from 'react-redux'
@@ -14,9 +13,9 @@ import LogIn from './pages/log-in';
 // STYLE IMPORT
 import './style/style.scss';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
-    <Provider store={store()}>
+    <Provider store={store}>
         <Router>
             <NavBar />
             <div id='body'>

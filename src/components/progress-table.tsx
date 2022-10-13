@@ -1,34 +1,41 @@
-import React, { Component } from 'react';
-import $ from 'jquery';
-import ProgressBar from '../components/progress-bar';
+import { Component, createRef } from 'react';
+import ProgressBar from './progress-bar';
 
-class ProgressTable extends Component {
-    static AUTO_SCROLL_ACTIVE = true;
-    static AUTO_SCROLL_DEACTIVE = false;
+type TProgressTableProps = {
+    tableHead: JSX.Element;
+    tableBody: JSX.Element[];
+    scanProgress: number;
+    autoScrollState: boolean;
+}
 
-    constructor(props) {
+class ProgressTable extends Component<TProgressTableProps> {
+    static readonly AUTO_SCROLL_ACTIVE = true;
+    static readonly AUTO_SCROLL_DEACTIVE = false;
+
+    private ref_autoScrollCheckbox: React.RefObject<HTMLInputElement>;
+    private ref_autoScrollContainer: React.RefObject<HTMLDivElement>;
+    private ref_tableBottomScroller: React.RefObject<HTMLDivElement>;
+
+    constructor(props: TProgressTableProps) {
         super(props);
-        this.onToggleAutoScrollCheckboxHandler = this.onToggleAutoScrollCheckboxHandler.bind(this);
-        this.onTableChangeHandler = this.onTableChangeHandler.bind(this);
-        this.scrollToBottomTable = this.scrollToBottomTable.bind(this);
-        this.setAutoScrollCheckBox = this.setAutoScrollCheckBox.bind(this);
-        this.isTableBodyEmpty = this.isTableBodyEmpty.bind(this);
-        this.ref_autoScrollCheckbox = React.createRef();
-        this.ref_autoScrollContainer = React.createRef();
-        this.ref_tableBottomScroller = React.createRef();
+        // this.onToggleAutoScrollCheckboxHandler = this.onToggleAutoScrollCheckboxHandler.bind(this);
+
+        this.ref_autoScrollCheckbox = createRef<HTMLInputElement>();
+        this.ref_autoScrollContainer = createRef<HTMLDivElement>();
+        this.ref_tableBottomScroller = createRef<HTMLDivElement>();
     }
 
-    componentDidMount() {
+    override componentDidMount() {
         this.setAutoScrollCheckBox(this.props.autoScrollState);
         this.onTableChangeHandler(this.props);
     }
 
-    componentDidUpdate(prevProps) {
+    override componentDidUpdate(prevProps: TProgressTableProps) {
         this.onTableChangeHandler(prevProps);
     }
 
-    onTableChangeHandler(prevProps) {
-        if (this.isTableBodyEmpty() || !this.ref_autoScrollCheckbox.current.checked) {
+    private onTableChangeHandler(prevProps: TProgressTableProps) {
+        if (this.isTableBodyEmpty() || !this.ref_autoScrollCheckbox.current!.checked) {
             return;
         }
         if (this.props.tableBody.length !== prevProps.tableBody.length) {
@@ -36,37 +43,34 @@ class ProgressTable extends Component {
         }
     }
 
-    onToggleAutoScrollCheckboxHandler() {
-        $(this.ref_autoScrollContainer.current).toggleClass("uncheck")
+    private scrollToBottomTable() {
+        this.ref_tableBottomScroller.current!.scrollIntoView({ behavior: "smooth" })
     }
 
-    isTableBodyEmpty() {
+    // private onToggleAutoScrollCheckboxHandler() {
+    //     $(this.ref_autoScrollContainer.current).toggleClass("uncheck")
+    // }
+
+    private isTableBodyEmpty() {
         if (typeof this.props.tableBody === "undefined") {
             return true;
         }
         return false;
     }
 
-    scrollToBottomTable() {
-        this.ref_tableBottomScroller.current.scrollIntoView({ behavior: "smooth" })
+    setAutoScrollCheckBox(status: boolean) {
+        this.ref_autoScrollCheckbox.current!.checked = status;
     }
 
-    setAutoScrollCheckBox(status) {
-        if (!typeof status === "boolean") {
-            return;
-        }
-        this.ref_autoScrollCheckbox.current.checked = status;
-    }
-
-    render() {
+    override render() {
         return (
             <>
                 <ProgressBar scanProgress={this.props.scanProgress} />
                 <div className="progress-table-container" >
                     <div className="view-options-container">
-                        <div className="auto-scroll-container" ref={this.ref_autoScrollContainer}>
+                        <div className={`auto-scroll-container ${this.ref_autoScrollCheckbox.current!.checked ? "" : "uncheck"}`} ref={this.ref_autoScrollContainer}>
                             <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox">
-                                <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" onClick={this.onToggleAutoScrollCheckboxHandler} ref={this.ref_autoScrollCheckbox} />
+                                <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" /*onClick={this.onToggleAutoScrollCheckboxHandler}*/ ref={this.ref_autoScrollCheckbox} />
                                 <span className="toggle-track">
                                     <span className="toggle-indicator">
                                         <span className="check-mark">

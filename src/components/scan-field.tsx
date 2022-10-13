@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
 import ProgressRing from './progress-ring';
 import TS_ZAP from '../entities/ts-zap';
-import validator from '../utils/validator';
-import $ from 'jquery';
 import { connect } from 'react-redux';
 import { startScanProgress, endScanProgress, concatScanInfosDisplay, updateScanProgressDisplay, resetScanDisplay } from '../store/slice/scanSlice';
 import { AxiosError } from 'axios';
+import { RootState } from '../store/store';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState) => {
     return {
         isStartScanProgress: state.scan.isStartScanProgress,
         scanProgressDisplay: state.scan.scanProgressDisplay,
@@ -22,18 +21,35 @@ const mapDispatchToProps = {
     resetScanDisplay,
 }
 
-class ScanField extends Component {
-    static UNKOWN_ERROR_MESS = "Unknown error"
-    static EMPTY_URL_ERROR_MESS = "URL is empty!";
-    static CANNOT_REQUEST_ERROR_MESS = "Cannot request session!";
+type TmapStateToProps = ReturnType<typeof mapStateToProps>;
+type TmapDispatchToProps = typeof mapDispatchToProps;
 
-    constructor(props) {
+type TScanFieldProps =
+    TmapStateToProps &
+    TmapDispatchToProps & {
+        title: string;
+        typeScan: string;
+    }
+
+type TScanFieldState = {
+    isProcessing: boolean;
+    errorMess: string | null;
+}
+
+class ScanField extends Component<TScanFieldProps, TScanFieldState> {
+    static readonly UNKOWN_ERROR_MESS = "Unknown error"
+    static readonly EMPTY_URL_ERROR_MESS = "URL is empty!";
+    static readonly CANNOT_REQUEST_ERROR_MESS = "Cannot request session!";
+
+    private ref_urlInput: React.RefObject<HTMLInputElement>;
+
+    constructor(props: TScanFieldProps) {
         super(props);
         this.clickScanHandler = this.clickScanHandler.bind(this);
-        this.ref_mess = React.createRef();
-        this.ref_urlInput = React.createRef();
+        this.ref_urlInput = createRef<HTMLInputElement>();
         this.state = {
-            isProcessing: false
+            isProcessing: false,
+            errorMess: null,
         }
     }
 
@@ -43,16 +59,16 @@ class ScanField extends Component {
         }));
     }
 
-    displayErrorMess(errorMess) {
-        if (!validator.isString(errorMess)) {
-            return;
-        }
-        $(this.ref_mess.current).addClass("error-message");
-        this.ref_mess.current.innerText = errorMess;
+    displayErrorMess(errorMess: string) {
+        this.setState({
+            errorMess: errorMess,
+        })
     }
 
     hideErrorMess() {
-        $(this.ref_mess.current).addClass("hidden");
+        this.setState({
+            errorMess: null,
+        })
     }
 
     async clickScanHandler() {
@@ -64,8 +80,8 @@ class ScanField extends Component {
         this.toggleProcessing();
 
         const SpiderZAPScan = TS_ZAP.getIntance();
-        const scan_url = this.ref_urlInput.current.value;
-        if (validator.isEmptyString(scan_url)) {
+        const scan_url = this.ref_urlInput.current!.value;
+        if (!scan_url) {
             this.displayErrorMess(ScanField.EMPTY_URL_ERROR_MESS);
             this.toggleProcessing();
             return;
@@ -73,7 +89,7 @@ class ScanField extends Component {
 
         try {
             SpiderZAPScan.url = scan_url;
-            SpiderZAPScan.config(2, SpiderZAPScan.recurse, SpiderZAPScan.contextName, SpiderZAPScan.subtreeOnly);
+            SpiderZAPScan.maxChildren = 2;
             const scanSession = await SpiderZAPScan.request()
                 .then((res) => {
                     console.log("res: ", res);
@@ -100,8 +116,8 @@ class ScanField extends Component {
                 SpiderZAPScan.disconnect();
 
                 console.log("onerror: ", event);
-                const data = JSON.parse(event.data);
-                this.displayErrorMess(data.message);
+                // const data = JSON.parse(event.data);
+                // this.displayErrorMess(data.message);
 
                 SpiderZAPScan.disconnect();
                 this.toggleProcessing();
@@ -112,7 +128,10 @@ class ScanField extends Component {
         } catch (error) {
             console.log("error: ", error);
             if (error instanceof AxiosError) {
-                const errorData = error.response.data;
+                const errorData: {
+                    scanStatus: number;
+                    message: string
+                } | undefined = error.response?.data;
                 if (!errorData || !errorData.scanStatus) {
                     this.displayErrorMess(ScanField.CANNOT_REQUEST_ERROR_MESS);
                 } else {
@@ -129,7 +148,7 @@ class ScanField extends Component {
         }
     }
 
-    render() {
+    override render() {
         return (
             <div className="scan-field-container">
                 <h4>
@@ -137,11 +156,12 @@ class ScanField extends Component {
                 </h4>
                 <div className="field-container">
                     <input type="text" placeholder='Enter a URL, IP address, or hostname...' ref={this.ref_urlInput} />
-                    <div className="scan-button button primary-button" href="" onClick={this.clickScanHandler}>
-                        {this.state.isProcessing ? <ProgressRing /> : "Scan"}
+                    <div className="scan-button button primary-button" onClick={this.clickScanHandler}>
+                        {this.state.isProcessing ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
                     </div>
                 </div>
-                <div className="message" ref={this.ref_mess}>
+                <div className={`message error-message ${this.state.errorMess ? "" : "hidden"}`}>
+                    {this.state.errorMess ? this.state.errorMess : <></>}
                 </div>
             </div>
         );

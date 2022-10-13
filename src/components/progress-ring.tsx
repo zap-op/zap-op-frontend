@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
-class ProgressRing extends Component {
-    static PROCESSING = "PROCESSING";
-    static COMPLETE = "COMPLETE";
+type TProgressRingProps = {
+    state: string;
+}
 
-    render() {
+class ProgressRing extends Component<TProgressRingProps> {
+    static readonly PROCESSING = "PROCESSING";
+    static readonly COMPLETE = "COMPLETE";
+
+    override render() {
         let progressRing;
         if (!this.props.state || this.props.state === ProgressRing.PROCESSING) {
             progressRing = <div className="progress-ring spin">
@@ -24,11 +28,6 @@ class ProgressRing extends Component {
         return (
             <div className="progress-ring-container">
                 {progressRing}
-                {this.props.state ?
-                    <div className="progress-state-title">
-                        {this.props.state}
-                    </div> : <></>}
-
             </div>
         );
     }
