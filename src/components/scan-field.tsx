@@ -100,7 +100,7 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
             this.props.resetScanDisplay();
             this.props.startScanProgress();
 
-            eventSource.onmessage = (event) => {
+            eventSource.onmessage = (event: MessageEvent) => {
                 console.log("onmessage: ", event);
                 const data = JSON.parse(event.data);
                 this.props.concatScanInfosDisplay({ listUrl: data.results });
@@ -111,14 +111,14 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
                     this.toggleProcessing();
                 }
             }
-
-            eventSource.onerror = (event) => {
+            eventSource.onerror = (event: Event) => {
                 SpiderZAPScan.disconnect();
 
                 console.log("onerror: ", event);
-                // const data = JSON.parse(event.data);
-                // this.displayErrorMess(data.message);
-
+                if (event instanceof MessageEvent) {
+                    const data = JSON.parse(event.data);
+                    this.displayErrorMess(data.message);
+                }
                 SpiderZAPScan.disconnect();
                 this.toggleProcessing();
                 if (this.props.scanProgressDisplay === 0) {
