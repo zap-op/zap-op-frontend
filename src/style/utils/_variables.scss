@@ -6,13 +6,18 @@ $black-color-3: #b1b0b5;
 $black-color-4: #d8d8da;
 $black-color-5: #EEEEEE;
 
+// Black Blue
+$black-blue-color-1: #42526E;
+$black-blue-color-2: #6B778C; //lighten( desaturate( #42526E, 12 ), 13 )
+
 // Blue
 $blue-color-1: #005ce6;
 $blue-color-2: lighten($blue-color-1, 5%);
 $blue-color-3: lighten($blue-color-1, 20%);
 $blue-color-4: lighten($blue-color-1, 30%);
-$blue-color-5: lighten($blue-color-1, 50%);
-$blue-color-6: #00ADB5;
+$blue-color-5: lighten($blue-color-1, 45%);
+$blue-color-6: lighten($blue-color-1, 50%);
+$blue-color-7: #00ADB5;
 
 // COLOR SPEC
 $disable-color: $black-color-2;
@@ -20,6 +25,14 @@ $error-color: #ff4949;
 
 // NAVBAR
 $nav-shadow:  0 1px rgb(0 0 0 / 8%);
+
+// NAVBAR DASHBOARD
+// WORK SPACE
+$work-space-size: 250px;
+$work-space-icon-size: 2rem;
+// WORK SPACE NAV ITEM
+$work-space-nav-item-border-radius: 8px;
+
 
 // PROGRESS RING
 $ring-size: 15px;
