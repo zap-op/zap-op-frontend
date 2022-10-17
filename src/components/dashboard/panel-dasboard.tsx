@@ -13,7 +13,6 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
 
     constructor(props: TPanelDashboardProps) {
         super(props);
-
         this.handleResizePanelOnMouseDown = this.handleResizePanelOnMouseDown.bind(this);
         this.handleResizePanelOnMouseMove = this.handleResizePanelOnMouseMove.bind(this);
         this.handleResizePanelOnMouseUp = this.handleResizePanelOnMouseUp.bind(this);
@@ -58,7 +57,7 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
                         <h4 className="nav-title management-title">
                             MANAGEMENT
                         </h4>
-                        <a className="nav-item dashboard-container" href="#" draggable="false">
+                        <a className="nav-item dashboard-container" href="#" draggable="false" aria-current="page">
                             <span className="icon">
                             </span>
                             <h4 className="title">

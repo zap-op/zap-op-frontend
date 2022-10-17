@@ -63,6 +63,7 @@ div.panel-dashboard-container {
                 color: $black-color-1;
                 display: flex;
                 padding: 0.75rem 0 0.75rem 1rem;
+                position: relative;
                 text-decoration: none;
 
                 &[aria-current="page"],
@@ -70,7 +71,18 @@ div.panel-dashboard-container {
                     background-color: $blue-color-6;
                 }
 
-                &[aria-current="page"] {}
+                &[aria-current="page"] {
+                    &::before {
+                        background-color: black;
+                        border-radius: 0px 2px 2px 0px;
+                        content: "";
+                        height: $work-space-panel-item-current-sign-height;
+                        left: $work-space-panel-item-current-sign-anchor-left;
+                        position: absolute;
+                        top: $work-space-panel-item-current-sign-anchor-top;
+                        width: $work-space-panel-item-current-sign-width;
+                    }
+                }
 
                 span.icon {
                     background-position: center;
