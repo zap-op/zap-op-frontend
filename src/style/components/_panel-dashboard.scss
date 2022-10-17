@@ -1,0 +1,158 @@
+@use '../utils/variables' as *;
+
+div.panel-dashboard-container {
+    display: flex;
+    height: 100vh;
+    position: fixed;
+
+    div.panel-container {
+        background-color: $black-color-5;
+        border-right: 2px solid $black-color-4;
+        color: $black-color-1;
+        display: inherit;
+        flex-direction: column;
+        max-width: $work-space-panel-max-width;
+        min-width: $work-space-panel-min-width;
+        position: relative;
+        width: $work-space-panel-width;
+        
+
+        div.work-space-info-container {
+            align-items: center;
+            display: inherit;
+            height: fit-content;
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            width: 100%;
+
+            span.icon {
+                background-image: url("../../../public/work-space.svg");
+                background-size: contain;
+                height: $work-space-icon-size;
+                margin-right: 0.75rem;
+                width: $work-space-icon-size;
+            }
+
+            div.title-container {
+
+                h4.title {
+                    font-size: 0.8rem;
+                }
+
+                span.sub-title {
+                    color: $black-color-2;
+                    font-size: 0.7rem;
+                }
+            }
+        }
+
+        div.work-space-nav-container {
+            padding-left: 1rem;
+
+            h4.nav-title {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+                margin-top: 1.25rem;
+                opacity: 0.9;
+
+            }
+
+            a.nav-item {
+                align-items: center;
+                border-radius: $work-space-nav-item-border-radius;
+                color: $black-color-1;
+                display: flex;
+                padding: 0.75rem 0 0.75rem 1rem;
+                text-decoration: none;
+
+                &[aria-current="page"],
+                &:hover {
+                    background-color: $blue-color-6;
+                }
+
+                &[aria-current="page"] {}
+
+                span.icon {
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    height: 1rem;
+                    margin-right: 0.5rem;
+                    width: 1rem;
+                }
+
+                h4.title {
+                    font-size: 0.9rem;
+                    letter-spacing: 0.2px;
+                }
+            }
+
+            a.dashboard-container {
+
+                span.icon {
+                    background-image: url("../../../public/sheet-plastic-solid.svg");
+                }
+            }
+
+            a.targets-container {
+
+                span.icon {
+                    background-image: url("../../../public/rocket-solid.svg");
+                }
+            }
+
+            a.results-container {
+
+                span.icon {
+                    background-image: url("../../../public/chart-bar-solid.svg");
+                }
+            }
+
+            a.new-scan-container {
+
+                span.icon {
+                    background-image: url("../../../public/bullseye-solid.svg");
+                }
+            }
+
+            a.settings-container {
+
+                span.icon {
+                    background-image: url("../../../public/gear-solid.svg");
+                }
+            }
+        }
+
+        div.br {
+            align-self: center;
+            background-color: $black-color-4;
+            border: 1px solid $black-color-4;
+            border-radius: 1px;
+            margin: 0.5rem 0;
+            width: 90%;
+        }
+    }
+
+    div.panel-resize-controller {
+        button.resize-bar-button {
+            background-color: transparent;
+            border: 0;
+            cursor: ew-resize;
+            height: 100%;
+            padding: 0;
+            width: $work-space-resize-bar-size;
+    
+            &:hover {
+                span.resize-bar {
+                    background-color: $blue-color-2;
+                } 
+            }
+            span.resize-bar {
+                display: block;
+                height: inherit;
+                transition: background-color 300ms ease 0s;
+                width: 2px;
+            }
+        }
+    }
+}

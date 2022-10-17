@@ -1,8 +1,8 @@
-import NavBarDashboard from "../components/nav-bar-dasboard";
+import PanelDashboard from "../components/dashboard/panel-dasboard";
 
 function AppBoard() {
     return (
-        <NavBarDashboard />
+        <PanelDashboard />
     )
 }
 

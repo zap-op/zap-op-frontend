@@ -4,7 +4,8 @@ $black-color-1: #222831;
 $black-color-2: #393E46;
 $black-color-3: #b1b0b5;
 $black-color-4: #d8d8da;
-$black-color-5: #EEEEEE;
+$black-color-5: #f8f8f8;
+$black-color-6: #EEEEEE;
 
 // Black Blue
 $black-blue-color-1: #42526E;
@@ -24,11 +25,16 @@ $disable-color: $black-color-2;
 $error-color: #ff4949;
 
 // NAVBAR
-$nav-shadow:  0 1px rgb(0 0 0 / 8%);
+$nav-shadow: 0 1px rgb(0 0 0 / 8%);
 
-// NAVBAR DASHBOARD
+// PANEL DASHBOARD
+// PANEL
+$work-space-panel-width: 300px;
+$work-space-panel-min-width: 210px;
+$work-space-panel-max-width: 600px;
+// RESIZE BAR
+$work-space-resize-bar-size: 24px;
 // WORK SPACE
-$work-space-size: 250px;
 $work-space-icon-size: 2rem;
 // WORK SPACE NAV ITEM
 $work-space-nav-item-border-radius: 8px;
