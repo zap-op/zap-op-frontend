@@ -46,11 +46,7 @@ class ProgressTable extends Component<TProgressTableProps> {
     private scrollToBottomTable() {
         this.ref_tableBottomScroller.current!.scrollIntoView({ behavior: "smooth" })
     }
-
-    // private onToggleAutoScrollCheckboxHandler() {
-    //     $(this.ref_autoScrollContainer.current).toggleClass("uncheck")
-    // }
-
+    
     private isTableBodyEmpty() {
         if (typeof this.props.tableBody === "undefined") {
             return true;
@@ -70,7 +66,7 @@ class ProgressTable extends Component<TProgressTableProps> {
                     <div className="view-options-container">
                         <div className={`auto-scroll-container ${this.ref_autoScrollCheckbox.current?.checked ? "" : "uncheck"}`} ref={this.ref_autoScrollContainer}>
                             <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox">
-                                <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" /*onClick={this.onToggleAutoScrollCheckboxHandler}*/ ref={this.ref_autoScrollCheckbox} />
+                                <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" ref={this.ref_autoScrollCheckbox} />
                                 <span className="toggle-track">
                                     <span className="toggle-indicator">
                                         <span className="check-mark">

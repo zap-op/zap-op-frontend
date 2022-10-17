@@ -29,7 +29,6 @@ function Home() {
                         tableBody={listScanInfo.map((item, index) => {
                             return <TABLEROW_TS_ZAP key={index} number={index} url={item} />
                         })} /> : <></>}
-
                 </div>
             </div>
         </section>

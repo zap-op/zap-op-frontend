@@ -4,22 +4,46 @@ $black-color-1: #222831;
 $black-color-2: #393E46;
 $black-color-3: #b1b0b5;
 $black-color-4: #d8d8da;
-$black-color-5: #EEEEEE;
+$black-color-5: #f8f8f8;
+$black-color-6: #EEEEEE;
+
+// Black Blue
+$black-blue-color-1: #42526E;
+$black-blue-color-2: #6B778C; //lighten( desaturate( #42526E, 12 ), 13 )
 
 // Blue
 $blue-color-1: #005ce6;
 $blue-color-2: lighten($blue-color-1, 5%);
 $blue-color-3: lighten($blue-color-1, 20%);
 $blue-color-4: lighten($blue-color-1, 30%);
-$blue-color-5: lighten($blue-color-1, 50%);
-$blue-color-6: #00ADB5;
+$blue-color-5: lighten($blue-color-1, 45%);
+$blue-color-6: lighten($blue-color-1, 50%);
+$blue-color-7: #00ADB5;
 
 // COLOR SPEC
 $disable-color: $black-color-2;
 $error-color: #ff4949;
 
 // NAVBAR
-$nav-shadow:  0 1px rgb(0 0 0 / 8%);
+$nav-shadow: 0 1px rgb(0 0 0 / 8%);
+
+// PANEL DASHBOARD
+// PANEL
+$work-space-panel-width: 300px;
+$work-space-panel-min-width: 210px;
+$work-space-panel-max-width: 600px;
+// ITEM
+$work-space-panel-item-current-sign-height: 1rem;
+$work-space-panel-item-current-sign-width: 0.25rem;
+$work-space-panel-item-current-sign-anchor-left: 0;
+$work-space-panel-item-current-sign-anchor-top: 0.75rem;
+// RESIZE BAR
+$work-space-resize-bar-size: 24px;
+// WORK SPACE
+$work-space-icon-size: 2rem;
+// WORK SPACE NAV ITEM
+$work-space-nav-item-border-radius: 8px;
+
 
 // PROGRESS RING
 $ring-size: 15px;
