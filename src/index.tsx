@@ -12,13 +12,15 @@ import SignUp from './pages/sign-up';
 import LogIn from './pages/log-in';
 // STYLE IMPORT
 import './style/style.scss';
+import AppBoard from './pages/app-board';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
     <Provider store={store}>
         <Router>
+            {/* <AppBoard/> */}
             <NavBar />
-            <div id='body'>
+            <div className='landing-content-container'>
                 <Routes>
                     <Route path='/' element={<Home />} />
                 </Routes>

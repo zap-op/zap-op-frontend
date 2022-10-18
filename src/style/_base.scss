@@ -18,8 +18,8 @@ body {
     // font-family: 'Open Sans', sans-serif;
 }
 
-#body {
-    margin: 5rem 0;
+body {
+    overflow: hidden;
 }
 
 h1,
@@ -42,8 +42,6 @@ a.button {
     cursor: pointer;
     padding: 0.375rem 0.75rem;
 }
-
-
 
 .primary-button {
     background-color: $primary-button-background-color;
