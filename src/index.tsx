@@ -18,8 +18,8 @@ const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
     <Provider store={store}>
         <Router>
-            {/* <AppBoard/> */}
-            <NavBar />
+            <AppBoard/>
+            {/* <NavBar />
             <div className='landing-content-container'>
                 <Routes>
                     <Route path='/' element={<Home />} />
@@ -30,7 +30,7 @@ root.render(
                 <Routes>
                     <Route path='/login' element={<LogIn />} />
                 </Routes>
-            </div>
+            </div> */}
         </Router>
     </Provider>
 );

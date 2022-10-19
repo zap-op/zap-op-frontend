@@ -1,0 +1,29 @@
+@use '../../utils/variables' as *;
+
+nav.breadcrumb-container {
+   color: $black-color-4;
+
+   ol.list-breadcrumb {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+
+      li.breadcrumb-cell {
+         &:not(:last-child)::after {
+            content: "/";
+            margin: 0.25rem;
+         }
+
+         a.breadcrumb-link {
+            color: $black-color-3;
+            text-decoration: none;
+
+            &:hover {
+               text-decoration: underline;
+            }
+         }
+      }
+   }
+
+}
