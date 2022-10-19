@@ -2,12 +2,13 @@
 
 nav.breadcrumb-container {
    color: $black-color-4;
+   font-size: 0.875rem;
 
    ol.list-breadcrumb {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
       display: flex;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
 
       li.breadcrumb-cell {
          &:not(:last-child)::after {
@@ -20,6 +21,7 @@ nav.breadcrumb-container {
             text-decoration: none;
 
             &:hover {
+               color: lighten($black-color-3, 20%);
                text-decoration: underline;
             }
          }

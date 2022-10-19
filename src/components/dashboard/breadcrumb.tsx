@@ -21,7 +21,7 @@ class Breadcrumb extends Component<TBreadcrumbProps, TBreadcrumbState> {
             <nav className="breadcrumb-container">
                 <ol className="list-breadcrumb">
                     {this.props.listBeadcrumb.map((item) => {
-                        return <BreadcrumbCell href={item.href} name={item.name} />
+                        return <BreadcrumbCell key={item.name} href={item.href} name={item.name} />
                     })}
                 </ol>
             </nav>

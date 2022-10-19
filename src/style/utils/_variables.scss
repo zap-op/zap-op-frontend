@@ -25,27 +25,6 @@ $blue-color-7: #00ADB5;
 $disable-color: $black-color-2;
 $error-color: #ff4949;
 
-// NAVBAR
-$nav-shadow: 0 1px rgb(0 0 0 / 8%);
-
-// PANEL DASHBOARD
-// PANEL
-$work-space-panel-width: 300px;
-$work-space-panel-min-width: 210px;
-$work-space-panel-max-width: 600px;
-// ITEM
-$work-space-panel-item-current-sign-height: 1rem;
-$work-space-panel-item-current-sign-width: 0.25rem;
-$work-space-panel-item-current-sign-anchor-left: 0;
-$work-space-panel-item-current-sign-anchor-top: 0.75rem;
-// RESIZE BAR
-$work-space-resize-bar-size: 24px;
-// WORK SPACE
-$work-space-icon-size: 2rem;
-// WORK SPACE NAV ITEM
-$work-space-nav-item-border-radius: 8px;
-
-
 // PROGRESS RING
 $ring-size: 15px;
 $ring-core-size: 0.6 * $ring-size;
@@ -54,9 +33,6 @@ $ring-border-radius: 50%;
 
 // PROGRESS BAR
 $progress-bar-size: 1.25rem;
-$progress-bar-border: 1px solid $black-color-1;
-$progress-bar-border-radius: $progress-bar-size;
-$progress-bar-shadow: 0 0 1px $black-color-1;
 $progress-bar-background-color: $blue-color-3;
 $progress-bar-background-color-pulse: $blue-color-4;
 
@@ -71,14 +47,10 @@ $secondary-button-shadow-hover: inset $secondary-button-boder-color-hover 0 0 0 
 
 // TOGGLE BUTTON
 $toggle-indicator-size: 18px;
-
 $toggle-track-height: $toggle-indicator-size + 5;
 $toggle-track-width: $toggle-indicator-size * 2.5;
-
 $toggle-focus-ring: 0px 0px 0px 2px black;
-
 $toggle-indicator-speed: 0.25s;
-
 $toggle-check-mark-height: $toggle-indicator-size - 4;
 $toggle-check-mark-width: $toggle-check-mark-height;
 
