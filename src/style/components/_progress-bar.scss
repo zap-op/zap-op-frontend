@@ -1,9 +1,9 @@
 @use '../utils/variables' as *;
 
 div.progress-bar-container {
-    border: $progress-bar-border;
-    border-radius: $progress-bar-border-radius;
-    box-shadow: $progress-bar-shadow;
+    border: 1px solid $black-color-1;
+    border-radius: $progress-bar-size;
+    box-shadow: 0 0 1px $black-color-1;
     height: $progress-bar-size;
     overflow: hidden;
     transition: all 0.5s;
