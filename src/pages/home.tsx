@@ -1,7 +1,6 @@
 import ScanField from '../components/scan-field';
-import ProgressTable from '../components/progress-table';
-import TABLEHEAD_TS_ZAP from '../components/tables/th-ts-zap';
-import TABLEROW_TS_ZAP from '../components/tables/tr-ts-zap';
+import ProgressTable from '../components/tables/progress-table';
+import TABLEROW_TS_ZAP from '../components/table-assets/progress-table/tr-ts-zap';
 import TS_ZAP from '../entities/ts-zap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
@@ -26,7 +25,6 @@ function Home() {
                         {isStartScanProgress ? <ProgressTable
                             autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                             scanProgress={scanProgress}
-                            tableHead={<TABLEHEAD_TS_ZAP />}
                             tableBody={listScanInfo.map((item, index) => {
                                 return <TABLEROW_TS_ZAP key={index} number={index} url={item} />
                             })} /> : <></>}

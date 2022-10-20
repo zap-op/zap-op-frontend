@@ -1,8 +1,7 @@
 import { Component, createRef } from 'react';
-import ProgressBar from './progress-bar';
+import ProgressBar from '../progress-bar';
 
 type TProgressTableProps = {
-    tableHead: JSX.Element;
     tableBody: JSX.Element[];
     scanProgress: number;
     autoScrollState: boolean;
@@ -46,7 +45,7 @@ class ProgressTable extends Component<TProgressTableProps> {
     private scrollToBottomTable() {
         this.ref_tableBottomScroller.current!.scrollIntoView({ behavior: "smooth" })
     }
-    
+
     private isTableBodyEmpty() {
         if (typeof this.props.tableBody === "undefined") {
             return true;
@@ -87,7 +86,14 @@ class ProgressTable extends Component<TProgressTableProps> {
                     <div className="table-container">
                         <div className="table-scroll-wrap">
                             <div className="table-head-container">
-                                {this.props.tableHead}
+                                <ul className="th-ts-zap">
+                                    <li className="no">
+                                        No.
+                                    </li>
+                                    <li className="url">
+                                        Url Found
+                                    </li>
+                                </ul>
                             </div>
                             <div className="table-body-container">
                                 {this.props.tableBody}

@@ -6,6 +6,7 @@ nav.breadcrumb-container {
 
    ol.list-breadcrumb {
       display: flex;
+      flex-wrap: wrap;
       list-style-type: none;
       margin: 0;
       padding: 0;
@@ -18,6 +19,7 @@ nav.breadcrumb-container {
 
          a.breadcrumb-link {
             color: $black-color-3;
+            margin: 0.25rem;
             text-decoration: none;
 
             &:hover {

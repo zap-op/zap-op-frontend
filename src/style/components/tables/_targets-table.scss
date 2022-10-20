@@ -1,0 +1,40 @@
+@use '../../utils/variables' as *;
+
+div.targets-table-container {
+    display: flex;
+    color: $black-color-3;
+    font-size: 0.875rem;
+
+    div.table-head-container {
+        margin: 1rem 0;
+        
+        ul.thead {
+            li {
+                &.name {
+                    order: 4;
+                }
+
+                &.target {
+                    order: 6;
+                }
+
+                &.vulnera {
+                    order: 2;
+                }
+
+                &.tag {
+                    order: 1;
+                }
+
+                &.action {
+                    order: 1;
+                }
+
+                margin: 0.5rem;
+            }
+        }
+
+    }
+
+    div.table-scroll-wrap {}
+}
