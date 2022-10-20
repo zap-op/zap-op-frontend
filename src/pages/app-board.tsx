@@ -20,7 +20,19 @@ function AppBoard() {
                     <Breadcrumb listBeadcrumb={listBreadcrumb} />
                 </div>
                 <div className="main-board_content-container">
-                    <TargetsBoard />
+                    <TargetsBoard listTarget={[{
+                        name: "1",
+                        url: "1",
+                        tag: "1",
+                        firstSeen: "1",
+                        lastSeen: "2",
+                    }, {
+                        name: "1",
+                        url: "1",
+                        tag: "1",
+                        firstSeen: "1",
+                        lastSeen: "2",
+                    }]} />
                 </div>
             </div>
         </div>

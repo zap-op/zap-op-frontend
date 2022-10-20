@@ -17,9 +17,11 @@ $blue-color-1: #005ce6;
 $blue-color-2: lighten($blue-color-1, 5%);
 $blue-color-3: lighten($blue-color-1, 20%);
 $blue-color-4: lighten($blue-color-1, 30%);
-$blue-color-5: lighten($blue-color-1, 45%);
-$blue-color-6: lighten($blue-color-1, 50%);
-$blue-color-7: #00ADB5;
+$blue-color-5: lighten($blue-color-1, 35%);
+$blue-color-6: lighten($blue-color-1, 40%);
+$blue-color-7: lighten($blue-color-1, 45%);
+$blue-color-8: lighten($blue-color-1, 50%);
+$blue-color-9: #00ADB5;
 
 // COLOR SPEC
 $disable-color: $black-color-2;

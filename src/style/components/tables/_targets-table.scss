@@ -1,40 +1,66 @@
 @use '../../utils/variables' as *;
 
 div.targets-table-container {
-    display: flex;
+    // display: flex;
     color: $black-color-3;
     font-size: 0.875rem;
+    width: 100%;
 
-    div.table-head-container {
-        margin: 1rem 0;
-        
-        ul.thead {
+    div.table-scroll-wrap {
+
+        ul {
+            display: flex;
+            flex-direction: row;
+
             li {
+                display: inherit;
+                justify-content: center;
+                margin: 0.5rem;
+
                 &.name {
-                    order: 4;
+                    flex: 4 0 0px;
+                    justify-content: left;
                 }
 
                 &.target {
-                    order: 6;
-                }
-
-                &.vulnera {
-                    order: 2;
+                    flex: 5 0 0px;
+                    justify-content: left;
                 }
 
                 &.tag {
-                    order: 1;
+                    flex: 2 0 0px;
+                }
+
+                &.first-seen,
+                &.last-seen {
+                    flex: 0.5 0 0px;
                 }
 
                 &.action {
-                    order: 1;
+                    flex: 1 0 0px;
                 }
-
-                margin: 0.5rem;
             }
         }
 
+        div.table-head-container {
+            margin: 1rem 0;
+        }
+
+        div.table-body-container {
+            color: $black-color-2;
+
+            ul.trow {
+                border-radius: 5px;
+                margin: 0.5rem 0;
+                background-color: $blue-color-6;
+                transition: background-color 200ms ease;
+
+                &:hover {
+                    background-color: $blue-color-5;
+                }
+            }
+        }
     }
 
-    div.table-scroll-wrap {}
+
 }

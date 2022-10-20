@@ -21,11 +21,14 @@ class TargetsTable extends Component<TTargetsTableProps> {
                             <li className="target">
                                 Target
                             </li>
-                            <li className="vulnera">
-                                Vulnerabilities
-                            </li>
                             <li className="tag">
                                 Tag
+                            </li>
+                            <li className="first-seen">
+                                First seen
+                            </li>
+                            <li className="last-seen">
+                                Last seen
                             </li>
                             <li className="action">
                                 Actions

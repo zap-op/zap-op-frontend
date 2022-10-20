@@ -95,17 +95,23 @@ div.progress-table-container {
         margin: 3rem 0;
         position: relative;
 
-        li {
-            &.no {
-                text-align: center;
-                width: 5rem;
-                margin-right: 1rem;
+        ul {
+            display: flex;
+            flex-direction: row;
+
+            li {
+                &.no {
+                    margin-right: 1rem;
+                    text-align: center;
+                    width: 5rem;
+                }
+
+                &.url {}
+
+                padding: 1rem 0;
             }
-
-            &.url {}
-
-            padding: 1rem 0;
         }
+
         div.table-scroll-wrap {
             height: 50vh;
 
