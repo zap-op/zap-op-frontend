@@ -1,10 +1,10 @@
 @use '../../utils/variables' as *;
 
 div.targets-table-container {
-    // display: flex;
     color: $black-color-3;
     font-size: 0.875rem;
     width: 100%;
+    min-width: $SM;
 
     div.table-scroll-wrap {
 
@@ -33,7 +33,7 @@ div.targets-table-container {
 
                 &.first-seen,
                 &.last-seen {
-                    flex: 0.5 0 0px;
+                    flex: 2 0 0px;
                 }
 
                 &.action {
@@ -52,11 +52,11 @@ div.targets-table-container {
             ul.trow {
                 border-radius: 5px;
                 margin: 0.5rem 0;
-                background-color: $blue-color-6;
+                background-color: $blue-color-7;
                 transition: background-color 200ms ease;
 
                 &:hover {
-                    background-color: $blue-color-5;
+                    background-color: $blue-color-6;
                 }
             }
         }

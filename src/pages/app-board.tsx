@@ -21,17 +21,17 @@ function AppBoard() {
                 </div>
                 <div className="main-board_content-container">
                     <TargetsBoard listTarget={[{
-                        name: "1",
-                        url: "1",
-                        tag: "1",
-                        firstSeen: "1",
-                        lastSeen: "2",
+                        name: "Lorem",
+                        url: "https://lorem.com/",
+                        tag: "dev",
+                        firstSeen: "2 days ago",
+                        lastSeen: "5 hours ago",
                     }, {
-                        name: "1",
-                        url: "1",
-                        tag: "1",
-                        firstSeen: "1",
-                        lastSeen: "2",
+                        name: "Isum",
+                        url: "https://isum.com/",
+                        tag: "product",
+                        firstSeen: "20 days ago",
+                        lastSeen: "1 days ago",
                     }]} />
                 </div>
             </div>

@@ -67,11 +67,12 @@ div.panel-dashboard-container {
                 &[aria-current="page"],
                 &:hover {
                     background-color: $blue-color-8;
+                    color: $blue-color-1;
                 }
 
                 &[aria-current="page"] {
                     &::before {
-                        background-color: black;
+                        background-color: $blue-color-3;
                         border-radius: 0px 2px 2px 0px;
                         content: "";
                         height: 1rem;
@@ -79,6 +80,10 @@ div.panel-dashboard-container {
                         position: absolute;
                         top: 0.75rem;
                         width: 0.25rem;
+                    }
+
+                    span.icon {
+                        background-color: $blue-color-3;
                     }
                 }
 
@@ -156,7 +161,7 @@ div.panel-dashboard-container {
 
             &:hover {
                 span.resize-bar {
-                    background-color: $blue-color-2;
+                    background-color: $blue-color-3;
                 }
             }
 
