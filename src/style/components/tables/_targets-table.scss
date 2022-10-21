@@ -3,8 +3,8 @@
 div.targets-table-container {
     color: $black-color-3;
     font-size: 0.875rem;
-    width: 100%;
     min-width: $SM;
+    width: 100%;
 
     div.table-scroll-wrap {
 
@@ -50,17 +50,53 @@ div.targets-table-container {
             color: $black-color-2;
 
             ul.trow {
+                background-color: $blue-color-7;
                 border-radius: 5px;
                 margin: 0.5rem 0;
-                background-color: $blue-color-7;
                 transition: background-color 200ms ease;
 
                 &:hover {
                     background-color: $blue-color-6;
                 }
             }
+
+            $three-dot-button-size : 5px;
+
+            div.three-dot-button {
+                align-self: center;
+                cursor: pointer;
+                padding: 0.5rem 0.625rem;
+
+                div.three-dot {
+                    height: $three-dot-button-size;
+                    margin: 0 $three-dot-button-size;
+                    position: relative;
+                    width: $three-dot-button-size;
+
+                    &,
+                    &::before,
+                    &::after {
+                        background-color: black;
+                        border-radius: 50%;
+                    }
+
+                    &::before,
+                    &::after {
+                        content: "";
+                        height: 100%;
+                        position: absolute;
+                        width: 100%;
+                    }
+
+                    &::before {
+                        transform: translateX(-150%);
+                    }
+
+                    &::after {
+                        transform: translateX(150%);
+                    }
+                }
+            }
         }
     }
-
-
 }
