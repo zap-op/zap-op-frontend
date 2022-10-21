@@ -15,13 +15,13 @@ class SearchBar extends Component<TSearchBarProps, TSearchBarState> {
 
     override render(): ReactNode {
         return (
-            <div className="search-bar-container">
+            <label className="search-bar-container">
                 <input className="search-input-box" type="text" placeholder={this.props.placeholder} />
                 <div className="search-icon-container">
                     <span className="search-icon">
                     </span>
                 </div>
-            </div>
+            </label>
         )
     }
 }
