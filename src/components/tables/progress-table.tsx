@@ -86,7 +86,7 @@ class ProgressTable extends Component<TProgressTableProps> {
                     <div className="table-container">
                         <div className="table-scroll-wrap">
                             <div className="table-head-container">
-                                <ul className="th-ts-zap">
+                                <ul className="thead">
                                     <li className="no">
                                         No.
                                     </li>

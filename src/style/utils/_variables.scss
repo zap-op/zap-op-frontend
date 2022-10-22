@@ -2,23 +2,26 @@
 // Black
 $black-color-1: #222831;
 $black-color-2: #393E46;
-$black-color-3: #b1b0b5;
-$black-color-4: #d8d8da;
-$black-color-5: #f8f8f8;
-$black-color-6: #EEEEEE;
+$black-color-3: #636974;
+$black-color-4: #b1b0b5;
+$black-color-5: #d8d8da;
+$black-color-6: #f8f8f8;
+$black-color-7: #EEEEEE;
 
 // Black Blue
 $black-blue-color-1: #42526E;
 $black-blue-color-2: #6B778C; //lighten( desaturate( #42526E, 12 ), 13 )
 
 // Blue
-$blue-color-1: #005ce6;
+$blue-color-1:#0066ff;
 $blue-color-2: lighten($blue-color-1, 5%);
-$blue-color-3: lighten($blue-color-1, 20%);
-$blue-color-4: lighten($blue-color-1, 30%);
-$blue-color-5: lighten($blue-color-1, 45%);
-$blue-color-6: lighten($blue-color-1, 50%);
-$blue-color-7: #00ADB5;
+$blue-color-3: lighten($blue-color-1, 10%);
+$blue-color-4: lighten($blue-color-1, 20%);
+$blue-color-5: lighten($blue-color-1, 30%);
+$blue-color-6: lighten($blue-color-1, 35%);
+$blue-color-7: lighten($blue-color-1, 40%);
+$blue-color-8: lighten($blue-color-1, 45%);
+$blue-color-20: #00ADB5;
 
 // COLOR SPEC
 $disable-color: $black-color-2;
@@ -32,15 +35,15 @@ $ring-border-radius: 50%;
 
 // PROGRESS BAR
 $progress-bar-size: 1.25rem;
-$progress-bar-background-color: $blue-color-3;
-$progress-bar-background-color-pulse: $blue-color-4;
+$progress-bar-background-color: $blue-color-4;
+$progress-bar-background-color-pulse: $blue-color-5;
 
 // BUTTON
 $button-border-radius: 0.25rem;
-$primary-button-background-color: $blue-color-2;
-$primary-button-background-color-hover: $blue-color-1;
-$secondary-button-boder-color: $black-color-4;
-$secondary-button-boder-color-hover: $black-color-3;
+$primary-button-background-color: $blue-color-3;
+$primary-button-background-color-hover: $blue-color-2;
+$secondary-button-boder-color: $black-color-5;
+$secondary-button-boder-color-hover: $black-color-4;
 $secondary-button-shadow: inset $secondary-button-boder-color 0 0 0 1px;
 $secondary-button-shadow-hover: inset $secondary-button-boder-color-hover 0 0 0 1px;
 

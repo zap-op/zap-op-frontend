@@ -92,28 +92,32 @@ div.progress-table-container {
 
     // TABLE
     div.table-container {
-        margin: 3rem 0;
-        position: relative;
-
-        ul {
-            display: flex;
-            flex-direction: row;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        li {
-            padding: 15px 30px;
-        }
-
+    
         div.table-scroll-wrap {
             height: 50vh;
+
+            ul {
+                display: flex;
+                flex-direction: row;
+
+                li {
+                    display: inherit;
+                    padding: 1rem 0;
+
+                    &.no {
+                        flex: 1 0 0px;
+                    }
+
+                    &.url {
+                        flex: 9 0 0px;
+                    }
+
+                }
+            }
 
             div.table-head-container {
                 bottom: 100%;
                 left: 0;
-                position: absolute;
             }
 
             div.table-body-container {

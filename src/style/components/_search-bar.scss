@@ -1,6 +1,6 @@
 @use '../utils/variables' as *;
 
-div.search-bar-container {
+label.search-bar-container {
     background-color: $black-color-6;
     border: 2px solid;
     border-color: $black-color-5;
@@ -8,17 +8,19 @@ div.search-bar-container {
     display: flex;
     transition: border-color 300ms ease;
     width: fit-content;
+    cursor: text;
 
     &:focus-within {
-        border-color: $blue-color-3;
+        border-color: $blue-color-4;
     }
 
     input.search-input-box {
         background-color: transparent;
         border: none;
         padding: 0.5rem;
-        width: 0.5rem;
+        width: 2rem;
         transition: width 200ms ease;
+        outline: none;
 
         &::placeholder {
             opacity: 0;
@@ -26,7 +28,6 @@ div.search-bar-container {
         }
 
         &:focus {
-            outline: none;
             width: 10rem;
         }
 

@@ -5,7 +5,7 @@ type TTABLEROW_TS_ZAP_Props = {
 
 function TABLEROW_TS_ZAP({ number, url }: TTABLEROW_TS_ZAP_Props) {
     return (
-        <ul className="tr-ts-zap">
+        <ul className="trow">
             <li className="no">
                 {number}
             </li>

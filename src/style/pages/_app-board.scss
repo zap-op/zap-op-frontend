@@ -1,0 +1,17 @@
+@use '../utils/variables' as *;
+
+div.app-board-container {
+    display: flex;
+
+    div.main-board-container {
+        display: inherit;
+        flex-direction: column;
+        width: 100%;
+
+        div.main-board_breadcrumb-container {
+            margin: 1rem 0;
+        }
+
+        div.main-board_content-container {}
+    }
+}

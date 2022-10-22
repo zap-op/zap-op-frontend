@@ -18,7 +18,6 @@ const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
     <Provider store={store}>
         <Router>
-            {/* <AppBoard/> */}
             <NavBar />
             <div className='landing-content-container'>
                 <Routes>
