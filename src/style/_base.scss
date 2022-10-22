@@ -35,15 +35,13 @@ section {
     width: 70%;
 }
 
-div.button,
-a.button {
+.button {
     border-radius: $button-border-radius;
     cursor: pointer;
     padding: 0.375rem 0.75rem;
 }
 
-div.primary-button,
-a.primary-button {
+.primary-button {
     background-color: $primary-button-background-color;
     color: white !important;
     font-weight: 500;
@@ -53,8 +51,7 @@ a.primary-button {
     }
 }
 
-div.secondary-button,
-a.secondary-button {
+.secondary-button {
     background-color: white;
     box-shadow: $secondary-button-shadow;
     color: black !important;
