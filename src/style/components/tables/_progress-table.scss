@@ -1,4 +1,4 @@
-@use '../utils/variables' as *;
+@use '../../utils/variables' as *;
 
 div.progress-table-container {
 
@@ -92,45 +92,32 @@ div.progress-table-container {
 
     // TABLE
     div.table-container {
-        margin: 3rem 0;
-        position: relative;
-
-        ul {
-            display: flex;
-            flex-direction: row;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        li {
-            padding: 15px 30px;
-        }
-
+    
         div.table-scroll-wrap {
             height: 50vh;
-            overflow-y: auto;
 
-            &::-webkit-scrollbar-track {
-                border-radius: 10px;
-                -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
-                // background-color: #F5F5F5;
-            }
+            ul {
+                display: flex;
+                flex-direction: row;
 
-            &::-webkit-scrollbar {
-                width: 12px;
-                // background-color: #F5F5F5;
-            }
+                li {
+                    display: inherit;
+                    padding: 1rem 0;
 
-            &::-webkit-scrollbar-thumb {
-                background-color: $secondary-button-boder-color-hover;
-                border-radius: 10px;
+                    &.no {
+                        flex: 1 0 0px;
+                    }
+
+                    &.url {
+                        flex: 9 0 0px;
+                    }
+
+                }
             }
 
             div.table-head-container {
                 bottom: 100%;
                 left: 0;
-                position: absolute;
             }
 
             div.table-body-container {
