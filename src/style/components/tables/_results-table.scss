@@ -1,0 +1,49 @@
+@use '../../utils/variables' as *;
+
+div.results-table-container {
+    color: $black-color-3;
+    font-size: 0.875rem;
+    min-width: $SM;
+    width: 100%;
+
+    div.table-scroll-wrap {
+        ul {
+            display: flex;
+            flex-direction: row;
+
+            li {
+                display: inherit;
+                justify-content: center;
+                margin: 0.5rem;
+
+                &.dropdown {
+                    flex: 1 0 0px
+                }
+                &.name {
+                    flex: 4 0 0px;
+                    justify-content: left;
+                }
+
+                &.target {
+                    flex: 5 0 0px;
+                    justify-content: left;
+
+                }
+
+                &.scan-type {
+                    flex: 3 0 0px;
+                }
+
+                &.action {
+                    flex: 1 0 0px;
+                }
+            }
+        }
+
+        div.table-head-container {}
+
+        div.table-body-container {
+            ul.trow {}
+        }
+    }
+}
