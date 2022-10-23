@@ -168,7 +168,7 @@ div.panel-dashboard-container {
             span.resize-bar {
                 display: block;
                 height: inherit;
-                transition: background-color 300ms ease 0s;
+                transition: background-color 300ms ease-in-out;
                 width: 2px;
             }
         }

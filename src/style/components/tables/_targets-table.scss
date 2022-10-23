@@ -53,7 +53,7 @@ div.targets-table-container {
                 background-color: $blue-color-7;
                 border-radius: 5px;
                 margin: 0.5rem 0;
-                transition: background-color 200ms ease;
+                transition: background-color 200ms ease-in-out;
 
                 &:hover {
                     background-color: $blue-color-6;
