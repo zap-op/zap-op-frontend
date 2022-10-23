@@ -44,82 +44,127 @@ div.results-table-container {
         div.table-head-container {}
 
         div.table-body-container {
-            ul.trow {
-                background-color: $blue-color-7;
-                border-radius: 5px;
+            div.trow-container {
                 margin: 0.5rem 0;
-                transition: background-color 200ms ease;
 
-                &:hover {
-                    background-color: $blue-color-6;
-                }
+                ul.trow {
+                    background-color: $blue-color-7;
+                    border-radius: 5px;
+                    transition: background-color 200ms ease-in-out;
 
-                li.dropdown {
-                    $arrow-button-size: 0.5rem;
+                    &:hover {
+                        background-color: $blue-color-6;
+                    }
 
-                    label.dropdown-button {
-                        border-radius: 50%;
-                        height: 0;
-                        margin: auto 0;
-                        padding: 1.75 * $arrow-button-size;
-                        position: relative;
-                        width: 0;
+                    li.dropdown {
+                        $arrow-button-size: 0.5rem;
 
-                        input.checkbox-input {
-                            align-items: center;
-                            bottom: 0;
-                            left: 0;
-                            margin: auto;
-                            position: absolute;
-                            right: 0;
-                            top: 0;
+                        label.dropdown-button {
+                            border-radius: 50%;
+                            height: 0;
+                            margin: auto 0;
+                            padding: 1.75 * $arrow-button-size;
+                            position: relative;
                             width: 0;
 
-                            &:checked+div.arrow {
-                                transform: rotate(135deg);
+                            input.checkbox-input {
+                                align-items: center;
+                                bottom: 0;
+                                left: 0;
+                                margin: auto;
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+                                width: 0;
+
+                                &:checked+div.arrow {
+                                    transform: rotate(135deg);
+                                }
                             }
-                        }
 
-                        div.arrow {
-                            border-color: black;
-                            border-right-style: solid;
-                            border-right-width: 0.2 * $arrow-button-size;
-                            border-top-style: solid;
-                            border-top-width: 0.2 * $arrow-button-size;
-                            bottom: 0;
-                            height: $arrow-button-size;
-                            left: 0;
-                            margin: auto;
-                            position: absolute;
-                            right: 0;
-                            top: 0;
-                            transform: rotate(45deg);
-                            transition: border-width 200ms ease-in-out;
-                            transition: transform 400ms ease;
-                            width: $arrow-button-size;
-                        }
+                            div.arrow {
+                                border-color: black;
+                                border-right-style: solid;
+                                border-right-width: 0.2 * $arrow-button-size;
+                                border-top-style: solid;
+                                border-top-width: 0.2 * $arrow-button-size;
+                                bottom: 0;
+                                height: $arrow-button-size;
+                                left: 0;
+                                margin: auto;
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+                                transform: rotate(45deg);
+                                transition: border-width 200ms ease-in-out;
+                                transition: transform 400ms ease-in-out;
+                                width: $arrow-button-size;
+                            }
 
-                        &:hover div.arrow {
-                            border-right-width: 0.3 * $arrow-button-size;
-                            border-top-width: 0.3 * $arrow-button-size;
-                        }
+                            &:hover div.arrow {
+                                border-right-width: 0.3 * $arrow-button-size;
+                                border-top-width: 0.3 * $arrow-button-size;
+                            }
 
+
+                        }
 
                     }
 
+                    li.scan-types {
+                        flex-wrap: wrap;
+
+                        span.scan-type-item {
+                            &:not(:last-child)::after {
+                                content: ",";
+                                margin-right: 0.25rem;
+                            }
+                        }
+                    }
                 }
 
-                li.scan-types {
-                    flex-wrap: wrap;
+                div.sub-trow-container {
+                    height: 0;
+                    opacity: 0;
+                    overflow: hidden;
 
-                    span.scan-type-item {
-                        &:not(:last-child)::after {
-                            content: ",";
-                            margin-right: 0.25rem;
+                    &.is-opening {
+                        height: fit-content;
+                        opacity: 1;
+                    }
+
+                    ul.sub-trow {
+                        background-color: aquamarine;
+                        border-bottom: 1px solid black;
+                        border-left: 1px solid black;
+                        border-right: 1px solid black;
+                        margin-left: 3rem;
+                        margin-right: 1rem;
+
+                        &:last-child {
+                            border-bottom-left-radius: 5px;
+                            border-bottom-right-radius: 5px;
                         }
+
+                        li {
+                            flex: 1 0 0px
+                        }
+
+                        li.scan-type-name {}
+
+                        li.state {}
+
+                        li.progress {}
+
+                        li.result-types {
+                            span.result-type-item {}
+                        }
+
+                        li.created-since {}
                     }
                 }
             }
+
         }
     }
 }

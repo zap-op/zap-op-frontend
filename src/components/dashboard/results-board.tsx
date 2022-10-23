@@ -20,7 +20,7 @@ class ResultsBoard extends Component<TResultsBoardProps, TResultsBoardState> {
             <div className="results-board-container">
                 <div className="results-board_results-table-container">
                     <ResultsTable tableBody={this.props.listResult.map((item, index) => {
-                        return <TABLEROW_Results key={index} name={item.name} url={item.url} scanType={item.scanType} />
+                        return <TABLEROW_Results key={index} name={item.name} url={item.url} listScanType={item.listScanType} />
                     })
                     } />
                 </div>
