@@ -33,14 +33,14 @@ class ProgressTable extends Component<TProgressTableProps, TProgressTableState> 
     override componentDidMount() {
         this.setAutoScrollCheckBox(this.props.autoScrollState);
         this.fetchIsActiveAutoScrollState();
-        this.onTableChangeHandler(this.props);
+        this.handleOnTableChange(this.props);
     }
 
     override componentDidUpdate(prevProps: TProgressTableProps) {
-        this.onTableChangeHandler(prevProps);
+        this.handleOnTableChange(prevProps);
     }
 
-    private onTableChangeHandler(prevProps: TProgressTableProps) {
+    private handleOnTableChange(prevProps: TProgressTableProps) {
         if (this.isTableBodyEmpty() || !this.state.isActiveAutoScroll) {
             return;
         }
