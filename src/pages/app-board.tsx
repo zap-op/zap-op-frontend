@@ -2,7 +2,10 @@ import { useState } from "react";
 import Breadcrumb from "../components/dashboard/breadcrumb";
 import { TBreadcrumbProps } from "../components/dashboard/breadcrumb";
 import PanelDashboard from "../components/dashboard/panel-dasboard";
+import ResultsBoard from "../components/dashboard/results-board";
 import TargetsBoard from "../components/dashboard/targets-board";
+import TS_ZAP from "../entities/ts-zap";
+import ZAP from "../entities/zap";
 
 function AppBoard() {
     const [listBreadcrumb, updateListBreadcrumb] = useState<TBreadcrumbProps["listBeadcrumb"]>([{
