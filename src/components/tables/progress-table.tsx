@@ -7,7 +7,11 @@ type TProgressTableProps = {
     autoScrollState: boolean;
 }
 
-class ProgressTable extends Component<TProgressTableProps> {
+type TProgressTableState = {
+    isActiveAutoScroll: boolean;
+}
+
+class ProgressTable extends Component<TProgressTableProps, TProgressTableState> {
     static readonly AUTO_SCROLL_ACTIVE = true;
     static readonly AUTO_SCROLL_DEACTIVE = false;
 
@@ -17,15 +21,18 @@ class ProgressTable extends Component<TProgressTableProps> {
 
     constructor(props: TProgressTableProps) {
         super(props);
-        // this.onToggleAutoScrollCheckboxHandler = this.onToggleAutoScrollCheckboxHandler.bind(this);
-
+        this.handleToggleAutoScrollCheckbox = this.handleToggleAutoScrollCheckbox.bind(this);
         this.ref_autoScrollCheckbox = createRef<HTMLInputElement>();
         this.ref_autoScrollContainer = createRef<HTMLDivElement>();
         this.ref_tableBottomScroller = createRef<HTMLDivElement>();
+        this.state = {
+            isActiveAutoScroll: false,
+        }
     }
 
     override componentDidMount() {
         this.setAutoScrollCheckBox(this.props.autoScrollState);
+        this.fetchIsActiveAutoScrollState();
         this.onTableChangeHandler(this.props);
     }
 
@@ -34,7 +41,7 @@ class ProgressTable extends Component<TProgressTableProps> {
     }
 
     private onTableChangeHandler(prevProps: TProgressTableProps) {
-        if (this.isTableBodyEmpty() || !this.ref_autoScrollCheckbox.current!.checked) {
+        if (this.isTableBodyEmpty() || !this.state.isActiveAutoScroll) {
             return;
         }
         if (this.props.tableBody.length !== prevProps.tableBody.length) {
@@ -53,7 +60,17 @@ class ProgressTable extends Component<TProgressTableProps> {
         return false;
     }
 
-    setAutoScrollCheckBox(status: boolean) {
+    private handleToggleAutoScrollCheckbox() {
+        this.fetchIsActiveAutoScrollState();
+    }
+
+    private fetchIsActiveAutoScrollState() {
+        this.setState({
+            isActiveAutoScroll: this.ref_autoScrollCheckbox.current?.checked ? true : false,
+        })
+    }
+
+    private setAutoScrollCheckBox(status: boolean) {
         this.ref_autoScrollCheckbox.current!.checked = status;
     }
 
@@ -63,8 +80,8 @@ class ProgressTable extends Component<TProgressTableProps> {
                 <ProgressBar scanProgress={this.props.scanProgress} />
                 <div className="progress-table-container" >
                     <div className="view-options-container">
-                        <div className={`auto-scroll-container ${this.ref_autoScrollCheckbox.current?.checked ? "" : "uncheck"}`} ref={this.ref_autoScrollContainer}>
-                            <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox">
+                        <div className={`auto-scroll-container ${this.state.isActiveAutoScroll ? "" : "uncheck"}`} ref={this.ref_autoScrollContainer}>
+                            <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox" onClick={this.handleToggleAutoScrollCheckbox}>
                                 <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" ref={this.ref_autoScrollCheckbox} />
                                 <span className="toggle-track">
                                     <span className="toggle-indicator">
