@@ -124,47 +124,59 @@ div.results-table-container {
                 }
 
                 div.sub-trow-container {
-                    height: 0;
+                    max-height: 0;
                     opacity: 0;
                     overflow: hidden;
+                    transition: max-height 300ms ease-in-out,
+                        opacity 500ms ease-in-out;
 
                     &.is-opening {
-                        height: fit-content;
+                        max-height: 11rem;
                         opacity: 1;
                     }
 
-                    ul.sub-trow {
-                        background-color: aquamarine;
-                        border-bottom: 1px solid black;
-                        border-left: 1px solid black;
-                        border-right: 1px solid black;
+                    div.sub-trow-wrap {
+                        border-bottom: 8px solid $black-color-7;
+                        border-bottom-left-radius: 10px;
+                        border-bottom-right-radius: 10px;
+                        border-left: 8px solid $black-color-7;
+                        border-right: 8px solid $black-color-7;
                         margin-left: 3rem;
                         margin-right: 1rem;
 
-                        &:last-child {
-                            border-bottom-left-radius: 5px;
-                            border-bottom-right-radius: 5px;
+                        ul.sub-trow {
+
+                            &:not(:last-child) {
+                                border-bottom: 1px solid $black-color-5;
+                            }
+
+                            &:hover {
+                                background-color: $black-color-6;
+                            }
+
+                            li {
+                                flex: 1 0 0px
+                            }
+
+                            li.scan-type-name {}
+
+                            li.state {}
+
+                            li.progress {}
+
+                            li.result-types {
+                                span.result-type-item {
+                                    &:not(:last-child) {
+                                        margin-right: 0.5rem;
+                                    }
+                                }
+                            }
+
+                            li.created-since {}
                         }
-
-                        li {
-                            flex: 1 0 0px
-                        }
-
-                        li.scan-type-name {}
-
-                        li.state {}
-
-                        li.progress {}
-
-                        li.result-types {
-                            span.result-type-item {}
-                        }
-
-                        li.created-since {}
                     }
                 }
             }
-
         }
     }
 }
