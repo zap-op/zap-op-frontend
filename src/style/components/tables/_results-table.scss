@@ -12,13 +12,15 @@ div.results-table-container {
             flex-direction: row;
 
             li {
+                align-items: center;
                 display: inherit;
                 justify-content: center;
                 margin: 0.5rem;
 
                 &.dropdown {
-                    flex: 1 0 0px
+                    flex: 0.25 0 0px;
                 }
+
                 &.name {
                     flex: 4 0 0px;
                     justify-content: left;
@@ -27,10 +29,9 @@ div.results-table-container {
                 &.target {
                     flex: 5 0 0px;
                     justify-content: left;
-
                 }
 
-                &.scan-type {
+                &.scan-types {
                     flex: 3 0 0px;
                 }
 
@@ -43,7 +44,82 @@ div.results-table-container {
         div.table-head-container {}
 
         div.table-body-container {
-            ul.trow {}
+            ul.trow {
+                background-color: $blue-color-7;
+                border-radius: 5px;
+                margin: 0.5rem 0;
+                transition: background-color 200ms ease;
+
+                &:hover {
+                    background-color: $blue-color-6;
+                }
+
+                li.dropdown {
+                    $arrow-button-size: 0.5rem;
+
+                    label.dropdown-button {
+                        border-radius: 50%;
+                        height: 0;
+                        margin: auto 0;
+                        padding: 1.75 * $arrow-button-size;
+                        position: relative;
+                        width: 0;
+
+                        input.checkbox-input {
+                            align-items: center;
+                            bottom: 0;
+                            left: 0;
+                            margin: auto;
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            width: 0;
+
+                            &:checked+div.arrow {
+                                transform: rotate(135deg);
+                            }
+                        }
+
+                        div.arrow {
+                            border-color: black;
+                            border-right-style: solid;
+                            border-right-width: 0.2 * $arrow-button-size;
+                            border-top-style: solid;
+                            border-top-width: 0.2 * $arrow-button-size;
+                            bottom: 0;
+                            height: $arrow-button-size;
+                            left: 0;
+                            margin: auto;
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            transform: rotate(45deg);
+                            transition: border-width 200ms ease-in-out;
+                            transition: transform 400ms ease;
+                            width: $arrow-button-size;
+                        }
+
+                        &:hover div.arrow {
+                            border-right-width: 0.3 * $arrow-button-size;
+                            border-top-width: 0.3 * $arrow-button-size;
+                        }
+
+
+                    }
+
+                }
+
+                li.scan-types {
+                    flex-wrap: wrap;
+
+                    span.scan-type-item {
+                        &:not(:last-child)::after {
+                            content: ",";
+                            margin-right: 0.25rem;
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ class ResultsTable extends Component<TResultsTableProps> {
                             <li className="target">
                                 Target
                             </li>
-                            <li className="scan-type">
+                            <li className="scan-types">
                                 Scan types
                             </li>
                             <li className="action">
