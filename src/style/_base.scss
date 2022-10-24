@@ -18,7 +18,8 @@ body {
 }
 
 body {
-    overflow: hidden auto;
+    min-width: $SM;
+    overflow: auto auto;
 }
 
 h1,
@@ -63,7 +64,7 @@ section {
 
 div.table-scroll-wrap {
     overflow-y: auto;
-    
+
     &::-webkit-scrollbar-track {
         border-radius: 10px;
         box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
