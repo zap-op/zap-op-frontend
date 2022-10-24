@@ -13,15 +13,37 @@ function Home() {
     return (
         <div className='home-landing-container'>
             <section className='welcome-section'>
-                <div className='welcome-content-container'>
-                    <h1>
-                        Lorem Ipsum is simply dummy text of the printing
-                    </h1>
-                    <div className='description'>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                <div className='welcome-content-container section-container'>
+                    <div className="content-container">
+                        <div className="content-wrap">
+                            <h1>
+                                Welcome Lorem Ipsum is simply
+                            </h1>
+                            <div className='description'>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                            </div>
+                        </div>
+                        <a className='explore-now-button button primary-button' href='#'>
+                            Explore now
+                        </a>
                     </div>
+                    <div className='landing-image-container'>
+                        <div className="landing-image">
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <section className='trial-section'>
+                <div className="trial-container section-container">
+                    <h2>
+                        Take a Free Trial with
+                    </h2>
                     <div className='free-scan-container'>
-                        <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode} />
+                        <div className="home_scan-field-container">
+                            <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode} />
+                        </div>
                         {isStartScanProgress ? <ProgressTable
                             autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                             scanProgress={scanProgress}
