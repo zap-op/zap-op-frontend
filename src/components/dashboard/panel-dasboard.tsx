@@ -1,11 +1,11 @@
-import { Component, createRef} from "react";
+import { Component, createRef } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 type TPanelDashboardProps = {
 
 }
 
 type TPanelDashboardState = {
-
 }
 
 class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardState> {
@@ -57,48 +57,48 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
                         <h4 className="nav-title management-title">
                             MANAGEMENT
                         </h4>
-                        <a className="nav-item dashboard-container" href="#" draggable="false" aria-current="page">
+                        <NavLink to="dashboard" className="nav-item dashboard-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Dashboard
                             </h4>
-                        </a>
-                        <a className="nav-item targets-container" href="#" draggable="false">
+                        </NavLink>
+                        <NavLink to="targets" className="nav-item targets-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Targets
                             </h4>
-                        </a>
-                        <a className="nav-item results-container" href="#" draggable="false">
+                        </NavLink>
+                        <NavLink to="results" className="nav-item results-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Results
                             </h4>
-                        </a>
+                        </NavLink>
                         <h4 className="nav-title aciton-title">
                             ACTION
                         </h4>
-                        <a className="nav-item new-scan-container" href="#" draggable="false">
+                        <NavLink to="addscan" className="nav-item new-scan-container"draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 New scan
                             </h4>
-                        </a>
+                        </NavLink>
                     </div>
                     <div className="br">
                     </div>
                     <div className="work-space-nav-container">
-                        <a className="nav-item settings-container" href="#" draggable="false">
+                        <NavLink to="wspsettings" className="nav-item settings-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Workspace settings
                             </h4>
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
                 <div className="panel-resize-controller">

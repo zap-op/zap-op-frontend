@@ -1,35 +1,73 @@
 // REACT IMPORT
 import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // REDUX IMPORT
 import { Provider } from 'react-redux'
 import store from './store/store';
 // CONFIG IMPORT
 // COMPONENT IMPORT
-import NavBar from './components/nav-bar';
 import Home from './pages/home';
 import SignUp from './pages/sign-up';
 import LogIn from './pages/log-in';
 // STYLE IMPORT
 import './style/style.scss';
 import AppBoard from './pages/app-board';
+import LandingPage from './pages/landing-page';
+import TargetsBoard from './components/dashboard/targets-board';
+import ResultsBoard from './components/dashboard/results-board';
+import ZAP from './entities/zap';
+import TS_ZAP from './entities/ts-zap';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
     <Provider store={store}>
-        <Router>
-            <NavBar />
-            <div className='landing-content-container'>
-                <Routes>
-                    <Route path='/' element={<Home />} />
-                </Routes>
-                <Routes>
-                    <Route path='/signup' element={<SignUp />} />
-                </Routes>
-                <Routes>
-                    <Route path='/login' element={<LogIn />} />
-                </Routes>
-            </div>
-        </Router>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<LandingPage />}>
+                    <Route index element={<Home />} />
+                    <Route path='signup' element={<SignUp />} />
+                    <Route path='login' element={<LogIn />} />
+                </Route>
+                <Route path='app' element={<AppBoard />}>
+                    <Route path='dashboard' element={<></>} />
+                    <Route path='targets' element={
+                        <TargetsBoard listTarget={[
+                            {
+                                name: "Lorem",
+                                url: "https://lorem.com/",
+                                tag: "dev",
+                                firstSeen: "2 days ago",
+                                lastSeen: "5 hours ago",
+                            }, {
+                                name: "Isum",
+                                url: "https://isum.com/",
+                                tag: "product",
+                                firstSeen: "20 days ago",
+                                lastSeen: "1 days ago",
+                            }
+                        ]} />
+                    } />
+                    <Route path='results' element={
+                        <ResultsBoard listResult={[
+                            {
+                                name: "Lorem",
+                                url: "https://lorem.com",
+                                listScanType: [ZAP.fullName, TS_ZAP.fullName]
+                            }, {
+                                name: "Lorem",
+                                url: "https://lorem.com",
+                                listScanType: [ZAP.fullName, TS_ZAP.fullName]
+                            }, {
+                                name: "Lorem",
+                                url: "https://lorem.com",
+                                listScanType: [ZAP.fullName, TS_ZAP.fullName]
+                            }
+                        ]} />
+                    } />
+                    <Route path='addscan' element={<></>} />
+                    <Route path='wspsettings' element={<></>} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     </Provider>
 );
