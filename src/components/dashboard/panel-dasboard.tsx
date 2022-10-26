@@ -10,6 +10,8 @@ type TPanelDashboardState = {
 
 class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardState> {
     private ref_panel: React.RefObject<HTMLDivElement>;
+    private readonly LOCAL_STORAGE_KEY_PANEL_WIDTH = `UI.${PanelDashboard.name}.style.width`;
+    private readonly PANEL_WIDTH_DEFAULT = 300;
 
     constructor(props: TPanelDashboardProps) {
         super(props);
@@ -19,12 +21,26 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
         this.ref_panel = createRef<HTMLDivElement>();
     }
 
-    private resizePanel(movementX: number) {
-        this.ref_panel.current!.style.width = this.ref_panel.current!.clientWidth + movementX + "px";
+    override componentDidMount(): void {
+        const panelWidth = localStorage.getItem(this.LOCAL_STORAGE_KEY_PANEL_WIDTH);
+        if (!panelWidth) {
+            this.resizePanel(`${this.PANEL_WIDTH_DEFAULT}px`);
+        } else {
+            this.resizePanel(`${panelWidth}px`);
+        }
+    }
+
+    private resizePanel(width: string): void {
+        this.ref_panel.current!.style.width = width;
+    }
+
+    private getCurentPanelWidth(): number {
+        return this.ref_panel.current!.clientWidth;
     }
 
     private handleResizePanelOnMouseMove(event: MouseEvent) {
-        this.resizePanel(event.movementX);
+        this.resizePanel(`${this.getCurentPanelWidth() + event.movementX}px`);
+        localStorage.setItem(this.LOCAL_STORAGE_KEY_PANEL_WIDTH, `${this.getCurentPanelWidth()}`);
     }
 
     private handleResizePanelOnMouseUp() {
@@ -81,7 +97,7 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
                         <h4 className="nav-title aciton-title">
                             ACTION
                         </h4>
-                        <NavLink to="addscan" className="nav-item new-scan-container"draggable="false">
+                        <NavLink to="addscan" className="nav-item new-scan-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
