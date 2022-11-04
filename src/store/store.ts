@@ -1,14 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './slice/authSlice';
 import scanSlice from './slice/scanSlice';
+import toolkitSlice, { setDescribeElement } from './slice/toolkitSlice';
 
 const reducers = {
     auth: authSlice.reducer,
-    scan: scanSlice.reducer
+    scan: scanSlice.reducer,
+    toolkit: toolkitSlice.reducer,
 }
 
 const store = configureStore({
-    reducer: reducers
+    reducer: reducers,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ["toolkit/setDescribeElement"],
+            }
+        }),
 })
 
 export type RootState = ReturnType<typeof store.getState>;
