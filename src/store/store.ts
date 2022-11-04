@@ -15,6 +15,7 @@ const store = configureStore({
         getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: ["toolkit/setDescribeElement"],
+                ignoreState: true,
             }
         }),
 })
