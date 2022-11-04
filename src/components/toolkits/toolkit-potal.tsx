@@ -20,7 +20,7 @@ class ToolkitPortal extends Component<TToolkitPortalProps> {
 
     override render() {
         return (
-            <div>
+            <div className="toolkit-portal">
                 {this.props.isDescribing ? this.props.describeElement : <></>}
             </div>
         );

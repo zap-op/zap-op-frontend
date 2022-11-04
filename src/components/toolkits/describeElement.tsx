@@ -6,7 +6,11 @@ export type TDescribeElementProps = {
 
 function DescribeElement({ content, offsetTop, offsetLeft }: TDescribeElementProps) {
     return (
-        <div className="describe-element" style={{ top: `${offsetTop}px`, left: `${offsetLeft}px` }}>
+        <div className="describe-element"
+            style={{
+                top: `${offsetTop}px`,
+                left: `${offsetLeft}px`
+            }}>
             {content}
         </div>
     )
