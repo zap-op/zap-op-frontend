@@ -17,7 +17,7 @@ import TargetsBoard from './components/dashboard/targets-board';
 import ResultsBoard from './components/dashboard/results-board';
 import ZAP from './entities/zap';
 import TS_ZAP from './entities/ts-zap';
-import ToolkitPortal from './components/toolkit/toolkit-potal';
+import ToolkitPortal from './components/toolkits/toolkit-potal';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
