@@ -1,13 +1,15 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { NAV_BAR_STRING } from '../utils/string';
-
+import owlensLogo from "../assets/owlens-logo.svg";
 class NavBar extends Component {
     override render() {
         return (
             <div id='nav-bar' className="nav-bar-container">
-                <Link to="/" className="logo" draggable="false">
-                    SiteInfo
+                <Link to="/" className="nav-logo" draggable="false">
+                    <figure className="logo-container">
+                        <img src={owlensLogo} alt="owlens-logo.svg" />
+                    </figure>
                 </Link>
                 <div className='nav-wrap'>
                     <ul className='nav-bar'>

@@ -1,16 +1,23 @@
 @use '../utils/variables' as *;
 
 #nav-bar {
+    box-shadow: 0 1px rgb(0 0 0 / 8%);
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
-    box-shadow: 0 1px rgb(0 0 0 / 8%);
 
-    a.logo {
-        margin-left: 2rem;
+    a.nav-logo {
+        display: flex;
 
-        img {
-            max-height: 100%;
+        figure.logo-container {
+            margin: auto 2rem;
+
+            img {
+                height: 3rem;
+                min-width: 4.25rem;
+                max-height: 100%;
+                max-width: 100%;
+            }
         }
     }
 
@@ -37,7 +44,7 @@
 
         ul.nav-bar {
             justify-content: end;
-            margin: 0 1rem 0 2rem; // Do not collapse logo
+            margin: 0 1rem;
 
             a.nav-item {
                 margin: 0 3rem;
@@ -60,8 +67,8 @@
             align-items: end;
 
             ul.nav-bar {
-                flex-flow: column-reverse;
                 display: none;
+                flex-flow: column-reverse;
                 margin-right: 1rem;
 
                 a.nav-item {
@@ -70,8 +77,8 @@
             }
 
             ul.nav-bar-id {
-                margin-right: 4rem;
                 flex-direction: row;
+                margin-right: 4rem;
             }
         }
     }
