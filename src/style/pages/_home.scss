@@ -49,9 +49,6 @@ div.home-landing-container {
 
                 div.landing-image {
                     $landing-image-size: 31rem;
-                    background-image: url("../../../public/landing-image.svg");
-                    background-repeat: no-repeat;
-                    background-size: contain;
                     bottom: 0;
                     height: $landing-image-size;
                     left: 0;
@@ -81,6 +78,11 @@ div.home-landing-container {
                         left: 3rem;
                         top: 6rem;
                         width: 0.65 * $landing-image-size;
+                    }
+
+                    img {
+                        max-height: 100%;
+                        max-width: 100%;
                     }
                 }
             }

@@ -4,6 +4,7 @@ import TABLEROW_TS_ZAP from '../components/table-assets/progress-table/tr-ts-zap
 import TS_ZAP from '../entities/ts-zap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import landingImage from "../assets/landing-image.svg";
 
 function Home() {
     const listScanInfo = useSelector((state: RootState) => state.scan.scanInfosDisplay);
@@ -29,7 +30,7 @@ function Home() {
                     </div>
                     <div className='landing-image-container'>
                         <div className="landing-image">
-
+                            <img src={landingImage} alt="landing-image.svg" />
                         </div>
                     </div>
 
