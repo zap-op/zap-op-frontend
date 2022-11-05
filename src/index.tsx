@@ -18,6 +18,7 @@ import ResultsBoard from './components/dashboard/results-board';
 import ZAP from './entities/zap';
 import TS_ZAP from './entities/ts-zap';
 import ToolkitPortal from './components/toolkits/toolkit-potal';
+import AddScanBoard from './components/dashboard/add-scan-board';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
@@ -65,7 +66,7 @@ root.render(
                             }
                         ]} />
                     } />
-                    <Route path='addscan' element={<></>} />
+                    <Route path='addscan' element={<AddScanBoard/>} />
                     <Route path='wspsettings' element={<></>} />
                 </Route>
             </Routes>
