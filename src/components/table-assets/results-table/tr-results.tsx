@@ -3,7 +3,7 @@ import TS_ZAP from "../../../entities/ts-zap";
 import ZAP from "../../../entities/zap";
 import SUB_TABLEROW_Results from "./sub-tr-results";
 
-export type TTABLEROW_Results_Props = {
+export type TTABLEROW_ResultsProps = {
     name: string;
     url: string;
     listScanType: (typeof ZAP.fullName |
@@ -14,10 +14,10 @@ type TTABLEROW_Results_State = {
     isOpeningSubContent: boolean;
 }
 
-class TABLEROW_Results extends Component<TTABLEROW_Results_Props, TTABLEROW_Results_State> {
+class TABLEROW_Results extends Component<TTABLEROW_ResultsProps, TTABLEROW_Results_State> {
     private ref_dropdownInput: React.RefObject<HTMLInputElement>;
 
-    constructor(props: TTABLEROW_Results_Props) {
+    constructor(props: TTABLEROW_ResultsProps) {
         super(props);
         this.handleDropdownButton = this.handleDropdownButton.bind(this);
         this.ref_dropdownInput = createRef<HTMLInputElement>();

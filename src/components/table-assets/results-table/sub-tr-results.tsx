@@ -1,7 +1,8 @@
 import TS_ZAP from "../../../entities/ts-zap";
 import ZAP from "../../../entities/zap";
+import Describable from "../../toolkits/describable";
 
-export type TSUB_TABLEROW_Results_Props = {
+export type TSUB_TABLEROW_ResultsProps = {
     scanType: typeof ZAP.fullName |
     typeof TS_ZAP.fullName;
     state: string;
@@ -10,23 +11,31 @@ export type TSUB_TABLEROW_Results_Props = {
     createdSince: string;
 }
 
-function SUB_TABLEROW_Results({ scanType, state, progress, listExportResultType, createdSince }: TSUB_TABLEROW_Results_Props) {
+function SUB_TABLEROW_Results({ scanType, state, progress, listExportResultType, createdSince }: TSUB_TABLEROW_ResultsProps) {
     return (
         <ul className="sub-trow">
-            <li className="scan-type-name">
-                {scanType}
-            </li>
-            <li className="state">
-                {state}
-            </li>
-            <li className="progress">
-                {progress}
-            </li>
+            <Describable dataTitle="type">
+                <li className="scan-type-name">
+                    {scanType}
+                </li>
+            </Describable>
+            <Describable dataTitle="state">
+                <li className="state">
+                    {state}
+                </li>
+            </Describable>
+            <Describable dataTitle="progress">
+                <li className="progress">
+                    {progress}
+                </li>
+            </Describable>
             <li className="result-types">
                 {listExportResultType.map((item) => {
-                    return <span key={item} className="result-type-item">
-                        {item}
-                    </span>
+                    return <Describable dataTitle={`${item} result`} key={item}>
+                        <span key={item} className="result-type-item">
+                            {item}
+                        </span>
+                    </Describable>
                 })}
             </li>
             <li className="created-since">

@@ -1,9 +1,9 @@
 import { Component, ReactNode } from "react";
-import TABLEROW_Results, { TTABLEROW_Results_Props } from "../table-assets/results-table/tr-results";
+import TABLEROW_Results, { TTABLEROW_ResultsProps } from "../table-assets/results-table/tr-results";
 import ResultsTable from "../tables/results-table";
 
 type TResultsBoardProps = {
-    listResult: TTABLEROW_Results_Props[];
+    listResult: TTABLEROW_ResultsProps[];
 }
 
 type TResultsBoardState = {
