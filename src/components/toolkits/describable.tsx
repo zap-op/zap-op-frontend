@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import DescribeElement from './describeElement';
 import { setDescribeElement } from "../../store/slice/toolkitSlice";
 import { connect } from 'react-redux';
@@ -20,11 +20,10 @@ type TmapDispatchToProps = typeof mapDispatchToProps;
 type TDescribableProps =
     TmapStateToProps &
     TmapDispatchToProps & {
-        childElement: JSX.Element,
         dataTitle: string,
     }
 
-class Describable extends Component<TDescribableProps> {
+class Describable extends Component<PropsWithChildren<TDescribableProps>> {
     private ref_self: React.RefObject<HTMLDivElement>;
 
     constructor(props: TDescribableProps) {
@@ -39,9 +38,10 @@ class Describable extends Component<TDescribableProps> {
         const presentOffsetLeft = (this.ref_self.current!.offsetLeft + this.ref_self.current!.offsetWidth / 2)
         this.props.setDescribeElement({
             describeElement: <DescribeElement
-                content={this.props.dataTitle}
                 offsetTop={presentOffsetTop}
-                offsetLeft={presentOffsetLeft} />
+                offsetLeft={presentOffsetLeft} >
+                {this.props.dataTitle}
+            </DescribeElement>
         })
     }
 
@@ -52,7 +52,7 @@ class Describable extends Component<TDescribableProps> {
     override render() {
         return (
             <div role={'describable'} className="describable-wrap" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} ref={this.ref_self}>
-                {this.props.childElement}
+                {this.props.children}
             </div>
         );
     }
