@@ -1,5 +1,6 @@
 import { Component, createRef } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import workSpaceImage from "../../assets/work-space.svg";
 
 type TPanelDashboardProps = {
 
@@ -58,7 +59,8 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
             <div className="panel-dashboard-container">
                 <div className="panel-container" ref={this.ref_panel}>
                     <div className="work-space-info-container">
-                        <span className="icon">
+                        <span className="icon-container">
+                            <img src={workSpaceImage} alt="work-space.svg" />
                         </span>
                         <div className="title-container">
                             <h4 className="title">

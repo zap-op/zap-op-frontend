@@ -24,12 +24,13 @@ div.panel-dashboard-container {
             padding: 1rem;
             width: 100%;
 
-            span.icon {
-                background-image: url("../../../assets/work-space.svg");
-                background-size: contain;
-                height: 2rem;
+            span.icon-container {
                 margin-right: 0.75rem;
-                width: 2rem;
+
+                img {
+                    height: 2rem;
+                    width: 2rem;
+                }
             }
 
             div.title-container {
