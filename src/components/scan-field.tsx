@@ -45,7 +45,7 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
 
     constructor(props: TScanFieldProps) {
         super(props);
-        this.clickScanHandler = this.clickScanHandler.bind(this);
+        this.handleClickScan = this.handleClickScan.bind(this);
         this.ref_urlInput = createRef<HTMLInputElement>();
         this.state = {
             isProcessing: false,
@@ -71,7 +71,7 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
         })
     }
 
-    async clickScanHandler() {
+    async handleClickScan() {
         if (this.state.isProcessing) {
             return;
         }
@@ -156,7 +156,7 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
                 </h4>
                 <div className="field-container">
                     <input type="text" placeholder='Enter a URL, IP address, or hostname...' ref={this.ref_urlInput} />
-                    <div className="scan-button button primary-button" onClick={this.clickScanHandler}>
+                    <div className="scan-button button primary-button" onClick={this.handleClickScan}>
                         {this.state.isProcessing ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
                     </div>
                 </div>

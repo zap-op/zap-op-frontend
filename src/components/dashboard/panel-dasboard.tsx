@@ -1,15 +1,18 @@
-import { Component, createRef} from "react";
+import { Component, createRef } from "react";
+import { NavLink } from "react-router-dom";
+import workSpaceImage from "../../assets/work-space.svg";
 
 type TPanelDashboardProps = {
 
 }
 
 type TPanelDashboardState = {
-
 }
 
 class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardState> {
     private ref_panel: React.RefObject<HTMLDivElement>;
+    private readonly LOCAL_STORAGE_KEY_PANEL_WIDTH = `UI.${PanelDashboard.name}.style.width`;
+    private readonly PANEL_WIDTH_DEFAULT = 300;
 
     constructor(props: TPanelDashboardProps) {
         super(props);
@@ -19,12 +22,26 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
         this.ref_panel = createRef<HTMLDivElement>();
     }
 
-    private resizePanel(movementX: number) {
-        this.ref_panel.current!.style.width = this.ref_panel.current!.clientWidth + movementX + "px";
+    override componentDidMount(): void {
+        const panelWidth = localStorage.getItem(this.LOCAL_STORAGE_KEY_PANEL_WIDTH);
+        if (!panelWidth) {
+            this.resizePanel(`${this.PANEL_WIDTH_DEFAULT}px`);
+        } else {
+            this.resizePanel(`${panelWidth}px`);
+        }
+    }
+
+    private resizePanel(width: string): void {
+        this.ref_panel.current!.style.width = width;
+    }
+
+    private getCurentPanelWidth(): number {
+        return this.ref_panel.current!.clientWidth;
     }
 
     private handleResizePanelOnMouseMove(event: MouseEvent) {
-        this.resizePanel(event.movementX);
+        this.resizePanel(`${this.getCurentPanelWidth() + event.movementX}px`);
+        localStorage.setItem(this.LOCAL_STORAGE_KEY_PANEL_WIDTH, `${this.getCurentPanelWidth()}`);
     }
 
     private handleResizePanelOnMouseUp() {
@@ -42,7 +59,8 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
             <div className="panel-dashboard-container">
                 <div className="panel-container" ref={this.ref_panel}>
                     <div className="work-space-info-container">
-                        <span className="icon">
+                        <span className="icon-container">
+                            <img src={workSpaceImage} alt="work-space.svg" />
                         </span>
                         <div className="title-container">
                             <h4 className="title">
@@ -57,48 +75,48 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
                         <h4 className="nav-title management-title">
                             MANAGEMENT
                         </h4>
-                        <a className="nav-item dashboard-container" href="#" draggable="false" aria-current="page">
+                        <NavLink to="dashboard" className="nav-item dashboard-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Dashboard
                             </h4>
-                        </a>
-                        <a className="nav-item targets-container" href="#" draggable="false">
+                        </NavLink>
+                        <NavLink to="targets" className="nav-item targets-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Targets
                             </h4>
-                        </a>
-                        <a className="nav-item results-container" href="#" draggable="false">
+                        </NavLink>
+                        <NavLink to="results" className="nav-item results-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Results
                             </h4>
-                        </a>
+                        </NavLink>
                         <h4 className="nav-title aciton-title">
                             ACTION
                         </h4>
-                        <a className="nav-item new-scan-container" href="#" draggable="false">
+                        <NavLink to="addscan" className="nav-item new-scan-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 New scan
                             </h4>
-                        </a>
+                        </NavLink>
                     </div>
                     <div className="br">
                     </div>
                     <div className="work-space-nav-container">
-                        <a className="nav-item settings-container" href="#" draggable="false">
+                        <NavLink to="wspsettings" className="nav-item settings-container" draggable="false">
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Workspace settings
                             </h4>
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
                 <div className="panel-resize-controller">

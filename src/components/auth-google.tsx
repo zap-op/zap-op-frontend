@@ -49,6 +49,8 @@ class AuthGoogle extends Component<TAuthGoogleProps> {
 
     handleCredentialResponse(response: CredentialResponse) {
         console.log(response);
+        // Auth logic
+        window.location.pathname = "/app";
     }
 
     override componentDidMount() {

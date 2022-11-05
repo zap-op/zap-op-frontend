@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import Breadcrumb from "../components/dashboard/breadcrumb";
 import { TBreadcrumbProps } from "../components/dashboard/breadcrumb";
 import PanelDashboard from "../components/dashboard/panel-dasboard";
-import TargetsBoard from "../components/dashboard/targets-board";
 
 function AppBoard() {
     const [listBreadcrumb, updateListBreadcrumb] = useState<TBreadcrumbProps["listBeadcrumb"]>([{
@@ -20,19 +20,7 @@ function AppBoard() {
                     <Breadcrumb listBeadcrumb={listBreadcrumb} />
                 </div>
                 <div className="main-board_content-container">
-                    <TargetsBoard listTarget={[{
-                        name: "Lorem",
-                        url: "https://lorem.com/",
-                        tag: "dev",
-                        firstSeen: "2 days ago",
-                        lastSeen: "5 hours ago",
-                    }, {
-                        name: "Isum",
-                        url: "https://isum.com/",
-                        tag: "product",
-                        firstSeen: "20 days ago",
-                        lastSeen: "1 days ago",
-                    }]} />
+                    <Outlet />
                 </div>
             </div>
         </div>

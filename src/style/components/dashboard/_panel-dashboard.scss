@@ -5,7 +5,7 @@ div.panel-dashboard-container {
     height: 100vh;
 
     div.panel-container {
-        background-color: $black-color-6;
+        background-color: $black-color-7;
         border-right: 2px solid $black-color-5;
         color: $black-color-1;
         display: inherit;
@@ -24,12 +24,13 @@ div.panel-dashboard-container {
             padding: 1rem;
             width: 100%;
 
-            span.icon {
-                background-image: url("../../../../public/work-space.svg");
-                background-size: contain;
-                height: 2rem;
+            span.icon-container {
                 margin-right: 0.75rem;
-                width: 2rem;
+
+                img {
+                    height: 2rem;
+                    width: 2rem;
+                }
             }
 
             div.title-container {
@@ -107,35 +108,35 @@ div.panel-dashboard-container {
             a.dashboard-container {
 
                 span.icon {
-                    mask-image: url("../../../../public/sheet-plastic-solid.svg");
+                    mask-image: url("../../../assets/sheet-plastic-solid.svg");
                 }
             }
 
             a.targets-container {
 
                 span.icon {
-                    mask-image: url("../../../../public/rocket-solid.svg");
+                    mask-image: url("../../../assets/rocket-solid.svg");
                 }
             }
 
             a.results-container {
 
                 span.icon {
-                    mask-image: url("../../../../public/chart-bar-solid.svg");
+                    mask-image: url("../../../assets/chart-bar-solid.svg");
                 }
             }
 
             a.new-scan-container {
 
                 span.icon {
-                    mask-image: url("../../../../public/bullseye-solid.svg");
+                    mask-image: url("../../../assets/bullseye-solid.svg");
                 }
             }
 
             a.settings-container {
 
                 span.icon {
-                    mask-image: url("../../../../public/gear-solid.svg");
+                    mask-image: url("../../../assets/gear-solid.svg");
                 }
             }
         }
@@ -168,7 +169,7 @@ div.panel-dashboard-container {
             span.resize-bar {
                 display: block;
                 height: inherit;
-                transition: background-color 300ms ease 0s;
+                transition: background-color 300ms ease-in-out;
                 width: 2px;
             }
         }

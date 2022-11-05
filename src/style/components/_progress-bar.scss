@@ -19,7 +19,7 @@ div.progress-bar-container {
         display: flex;
         height: 100%;
         justify-content: center;
-        transition: all 1s ease;
+        transition: all 1s ease-in-out;
 
         span.percent {
             color: white;

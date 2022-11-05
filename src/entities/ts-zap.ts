@@ -1,13 +1,12 @@
-import Scan from "./scan";
 import ZAP from "./zap";
 
 /**
  * Traditional Spider ZAP scan
  * @extends Scan
  */
-class TS_ZAP extends Scan {
+class TS_ZAP extends ZAP {
     private static _instance: TS_ZAP;
-    static readonly fullName = "Traditonal Spider ZAP";
+    static override readonly fullName = "Traditonal Spider ZAP";
     static readonly typeCode = "TS_ZAP";
     private event_source_address!: string;
     private event_source!: EventSource;
