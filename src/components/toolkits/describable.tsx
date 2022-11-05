@@ -51,7 +51,7 @@ class Describable extends Component<PropsWithChildren<TDescribableProps>> {
 
     override render() {
         return (
-            <div role={'describable'} className="describable-wrap" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} ref={this.ref_self}>
+            <div className="describable-wrap" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} ref={this.ref_self}>
                 {this.props.children}
             </div>
         );
