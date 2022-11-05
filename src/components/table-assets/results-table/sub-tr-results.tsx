@@ -31,7 +31,7 @@ function SUB_TABLEROW_Results({ scanType, state, progress, listExportResultType,
             </Describable>
             <li className="result-types">
                 {listExportResultType.map((item) => {
-                    return <Describable dataTitle={`${item} result`}>
+                    return <Describable dataTitle={`${item} result`} key={item}>
                         <span key={item} className="result-type-item">
                             {item}
                         </span>
