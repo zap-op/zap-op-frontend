@@ -1,6 +1,6 @@
 import { Component, createRef, ReactNode } from "react";
-import TS_ZAP from "../../../entities/ts-zap";
-import ZAP from "../../../entities/zap";
+import TS_ZAP from "../../../../entities/ts-zap";
+import ZAP from "../../../../entities/zap";
 import SUB_TABLEROW_Results from "./sub-tr-results";
 
 export type TTABLEROW_ResultsProps = {

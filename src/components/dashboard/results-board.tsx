@@ -1,5 +1,5 @@
 import { Component, ReactNode } from "react";
-import TABLEROW_Results, { TTABLEROW_ResultsProps } from "../table-assets/results-table/tr-results";
+import TABLEROW_Results, { TTABLEROW_ResultsProps } from "../subs/tables/result/tr-results";
 import ResultsTable from "../tables/results-table";
 
 type TResultsBoardProps = {

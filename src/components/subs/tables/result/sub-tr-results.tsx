@@ -1,6 +1,6 @@
-import TS_ZAP from "../../../entities/ts-zap";
-import ZAP from "../../../entities/zap";
-import Describable from "../../toolkits/describable";
+import TS_ZAP from "../../../../entities/ts-zap";
+import ZAP from "../../../../entities/zap";
+import Describable from "../../../toolkits/describable";
 
 export type TSUB_TABLEROW_ResultsProps = {
     scanType: typeof ZAP.fullName |

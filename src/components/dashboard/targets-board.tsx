@@ -1,7 +1,7 @@
 import { Component, ReactNode } from "react";
 import SearchBar from "../search-bar";
 import TargetsTable from "../tables/targets-table";
-import TABLEROW_Targets, { TTABLEROW_Targets_Props } from "../table-assets/targets-table/tr-targets";
+import TABLEROW_Targets, { TTABLEROW_Targets_Props } from "../subs/tables/target/tr-targets";
 
 type TTargetsBoardProps = {
     listTarget: TTABLEROW_Targets_Props[];
