@@ -44,6 +44,8 @@ div.results-table-container {
         div.table-head-container {}
 
         div.table-body-container {
+            color: $black-color-2;
+
             div.trow-container {
                 margin: 0.5rem 0;
 
@@ -124,6 +126,7 @@ div.results-table-container {
                 }
 
                 div.sub-trow-container {
+                    color: $black-color-3;
                     max-height: 0;
                     opacity: 0;
                     overflow: hidden;
@@ -166,8 +169,12 @@ div.results-table-container {
 
                             li.result-types {
                                 span.result-type-item {
-                                    &:not(:last-child) {
-                                        margin-right: 0.5rem;
+                                    color: $black-color-3;
+                                    font-weight: 600;
+                                    margin: 0 0.125rem;
+
+                                    &:hover {
+                                        color: $black-color-2;
                                     }
                                 }
                             }
