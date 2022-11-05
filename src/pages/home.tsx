@@ -4,6 +4,7 @@ import TABLEROW_TS_ZAP from '../components/table-assets/progress-table/tr-ts-zap
 import TS_ZAP from '../entities/ts-zap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import landingImage from "../assets/landing-image.svg";
 
 function Home() {
     const listScanInfo = useSelector((state: RootState) => state.scan.scanInfosDisplay);
@@ -23,13 +24,13 @@ function Home() {
                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
                             </div>
                         </div>
-                        <a className='explore-now-button button primary-button' href='#'>
+                        <a className='explore-now-button button primary-button' href='#' draggable="false">
                             Explore now
                         </a>
                     </div>
                     <div className='landing-image-container'>
                         <div className="landing-image">
-
+                            <img src={landingImage} alt="landing-image.svg" />
                         </div>
                     </div>
 
