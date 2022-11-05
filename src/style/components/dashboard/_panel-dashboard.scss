@@ -91,7 +91,8 @@ div.panel-dashboard-container {
                 span.icon {
                     background-color: lighten($black-color-3, 20%);
                     height: 1rem;
-                    margin-right: 0.5rem;
+                    min-height: 1rem;
+                    margin-right: 0.875rem;
                     mask-position: center;
                     mask-repeat: no-repeat;
                     mask-size: contain;
@@ -99,9 +100,9 @@ div.panel-dashboard-container {
                 }
 
                 h4.title {
-                    font-size: 0.9rem;
-                    font-weight: normal;
-                    letter-spacing: 0.5px;
+                    font-size: 0.875rem;
+                    font-weight: 400;
+                    letter-spacing: 0.3px;
                 }
             }
 
