@@ -1,10 +1,9 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 type TTargetsTableProps = {
-    tableBody: JSX.Element[];
 }
 
-class TargetsTable extends Component<TTargetsTableProps> {
+class TargetsTable extends Component<PropsWithChildren<TTargetsTableProps>> {
     constructor(props: TTargetsTableProps) {
         super(props);
     }
@@ -36,7 +35,7 @@ class TargetsTable extends Component<TTargetsTableProps> {
                         </ul>
                     </div>
                     <div className="table-body-container">
-                        {this.props.tableBody}
+                        {this.props.children}
                     </div>
                 </div>
             </div>

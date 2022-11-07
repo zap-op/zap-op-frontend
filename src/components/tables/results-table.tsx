@@ -1,10 +1,9 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 type TResultsTableProps = {
-    tableBody: JSX.Element[];
 }
 
-class ResultsTable extends Component<TResultsTableProps> {
+class ResultsTable extends Component<PropsWithChildren<TResultsTableProps>> {
     constructor(props: TResultsTableProps) {
         super(props);
     }
@@ -16,7 +15,7 @@ class ResultsTable extends Component<TResultsTableProps> {
                     <div className="table-head-container">
                         <ul className="thead">
                             <li className="dropdown">
-                                
+
                             </li>
                             <li className="name">
                                 Name
@@ -28,12 +27,12 @@ class ResultsTable extends Component<TResultsTableProps> {
                                 Scan types
                             </li>
                             <li className="action">
-                                
+
                             </li>
                         </ul>
                     </div>
                     <div className="table-body-container">
-                        {this.props.tableBody}
+                        {this.props.children}
                     </div>
                 </div>
             </div>

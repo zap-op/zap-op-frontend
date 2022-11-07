@@ -26,9 +26,11 @@ class TargetsBoard extends Component<TTargetsBoardProps, TTargetsBoardState> {
                     </div>
                 </div>
                 <div className="targets-board_targets-table-container">
-                    <TargetsTable tableBody={this.props.listTarget.map((item, index) => {
-                        return <TABLEROW_Targets key={index} name={item.name} url={item.url} tag={item.tag} firstSeen={item.firstSeen} lastSeen={item.lastSeen} />
-                    })} />
+                    <TargetsTable>
+                        {this.props.listTarget.map((item, index) => {
+                            return <TABLEROW_Targets key={index} name={item.name} url={item.url} tag={item.tag} firstSeen={item.firstSeen} lastSeen={item.lastSeen} />
+                        })}
+                    </TargetsTable>
                 </div>
             </div>
         )

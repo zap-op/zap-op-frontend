@@ -19,10 +19,11 @@ class ResultsBoard extends Component<TResultsBoardProps, TResultsBoardState> {
         return (
             <div className="results-board-container">
                 <div className="results-board_results-table-container">
-                    <ResultsTable tableBody={this.props.listResult.map((item, index) => {
-                        return <TABLEROW_Results key={index} name={item.name} url={item.url} listScanType={item.listScanType} />
-                    })
-                    } />
+                    <ResultsTable>
+                        {this.props.listResult.map((item, index) => {
+                            return <TABLEROW_Results key={index} name={item.name} url={item.url} listScanType={item.listScanType} />
+                        })}
+                    </ResultsTable>
                 </div>
             </div>
         )
