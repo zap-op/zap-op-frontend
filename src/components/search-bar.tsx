@@ -1,7 +1,8 @@
 import { Component, ReactNode } from "react";
 
 type TSearchBarProps = {
-    placeholder: string;
+    placeholder: string,
+    extendClass?: string,
 }
 
 type TSearchBarState = {
@@ -15,7 +16,7 @@ class SearchBar extends Component<TSearchBarProps, TSearchBarState> {
 
     override render(): ReactNode {
         return (
-            <label className="search-bar-container">
+            <label className={`search-bar-container ${this.props.extendClass}`}>
                 <input className="search-input-box" type="text" placeholder={this.props.placeholder} />
                 <div className="search-icon-container">
                     <span className="search-icon">

@@ -1,0 +1,19 @@
+.collapse-search-bar {
+    input.search-input-box {
+        transition: width 200ms ease-in-out;
+        width: 2rem;
+        
+        &::placeholder {
+            opacity: 0;
+            transition: opacity 100ms ease-in-out;
+        }
+
+        &:focus {
+            width: 10rem;
+        }
+
+        &:focus::placeholder {
+            opacity: 1;
+        }
+    }
+}
