@@ -18,7 +18,7 @@ class TABLEROW_TargetAdded extends Component<TTABLEROW_TargetAdded_Props> {
             <ul className="trow" onClick={this.props.onClick}>
                 <li className="selected">
                     <div className="selection-container">
-                        <input type="checkbox" name="select-row" id="" />
+                        <input className="target-selector" type="checkbox" name="select-row" id="" />
                     </div>
                 </li>
                 <li className="name">
