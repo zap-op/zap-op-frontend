@@ -6,23 +6,23 @@ export type TTABLEROW_Targets_Props = {
     lastSeen: string;
 }
 
-function TABLEROW_Targets({ name, url, tag, firstSeen, lastSeen }: TTABLEROW_Targets_Props) {
+function TABLEROW_Targets(props: TTABLEROW_Targets_Props) {
     return (
         <ul className="trow">
             <li className="name">
-                {name}
+                {props.name}
             </li>
             <li className="target">
-                {url}
+                {props.url}
             </li>
             <li className="tag">
-                {tag}
+                {props.tag}
             </li>
             <li className="first-seen">
-                {firstSeen}
+                {props.firstSeen}
             </li>
             <li className="last-seen">
-                {lastSeen}
+                {props.lastSeen}
             </li>
             <li className="action">
                 <div className="three-dot-button">

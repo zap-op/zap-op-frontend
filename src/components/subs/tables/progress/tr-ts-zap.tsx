@@ -3,14 +3,14 @@ type TTABLEROW_TS_ZAP_Props = {
     url: string;
 }
 
-function TABLEROW_TS_ZAP({ number, url }: TTABLEROW_TS_ZAP_Props) {
+function TABLEROW_TS_ZAP(props: TTABLEROW_TS_ZAP_Props) {
     return (
         <ul className="trow">
             <li className="no">
-                {number}
+                {props.number}
             </li>
             <li className="url">
-                {url}
+                {props.url}
             </li>
         </ul>
     )
