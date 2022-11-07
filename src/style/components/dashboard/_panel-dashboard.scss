@@ -3,6 +3,7 @@
 div.panel-dashboard-container {
     display: flex;
     height: 100vh;
+    position: relative;
 
     div.panel-container {
         background-color: $black-color-7;
@@ -91,11 +92,11 @@ div.panel-dashboard-container {
                 span.icon {
                     background-color: lighten($black-color-3, 20%);
                     height: 1rem;
-                    min-height: 1rem;
                     margin-right: 0.875rem;
                     mask-position: center;
                     mask-repeat: no-repeat;
                     mask-size: contain;
+                    min-height: 1rem;
                     width: 1rem;
                 }
 
@@ -153,6 +154,11 @@ div.panel-dashboard-container {
     }
 
     div.panel-resize-controller {
+        bottom: 0;
+        left: 100%;
+        position: absolute;
+        top: 0;
+
         button.resize-bar-button {
             background-color: transparent;
             border: 0;
