@@ -1,4 +1,7 @@
 import { Component, ReactNode } from "react";
+import SearchBar from "../search-bar";
+import TABLEROW_TargetAdded from "../subs/tables/add-scan/tr-target-added";
+import AddScanTable from "../tables/add-scan-table";
 
 type TAddScanBoardProps = {
 }
@@ -10,6 +13,11 @@ type TAddScanBoardState = {
 class AddScanBoard extends Component<TAddScanBoardProps, TAddScanBoardState> {
     constructor(props: TAddScanBoardProps) {
         super(props);
+        this.handleTest = this.handleTest.bind(this);
+    }
+
+    handleTest() {
+        console.log("object");
     }
 
     override render(): ReactNode {
@@ -20,7 +28,10 @@ class AddScanBoard extends Component<TAddScanBoardProps, TAddScanBoardState> {
                         Select Targets
                     </h3>
                     <div className="list-selection-container">
-                        
+                        <SearchBar placeholder="Search target" />
+                        <AddScanTable>
+                            <TABLEROW_TargetAdded key={1} onClick={this.handleTest} isSelected={true} name={"item.name"} url={"item.url"} tag={"item.tag"} />
+                        </AddScanTable>
                     </div>
                 </div>
             </div>
