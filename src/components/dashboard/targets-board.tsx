@@ -1,7 +1,7 @@
 import { Component, ReactNode } from "react";
-import SearchBar from "../search-bar";
 import TargetsTable from "../tables/targets-table";
 import TABLEROW_Targets, { TTABLEROW_Targets_Props } from "../subs/tables/target/tr-targets";
+import CollapseSearchBar from "../collapse-search-bar";
 
 type TTargetsBoardProps = {
     listTarget: TTABLEROW_Targets_Props[];
@@ -20,7 +20,7 @@ class TargetsBoard extends Component<TTargetsBoardProps, TTargetsBoardState> {
         return (
             <div className="targets-board-container">
                 <div className="action-container">
-                    <SearchBar placeholder="Search target" />
+                    <CollapseSearchBar placeholder="Search target" />
                     <div className="add-target-button button primary-button">
                         New target
                     </div>
