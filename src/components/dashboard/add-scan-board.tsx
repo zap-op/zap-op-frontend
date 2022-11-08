@@ -13,11 +13,6 @@ type TAddScanBoardState = {
 class AddScanBoard extends Component<TAddScanBoardProps, TAddScanBoardState> {
     constructor(props: TAddScanBoardProps) {
         super(props);
-        this.handleTest = this.handleTest.bind(this);
-    }
-
-    handleTest() {
-        console.log("object");
     }
 
     override render(): ReactNode {
@@ -30,7 +25,7 @@ class AddScanBoard extends Component<TAddScanBoardProps, TAddScanBoardState> {
                     <div className="list-selection-container">
                         <SearchBar placeholder="Search target" />
                         <AddScanTable>
-                            <TABLEROW_TargetAdded key={1} onClick={this.handleTest} isSelected={true} name={"item.name"} url={"item.url"} tag={"item.tag"} />
+                            <TABLEROW_TargetAdded key={1} name={"item.name"} url={"item.url"} tag={"item.tag"} />
                         </AddScanTable>
                     </div>
                 </div>

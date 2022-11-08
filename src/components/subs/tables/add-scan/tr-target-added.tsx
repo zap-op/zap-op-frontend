@@ -1,24 +1,30 @@
-import { Component, ReactNode } from "react";
+import { Component, createRef, ReactNode } from "react";
 
 export type TTABLEROW_TargetAdded_Props = {
-    onClick?: React.MouseEventHandler;
-    isSelected: boolean;
     name: string;
     url: string;
     tag: string;
 }
 
 class TABLEROW_TargetAdded extends Component<TTABLEROW_TargetAdded_Props> {
+    private ref_targetSelector: React.RefObject<HTMLInputElement>;
+    
     constructor(props: TTABLEROW_TargetAdded_Props) {
         super(props);
+        this.handleSelect = this.handleSelect.bind(this);
+        this.ref_targetSelector = createRef<HTMLInputElement>();
+    }
+
+    handleSelect() {
+        this.ref_targetSelector.current!.checked = !this.ref_targetSelector.current!.checked;
     }
 
     override render(): ReactNode {
         return (
-            <ul className="trow" onClick={this.props.onClick}>
+            <ul className="trow" onClick={this.handleSelect}>
                 <li className="selected">
                     <div className="selection-container">
-                        <input className="target-selector" type="checkbox" name="select-row" id="" />
+                        <input className="target-selector" type="checkbox" name="select-row" id="" ref={this.ref_targetSelector} />
                     </div>
                 </li>
                 <li className="name">
