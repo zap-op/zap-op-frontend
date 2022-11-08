@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { NAV_BAR_STRING } from '../utils/string';
-import owlensLogo from "../assets/owlens-logo.svg";
+import owlensLogo from "../assets/logo/owlens-logo_light.svg";
 class NavBar extends Component {
     override render() {
         return (
