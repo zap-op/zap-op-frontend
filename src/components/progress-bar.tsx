@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, ReactNode } from 'react';
 
 type TProgressBarProps = {
     scanProgress: number;
@@ -6,7 +6,7 @@ type TProgressBarProps = {
 
 class ProgressBar extends Component<TProgressBarProps> {
     static readonly progressBarAnimationName = "pulse";
-    override render() {
+    override render(): ReactNode {
         return (
             <div className="progress-bar-container">
                 <div className="progress-bar"

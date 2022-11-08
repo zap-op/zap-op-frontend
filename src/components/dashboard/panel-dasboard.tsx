@@ -1,4 +1,4 @@
-import { Component, createRef } from "react";
+import { Component, createRef, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import workSpaceImage from "../../assets/work-space.svg";
 
@@ -54,7 +54,7 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
         document.addEventListener("mouseup", this.handleResizePanelOnMouseUp);
     }
 
-    override render() {
+    override render(): ReactNode {
         return (
             <div className="panel-dashboard-container">
                 <div className="panel-container" ref={this.ref_panel}>

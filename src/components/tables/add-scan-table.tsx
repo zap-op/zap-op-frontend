@@ -1,4 +1,4 @@
-import { Component, PropsWithChildren } from 'react';
+import { Component, PropsWithChildren, ReactNode } from 'react';
 
 type TAddScanTableProps = {
 }
@@ -8,7 +8,7 @@ class AddScanTable extends Component<PropsWithChildren<TAddScanTableProps>> {
         super(props);
     }
 
-    override render() {
+    override render(): ReactNode {
         return (
             <div className="add-scan-table-container table-container">
                 <div className="table-scroll-wrap">

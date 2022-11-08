@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, ReactNode } from 'react';
 import ProgressRing from './progress-ring';
 import TS_ZAP from '../entities/ts-zap';
 import { connect } from 'react-redux';
@@ -148,7 +148,7 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
         }
     }
 
-    override render() {
+    override render(): ReactNode {
         return (
             <div className="scan-field-container">
                 <h4>

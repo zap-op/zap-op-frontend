@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, ReactNode } from 'react';
 import ProgressBar from '../progress-bar';
 
 type TProgressTableProps = {
@@ -74,7 +74,7 @@ class ProgressTable extends Component<TProgressTableProps, TProgressTableState> 
         this.ref_autoScrollCheckbox.current!.checked = status;
     }
 
-    override render() {
+    override render(): ReactNode {
         return (
             <>
                 <ProgressBar scanProgress={this.props.scanProgress} />

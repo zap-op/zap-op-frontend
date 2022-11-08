@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { connect} from 'react-redux';
+import { Component, ReactNode } from 'react';
+import { connect } from 'react-redux';
 import { RootState } from '../store/store';
 
 const mapStateToProps = (state: RootState) => {
@@ -71,7 +71,7 @@ class AuthGoogle extends Component<TAuthGoogleProps> {
         });
     }
 
-    override render() {
+    override render(): ReactNode {
         // if (!this.props.option) {
         //     return (
         //         <></>

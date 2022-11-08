@@ -1,4 +1,4 @@
-import { Component, createRef, PropsWithChildren } from 'react';
+import { Component, createRef, PropsWithChildren, ReactNode } from 'react';
 import DescribeElement from './describeElement';
 import { setDescribeElement } from "../../store/slice/toolkitSlice";
 import { connect } from 'react-redux';
@@ -75,7 +75,7 @@ class Describable extends Component<PropsWithChildren<TDescribableProps>, TDescr
         this.props.setDescribeElement({ describeElement: null })
     }
 
-    override render() {
+    override render(): ReactNode {
         return (
             <div className="describable-wrap" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} ref={this.ref_self}>
                 {this.props.children}

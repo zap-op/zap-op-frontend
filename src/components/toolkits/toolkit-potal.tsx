@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../store/store';
 
@@ -18,7 +18,7 @@ export type TToolkitPortalProps =
 
 class ToolkitPortal extends Component<TToolkitPortalProps> {
 
-    override render() {
+    override render(): ReactNode {
         return (
             <div className="toolkit-portal">
                 {this.props.isDescribing ? this.props.describeElement : <></>}

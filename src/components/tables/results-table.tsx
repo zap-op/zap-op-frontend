@@ -1,4 +1,4 @@
-import { Component, PropsWithChildren } from 'react';
+import { Component, PropsWithChildren, ReactNode } from 'react';
 
 type TResultsTableProps = {
 }
@@ -8,7 +8,7 @@ class ResultsTable extends Component<PropsWithChildren<TResultsTableProps>> {
         super(props);
     }
 
-    override render() {
+    override render(): ReactNode {
         return (
             <div className="results-table-container table-container">
                 <div className="table-scroll-wrap">

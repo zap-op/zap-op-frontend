@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, ReactNode } from 'react';
 
 type TProgressRingProps = {
     state: string;
@@ -8,7 +8,7 @@ class ProgressRing extends Component<TProgressRingProps> {
     static readonly PROCESSING = "PROCESSING";
     static readonly COMPLETE = "COMPLETE";
 
-    override render() {
+    override render(): ReactNode {
         let progressRing;
         if (!this.props.state || this.props.state === ProgressRing.PROCESSING) {
             progressRing = <div className="progress-ring spin">
