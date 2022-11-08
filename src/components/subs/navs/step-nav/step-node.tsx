@@ -10,14 +10,13 @@ class StepNode extends Component<TStepNodeProps> {
         return (
             <div className="step-node-container">
                 <div className="node-container">
-                    <div className="title-container">
-                        <h4>
-                            {this.props.title}
-                        </h4>
+                    <div className="node">
                     </div>
                 </div>
-                <div className="linker">
-
+                <div className="title-container">
+                    <h4>
+                        {this.props.title}
+                    </h4>
                 </div>
             </div>
         );
