@@ -1,6 +1,6 @@
 import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
-import StepNode from './subs/navs/step-nav/step-node';
+import StepNode from './subs/navs/step-node';
 
 type TStepNavProps = {
     steps: {
