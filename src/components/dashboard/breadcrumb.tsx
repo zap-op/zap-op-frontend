@@ -1,5 +1,5 @@
 import { Component, ReactNode } from "react";
-import BreadcrumbCell from "./breadcrumb-cell";
+import BreadcrumbCell from "../subs/navs/breadcrumb-cell";
 
 export type TBreadcrumbProps = {
     listBeadcrumb: {
