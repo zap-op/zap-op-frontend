@@ -1,5 +1,6 @@
 import { Component, ReactNode, createRef } from "react";
 import StepNav from "../step-nav";
+import withLocation, { TwithLocationProps } from "../toolkits/withLocation";
 
 type TAddScanBoardProps = {
 }
@@ -8,9 +9,9 @@ type TAddScanBoardState = {
 
 }
 
-class AddScanBoard extends Component<TAddScanBoardProps, TAddScanBoardState> {
+class AddScanBoard extends Component<TwithLocationProps<TAddScanBoardProps>, TAddScanBoardState> {
 
-    constructor(props: TAddScanBoardProps) {
+    constructor(props: TwithLocationProps<TAddScanBoardProps>) {
         super(props);
     }
 
@@ -36,4 +37,4 @@ class AddScanBoard extends Component<TAddScanBoardProps, TAddScanBoardState> {
     }
 }
 
-export default AddScanBoard;
+export default withLocation<TAddScanBoardProps>(AddScanBoard);
