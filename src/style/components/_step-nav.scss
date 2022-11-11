@@ -4,7 +4,6 @@ div.step-nav-container {
     counter-reset: step-node;
     display: flex;
     flex-direction: row;
-    margin: 0.25rem 0;
     position: relative;
     $linker-margin-left-right: var(--linker-margin-left-right);
     $node-point-size: 2rem;
