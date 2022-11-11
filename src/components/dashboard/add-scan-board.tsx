@@ -1,8 +1,9 @@
-import { Component, ReactNode, createRef } from "react";
-import StepNav from "../step-nav";
+import { Component, ReactNode } from "react";
+import StepNav, { TStepNavProps } from "../step-nav";
 import withLocation, { TwithLocationProps } from "../toolkits/withLocation";
 
 type TAddScanBoardProps = {
+    configSteps: TStepNavProps["steps"],
 }
 
 type TAddScanBoardState = {
@@ -18,19 +19,10 @@ class AddScanBoard extends Component<TwithLocationProps<TAddScanBoardProps>, TAd
     override render(): ReactNode {
         return (
             <div className="add-scan-board-container">
-                <div className="target-selection-container">
-                    <StepNav steps={[{ title: "Welcome Lorem ", href: "#" },
-                    { title: "Welcome Lorem", href: "#" },
-                    { title: "Welcome Lorem ", href: "#" }]} />
-                    {/* <h3 className="title">
-                        Select Targets
-                    </h3>
-                    <div className="list-selection-container">
-                        <SearchBar placeholder="Search target" />
-                        <AddScanTable>
-                            <TABLEROW_TargetAdded key={1} name={"item.name"} url={"item.url"} tag={"item.tag"} />
-                        </AddScanTable>
-                    </div> */}
+                <div className="add-scan-board_step-nav-container">
+                    <StepNav steps={this.props.configSteps} />
+                </div>
+                <div className="add-scan-board_content-container">
                 </div>
             </div>
         )

@@ -11,6 +11,7 @@ type TSelectTargetBoardState = {
 }
 
 class SelectTargetBoard extends Component<TSelectTargetBoardProps, TSelectTargetBoardState> {
+    static readonly NAME = "select-target-board";
 
     constructor(props: TSelectTargetBoardProps) {
         super(props);

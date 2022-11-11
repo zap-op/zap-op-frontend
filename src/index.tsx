@@ -19,6 +19,7 @@ import ZAP from './entities/zap';
 import TS_ZAP from './entities/ts-zap';
 import ToolkitPortal from './components/toolkits/toolkit-potal';
 import AddScanBoard from './components/dashboard/add-scan-board';
+import SelectTargetBoard from './components/dashboard/select-target-board';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
@@ -66,11 +67,22 @@ root.render(
                             }
                         ]} />
                     } />
-                    <Route path='addscan' element={<AddScanBoard/>} />
+                    <Route path='addscan' element={
+                        <AddScanBoard configSteps={[
+                            {
+                                title: "Select Targets",
+                                state: SelectTargetBoard.NAME,
+                            },
+                            {
+                                title: "Configure Scans",
+                                state: "Configure-Scans-name",
+                            },
+                        ]} />
+                    } />
                     <Route path='wspsettings' element={<></>} />
                 </Route>
             </Routes>
             <ToolkitPortal />
         </BrowserRouter>
-    </Provider>
+    </Provider >
 );
