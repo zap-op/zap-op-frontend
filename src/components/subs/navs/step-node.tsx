@@ -1,8 +1,9 @@
 import { Component, ReactNode } from "react";
+import { NavLink } from "react-router-dom";
 
-type TStepNodeProps = {
+export type TStepNodeProps = {
     title: string;
-    href: string;
+    state: string;
 }
 
 class StepNode extends Component<TStepNodeProps> {
@@ -10,8 +11,10 @@ class StepNode extends Component<TStepNodeProps> {
         return (
             <div className="step-node-container">
                 <div className="node-container">
-                    <div className="node">
-                    </div>
+                    <NavLink to="" state={this.props.state} draggable="false">
+                        <div className="node">
+                        </div>
+                    </NavLink>
                 </div>
                 <div className="title-container">
                     <h4>

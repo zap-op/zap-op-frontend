@@ -31,7 +31,7 @@ class StepNav extends Component<TStepNavProps, TStepNavState> {
         return (
             <div className="step-nav-container" ref={this.ref_self}>
                 {this.props.steps.map((item, index) => {
-                    return <StepNode key={index} title={item.title} href={item.href} />
+                    return <StepNode key={index} title={item.title} state={item.href} />
                 })}
             </div>
         );
