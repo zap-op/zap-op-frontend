@@ -21,6 +21,15 @@ class AddScanBoard extends Component<TAddScanBoardProps, TAddScanBoardState> {
                     <StepNav steps={[{ title: "Welcome Lorem ", href: "#" },
                     { title: "Welcome Lorem", href: "#" },
                     { title: "Welcome Lorem ", href: "#" }]} />
+                    {/* <h3 className="title">
+                        Select Targets
+                    </h3>
+                    <div className="list-selection-container">
+                        <SearchBar placeholder="Search target" />
+                        <AddScanTable>
+                            <TABLEROW_TargetAdded key={1} name={"item.name"} url={"item.url"} tag={"item.tag"} />
+                        </AddScanTable>
+                    </div> */}
                 </div>
             </div>
         )

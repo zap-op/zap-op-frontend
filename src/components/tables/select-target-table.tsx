@@ -1,10 +1,10 @@
 import { Component, PropsWithChildren, ReactNode } from 'react';
 
-type TAddScanTableProps = {
+type TSelectTargetTableProps = {
 }
 
-class AddScanTable extends Component<PropsWithChildren<TAddScanTableProps>> {
-    constructor(props: TAddScanTableProps) {
+class SelectTargetTable extends Component<PropsWithChildren<TSelectTargetTableProps>> {
+    constructor(props: TSelectTargetTableProps) {
         super(props);
     }
 
@@ -37,4 +37,4 @@ class AddScanTable extends Component<PropsWithChildren<TAddScanTableProps>> {
     }
 }
 
-export default AddScanTable;
+export default SelectTargetTable;
