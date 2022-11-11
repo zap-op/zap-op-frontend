@@ -1,15 +1,15 @@
 import { Component, createRef, ReactNode } from "react";
 
-export type TTABLEROW_TargetAdded_Props = {
+export type TTABLEROW_SelectTarget_Props = {
     name: string;
     url: string;
     tag: string;
 }
 
-class TABLEROW_TargetAdded extends Component<TTABLEROW_TargetAdded_Props> {
+class TABLEROW_SelectTarget extends Component<TTABLEROW_SelectTarget_Props> {
     private ref_targetSelector: React.RefObject<HTMLInputElement>;
     
-    constructor(props: TTABLEROW_TargetAdded_Props) {
+    constructor(props: TTABLEROW_SelectTarget_Props) {
         super(props);
         this.handleSelect = this.handleSelect.bind(this);
         this.ref_targetSelector = createRef<HTMLInputElement>();
@@ -41,4 +41,4 @@ class TABLEROW_TargetAdded extends Component<TTABLEROW_TargetAdded_Props> {
     }
 }
 
-export default TABLEROW_TargetAdded;
+export default TABLEROW_SelectTarget;
