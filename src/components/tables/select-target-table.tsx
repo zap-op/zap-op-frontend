@@ -10,7 +10,7 @@ class SelectTargetTable extends Component<PropsWithChildren<TSelectTargetTablePr
 
     override render(): ReactNode {
         return (
-            <div className="add-scan-table-container table-container">
+            <div className="select-target-table-container table-container">
                 <div className="table-scroll-wrap">
                     <div className="table-head-container">
                         <ul className="thead">
