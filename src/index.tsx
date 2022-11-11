@@ -32,7 +32,7 @@ root.render(
                     <Route path='login' element={<LogIn />} />
                 </Route>
                 <Route path='app' element={<AppBoard />}>
-                    <Route path='dashboard' element={<></>} />
+                    <Route index path='dashboard' element={<></>} />
                     <Route path='targets' element={
                         <TargetsBoard listTarget={[
                             {
