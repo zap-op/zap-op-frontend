@@ -1,4 +1,4 @@
-import { Component, ReactNode, createRef } from "react";
+import { Component, ReactNode} from "react";
 import SearchBar from "../search-bar";
 import TABLEROW_SelectTarget from "../subs/tables/select-target/tr-select-target";
 import SelectTargetTable from "../tables/select-target-table";
@@ -20,9 +20,9 @@ class SelectTargetBoard extends Component<TSelectTargetBoardProps, TSelectTarget
     override render(): ReactNode {
         return (
             <div className="select-target-container">
-                <h3 className="title">
+                <h1 className="title">
                     Select Targets
-                </h3>
+                </h1>
                 <div className="list-selection-container">
                     <SearchBar placeholder="Search target" />
                     <SelectTargetTable>
