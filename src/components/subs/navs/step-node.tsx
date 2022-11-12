@@ -5,12 +5,19 @@ import withLocation, { TwithLocationProps } from "../../toolkits/withLocation";
 export type TStepNodeProps = {
     title: string;
     state: string;
+    startNode?: boolean;
 }
 
 class StepNode extends Component<TwithLocationProps<TStepNodeProps>> {
     override render(): ReactNode {
+        let isActive: boolean = false;
+        if (!this.props.location.state && this.props.startNode) {
+            isActive = true;
+        } else if (this.props.location.state === this.props.state) {
+            isActive = true;
+        }
         return (
-            <div className={`step-node-container ${this.props.location.state === this.props.state ? "isActive" : undefined}`}>
+            <div className={`step-node-container ${isActive ? "isActive" : undefined}`}>
                 <div className="node-container">
                     <NavLink
                         to=""
