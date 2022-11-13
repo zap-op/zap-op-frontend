@@ -44,7 +44,7 @@ section {
 
 .primary-button {
     background-color: $primary-button-background-color;
-    color: white !important;
+    color: $black-color-7;
     font-weight: 500;
 
     &:hover {
@@ -55,7 +55,7 @@ section {
 .secondary-button {
     background-color: white;
     box-shadow: $secondary-button-shadow;
-    color: black !important;
+    color: $black-color-1;
 
     &:hover {
         box-shadow: $secondary-button-shadow-hover;
