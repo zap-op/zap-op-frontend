@@ -6,4 +6,28 @@ div.add-scan-board-container {
     div.add-scan-board_content-container {
         margin: 2rem 0;
     }
+
+    div.navigator-state-containter {
+        display: flex;
+        a {
+            font-weight: 400;
+            text-decoration: none;
+
+            &.previous-state {
+                margin-left: 5rem;
+                margin-right: auto;
+            }
+
+            &.next-state {
+                margin-left: auto;
+                margin-right: 5rem;
+            }
+        }
+
+        div.start-state {
+            font-weight: 400;
+            margin-left: auto;
+            margin-right: 5rem;
+        }
+    }
 }
