@@ -75,7 +75,7 @@ root.render(
                             },
                             {
                                 title: "Configure Scans",
-                                state: "Configure-Scans-name",
+                                state: "configure-scans-name",
                             },
                         ]} />
                     } />

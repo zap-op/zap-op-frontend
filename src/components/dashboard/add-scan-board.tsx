@@ -60,9 +60,9 @@ class AddScanBoard extends Component<TwithLocationProps<TAddScanBoardProps>, TAd
                         <NavLink
                             to=""
                             state={previousLinkState}
-                            className="previous-state"
+                            className="previous-state button secondary-button"
                             draggable={false}>
-                            back
+                            Back
                         </NavLink>
                         :
                         <></>
@@ -72,12 +72,12 @@ class AddScanBoard extends Component<TwithLocationProps<TAddScanBoardProps>, TAd
                         <NavLink
                             to=""
                             state={nextLinkState}
-                            className="previous-state"
+                            className="next-state button primary-button"
                             draggable={false}>
-                            next
+                            Next Step
                         </NavLink>
                         :
-                        <div className="button primary-button">
+                        <div className="start-state button primary-button">
                             start scan
                         </div>
                     }

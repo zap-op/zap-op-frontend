@@ -75,21 +75,21 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
                         <h4 className="nav-title management-title">
                             MANAGEMENT
                         </h4>
-                        <NavLink to="dashboard" className="nav-item dashboard-container" draggable="false">
+                        <NavLink to="dashboard" className="nav-item dashboard-container" draggable={false}>
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Dashboard
                             </h4>
                         </NavLink>
-                        <NavLink to="targets" className="nav-item targets-container" draggable="false">
+                        <NavLink to="targets" className="nav-item targets-container" draggable={false}>
                             <span className="icon">
                             </span>
                             <h4 className="title">
                                 Targets
                             </h4>
                         </NavLink>
-                        <NavLink to="results" className="nav-item results-container" draggable="false">
+                        <NavLink to="results" className="nav-item results-container" draggable={false}>
                             <span className="icon">
                             </span>
                             <h4 className="title">
@@ -99,7 +99,7 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
                         <h4 className="nav-title aciton-title">
                             ACTION
                         </h4>
-                        <NavLink to="addscan" className="nav-item new-scan-container" draggable="false">
+                        <NavLink to="addscan" className="nav-item new-scan-container" draggable={false}>
                             <span className="icon">
                             </span>
                             <h4 className="title">
@@ -110,7 +110,7 @@ class PanelDashboard extends Component<TPanelDashboardProps, TPanelDashboardStat
                     <div className="br">
                     </div>
                     <div className="work-space-nav-container">
-                        <NavLink to="wspsettings" className="nav-item settings-container" draggable="false">
+                        <NavLink to="wspsettings" className="nav-item settings-container" draggable={false}>
                             <span className="icon">
                             </span>
                             <h4 className="title">

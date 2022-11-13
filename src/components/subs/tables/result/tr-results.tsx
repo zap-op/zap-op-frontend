@@ -27,14 +27,14 @@ class TABLEROW_Results extends Component<TTABLEROW_ResultsProps, TTABLEROW_Resul
     }
 
     override componentDidMount(): void {
-        this.fetchIsOpeningSubContentState();
+        this.updateIsOpeningSubContentState();
     }
 
     private handleDropdownButton() {
-        this.fetchIsOpeningSubContentState();
+        this.updateIsOpeningSubContentState();
     }
 
-    private fetchIsOpeningSubContentState(): void {
+    private updateIsOpeningSubContentState(): void {
         this.setState({
             isOpeningSubContent: this.ref_dropdownInput.current?.checked ? true : false,
         })

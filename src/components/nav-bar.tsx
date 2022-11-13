@@ -6,25 +6,25 @@ class NavBar extends Component {
     override render(): ReactNode {
         return (
             <div id='nav-bar' className="nav-bar-container">
-                <Link to="/" className="nav-logo" draggable="false">
+                <Link to="/" className="nav-logo" draggable={false}>
                     <figure className="logo-container">
                         <img src={owlensLogo} alt="owlens-logo.svg" />
                     </figure>
                 </Link>
                 <div className='nav-wrap'>
                     <ul className='nav-bar'>
-                        <Link to="/" className='nav-item' draggable="false">
+                        <Link to="/" className='nav-item' draggable={false}>
                             {NAV_BAR_STRING.NAV_ITEM_1}
                         </Link>
-                        <Link to="/" className='nav-item' draggable="false">
+                        <Link to="/" className='nav-item' draggable={false}>
                             {NAV_BAR_STRING.NAV_ITEM_2}
                         </Link>
                     </ul>
                     <ul className="nav-bar-id">
-                        <Link to="/login" className='log-in button secondary-button' draggable="false">
+                        <Link to="/login" className='log-in button secondary-button' draggable={false}>
                             {NAV_BAR_STRING.LOGIN}
                         </Link>
-                        <Link to="/signup" className='create-account button primary-button' draggable="false">
+                        <Link to="/signup" className='create-account button primary-button' draggable={false}>
                             {NAV_BAR_STRING.SIGNUP}
                         </Link>
                     </ul>

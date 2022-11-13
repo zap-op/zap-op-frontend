@@ -22,7 +22,7 @@ class StepNode extends Component<TwithLocationProps<TStepNodeProps>> {
                     <NavLink
                         to=""
                         state={this.props.state}
-                        draggable="false">
+                        draggable={false}>
                         <div className="node">
                         </div>
                     </NavLink>
