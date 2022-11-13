@@ -1,17 +1,28 @@
 import { Component, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
+import withLocation, { TwithLocationProps } from "../../toolkits/withLocation";
 
 export type TStepNodeProps = {
     title: string;
     state: string;
+    startNode?: boolean;
 }
 
-class StepNode extends Component<TStepNodeProps> {
+class StepNode extends Component<TwithLocationProps<TStepNodeProps>> {
     override render(): ReactNode {
+        let isActive: boolean = false;
+        if (!this.props.location.state && this.props.startNode) {
+            isActive = true;
+        } else if (this.props.location.state === this.props.state) {
+            isActive = true;
+        }
         return (
-            <div className="step-node-container">
+            <div className={`step-node-container ${isActive ? "isActive" : undefined}`}>
                 <div className="node-container">
-                    <NavLink to="" state={this.props.state} draggable="false">
+                    <NavLink
+                        to=""
+                        state={this.props.state}
+                        draggable="false">
                         <div className="node">
                         </div>
                     </NavLink>
@@ -26,4 +37,4 @@ class StepNode extends Component<TStepNodeProps> {
     }
 }
 
-export default StepNode;
+export default withLocation<TStepNodeProps>(StepNode);
