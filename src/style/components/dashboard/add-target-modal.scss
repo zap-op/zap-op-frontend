@@ -1,10 +1,55 @@
+@use '../../utils/variables' as *;
+
 div.add-target-modal-container {
+    display: flex;
+    flex-direction: column;
+
     div.title-container {
+        margin: 0.5rem 0;
+
         h3 {
-            
+            color: $black-color-1;
         }
     }
+
     div.content-container {
-        
+        margin: 1rem 0;
+
+        a.type-option {
+            background-color: $black-color-5;
+            border-radius: 5px;
+            display: flex;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            position: relative;
+            text-decoration: none;
+            transition: background-color 200ms ease-in-out;
+            width: 15rem;
+
+            &::after {
+                background-color: aqua;
+                background-color: $black-color-3;
+                content: "";
+                height: 1rem;
+                mask-image: url("../../../assets/chevron-right-solid.svg");
+                mask-position: center;
+                mask-repeat: no-repeat;
+                mask-size: contain;
+                position: absolute;
+                right: 5%;
+                top: 50%;
+                transform: translate(0, -50%);
+                width: 1rem;
+            }
+
+            &:hover {
+                background-color: $black-color-4;
+            }
+
+            h4.title {
+                color: $black-color-1;
+            }
+
+        }
     }
 }

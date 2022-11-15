@@ -1,4 +1,5 @@
 import { Component, ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 type TAddTargetsModalProps = {}
 
@@ -12,11 +13,20 @@ class AddTargetsModal extends Component<TAddTargetsModalProps> {
             <div className="add-target-modal-container">
                 <div className="title-container">
                     <h3>
-                        asd
+                        Add new target
                     </h3>
                 </div>
                 <div className="content-container">
-                    
+                    <Link to="" state="domain" className="type-option domain">
+                        <h4 className="title">
+                            Add domain
+                        </h4>
+                    </Link>
+                    <Link to="" state="ip" className="type-option ip">
+                        <h4 className="title">
+                            Add IP
+                        </h4>
+                    </Link>
                 </div>
             </div>
         )

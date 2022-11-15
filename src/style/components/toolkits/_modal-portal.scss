@@ -62,7 +62,7 @@ div.modal-portal-container {
             }
 
             div.modal-container {
-                @import url(../dashboard/add-target-modal.scss);
+                @import "../dashboard/add-target-modal.scss";
             }
         }
     }
