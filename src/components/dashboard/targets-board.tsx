@@ -4,6 +4,7 @@ import TABLEROW_Targets, { TTABLEROW_Targets_Props } from "../subs/tables/target
 import CollapseSearchBar from "../collapse-search-bar";
 import ModalPortal from "../toolkits/modal-portal";
 import AddTargetsModal from "../subs/modal/add-target-modal";
+import withLocation, { TwithLocationProps } from "../toolkits/withLocation";
 
 type TTargetsBoardProps = {
     listTarget: TTABLEROW_Targets_Props[];
@@ -12,8 +13,8 @@ type TTargetsBoardProps = {
 type TTargetsBoardState = {
     isOpenModal: boolean;
 }
-class TargetsBoard extends Component<TTargetsBoardProps, TTargetsBoardState> {
-    constructor(props: TTargetsBoardProps) {
+class TargetsBoard extends Component<TwithLocationProps<TTargetsBoardProps>, TTargetsBoardState> {
+    constructor(props: TwithLocationProps<TTargetsBoardProps>) {
         super(props);
         this.handleAddTarget = this.handleAddTarget.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -63,4 +64,4 @@ class TargetsBoard extends Component<TTargetsBoardProps, TTargetsBoardState> {
     }
 }
 
-export default TargetsBoard;
+export default withLocation<TTargetsBoardProps>(TargetsBoard);
