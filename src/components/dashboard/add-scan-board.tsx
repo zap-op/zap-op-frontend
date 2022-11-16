@@ -1,5 +1,5 @@
 import { Component, ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import StepNav, { TStepNavProps } from "../step-nav";
 import withLocation, { TwithLocationProps } from "../toolkits/withLocation";
 import SelectTargetBoard from "./select-target-board";
@@ -57,25 +57,25 @@ class AddScanBoard extends Component<TwithLocationProps<TAddScanBoardProps>, TAd
                 <div className="navigator-state-containter">
                     {previousLinkState
                         ?
-                        <NavLink
+                        <Link
                             to=""
                             state={previousLinkState}
                             className="previous-state button secondary-button"
                             draggable={false}>
                             Back
-                        </NavLink>
+                        </Link>
                         :
                         <></>
                     }
                     {nextLinkState
                         ?
-                        <NavLink
+                        <Link
                             to=""
                             state={nextLinkState}
                             className="next-state button primary-button"
                             draggable={false}>
                             Next
-                        </NavLink>
+                        </Link>
                         :
                         <div className="start-state button primary-button">
                             Start
