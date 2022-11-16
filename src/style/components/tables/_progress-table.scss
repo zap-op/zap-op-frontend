@@ -59,7 +59,7 @@ div.progress-table-container {
 
                         span.check-mark {
                             display: inherit;
-                            fill: white;
+                            fill: $black-color-7;
                             height: $toggle-check-mark-height;
                             opacity: 0;
                             transition: opacity $toggle-indicator-speed ease-in-out;
