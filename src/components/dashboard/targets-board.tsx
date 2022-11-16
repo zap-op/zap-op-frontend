@@ -30,6 +30,7 @@ class TargetsBoard extends Component<TwithLocationProps<TTargetsBoardProps>, TTa
     }
 
     handleAddTarget() {
+        this.props.setStateLocation(null);
         this.handleOpenModal(true);
     }
 
