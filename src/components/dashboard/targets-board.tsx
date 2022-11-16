@@ -5,6 +5,8 @@ import CollapseSearchBar from "../collapse-search-bar";
 import ModalPortal from "../toolkits/modal-portal";
 import AddTargetsModal from "../subs/modal/add-target-modal";
 import withLocation, { TwithLocationProps } from "../toolkits/withLocation";
+import AddDomainModal from "../subs/modal/add-domain-modal";
+import AddIPModal from "../subs/modal/add-ip-modal";
 
 type TTargetsBoardProps = {
     listTarget: TTABLEROW_Targets_Props[];
@@ -46,6 +48,21 @@ class TargetsBoard extends Component<TwithLocationProps<TTargetsBoardProps>, TTa
     }
 
     override render(): ReactNode {
+        let currentModal = undefined;
+        if (this.state.isOpenModal) {
+            const currentState = this.props.location.state;
+            switch (currentState) {
+                case AddDomainModal.LOCATION_STATE:
+                    currentModal = <AddDomainModal />
+                    break;
+                case AddIPModal.LOCATION_STATE:
+                    currentModal = <AddIPModal />
+                    break;
+                default:
+                    currentModal = <AddTargetsModal />
+                    break;
+            }
+        }
         return (
             <>
                 <div className="targets-board-container">
@@ -66,7 +83,7 @@ class TargetsBoard extends Component<TwithLocationProps<TTargetsBoardProps>, TTa
                 {this.state.isOpenModal
                     ?
                     <ModalPortal handleOpenModal={this.handleOpenModal}>
-                        <AddTargetsModal />
+                        {currentModal}
                     </ModalPortal>
                     :
                     <></>
