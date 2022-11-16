@@ -64,6 +64,7 @@ div.modal-portal-container {
             div.modal-container {
                 @import "../dashboard/add-target-modal.scss";
                 @import "../dashboard/add-domain-modal.scss";
+                @import "../dashboard/add-ip-modal.scss";
             }
         }
     }
