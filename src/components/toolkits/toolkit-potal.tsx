@@ -4,8 +4,8 @@ import { RootState } from '../../store/store';
 
 const mapStateToProps = (state: RootState) => {
     return {
-        isDescribing: state.toolkit.isDescribing,
-        describeElement: state.toolkit.describeElement,
+        isDescribing: state.describablePortal.isDescribing,
+        describeElement: state.describablePortal.describeElement,
     }
 }
 

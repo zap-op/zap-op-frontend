@@ -1,13 +1,13 @@
 import { Component, createRef, PropsWithChildren, ReactNode } from 'react';
 import DescribeElement from './describeElement';
-import { setDescribeElement } from "../../store/slice/toolkitSlice";
+import { setDescribeElement } from "../../store/slice/toolkit/describablePortalSlice";
 import { connect } from 'react-redux';
 import { RootState } from '../../store/store';
 
 const mapStateToProps = (state: RootState) => {
     return {
-        isDescribing: state.toolkit.isDescribing,
-        describeElement: state.toolkit.describeElement,
+        isDescribing: state.describablePortal.isDescribing,
+        describeElement: state.describablePortal.describeElement,
     }
 }
 
@@ -72,7 +72,7 @@ class Describable extends Component<PropsWithChildren<TDescribableProps>, TDescr
     handleMouseLeave() {
         clearTimeout(this.state.waiterMouseStop);
         this.ref_self.current?.removeEventListener("mousemove", this.handleMouseMove);
-        this.props.setDescribeElement({ describeElement: null })
+        this.props.setDescribeElement({ describeElement: undefined })
     }
 
     override render(): ReactNode {
