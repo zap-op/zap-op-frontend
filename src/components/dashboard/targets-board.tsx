@@ -18,6 +18,7 @@ class TargetsBoard extends Component<TwithLocationProps<TTargetsBoardProps>, TTa
         super(props);
         this.handleAddTarget = this.handleAddTarget.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleEscapeKey = this.handleEscapeKey.bind(this);
         this.state = {
             isOpenModal: false,
         }
@@ -27,11 +28,21 @@ class TargetsBoard extends Component<TwithLocationProps<TTargetsBoardProps>, TTa
         this.setState({
             isOpenModal: status,
         })
+        if (status) {
+            document.addEventListener("keydown", this.handleEscapeKey);
+        }
     }
 
     handleAddTarget() {
         this.props.setStateLocation(null);
         this.handleOpenModal(true);
+    }
+
+    handleEscapeKey(event: KeyboardEvent) {
+        if (event.code === "Escape") {
+            this.handleOpenModal(false);
+            document.removeEventListener("keydown", this.handleEscapeKey);
+        }
     }
 
     override render(): ReactNode {
