@@ -15,7 +15,7 @@ class ModalPortal extends Component<PropsWithChildren<TModalPortalProps>> {
             <div className="modal-portal-container">
                 <div className="modal-wrap" onClick={() => this.props.handleOpenModal(false)}>
                     <div className="modal-inner" onClick={(event) => { event.stopPropagation() }}>
-                        <span className="close-button">
+                        <span className="close-button" onClick={() => this.props.handleOpenModal(false)}>
                         </span>
                         <div className="modal-container">
                             {this.props.children}
