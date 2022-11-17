@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './slice/authSlice';
 import scanSlice from './slice/scanSlice';
-import toolkitSlice, { setDescribeElement } from './slice/toolkitSlice';
+import describablePortalSlice from './slice/toolkit/describablePortalSlice';
 
 const reducers = {
     auth: authSlice.reducer,
     scan: scanSlice.reducer,
-    toolkit: toolkitSlice.reducer,
+    describablePortal: describablePortalSlice.reducer,
 }
 
 const store = configureStore({
@@ -14,7 +14,7 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: ["toolkit/setDescribeElement"],
+                ignoredActions: ["describe/setDescribeElement"],
                 ignoreState: true,
             }
         }),

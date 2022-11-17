@@ -1,0 +1,39 @@
+@use '../../../style/variables' as *;
+
+div.content-input-field-container {
+    div.title-container {
+        margin: 0.5rem 0;
+
+        h4 {
+            color: $black-color-1;
+            font-size: 0.625rem;
+
+            &.is-required::after {
+                color: $error-color;
+                content: "\002A";
+                margin: 0 0.125rem;
+            }
+        }
+    }
+
+    div.input-field-container {
+        input {
+            background-color: $black-color-5;
+            border-style: none;
+            color: $black-blue-color-1;
+            transition: box-shadow 150ms ease-in-out;
+            width: 15rem;
+
+            &:hover {
+                box-shadow:
+                    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+                    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+            }
+
+            &:focus {
+                box-shadow: $blue-color-6 0px 0px 0px 3px;
+                outline: none;
+            }
+        }
+    }
+}

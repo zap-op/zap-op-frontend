@@ -1,0 +1,184 @@
+@use '../../../style/variables' as *;
+
+div.panel-dashboard-container {
+    display: flex;
+    height: 100vh;
+    position: relative;
+
+    div.panel-container {
+        background-color: $black-color-7;
+        border-right: 2px solid $black-color-5;
+        color: $black-color-1;
+        display: inherit;
+        flex-direction: column;
+        max-width: 600px;
+        min-width: 210px;
+        position: relative;
+        width: 300px;
+
+
+        div.work-space-info-container {
+            align-items: center;
+            display: inherit;
+            height: fit-content;
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            width: 100%;
+
+            span.icon-container {
+                margin-right: 0.75rem;
+
+                img {
+                    height: 2rem;
+                    width: 2rem;
+                }
+            }
+
+            div.title-container {
+
+                h4.title {
+                    font-size: 0.8rem;
+                }
+
+                span.sub-title {
+                    color: $black-color-2;
+                    font-size: 0.7rem;
+                }
+            }
+        }
+
+        div.work-space-nav-container {
+            padding-left: 1rem;
+
+            h4.nav-title {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+                margin-top: 1.25rem;
+                opacity: 0.9;
+            }
+
+            a.nav-item {
+                align-items: center;
+                border-radius: 8px;
+                color: black;
+                display: flex;
+                padding: 0.75rem 0 0.75rem 1rem;
+                position: relative;
+                text-decoration: none;
+
+                &[aria-current="page"],
+                &:hover {
+                    background-color: $blue-color-8;
+                    color: $blue-color-1;
+                }
+
+                &[aria-current="page"] {
+                    &::before {
+                        background-color: $blue-color-3;
+                        border-radius: 0px 2px 2px 0px;
+                        content: "";
+                        height: 1rem;
+                        left: 0;
+                        position: absolute;
+                        top: 0.75rem;
+                        width: 0.25rem;
+                    }
+
+                    span.icon {
+                        background-color: $blue-color-3;
+                    }
+                }
+
+                span.icon {
+                    background-color: lighten($black-color-3, 20%);
+                    height: 1rem;
+                    margin-right: 0.875rem;
+                    mask-position: center;
+                    mask-repeat: no-repeat;
+                    mask-size: contain;
+                    min-height: 1rem;
+                    width: 1rem;
+                }
+
+                h4.title {
+                    font-size: 0.875rem;
+                    font-weight: 400;
+                    letter-spacing: 0.3px;
+                }
+            }
+
+            a.dashboard-container {
+
+                span.icon {
+                    mask-image: url("../../../assets/sheet-plastic-solid.svg");
+                }
+            }
+
+            a.targets-container {
+
+                span.icon {
+                    mask-image: url("../../../assets/rocket-solid.svg");
+                }
+            }
+
+            a.results-container {
+
+                span.icon {
+                    mask-image: url("../../../assets/chart-bar-solid.svg");
+                }
+            }
+
+            a.new-scan-container {
+
+                span.icon {
+                    mask-image: url("../../../assets/bullseye-solid.svg");
+                }
+            }
+
+            a.settings-container {
+
+                span.icon {
+                    mask-image: url("../../../assets/gear-solid.svg");
+                }
+            }
+        }
+
+        div.br {
+            align-self: center;
+            background-color: $black-color-5;
+            border: 1px solid $black-color-5;
+            border-radius: 1px;
+            margin: 0.5rem 0;
+            width: 90%;
+        }
+    }
+
+    div.panel-resize-controller {
+        bottom: 0;
+        left: 100%;
+        position: absolute;
+        top: 0;
+
+        button.resize-bar-button {
+            background-color: transparent;
+            border: 0;
+            cursor: ew-resize;
+            height: 100%;
+            padding: 0;
+            width: 24px;
+
+            &:hover {
+                span.resize-bar {
+                    background-color: $blue-color-3;
+                }
+            }
+
+            span.resize-bar {
+                display: block;
+                height: inherit;
+                transition: background-color 300ms ease-in-out;
+                width: 2px;
+            }
+        }
+    }
+}
