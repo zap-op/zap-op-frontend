@@ -14,7 +14,7 @@ div.nav-step-container {
         content: "";
         height: 2px;
         left: 0;
-        margin: ($node-point-size / 4 + $node-point-size / 2) $linker-margin-left-right 0 $linker-margin-left-right;
+        margin: calc(($node-point-size / 4) + $node-point-size / 2) $linker-margin-left-right 0 $linker-margin-left-right;
         position: absolute;
         right: 0;
         top: 0;
@@ -43,7 +43,7 @@ div.nav-step-container {
                 }
 
                 div.node {
-                    padding: ($node-point-size / 4);
+                    padding: calc($node-point-size / 4);
 
                     &::before {
                         align-items: center;

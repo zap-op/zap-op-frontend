@@ -43,7 +43,7 @@ div.modal-portal-container {
                 &::after {
                     background-color: $black-color-7;
                     content: "";
-                    height: $close-button-size / 6;
+                    height: calc($close-button-size / 6);
                     position: absolute;
                     width: $close-button-size;
                 }
