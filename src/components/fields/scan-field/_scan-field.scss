@@ -1,0 +1,46 @@
+@use '../../../style/variables' as *;
+
+div.scan-field-container {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+
+    h4 {
+        margin: 0.5rem 0;
+    }
+
+    div.field-container {
+        align-items: center;
+        display: inherit;
+
+        input {
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            min-width: 20rem;
+            padding: 0.75rem;
+        }
+
+        div.scan-button {
+            height: fit-content;
+            margin-left: 0.5rem;
+        }
+    }
+
+    div.message {
+        border-radius: 3px;
+        font-size: 0.9rem;
+        margin: 0.5rem 0 0.5rem 0.5rem;
+        padding: 0.35rem 1rem;
+        width: fit-content;
+
+        &.error-message {
+            background-color: $error-color;
+            color: $black-color-7;
+            font-weight: 500;
+        }
+
+        &.hidden {
+            display: none;
+        }
+    }
+}

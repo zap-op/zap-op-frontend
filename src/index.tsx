@@ -6,20 +6,20 @@ import { Provider } from 'react-redux'
 import store from './store/store';
 // CONFIG IMPORT
 // COMPONENT IMPORT
-import Home from './pages/home';
-import SignUp from './pages/sign-up';
-import LogIn from './pages/log-in';
+import Home from './pages/home/home-page';
+import SignUp from './pages/signup/sign-up';
+import LogIn from './pages/login/login-page';
 // STYLE IMPORT
 import './style/style.scss';
-import AppBoard from './pages/app-board';
-import LandingPage from './pages/landing-page';
-import TargetsBoard from './components/dashboard/targets-board';
-import ResultsBoard from './components/dashboard/results-board';
+import AppBoard from './pages/app-board/app-board-page';
+import LandingPage from './pages/landing-warp/landing-wrap';
+import TargetsBoard from './components/boards/targets/targets-board';
+import ResultsBoard from './components/boards/results/results-board';
 import ZAP from './entities/zap';
 import TS_ZAP from './entities/ts-zap';
-import ToolkitPortal from './components/toolkits/toolkit-portal';
-import AddScanBoard from './components/dashboard/add-scan-board';
-import SelectTargetBoard from './components/dashboard/select-target-board';
+import ToolkitPortal from './components/toolkits/toolkit/toolkit-portal';
+import AddScanBoard from './components/boards/add-scan/add-scan-board';
+import SelectTargetBoard from './components/boards/select-target/select-target-board';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(

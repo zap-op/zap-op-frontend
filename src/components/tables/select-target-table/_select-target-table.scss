@@ -1,0 +1,69 @@
+@use '../../../style/variables' as *;
+
+div.select-target-table-container {
+    color: $black-color-3;
+    font-size: 0.875rem;
+    min-width: $SM;
+    width: 100%;
+
+    div.table-scroll-wrap {
+
+        ul {
+            display: flex;
+            flex-direction: row;
+
+            li {
+                display: inherit;
+                justify-content: center;
+                margin: 0.5rem;
+
+                &.selected {
+                    flex: 0.25 0 0px;
+                }
+
+                &.name {
+                    flex: 3 0 0px;
+                    justify-content: left;
+                }
+
+                &.target {
+                    flex: 6 0 0px;
+                    justify-content: left;
+                }
+
+                &.tag {
+                    flex: 2 0 0px;
+                }
+            }
+        }
+
+        div.table-head-container {
+            margin: 1rem 0;
+        }
+
+        div.table-body-container {
+            color: $black-color-2;
+
+            ul.trow {
+                background-color: $blue-color-7;
+                border-radius: 5px;
+                margin: 0.5rem 0;
+                transition: background-color 200ms ease-in-out;
+
+                &:hover {
+                    background-color: $blue-color-6;
+                    cursor: pointer;
+                }
+
+                li.selected {
+                    div.selection-container {
+                        input.target-selector {
+                            accent-color: $blue-color-1;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
