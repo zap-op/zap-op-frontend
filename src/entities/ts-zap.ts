@@ -7,8 +7,10 @@ import ZAP from "./zap";
 class TS_ZAP extends ZAP {
     private static _instance: TS_ZAP;
     static override readonly fullName = "Traditonal Spider ZAP";
-    static readonly typeCode = "TS_ZAP";
     private event_source_address!: string;
+    static readonly typeCode: string = "zap-spider";
+    protected override reqAddress: string = this.reqAddress + `/${TS_ZAP.typeCode}`;
+
     private event_source!: EventSource;
 
     public maxChildren: number = 1;
@@ -21,7 +23,7 @@ class TS_ZAP extends ZAP {
         if (TS_ZAP._instance) {
             return TS_ZAP._instance;
         }
-        this.event_source_address = this.service.defaults.baseURL + this.reqAddress + "/" + TS_ZAP.typeCode;
+        this.event_source_address = this.service.defaults.baseURL + this.reqAddress;
         TS_ZAP._instance = this;
     }
 

@@ -4,7 +4,7 @@ import type { AxiosInstance } from "../services/api";
 class Scan {
     protected service = api;
     public url = "";
-    protected readonly reqAddress = "/scan";
+    protected reqAddress: string = "/scan";
 
     protected changeService(api: AxiosInstance) {
         this.service = api;

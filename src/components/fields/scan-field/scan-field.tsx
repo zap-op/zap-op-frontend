@@ -117,7 +117,7 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
                 console.log("onerror: ", event);
                 if (event instanceof MessageEvent) {
                     const data = JSON.parse(event.data);
-                    this.displayErrorMess(data.message);
+                    this.displayErrorMess(data.msg);
                 }
                 SpiderZAPScan.disconnect();
                 this.toggleProcessing();
@@ -129,13 +129,13 @@ class ScanField extends Component<TScanFieldProps, TScanFieldState> {
             console.log("error: ", error);
             if (error instanceof AxiosError) {
                 const errorData: {
-                    scanStatus: number;
-                    message: string
+                    statusCode: number;
+                    msg: string
                 } | undefined = error.response?.data;
-                if (!errorData || !errorData.scanStatus) {
+                if (!errorData || !errorData.statusCode) {
                     this.displayErrorMess(ScanField.CANNOT_REQUEST_ERROR_MESS);
                 } else {
-                    this.displayErrorMess(errorData.message);
+                    this.displayErrorMess(errorData.msg);
                 }
             } else if (error instanceof TypeError) {
 
