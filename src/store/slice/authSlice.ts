@@ -2,14 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type TAuthState = {
     isAuth: boolean,
-    token: string | undefined,
-    tokenExpiration: string | undefined,
+    ggCredentials: string | undefined,
+    accessToken: string | undefined,
+    refreshToken: string | undefined,
+    errorMessage: string | undefined,
 }
 
 const initialState: TAuthState = {
     isAuth: false,
-    token: undefined,
-    tokenExpiration: undefined,
+    ggCredentials: undefined,
+    accessToken: undefined,
+    refreshToken: undefined,
+    errorMessage: undefined,
 }
 
 const authSlice = createSlice({
