@@ -20,7 +20,7 @@ type GsiButtonConfiguration = {
     locale?: string;
 }
 
-type CredentialResponse = {
+export type GoogleCredentialResponse = {
     credential: string;
     select_by: string;
 }
@@ -47,14 +47,10 @@ class AuthGoogleButton extends Component<TAuthGoogleButtonProps> {
         super(props);
     }
 
-    handleCredentialResponse(response: CredentialResponse) {
-        console.log(response);
-        // Auth logic
-        window.location.pathname = "/app";
+    override componentDidMount(): void {
     }
 
-    override componentDidMount() {
-        this.renderGoogleButton();
+    handleCredentialResponse(response: GoogleCredentialResponse) {
     }
 
     renderGoogleButton() {

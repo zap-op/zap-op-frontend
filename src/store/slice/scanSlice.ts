@@ -13,7 +13,7 @@ const initialState: TScanState = {
 }
 
 const scanSlice = createSlice({
-    name: "scan-storage",
+    name: "scanStorage",
     initialState,
     reducers: {
         startScanProgress: (state) => {
