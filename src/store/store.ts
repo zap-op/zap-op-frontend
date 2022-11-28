@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import authApi from '../services/authApi';
 import authSlice from './slice/authSlice';
 import scanSlice from './slice/scanSlice';
 import describablePortalSlice from './slice/toolkit/describablePortalSlice';
 
 const reducers = {
     auth: authSlice.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     scan: scanSlice.reducer,
     describablePortal: describablePortalSlice.reducer,
 }
@@ -17,7 +19,7 @@ const store = configureStore({
                 ignoredActions: ["describe/setDescribeElement"],
                 ignoreState: true,
             }
-        }),
+        }).concat(authApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>;

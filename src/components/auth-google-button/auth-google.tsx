@@ -1,10 +1,15 @@
 import { Component, ReactNode } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../store/store';
+import authApi from "../../services/authApi";
+
+const mapDispatchToProps = {
+    login: authApi.endpoints.login.initiate,
+}
 
 const mapStateToProps = (state: RootState) => {
     return {
-        thisStore: state
+        isAuth: state.auth.isAuth,
     }
 }
 
@@ -20,15 +25,15 @@ type GsiButtonConfiguration = {
     locale?: string;
 }
 
-type CredentialResponse = {
+export type GoogleCredentialResponse = {
     credential: string;
     select_by: string;
 }
 
-type TmapStateToProps = ReturnType<typeof mapStateToProps>;
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type TAuthGoogleButtonProps =
-    TmapStateToProps & {
+    ConnectedProps<typeof connector> & {
         option: GsiButtonConfiguration["text"];
     }
 
@@ -45,16 +50,15 @@ class AuthGoogleButton extends Component<TAuthGoogleButtonProps> {
 
     constructor(props: TAuthGoogleButtonProps) {
         super(props);
+        this.handleCredentialResponse = this.handleCredentialResponse.bind(this);
     }
 
-    handleCredentialResponse(response: CredentialResponse) {
-        console.log(response);
-        // Auth logic
-        window.location.pathname = "/app";
-    }
-
-    override componentDidMount() {
+    override componentDidMount(): void {
         this.renderGoogleButton();
+    }
+
+    handleCredentialResponse(response: GoogleCredentialResponse) {
+        this.props.login(response.credential);
     }
 
     renderGoogleButton() {
@@ -81,10 +85,9 @@ class AuthGoogleButton extends Component<TAuthGoogleButtonProps> {
 
         return (
             <div id={AuthGoogleButton.GOOGLE_BUTTON_ID_ELEMENT}>
-
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(AuthGoogleButton);
+export default connector(AuthGoogleButton);

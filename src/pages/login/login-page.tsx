@@ -1,6 +1,9 @@
 import AuthGoogle from "../../components/auth-google-button/auth-google";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 function LogInPage() {
+    const errorMessage = useSelector((state: RootState) => state.auth.errorMessage);
     return (
         <div className="log-in-container">
             <h2 className="title">
@@ -14,6 +17,11 @@ function LogInPage() {
                     <AuthGoogle option={AuthGoogle.LOG_IN_BUTTON_TEXT}/>
                 </div>
                 <div className="github-option">
+                </div>
+                <div className="error-message-container">
+                    <h4 className="error-message">
+                        {errorMessage ? errorMessage : undefined}
+                    </h4>
                 </div>
             </div>
         </div>
