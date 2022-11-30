@@ -1,9 +1,15 @@
 import { Component, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { NAV_BAR_STRING } from '../../../utils/string';
 import owlensLogo from "../../../assets/logo/owlens-logo_light.svg";
 
 class NavBar extends Component {
+    private static readonly NAV_ITEM = {
+        ITEM_1: "Lorem",
+        ITEM_2: "Lorem",
+        LOGIN: "Log in",
+        SIGNUP: "Create Account"
+    };
+
     override render(): ReactNode {
         return (
             <div id='nav-bar' className="nav-bar-container">
@@ -15,18 +21,18 @@ class NavBar extends Component {
                 <div className='nav-wrap'>
                     <ul className='nav-bar'>
                         <Link to="/" className='nav-item' draggable={false}>
-                            {NAV_BAR_STRING.NAV_ITEM_1}
+                            {NavBar.NAV_ITEM.ITEM_1}
                         </Link>
                         <Link to="/" className='nav-item' draggable={false}>
-                            {NAV_BAR_STRING.NAV_ITEM_2}
+                            {NavBar.NAV_ITEM.ITEM_2}
                         </Link>
                     </ul>
                     <ul className="nav-bar-id">
                         <Link to="/login" className='log-in button secondary-button' draggable={false}>
-                            {NAV_BAR_STRING.LOGIN}
+                            {NavBar.NAV_ITEM.LOGIN}
                         </Link>
                         <Link to="/signup" className='create-account button primary-button' draggable={false}>
-                            {NAV_BAR_STRING.SIGNUP}
+                            {NavBar.NAV_ITEM.SIGNUP}
                         </Link>
                     </ul>
                 </div>
