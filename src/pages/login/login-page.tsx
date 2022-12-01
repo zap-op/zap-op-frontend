@@ -1,4 +1,4 @@
-import AuthGoogle from "../../components/auth-google-button/auth-google";
+import AuthGoogle, { LOG_IN_BUTTON_TEXT } from "../../components/auth-google-button/auth-google";
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
@@ -14,7 +14,7 @@ function LogInPage() {
             </h4>
             <div className="options-container">
                 <div className="google-option">
-                    <AuthGoogle option={AuthGoogle.LOG_IN_BUTTON_TEXT}/>
+                    <AuthGoogle option={LOG_IN_BUTTON_TEXT} />
                 </div>
                 <div className="github-option">
                 </div>

@@ -1,4 +1,4 @@
-import AuthGoogle from "../../components/auth-google-button/auth-google";
+import AuthGoogle, { SIGN_UP_BUTTON_TEXT } from "../../components/auth-google-button/auth-google";
 
 function SignUp() {
     return (
@@ -11,7 +11,7 @@ function SignUp() {
             </h4>
             <div className="options-container">
                 <div className="google-option">
-                    <AuthGoogle option={AuthGoogle.SIGN_UP_BUTTON_TEXT}/>
+                    <AuthGoogle option={SIGN_UP_BUTTON_TEXT}/>
                 </div>
                 <div className="github-option">
                 </div>
