@@ -4,17 +4,12 @@ import ContentInputField from "../../fields/content-input-field/content-input-fi
 
 type TAddDomainModalProps = {}
 
-class AddDomainModal extends Component<TAddDomainModalProps> {
-    static readonly PLACEHOLDER = "eg. mydomain.com";
-    static readonly LOCATION_STATE = "domain";
+const PLACEHOLDER = "eg. mydomain.com";
+export const LOCATION_STATE = "domain";
 
-    constructor(props: TAddDomainModalProps) {
-        super(props);
-    }
-
-    override render(): ReactNode {
-        return (
-            <div className="add-domain-modal-container">
+const AddDomainModal = (props: TAddDomainModalProps) => {
+    return (
+        <div className="add-domain-modal-container">
                 <div className="title-container">
                     <h3>
                         Add domain
@@ -25,7 +20,7 @@ class AddDomainModal extends Component<TAddDomainModalProps> {
                         <ContentInputField type="text" placeHolder="Target name" title="Name your target" isRequired={true} />
                     </div>
                     <div className="field-container domain-field">
-                        <ContentInputField type="text" placeHolder={AddDomainModal.PLACEHOLDER} title="Enter your domain" isRequired={true} />
+                        <ContentInputField type="text" placeHolder={PLACEHOLDER} title="Enter your domain" isRequired={true} />
                     </div>
                 </div>
                 <div className="navigator-state-containter">
@@ -37,8 +32,7 @@ class AddDomainModal extends Component<TAddDomainModalProps> {
                     </div>
                 </div>
             </div>
-        )
-    }
+    )
 }
 
 export default AddDomainModal;
