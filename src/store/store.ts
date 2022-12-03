@@ -2,12 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import authApi from '../services/authApi';
 import authSlice from './slice/authSlice';
 import scanSlice from './slice/scanSlice';
+import targetSlice from './slice/targetSlice';
 import describablePortalSlice from './slice/toolkit/describablePortalSlice';
 
 const reducers = {
     auth: authSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
     scan: scanSlice.reducer,
+    target: targetSlice.reducer,
+    // Tookit
     describablePortal: describablePortalSlice.reducer,
 }
 
