@@ -10,11 +10,6 @@ import { RootState } from "../../../store/store";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-const mapStatetoProps = (state: RootState) => {
-    return {
-    }
-}
-
 type TTargetsBoardProps = {
 
 }
