@@ -10,16 +10,6 @@ import authApi from "../../services/authApi";
 //     return {
 //         isAuth: state.auth.isAuth,
 
-const SIGN_UP: string = "Sign up with Google";
-const LOG_IN: string = "Log in with Google";
-
-const BUTTON_TYPE: GsiButtonConfiguration["type"] = "standard";
-
-export const SIGN_UP_BUTTON_TEXT: GsiButtonConfiguration["text"] = "continue_with";
-export const LOG_IN_BUTTON_TEXT: GsiButtonConfiguration["text"] = "signin_with";
-
-const GOOGLE_BUTTON_ID_ELEMENT: string = "gg-auth-button";
-
 // https://developers.google.com/identity/gsi/web/reference/js-reference#GsiButtonConfiguration
 type GsiButtonConfiguration = {
     type: 'standard' | 'icon';
@@ -57,8 +47,8 @@ const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
             });
 
             window.google.accounts.id.renderButton(
-                document.getElementById(GOOGLE_BUTTON_ID_ELEMENT)!, {
-                type: BUTTON_TYPE,
+                document.getElementById(AuthGoogleButton.GOOGLE_BUTTON_ID_ELEMENT)!, {
+                type: AuthGoogleButton.BUTTON_TYPE,
                 text: props.option,
             });
         }
@@ -72,9 +62,19 @@ const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
     // clientId={process.env.REACT_APP_GOOGLE_OAUTH2_CLIENT_ID}
 
     return (
-        <div id={GOOGLE_BUTTON_ID_ELEMENT}>
+        <div id={AuthGoogleButton.GOOGLE_BUTTON_ID_ELEMENT}>
         </div>
     );
 }
+
+AuthGoogleButton.SIGN_UP = "Sign up with Google";
+AuthGoogleButton.LOG_IN = "Log in with Google";
+
+AuthGoogleButton.BUTTON_TYPE = "standard" as GsiButtonConfiguration["type"];
+
+AuthGoogleButton.SIGN_UP_BUTTON_TEXT = "continue_with" as GsiButtonConfiguration["text"];
+AuthGoogleButton.LOG_IN_BUTTON_TEXT = "signin_with" as GsiButtonConfiguration["text"];
+
+AuthGoogleButton.GOOGLE_BUTTON_ID_ELEMENT = "gg-auth-button";
 
 export default AuthGoogleButton;
