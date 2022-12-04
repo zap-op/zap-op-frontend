@@ -4,9 +4,6 @@ import ContentInputField from "../../fields/content-input-field/content-input-fi
 
 type TAddDomainModalProps = {}
 
-const PLACEHOLDER = "eg. mydomain.com";
-export const LOCATION_STATE = "domain";
-
 const AddDomainModal = (props: TAddDomainModalProps) => {
     return (
         <div className="add-domain-modal-container">
@@ -20,7 +17,7 @@ const AddDomainModal = (props: TAddDomainModalProps) => {
                         <ContentInputField type="text" placeHolder="Target name" title="Name your target" isRequired={true} />
                     </div>
                     <div className="field-container domain-field">
-                        <ContentInputField type="text" placeHolder={PLACEHOLDER} title="Enter your domain" isRequired={true} />
+                        <ContentInputField type="text" placeHolder={AddDomainModal.PLACEHOLDER} title="Enter your domain" isRequired={true} />
                     </div>
                 </div>
                 <div className="navigator-state-containter">
@@ -34,5 +31,9 @@ const AddDomainModal = (props: TAddDomainModalProps) => {
             </div>
     )
 }
+
+
+AddDomainModal.PLACEHOLDER = "eg. mydomain.com";
+AddDomainModal.LOCATION_STATE = "domain";
 
 export default AddDomainModal;

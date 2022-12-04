@@ -1,6 +1,6 @@
 import { Component, ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { LOCATION_STATE } from "../add-domain/add-domain-modal";
+import AddDomainModal from "../add-domain/add-domain-modal";
 import AddIPModal from "../add-ip/add-ip-modal";
 
 type TAddTargetsModalProps = {}
@@ -19,7 +19,7 @@ class AddTargetsModal extends Component<TAddTargetsModalProps> {
                     </h3>
                 </div>
                 <div className="content-container">
-                    <Link to="" state={LOCATION_STATE} className="type-option domain">
+                    <Link to="" state={AddDomainModal.LOCATION_STATE} className="type-option domain">
                         <h4 className="title">
                             Add domain
                         </h4>
