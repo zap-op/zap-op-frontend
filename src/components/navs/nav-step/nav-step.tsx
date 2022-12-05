@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-import NodeStep from './nove-step';
-import { TNodeStepProps } from "./nove-step";
+import NodeStep, { TNodeStepProps } from './node-step';
 
 export type TNavStepProps = {
     steps: TNodeStepProps[];
