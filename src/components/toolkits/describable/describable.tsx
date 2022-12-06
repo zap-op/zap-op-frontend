@@ -1,5 +1,5 @@
 import { Component, createRef, PropsWithChildren, ReactNode } from 'react';
-import DescribeElement from './describeElement';
+import DescribeElement from './describe-element';
 import { setDescribeElement } from "../../../store/slice/toolkit/describablePortalSlice";
 import { connect } from 'react-redux';
 import { RootState } from '../../../store/store';
