@@ -1,87 +1,60 @@
-import { Component, createRef, PropsWithChildren, ReactNode } from 'react';
+import { createRef, PropsWithChildren, useState } from 'react';
 import DescribeElement from './describe-element';
 import { setDescribeElement } from "../../../store/slice/toolkit/describablePortalSlice";
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 
-const mapStateToProps = (state: RootState) => {
-    return {
-        isDescribing: state.describablePortal.isDescribing,
-        describeElement: state.describablePortal.describeElement,
-    }
+type TDescribableProps = {
+    dataTitle: string,
 }
 
-const mapDispatchToProps = {
-    setDescribeElement,
-}
+const Describable = (props: PropsWithChildren<TDescribableProps>) => {
+    const isDescribing = useSelector((state: RootState) => state.describablePortal.isDescribing);
 
-type TmapStateToProps = ReturnType<typeof mapStateToProps>;
-type TmapDispatchToProps = typeof mapDispatchToProps;
+    const dispatch = useDispatch();
 
-type TDescribableProps =
-    TmapStateToProps &
-    TmapDispatchToProps & {
-        dataTitle: string,
+    const [waiterMouseStop, setWaiterMouseStop] = useState<NodeJS.Timeout | undefined>(undefined);
+
+    const ref_self = createRef<HTMLDivElement>();
+
+    const handleMouseEnter = () => {
+        ref_self.current?.addEventListener("mousemove", handleMouseMove);
     }
 
-type TDescribableState = {
-    waiterMouseStop: NodeJS.Timeout | undefined,
-}
-class Describable extends Component<PropsWithChildren<TDescribableProps>, TDescribableState> {
-    static readonly TIME_TO_DESCRIBABLE = 200;
-    private ref_self: React.RefObject<HTMLDivElement>;
-
-    constructor(props: TDescribableProps) {
-        super(props);
-        this.handleMouseEnter = this.handleMouseEnter.bind(this);
-        this.handleMouseMove = this.handleMouseMove.bind(this);
-        this.handleMouseStop = this.handleMouseStop.bind(this);
-        this.handleMouseLeave = this.handleMouseLeave.bind(this);
-        this.ref_self = createRef<HTMLDivElement>();
-        this.state = {
-            waiterMouseStop: undefined,
+    const handleMouseMove = () => {
+        const handleMouseStop = () => {
+            const presentOffsetTop = (ref_self.current!.offsetTop + ref_self.current!.offsetHeight / 2);
+            const presentOffsetLeft = (ref_self.current!.offsetLeft + ref_self.current!.offsetWidth / 2);
+            dispatch(setDescribeElement({
+                describeElement: <DescribeElement
+                    offsetTop={presentOffsetTop}
+                    offsetLeft={presentOffsetLeft} >
+                    {props.dataTitle}
+                </DescribeElement>
+            }));
         }
-    }
 
-    handleMouseEnter() {
-        this.ref_self.current?.addEventListener("mousemove", this.handleMouseMove);
-    }
-
-    handleMouseMove() {
-        if (this.props.isDescribing) {
+        if (isDescribing) {
             return;
         }
-        clearTimeout(this.state.waiterMouseStop);
-        this.setState({
-            waiterMouseStop: setTimeout(this.handleMouseStop, Describable.TIME_TO_DESCRIBABLE),
-        })
+        clearTimeout(waiterMouseStop);
+        setWaiterMouseStop(setTimeout(handleMouseStop, Describable.TIME_TO_DESCRIBABLE));
     }
 
-    handleMouseStop() {
-        const presentOffsetTop = (this.ref_self.current!.offsetTop + this.ref_self.current!.offsetHeight / 2)
-        const presentOffsetLeft = (this.ref_self.current!.offsetLeft + this.ref_self.current!.offsetWidth / 2)
-        this.props.setDescribeElement({
-            describeElement: <DescribeElement
-                offsetTop={presentOffsetTop}
-                offsetLeft={presentOffsetLeft} >
-                {this.props.dataTitle}
-            </DescribeElement>
-        })
+
+    const handleMouseLeave = () => {
+        clearTimeout(waiterMouseStop);
+        ref_self.current?.removeEventListener("mousemove", handleMouseMove);
+        dispatch(setDescribeElement({ describeElement: undefined }));
     }
 
-    handleMouseLeave() {
-        clearTimeout(this.state.waiterMouseStop);
-        this.ref_self.current?.removeEventListener("mousemove", this.handleMouseMove);
-        this.props.setDescribeElement({ describeElement: undefined })
-    }
-
-    override render(): ReactNode {
-        return (
-            <div className="describable-wrap" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} ref={this.ref_self}>
-                {this.props.children}
-            </div>
-        );
-    }
+    return (
+        <div className="describable-wrap" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} ref={ref_self}>
+            {props.children}
+        </div>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Describable);
+Describable.TIME_TO_DESCRIBABLE = 200;
+
+export default Describable;
