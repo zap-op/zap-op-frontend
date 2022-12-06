@@ -6,7 +6,7 @@ export type TTABLEROW_Targets_Props = {
     lastSeen: string;
 }
 
-function TABLEROW_Targets(props: TTABLEROW_Targets_Props) {
+const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
     return (
         <ul className="trow">
             <li className="name">
