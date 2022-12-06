@@ -11,7 +11,7 @@ export type TSUB_TABLEROW_ResultsProps = {
     createdSince: string;
 }
 
-function SUB_TABLEROW_Results(props: TSUB_TABLEROW_ResultsProps) {
+const SUB_TABLEROW_Results = (props: TSUB_TABLEROW_ResultsProps) => {
     return (
         <ul className="sub-trow">
             <Describable dataTitle="type">
