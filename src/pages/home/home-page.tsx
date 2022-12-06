@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import landingImage from "../../assets/landing-image.svg";
 
-function HomePage() {
+const HomePage = () => {
     const listScanInfo = useSelector((state: RootState) => state.scan.scanInfosDisplay);
     const scanProgress = useSelector((state: RootState) => state.scan.scanProgressDisplay);
     const isStartScanProgress = useSelector((state: RootState) => state.scan.isStartScanProgress);
