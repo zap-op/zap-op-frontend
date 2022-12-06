@@ -34,13 +34,17 @@ const ProgressTable = (props: TProgressTableProps) => {
         setIsActiveAutoScroll(ref_autoScrollCheckbox.current?.checked ? true : false);
     }
 
+    const handleToggleAutoScrollCheckbox = () => {
+        updateIsActiveAutoScrollState();
+    }
+
     return (
         <>
             <ProgressBar scanProgress={props.scanProgress} />
             <div className="progress-table-container" >
                 <div className="view-options-container">
                     <div className={`auto-scroll-container ${isActiveAutoScroll ? "" : "uncheck"}`} ref={ref_autoScrollContainer}>
-                        <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox" onClick={updateIsActiveAutoScrollState}>
+                        <label className="auto-scroll toggle-button" htmlFor="auto-scroll-checkbox" onClick={handleToggleAutoScrollCheckbox}>
                             <input type="checkbox" className="checkbox-input" id="auto-scroll-checkbox" ref={ref_autoScrollCheckbox} />
                             <span className="toggle-track">
                                 <span className="toggle-indicator">
