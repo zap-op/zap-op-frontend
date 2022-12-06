@@ -7,7 +7,7 @@ import store from './store/store';
 // CONFIG IMPORT
 // COMPONENT IMPORT
 import Home from './pages/home/home-page';
-import SignUp from './pages/signup/sign-up';
+import SignUp from './pages/signup/signup-page';
 import LogIn from './pages/login/login-page';
 // STYLE IMPORT
 import './style/style.scss';
