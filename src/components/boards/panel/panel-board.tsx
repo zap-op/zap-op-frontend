@@ -2,11 +2,7 @@ import { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import workSpaceImage from "../../../assets/work-space.svg";
 
-type TPanelDashboardProps = {
-
-}
-
-const PanelDashboard = (props: TPanelDashboardProps) => {
+const PanelDashboard = () => {
     const ref_panel = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

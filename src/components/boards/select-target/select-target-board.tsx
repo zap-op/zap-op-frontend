@@ -2,10 +2,7 @@ import SearchBar from "../../search-bars/search-bar/search-bar";
 import TABLEROW_SelectTarget from "../../tables/select-target-table/tr-select-target";
 import SelectTargetTable from "../../tables/select-target-table/select-target-table";
 
-type TSelectTargetBoardProps = {
-}
-
-const SelectTargetBoard = (props: TSelectTargetBoardProps) => {
+const SelectTargetBoard = () => {
     return (
         <div className="select-target-container">
             <h1 className="title">

@@ -1,11 +1,8 @@
-import { Component, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import AddDomainModal from "../add-domain/add-domain-modal";
 import AddIPModal from "../add-ip/add-ip-modal";
 
-type TAddTargetsModalProps = {}
-
-const AddTargetsModal = (props: TAddTargetsModalProps) => {
+const AddTargetsModal = () => {
     return (
         <div className="add-target-modal-container">
             <div className="title-container">

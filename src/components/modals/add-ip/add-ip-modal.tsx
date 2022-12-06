@@ -1,10 +1,7 @@
-import { Component, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import ContentInputField from "../../fields/content-input-field/content-input-field";
 
-type TAddIPModalProps = {}
-
-const AddIPModal = (props: TAddIPModalProps) => {
+const AddIPModal = () => {
     return (
         <div className="add-ip-modal-container">
             <div className="title-container">

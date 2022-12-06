@@ -1,10 +1,7 @@
-import { Component, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import ContentInputField from "../../fields/content-input-field/content-input-field";
 
-type TAddDomainModalProps = {}
-
-const AddDomainModal = (props: TAddDomainModalProps) => {
+const AddDomainModal = () => {
     return (
         <div className="add-domain-modal-container">
                 <div className="title-container">

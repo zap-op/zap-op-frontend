@@ -1,11 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 
-export type TToolkitPortalProps = {
-
-}
-
-const ToolkitPortal = (props: TToolkitPortalProps) => {
+const ToolkitPortal = () => {
     const isDescribing = useSelector((state: RootState) => state.describablePortal.isDescribing);
     const describeElement = useSelector((state: RootState) => state.describablePortal.describeElement);
 

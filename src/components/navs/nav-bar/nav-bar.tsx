@@ -1,4 +1,3 @@
-import { Component, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import owlensLogo from "../../../assets/logo/owlens-logo_light.svg";
 

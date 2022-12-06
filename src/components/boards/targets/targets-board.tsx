@@ -1,20 +1,13 @@
 import { useState } from "react";
 import TargetsTable from "../../tables/targets-table/targets-table";
-import TABLEROW_Targets from "../../tables/targets-table/tr-targets";
 import CollapseSearchBar from "../../search-bars/collapse-search-bar/collapse-search-bar";
 import ModalPortal from "../../toolkits/modal/modal-portal";
 import AddTargetsModal from "../../modals/add-target/add-target-modal";
 import AddDomainModal from "../../modals/add-domain/add-domain-modal";
 import AddIPModal from "../../modals/add-ip/add-ip-modal";
-import { RootState } from "../../../store/store";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-type TTargetsBoardProps = {
-
-}
-
-const TargetsBoard = (props: TTargetsBoardProps) => {
+const TargetsBoard = () => {
     const location = useLocation();
 
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);

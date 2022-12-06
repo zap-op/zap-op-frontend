@@ -1,14 +1,5 @@
 import { useEffect } from 'react';
 import { useLoginMutation } from "../../services/authApi";
-import { RootState } from '../../store/store';
-import authApi from "../../services/authApi";
-
-// const mapDispatchToProps = {
-//     login: authApi.endpoints.login.initiate,
-
-// const mapStateToProps = (state: RootState) => {
-//     return {
-//         isAuth: state.auth.isAuth,
 
 // https://developers.google.com/identity/gsi/web/reference/js-reference#GsiButtonConfiguration
 type GsiButtonConfiguration = {

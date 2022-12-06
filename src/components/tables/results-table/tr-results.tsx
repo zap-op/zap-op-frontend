@@ -6,8 +6,10 @@ import SUB_TABLEROW_Results from "./sub-tr-results";
 export type TTABLEROW_ResultsProps = {
     name: string;
     url: string;
-    listScanType: (typeof ZAP.fullName |
-        typeof TS_ZAP.fullName)[];
+    listScanType: (
+        typeof ZAP.fullName |
+        typeof TS_ZAP.fullName
+    )[];
 }
 
 const TABLEROW_Results = (props: TTABLEROW_ResultsProps) => {
