@@ -17,7 +17,7 @@ type TTargetsBoardProps = {
 const TargetsBoard = (props: TTargetsBoardProps) => {
     const location = useLocation();
 
-    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
     const handleOpenModal = (status: boolean) => {
         const handleEscapeKey = (event: KeyboardEvent) => {
