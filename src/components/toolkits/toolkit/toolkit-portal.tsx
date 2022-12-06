@@ -1,30 +1,19 @@
-import { Component, ReactNode } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 
-const mapStateToProps = (state: RootState) => {
-    return {
-        isDescribing: state.describablePortal.isDescribing,
-        describeElement: state.describablePortal.describeElement,
-    }
+export type TToolkitPortalProps = {
+
 }
 
-type TmapStateToProps = ReturnType<typeof mapStateToProps>;
+const ToolkitPortal = (props: TToolkitPortalProps) => {
+    const isDescribing = useSelector((state: RootState) => state.describablePortal.isDescribing);
+    const describeElement = useSelector((state: RootState) => state.describablePortal.describeElement);
 
-export type TToolkitPortalProps =
-    TmapStateToProps & {
-
-    }
-
-class ToolkitPortal extends Component<TToolkitPortalProps> {
-
-    override render(): ReactNode {
-        return (
-            <div className="toolkit-portal">
-                {this.props.isDescribing ? this.props.describeElement : <></>}
-            </div>
-        );
-    }
+    return (
+        <div className="toolkit-portal">
+            {isDescribing ? describeElement : <></>}
+        </div>
+    );
 }
 
-export default connect(mapStateToProps)(ToolkitPortal);
+export default ToolkitPortal;

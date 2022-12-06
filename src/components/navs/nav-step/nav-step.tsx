@@ -1,37 +1,26 @@
-import { Component, createRef } from 'react';
-import NodeStep from './nove-step';
-import { TNodeStepProps } from "./nove-step";
+import { useEffect, useRef } from 'react';
+import NodeStep, { TNodeStepProps } from './node-step';
 
 export type TNavStepProps = {
     steps: TNodeStepProps[];
 }
 
-type TNavStepState = {
-}
+const NavStep = (props: TNavStepProps) => {
+    const ref_self = useRef<HTMLDivElement>(null);
 
-class NavStep extends Component<TNavStepProps, TNavStepState> {
-    private ref_self: React.RefObject<HTMLDivElement>;
-
-    constructor(props: TNavStepProps) {
-        super(props);
-        this.ref_self = createRef<HTMLDivElement>();
-    }
-
-    override componentDidMount(): void {
-        const stepLength = this.props.steps.length;
+    useEffect(() => {
+        const stepLength = props.steps.length;
         const marginValue = 100 / (stepLength * 2);
-        this.ref_self.current?.style.setProperty("--linker-margin-left-right", `${marginValue}%`);
-    }
+        ref_self.current?.style.setProperty("--linker-margin-left-right", `${marginValue}%`);
+    }, [])
 
-    override render() {
-        return (
-            <div className="nav-step-container" ref={this.ref_self}>
-                {this.props.steps.map((item, index) => {
-                    return <NodeStep key={index} title={item.title} state={item.state} startNode={index === 0 ? true : false} />
-                })}
-            </div>
-        );
-    }
+    return (
+        <div className="nav-step-container" ref={ref_self}>
+            {props.steps.map((item, index) => {
+                return <NodeStep key={index} title={item.title} state={item.state} startNode={index === 0 ? true : false} />
+            })}
+        </div>
+    );
 }
 
 export default NavStep;
