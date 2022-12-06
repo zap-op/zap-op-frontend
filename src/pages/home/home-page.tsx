@@ -46,7 +46,7 @@ function HomePage() {
                             <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode} />
                         </div>
                         {isStartScanProgress ? <ProgressTable
-                            autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
+                            initAutoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                             scanProgress={scanProgress}
                             tableBody={listScanInfo.map((item, index) => {
                                 return <TABLEROW_TS_ZAP key={index} number={index} url={item} />
