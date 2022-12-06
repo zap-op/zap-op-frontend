@@ -1,26 +1,23 @@
-import { Component, ReactNode } from 'react';
-
 type TProgressBarProps = {
     scanProgress: number;
 }
 
-class ProgressBar extends Component<TProgressBarProps> {
-    static readonly progressBarAnimationName = "pulse";
-    override render(): ReactNode {
-        return (
-            <div className="progress-bar-container">
-                <div className="progress-bar"
-                    style={{
-                        width: `${this.props.scanProgress}%`,
-                        animationName: `${this.props.scanProgress === 100 ? "none" : ProgressBar.progressBarAnimationName}`
-                    }}>
-                    <span className="percent">
-                        {`${this.props.scanProgress}%`}
-                    </span>
-                </div>
+const ProgressBar = (props: TProgressBarProps) => {
+    return (
+        <div className="progress-bar-container">
+            <div className="progress-bar"
+                style={{
+                    width: `${props.scanProgress}%`,
+                    animationName: `${props.scanProgress === 100 ? "none" : ProgressBar.progressBarAnimationName}`
+                }}>
+                <span className="percent">
+                    {`${props.scanProgress}%`}
+                </span>
             </div>
-        );
-    }
+        </div>
+    );
 }
+
+ProgressBar.progressBarAnimationName = "pulse";
 
 export default ProgressBar;

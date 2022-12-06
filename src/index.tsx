@@ -7,7 +7,7 @@ import store from './store/store';
 // CONFIG IMPORT
 // COMPONENT IMPORT
 import Home from './pages/home/home-page';
-import SignUp from './pages/signup/sign-up';
+import SignUp from './pages/signup/signup-page';
 import LogIn from './pages/login/login-page';
 // STYLE IMPORT
 import './style/style.scss';
@@ -34,21 +34,7 @@ root.render(
                 <Route path='app' element={<AppBoard />}>
                     <Route index path='dashboard' element={<></>} />
                     <Route path='targets' element={
-                        <TargetsBoard listTarget={[
-                            {
-                                name: "Lorem",
-                                url: "https://lorem.com/",
-                                tag: "dev",
-                                firstSeen: "2 days ago",
-                                lastSeen: "5 hours ago",
-                            }, {
-                                name: "Isum",
-                                url: "https://isum.com/",
-                                tag: "product",
-                                firstSeen: "20 days ago",
-                                lastSeen: "1 days ago",
-                            }
-                        ]} />
+                        <TargetsBoard />
                     } />
                     <Route path='results' element={
                         <ResultsBoard listResult={[

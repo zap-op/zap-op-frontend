@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import landingImage from "../../assets/landing-image.svg";
 
-function HomePage() {
+const HomePage = () => {
     const listScanInfo = useSelector((state: RootState) => state.scan.scanInfosDisplay);
     const scanProgress = useSelector((state: RootState) => state.scan.scanProgressDisplay);
     const isStartScanProgress = useSelector((state: RootState) => state.scan.isStartScanProgress);
@@ -46,7 +46,7 @@ function HomePage() {
                             <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode} />
                         </div>
                         {isStartScanProgress ? <ProgressTable
-                            autoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
+                            initAutoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                             scanProgress={scanProgress}
                             tableBody={listScanInfo.map((item, index) => {
                                 return <TABLEROW_TS_ZAP key={index} number={index} url={item} />

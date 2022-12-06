@@ -1,20 +1,9 @@
-import { Component, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import ContentInputField from "../../fields/content-input-field/content-input-field";
 
-type TAddDomainModalProps = {}
-
-class AddDomainModal extends Component<TAddDomainModalProps> {
-    static readonly PLACEHOLDER = "eg. mydomain.com";
-    static readonly LOCATION_STATE = "domain";
-
-    constructor(props: TAddDomainModalProps) {
-        super(props);
-    }
-
-    override render(): ReactNode {
-        return (
-            <div className="add-domain-modal-container">
+const AddDomainModal = () => {
+    return (
+        <div className="add-domain-modal-container">
                 <div className="title-container">
                     <h3>
                         Add domain
@@ -37,8 +26,11 @@ class AddDomainModal extends Component<TAddDomainModalProps> {
                     </div>
                 </div>
             </div>
-        )
-    }
+    )
 }
+
+
+AddDomainModal.PLACEHOLDER = "eg. mydomain.com";
+AddDomainModal.LOCATION_STATE = "domain";
 
 export default AddDomainModal;

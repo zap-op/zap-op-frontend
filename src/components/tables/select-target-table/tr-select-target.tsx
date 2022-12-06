@@ -1,4 +1,4 @@
-import { Component, createRef, ReactNode } from "react";
+import { createRef } from "react";
 
 export type TTABLEROW_SelectTarget_Props = {
     name: string;
@@ -6,39 +6,31 @@ export type TTABLEROW_SelectTarget_Props = {
     tag: string;
 }
 
-class TABLEROW_SelectTarget extends Component<TTABLEROW_SelectTarget_Props> {
-    private ref_targetSelector: React.RefObject<HTMLInputElement>;
-    
-    constructor(props: TTABLEROW_SelectTarget_Props) {
-        super(props);
-        this.handleSelect = this.handleSelect.bind(this);
-        this.ref_targetSelector = createRef<HTMLInputElement>();
+const TABLEROW_SelectTarget = (props: TTABLEROW_SelectTarget_Props) => {
+    const ref_targetSelector = createRef<HTMLInputElement>();
+
+    const handleSelect = () => {
+        ref_targetSelector.current!.checked = !ref_targetSelector.current!.checked;
     }
 
-    handleSelect() {
-        this.ref_targetSelector.current!.checked = !this.ref_targetSelector.current!.checked;
-    }
-
-    override render(): ReactNode {
-        return (
-            <ul className="trow" onClick={this.handleSelect}>
-                <li className="selected">
-                    <div className="selection-container">
-                        <input className="target-selector" type="checkbox" name="select-row" id="" ref={this.ref_targetSelector} />
-                    </div>
-                </li>
-                <li className="name">
-                    {this.props.name}
-                </li>
-                <li className="target">
-                    {this.props.url}
-                </li>
-                <li className="tag">
-                    {this.props.tag}
-                </li>
-            </ul>
-        )
-    }
+    return (
+        <ul className="trow" onClick={handleSelect}>
+            <li className="selected">
+                <div className="selection-container">
+                    <input className="target-selector" type="checkbox" name="select-row" id="" ref={ref_targetSelector} />
+                </div>
+            </li>
+            <li className="name">
+                {props.name}
+            </li>
+            <li className="target">
+                {props.url}
+            </li>
+            <li className="tag">
+                {props.tag}
+            </li>
+        </ul>
+    )
 }
 
 export default TABLEROW_SelectTarget;

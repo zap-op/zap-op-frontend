@@ -1,9 +1,10 @@
-import AuthGoogle from "../../components/auth-google-button/auth-google";
+import AuthGoogleButton from "../../components/auth-google-button/auth-google-button";
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
-function LogInPage() {
+const LogInPage = () => {
     const errorMessage = useSelector((state: RootState) => state.auth.errorMessage);
+
     return (
         <div className="log-in-container">
             <h2 className="title">
@@ -14,7 +15,7 @@ function LogInPage() {
             </h4>
             <div className="options-container">
                 <div className="google-option">
-                    <AuthGoogle option={AuthGoogle.LOG_IN_BUTTON_TEXT}/>
+                    <AuthGoogleButton option={AuthGoogleButton.LOG_IN_BUTTON_TEXT} />
                 </div>
                 <div className="github-option">
                 </div>
