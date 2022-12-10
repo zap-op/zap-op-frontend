@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import targetApi from "../../services/targetApi"
-
-export type TTarget = {
-    userId: string,
-    name: string,
-    target: string,
-    tag: string[],
-}
+import { TTarget } from "../../submodules/utility/model"
 
 type TTargetState = {
     listTarget: TTarget[],
