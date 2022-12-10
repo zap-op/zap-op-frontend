@@ -1,19 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
 import authApi from '../../services/authApi'
+import { LOGIN_STATUS, TStatusResponse } from '../../submodules/utility/status';
+import { UserTokenData } from '../../submodules/utility/user'
+import { getCookie } from '../../utils/cookieMgr'
+import { parseJwt } from '../../utils/tokenMgr';
 
 type TAuthState = {
     isAuth: boolean,
-    ggCredentials: string | undefined,
-    accessToken: string | undefined,
-    refreshToken: string | undefined,
+    userId: UserTokenData["userId"] | undefined,
+    email: UserTokenData["email"] | undefined,
+    picture: UserTokenData["picture"] | undefined,
+    name: UserTokenData["name"] | undefined,
+    familyName: UserTokenData["familyName"] | undefined,
+    givenName: UserTokenData["givenName"] | undefined,
     errorMessage: string | undefined,
 }
 
 const initialState: TAuthState = {
     isAuth: false,
-    ggCredentials: undefined,
-    accessToken: undefined,
-    refreshToken: undefined,
+    userId: undefined,
+    email: undefined,
+    picture: undefined,
+    name: undefined,
+    familyName: undefined,
+    givenName: undefined,
     errorMessage: undefined,
 }
 
@@ -23,13 +33,26 @@ const authSlice = createSlice({
     reducers: {
     },
     extraReducers: (builder) => {
-        builder.addMatcher(authApi.endpoints.login.matchPending, (state, action) => {
-            state = initialState;
-        })
         builder.addMatcher(
             authApi.endpoints.login.matchFulfilled,
             (state, action) => {
+                const token = getCookie("accessToken");
+                if (!token) {
+                    state.errorMessage = LOGIN_STATUS.TOKEN_INVALID["msg"];
+                    return;
+                }
+                const userInfo = parseJwt<UserTokenData>(token);
+                if (!userInfo.userId) {
+                    state.errorMessage = LOGIN_STATUS.TOKEN_INVALID["msg"];
+                    return;
+                }
                 state.isAuth = true;
+                state.userId = userInfo.userId;
+                state.email = userInfo.email;
+                state.picture = userInfo.picture;
+                state.name = userInfo.name;
+                state.familyName = userInfo.familyName;
+                state.givenName = userInfo.givenName;
                 window.location.pathname = "/app";
             })
         builder.addMatcher(
@@ -40,10 +63,7 @@ const authSlice = createSlice({
                     state.errorMessage = "Something went wrong!"
                     return;
                 }
-                state.errorMessage = (<{
-                    statusCode: number,
-                    msg: string
-                }>action.payload.data).msg;
+                state.errorMessage = (action.payload.data as TStatusResponse).msg;
             })
     },
 })
