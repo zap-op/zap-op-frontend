@@ -1,7 +1,6 @@
-export type TTABLEROW_Targets_Props = {
-    name: string;
-    url: string;
-    tag: string;
+import { TTarget } from "../../../submodules/utility/model";
+
+export type TTABLEROW_Targets_Props = Omit<TTarget, "userId"> & {
     firstSeen: string;
     lastSeen: string;
 }
@@ -13,7 +12,7 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
                 {props.name}
             </li>
             <li className="target">
-                {props.url}
+                {props.target}
             </li>
             <li className="tag">
                 {props.tag}
