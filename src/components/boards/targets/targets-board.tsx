@@ -36,10 +36,10 @@ const TargetsBoard = () => {
         const currentState = location.state;
         switch (currentState) {
             case AddDomainModal.LOCATION_STATE:
-                currentModal = <AddDomainModal />
+                currentModal = <AddDomainModal handleOpenModal={handleOpenModal}/>
                 break;
             case AddIPModal.LOCATION_STATE:
-                currentModal = <AddIPModal />
+                currentModal = <AddIPModal handleOpenModal={handleOpenModal}/>
                 break;
             default:
                 currentModal = <AddTargetsModal />
