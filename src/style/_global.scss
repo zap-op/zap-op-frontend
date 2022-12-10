@@ -40,25 +40,47 @@ section {
     border-radius: $button-border-radius;
     cursor: pointer;
     padding: 0.375rem 0.75rem;
-}
 
-.primary-button {
-    background-color: $primary-button-background-color;
-    color: $black-color-7;
-    font-weight: 500;
+    &.primary-button {
+        background-color: $primary-button-background-color;
+        color: $black-color-7;
+        font-weight: 500;
 
-    &:hover {
-        background-color: $primary-button-background-color-hover;
+        &:hover {
+            background-color: $primary-button-background-color-hover;
+        }
+    }
+
+    &.secondary-button {
+        background-color: $black-color-7;
+        box-shadow: $secondary-button-shadow;
+        color: $black-color-1;
+
+        &:hover {
+            box-shadow: $secondary-button-shadow-hover;
+        }
     }
 }
 
-.secondary-button {
-    background-color: $black-color-7;
-    box-shadow: $secondary-button-shadow;
-    color: $black-color-1;
+.error-message {
+    width: fit-content;
+    font-weight: 600;
 
-    &:hover {
-        box-shadow: $secondary-button-shadow-hover;
+    &.primary-error-message {
+        background-color: $error-color;
+        border-radius: 3px;
+        color: $black-color-7;
+        font-size: 0.9rem;
+        padding: 0.35rem 0.7rem;
+    }
+
+    &.secondary-error-message {
+        font-size: 0.75rem;
+        color: $error-color;
+    }
+
+    &.hidden {
+        display: none;
     }
 }
 
