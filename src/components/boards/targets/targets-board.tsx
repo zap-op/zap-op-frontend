@@ -6,8 +6,14 @@ import AddTargetsModal from "../../modals/add-target/add-target-modal";
 import AddDomainModal from "../../modals/add-domain/add-domain-modal";
 import AddIPModal from "../../modals/add-ip/add-ip-modal";
 import { useLocation } from "react-router-dom";
+import { useGetTargetQuery } from "../../../services/targetApi";
+import TABLEROW_Targets from "../../tables/targets-table/tr-targets";
 
 const TargetsBoard = () => {
+    const {
+        data: listTarget,
+    } = useGetTargetQuery();
+
     const location = useLocation();
 
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -58,7 +64,9 @@ const TargetsBoard = () => {
                 </div>
                 <div className="targets-board_targets-table-container">
                     <TargetsTable>
-
+                        {listTarget?.map((item, index) => {
+                            return <TABLEROW_Targets key={index} name={item.name} target={item.target} tag={item.tag} firstSeen={""} lastSeen={""} />
+                        })}
                     </TargetsTable>
                 </div>
             </div>

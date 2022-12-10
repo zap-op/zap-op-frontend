@@ -9,16 +9,25 @@ const targetApi = createApi({
         baseUrl: api.defaults.baseURL + "/management",
         credentials: "include",
     }),
+    tagTypes: [TAG_TARGET],
     endpoints: (builder) => ({
+        getTarget: builder.query<TTarget[], void>({
+            query: () => ({
+                url: "targets",
+                method: "GET",
+            }),
+            providesTags: [TAG_TARGET],
+        }),
         addTarget: builder.mutation<void, TTarget>({
             query: (target) => ({
                 url: "target",
                 method: "POST",
                 body: target,
-            })
-        })
+            }),
+            invalidatesTags: [TAG_TARGET],
+        }),
     })
 })
 
-export const { useAddTargetMutation } = targetApi;
+export const { useGetTargetQuery, useAddTargetMutation } = targetApi;
 export default targetApi;
