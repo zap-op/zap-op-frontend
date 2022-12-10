@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import targetSlice, { TTarget } from "../store/slice/targetSlice";
+import targetSlice from "../store/slice/targetSlice";
+import { TAG_TARGET, TTarget } from "../submodules/utility/model";
 import api from "./api";
 
 const targetApi = createApi({
