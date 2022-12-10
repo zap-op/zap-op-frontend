@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import targetSlice from "../store/slice/targetSlice";
 import { TAG_TARGET, TTarget } from "../submodules/utility/model";
+import { TStatusResponse } from "../submodules/utility/status";
 import api from "./api";
 
 const targetApi = createApi({
@@ -18,7 +19,7 @@ const targetApi = createApi({
             }),
             providesTags: [TAG_TARGET],
         }),
-        addTarget: builder.mutation<void, TTarget>({
+        addTarget: builder.mutation<TStatusResponse, TTarget>({
             query: (target) => ({
                 url: "target",
                 method: "POST",
