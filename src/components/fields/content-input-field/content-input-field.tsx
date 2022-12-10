@@ -2,6 +2,8 @@ import { Dispatch, HTMLInputTypeAttribute } from "react";
 
 type TContentInputFieldProps = {
     title?: string;
+    errorMessage?: string;
+    isDisplayErrorMessage?: boolean;
     placeHolder?: string;
     type: HTMLInputTypeAttribute;
     isRequired?: boolean;
@@ -17,6 +19,14 @@ const ContentInputField = (props: TContentInputFieldProps) => {
                     <h4 className={props.isRequired ? "is-required" : ""}>
                         {props.title}
                     </h4>
+                </div>
+                :
+                <></>
+            }
+            {(props.errorMessage && props.isDisplayErrorMessage)
+                ?
+                <div className="message error-message secondary-error-message">
+                    {props.errorMessage}
                 </div>
                 :
                 <></>
