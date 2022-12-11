@@ -1,0 +1,14 @@
+div.more-options-button {
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+
+    div.three-dot {
+        display: inherit;
+        svg {
+            path {
+                fill: blue;
+            }
+        }
+    }
+}
