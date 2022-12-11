@@ -1,4 +1,5 @@
 import { TTarget } from "../../../submodules/utility/model";
+import MoreOptionsButton from "../../more-options-button/more-options-button";
 
 export type TTABLEROW_Targets_Props = Omit<TTarget, "userId"> & {
     firstSeen: string;
@@ -24,10 +25,7 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
                 {props.lastSeen}
             </li>
             <li className="action">
-                <div className="three-dot-button">
-                    <div className="three-dot">
-                    </div>
-                </div>
+                <MoreOptionsButton/>
             </li>
         </ul>
     )
