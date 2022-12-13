@@ -1,5 +1,6 @@
+import { toast } from "react-hot-toast";
 import { TTarget } from "../../../submodules/utility/model";
-import MoreOptionsButton from "../../more-options-button/more-options-button";
+import MoreOptionsButton, { TOptionsItem } from "../../more-options-button/more-options-button";
 
 export type TTABLEROW_Targets_Props = Omit<TTarget, "userId"> & {
     firstSeen: string;
@@ -7,6 +8,18 @@ export type TTABLEROW_Targets_Props = Omit<TTarget, "userId"> & {
 }
 
 const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
+    const newScanOption : TOptionsItem = {
+        name: "New scan",
+        handle: () => {
+            toast.error("Under development");
+        }
+    }
+    const deleteOption: TOptionsItem = {
+        name: "Delete",
+        handle: () => {
+
+        }
+    }
     return (
         <ul className="trow">
             <li className="name">
@@ -25,7 +38,7 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
                 {props.lastSeen}
             </li>
             <li className="action">
-                <MoreOptionsButton/>
+                <MoreOptionsButton listOptions={[newScanOption, deleteOption]} />
             </li>
         </ul>
     )
