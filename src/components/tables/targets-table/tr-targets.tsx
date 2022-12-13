@@ -2,10 +2,7 @@ import { toast } from "react-hot-toast";
 import { TTarget } from "../../../submodules/utility/model";
 import MoreOptionsButton, { TOptionsItem } from "../../more-options-button/more-options-button";
 
-export type TTABLEROW_Targets_Props = Omit<TTarget, "userId"> & {
-    firstSeen: string;
-    lastSeen: string;
-}
+export type TTABLEROW_Targets_Props = Omit<TTarget, "userId">
 
 const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
     const newScanOption : TOptionsItem = {
@@ -32,10 +29,10 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
                 {props.tag}
             </li>
             <li className="first-seen">
-                {props.firstSeen}
+                {props.createdAt}
             </li>
             <li className="last-seen">
-                {props.lastSeen}
+                {props.updatedAt}
             </li>
             <li className="action">
                 <MoreOptionsButton listOptions={[newScanOption, deleteOption]} />

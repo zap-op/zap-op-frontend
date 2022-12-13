@@ -65,7 +65,7 @@ const TargetsBoard = () => {
                 <div className="targets-board_targets-table-container">
                     <TargetsTable>
                         {listTarget?.map((item, index) => {
-                            return <TABLEROW_Targets key={index} name={item.name} target={item.target} tag={item.tag} firstSeen={""} lastSeen={""} />
+                            return <TABLEROW_Targets key={index} _id={item._id} name={item.name} target={item.target} tag={item.tag} createdAt={item.createdAt} updatedAt={item.updatedAt} />
                         })}
                     </TargetsTable>
                 </div>
