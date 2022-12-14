@@ -26,7 +26,7 @@ const AddDomainModal = (props: TAddDomainModalProps) => {
 
 
     const handleAddTarget = async () => {
-        const toastId = toast.loading("loading");
+        const toastId = toast.loading("Adding target");
         if (!nameTarget || !target) {
             if (!nameTarget) {
                 setIsDisplayErrorMessageNameTargetField(true);
@@ -51,7 +51,7 @@ const AddDomainModal = (props: TAddDomainModalProps) => {
             .unwrap()
             .then((result) => {
                 if (result.statusCode > 0) {
-                    toast.success(result.msg, {
+                    toast.success(`${nameTarget} ${result.msg}`, {
                         id: toastId,
                     });
                 } else {

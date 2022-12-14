@@ -25,7 +25,7 @@ const AddIPModal = (props: TAddIPModalProps) => {
     const [isDisplayErrorMessageTargetField, setIsDisplayErrorMessageTargetField] = useState<boolean>();
 
     const handleAddTarget = () => {
-        const toastId = toast.loading("loading");
+        const toastId = toast.loading("Adding target");
         if (!nameTarget || !target) {
             if (!nameTarget) {
                 setIsDisplayErrorMessageNameTargetField(true);
@@ -50,7 +50,7 @@ const AddIPModal = (props: TAddIPModalProps) => {
             .unwrap()
             .then((result) => {
                 if (result.statusCode > 0) {
-                    toast.success(result.msg, {
+                    toast.success(`${nameTarget} ${result.msg}`, {
                         id: toastId,
                     });
                 } else {

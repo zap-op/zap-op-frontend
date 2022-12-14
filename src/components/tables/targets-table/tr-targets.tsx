@@ -13,6 +13,7 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
             toast.error("Under development");
         }
     }
+    
     const [moveToTrashTarget] = useMoveToTrashTargetMutation();
     const deleteOption: TOptionItem = {
         name: "Move to trash",
@@ -48,6 +49,7 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
                 })
         }
     }
+    
     return (
         <ul className="trow">
             <li className="name">
