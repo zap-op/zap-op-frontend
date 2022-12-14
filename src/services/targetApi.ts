@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { ObjectId } from "bson";
 import targetSlice from "../store/slice/targetSlice";
 import { TAG_TARGET, TTarget } from "../submodules/utility/model";
 import { TStatusResponse } from "../submodules/utility/status";
@@ -27,8 +28,15 @@ const targetApi = createApi({
             }),
             invalidatesTags: [TAG_TARGET],
         }),
+        moveToTrashTarget: builder.mutation<TStatusResponse, ObjectId>({
+            query: (id) => ({
+                url: `target?id=${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: [TAG_TARGET],
+        })
     })
 })
 
-export const { useGetTargetQuery, useAddTargetMutation } = targetApi;
+export const { useGetTargetQuery, useAddTargetMutation, useMoveToTrashTargetMutation } = targetApi;
 export default targetApi;

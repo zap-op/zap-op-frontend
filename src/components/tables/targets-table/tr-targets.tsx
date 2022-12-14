@@ -1,23 +1,51 @@
 import { toast } from "react-hot-toast";
+import { useMoveToTrashTargetMutation } from "../../../services/targetApi";
 import { TTarget } from "../../../submodules/utility/model";
-import MoreOptionsButton, { TOptionsItem } from "../../more-options-button/more-options-button";
+import { TStatusResponse } from "../../../submodules/utility/status";
+import MoreOptionsButton, { TOptionItem } from "../../more-options-button/more-options-button";
 
-export type TTABLEROW_Targets_Props = Omit<TTarget, "userId"> & {
-    firstSeen: string;
-    lastSeen: string;
-}
+export type TTABLEROW_Targets_Props = Omit<TTarget, "userId">
 
 const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
-    const newScanOption : TOptionsItem = {
+    const newScanOption: TOptionItem = {
         name: "New scan",
         handle: () => {
             toast.error("Under development");
         }
     }
-    const deleteOption: TOptionsItem = {
-        name: "Delete",
+    const [moveToTrashTarget] = useMoveToTrashTargetMutation();
+    const deleteOption: TOptionItem = {
+        name: "Move to trash",
         handle: () => {
-
+            const toastId = toast.loading(`Moving ${props.name} target to trash`);
+            if (!props._id) {
+                toast.error("Something went wrong")
+                return;
+            }
+            moveToTrashTarget(props._id)
+                .unwrap()
+                .then((result) => {
+                    if (result.statusCode > 0) {
+                        toast.success(`${props.name} ${result.msg}`, {
+                            id: toastId,
+                        });
+                    } else {
+                        toast.error(result.msg, {
+                            id: toastId,
+                        });
+                    }
+                })
+                .catch((error) => {
+                    if (!error.data) {
+                        toast.error("Something went wrong", {
+                            id: toastId,
+                        });
+                        return;
+                    }
+                    toast.error((error.data as TStatusResponse).msg, {
+                        id: toastId,
+                    });
+                })
         }
     }
     return (
@@ -32,10 +60,10 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
                 {props.tag}
             </li>
             <li className="first-seen">
-                {props.firstSeen}
+                {props.createdAt}
             </li>
             <li className="last-seen">
-                {props.lastSeen}
+                {props.updatedAt}
             </li>
             <li className="action">
                 <MoreOptionsButton listOptions={[newScanOption, deleteOption]} />

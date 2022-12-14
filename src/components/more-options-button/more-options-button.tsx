@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { FONT_SIZE } from "../../utils/styleMgr";
 
-export type TOptionsItem = {
-    name: string;
-    handle?: () => void;
+export type TOptionItem = {
+    name: string,
+    handle?: () => void,
 }
 
 type TMoreOptionsButtonProps = {
-    listOptions: TOptionsItem[],
+    listOptions: TOptionItem[],
 }
 
 const MoreOptionsButton = (props: TMoreOptionsButtonProps) => {
@@ -16,18 +16,22 @@ const MoreOptionsButton = (props: TMoreOptionsButtonProps) => {
     const ref_self = useRef<HTMLDivElement>(null);
 
     const handleClickOpen = () => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (ref_self.current && ref_self.current.contains(event.target as Node)) {
-                return;
-            }
-            setIsOpen(false);
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
         if (isOpen) {
             return;
         }
         document.addEventListener("mousedown", handleClickOutside);
         setIsOpen(true);
+    }
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (ref_self.current && ref_self.current.contains(event.target as Node)) {
+            return;
+        }
+    }
+
+    const handleCloseOptions = () => {
+        setIsOpen(false);
+        document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return (
@@ -48,7 +52,13 @@ const MoreOptionsButton = (props: TMoreOptionsButtonProps) => {
                 ?
                 <div className="options">
                     {props.listOptions.map((item) => {
-                        return <span key={item.name} className="option-item" onClick={item.handle}>
+                        return <span key={item.name} className="option-item" onClick={() => {
+                            handleCloseOptions();
+                            if (!item.handle) {
+                                return;
+                            }
+                            item.handle();
+                        }}>
                             {item.name}
                         </span>
                     })}
