@@ -1,7 +1,11 @@
 import { PropsWithChildren } from 'react';
 
-type TModalPortalProps = {
+export type TModalProps = {
     handleOpenModal: (status: boolean) => void;
+}
+
+type TModalPortalProps = TModalProps & {
+
 }
 
 const ModalPortal = (props: PropsWithChildren<TModalPortalProps>) => {

@@ -1,10 +1,13 @@
-import { HTMLInputTypeAttribute } from "react";
+import { Dispatch, HTMLInputTypeAttribute } from "react";
 
 type TContentInputFieldProps = {
     title?: string;
+    errorMessage?: string;
+    isDisplayErrorMessage?: boolean;
     placeHolder?: string;
     type: HTMLInputTypeAttribute;
     isRequired?: boolean;
+    handleChangeValue: Dispatch<React.SetStateAction<any | undefined>>;
 }
 
 const ContentInputField = (props: TContentInputFieldProps) => {
@@ -20,8 +23,16 @@ const ContentInputField = (props: TContentInputFieldProps) => {
                 :
                 <></>
             }
+            {(props.errorMessage && props.isDisplayErrorMessage)
+                ?
+                <div className="message error-message secondary-error-message">
+                    {props.errorMessage}
+                </div>
+                :
+                <></>
+            }
             <div className="input-field-container">
-                <input type={props.type} placeholder={props.placeHolder} />
+                <input type={props.type} placeholder={props.placeHolder} onChange={(event) => props.handleChangeValue(event.target.value)} />
             </div>
         </div >
     );

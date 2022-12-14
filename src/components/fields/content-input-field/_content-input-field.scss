@@ -16,6 +16,10 @@ div.content-input-field-container {
         }
     }
 
+    div.message {
+        margin: 0.25rem 0;
+    }
+
     div.input-field-container {
         input {
             background-color: $black-color-5;
@@ -34,6 +38,7 @@ div.content-input-field-container {
                 box-shadow: $blue-color-6 0px 0px 0px 3px;
                 outline: none;
             }
+
         }
     }
 }

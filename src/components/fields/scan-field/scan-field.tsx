@@ -117,9 +117,14 @@ const ScanField = (props: TScanFieldProps) => {
                     {isProcessing ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
                 </div>
             </div>
-            <div className={`message error-message ${errorMess ? "" : "hidden"}`}>
-                {errorMess ? errorMess : <></>}
-            </div>
+            {errorMess
+                ?
+                <div className={`message error-message primary-error-message`}>
+                    {errorMess}
+                </div>
+                :
+                <></>
+            }
         </div>
     );
 }

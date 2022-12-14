@@ -9,8 +9,6 @@ import store from './store/store';
 import Home from './pages/home/home-page';
 import SignUp from './pages/signup/signup-page';
 import LogIn from './pages/login/login-page';
-// STYLE IMPORT
-import './style/style.scss';
 import AppBoard from './pages/app-board/app-board-page';
 import LandingPage from './pages/landing-warp/landing-wrap';
 import TargetsBoard from './components/boards/targets/targets-board';
@@ -18,8 +16,11 @@ import ResultsBoard from './components/boards/results/results-board';
 import ZAP from './entities/zap';
 import TS_ZAP from './entities/ts-zap';
 import ToolkitPortal from './components/toolkits/toolkit/toolkit-portal';
+import ToasterMgr from './components/toolkits/toasterMgr';
 import AddScanBoard from './components/boards/add-scan/add-scan-board';
 import SelectTargetBoard from './components/boards/select-target/select-target-board';
+// STYLE IMPORT
+import './style/style.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
@@ -70,5 +71,6 @@ root.render(
             </Routes>
             <ToolkitPortal />
         </BrowserRouter>
+        <ToasterMgr />
     </Provider >
 );
