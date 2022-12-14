@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { FONT_SIZE } from "../../utils/styleMgr";
 
-export type TOptionsItem = {
-    name: string;
-    handle?: () => void;
+export type TOptionItem = {
+    name: string,
+    handle?: () => void,
 }
 
 type TMoreOptionsButtonProps = {
-    listOptions: TOptionsItem[],
+    listOptions: TOptionItem[],
 }
 
 const MoreOptionsButton = (props: TMoreOptionsButtonProps) => {

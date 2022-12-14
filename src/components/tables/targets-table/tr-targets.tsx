@@ -2,22 +2,22 @@ import { toast } from "react-hot-toast";
 import { useMoveToTrashTargetMutation } from "../../../services/targetApi";
 import { TTarget } from "../../../submodules/utility/model";
 import { TStatusResponse } from "../../../submodules/utility/status";
-import MoreOptionsButton, { TOptionsItem } from "../../more-options-button/more-options-button";
+import MoreOptionsButton, { TOptionItem } from "../../more-options-button/more-options-button";
 
 export type TTABLEROW_Targets_Props = Omit<TTarget, "userId">
 
 const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
-    const newScanOption: TOptionsItem = {
+    const newScanOption: TOptionItem = {
         name: "New scan",
         handle: () => {
             toast.error("Under development");
         }
     }
     const [moveToTrashTarget] = useMoveToTrashTargetMutation();
-    const deleteOption: TOptionsItem = {
-        name: "Delete",
+    const deleteOption: TOptionItem = {
+        name: "Move to trash",
         handle: () => {
-            const toastId = toast.loading("Moving target to trash");
+            const toastId = toast.loading(`Moving ${props.name} target to trash`);
             if (!props._id) {
                 toast.error("Something went wrong")
                 return;
@@ -26,7 +26,7 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
                 .unwrap()
                 .then((result) => {
                     if (result.statusCode > 0) {
-                        toast.success(result.msg, {
+                        toast.success(`${props.name} ${result.msg}`, {
                             id: toastId,
                         });
                     } else {
