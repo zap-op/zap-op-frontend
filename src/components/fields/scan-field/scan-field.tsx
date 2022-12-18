@@ -1,10 +1,11 @@
 import { createRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProgressRing from '../../progress-ring/progress-ring';
-import TS_ZAP from '../../../entities/ts-zap';
-import { startScanProgress, endScanProgress, concatScanInfosDisplay, updateScanProgressDisplay, resetScanDisplay } from '../../../store/slice/scanSlice';
-import { AxiosError } from 'axios';
-import { RootState } from '../../../store/store';
+import { setStatusScanProgress, updateScanProgressDisplay, resetScanDisplay } from '../../../store/slice/scanSlice';
+import store, { RootState } from '../../../store/store';
+import TRIAL_TS_ZAP from '../../../entities/trial-ts-zap';
+import { SCAN_STATUS } from '../../../submodules/utility/status';
+import { useGetResultsByOffsetMutation } from '../../../services/scanApi';
 
 type TScanFieldProps = {
     title: string;
@@ -12,97 +13,76 @@ type TScanFieldProps = {
 }
 
 const ScanField = (props: TScanFieldProps) => {
-    const isStartScanProgress = useSelector((state: RootState) => state.scan.isStartScanProgress);
-    const scanProgressDisplay = useSelector((state: RootState) => state.scan.scanProgressDisplay);
+    const isScanProgressing = useSelector((state: RootState) => state.scan.isScanProgressing);
+
+    const [getResultsByOffset] = useGetResultsByOffsetMutation();
 
     const dispatch = useDispatch();
 
-    const [isProcessing, setIsProcessing] = useState<boolean>(false);
-    const [errorMess, setErrorMess] = useState<string | null>(null);
+    const [errorMess, setErrorMess] = useState<string|undefined>(undefined);
 
     const ref_urlInput = createRef<HTMLInputElement>();
 
-    const toggleProcessing = () => {
-        setIsProcessing(!isProcessing);
-    }
-
     const handleClickScan = async () => {
-        if (isProcessing) {
+        if (isScanProgressing) {
             return;
         }
 
-        setErrorMess(null);
-        toggleProcessing();
+        setErrorMess(undefined);
+        dispatch(resetScanDisplay());
+        dispatch(setStatusScanProgress({ status: true }));
 
-        const SpiderZAPScan = TS_ZAP.getIntance();
         const scan_url = ref_urlInput.current!.value;
         if (!scan_url) {
             setErrorMess(ScanField.EMPTY_URL_ERROR_MESS)
-            toggleProcessing();
+            dispatch(setStatusScanProgress({ status: false }))
             return;
         }
+        const TrialSpiderZAPScan = TRIAL_TS_ZAP.getIntance();
+        TrialSpiderZAPScan.url = scan_url;
+        TrialSpiderZAPScan.connect();
+        const eventSource = TrialSpiderZAPScan.connectionSource();
 
-        try {
-            SpiderZAPScan.url = scan_url;
-            SpiderZAPScan.maxChildren = 2;
-            const scanSession = await SpiderZAPScan.request()
-                .then((res) => {
-                    console.log("res: ", res);
-                    return res.data.scanSession;
-                });
-            SpiderZAPScan.connect(scanSession);
-            const eventSource = SpiderZAPScan.connectionSource();
-            dispatch(resetScanDisplay());
-            dispatch(startScanProgress());
+        let id: string;
+        eventSource.addEventListener("id", (event: MessageEvent) => {
+            const data = JSON.parse(event.data);
+            id = data.id;
+            if (!id) {
+                setErrorMess(SCAN_STATUS.INVALID_ID.msg);
+                dispatch(setStatusScanProgress({ status: false }));
+            }
+        });
 
-            eventSource.onmessage = (event: MessageEvent) => {
-                console.log("onmessage: ", event);
+        eventSource.addEventListener("status", (event: MessageEvent) => {
+            const data = JSON.parse(event.data);
+            dispatch(updateScanProgressDisplay({
+                scanProgress: data.status,
+            }));
+            // const offset = store.getState().scan.scanInfosDisplay.length;
+            getResultsByOffset({
+                id: id,
+                offset: 0,
+            }).catch((error) => {
+                console.log(error);
+            })
+
+            if (data.status === "100") {
+                TrialSpiderZAPScan.disconnect();
+                dispatch(setStatusScanProgress({ status: false }));
+                return;
+            }
+        });
+
+        eventSource.onerror = (event: Event) => {
+            console.log("onerror: ", event);
+            if (event instanceof MessageEvent) {
                 const data = JSON.parse(event.data);
-                dispatch(concatScanInfosDisplay({
-                    listUrl: data.results
-                }));
-                dispatch(updateScanProgressDisplay({
-                    scanProgress: data.scanProgress
-                }));
-
-                if (data.scanProgress === 100) {
-                    SpiderZAPScan.disconnect();
-                    toggleProcessing();
-                }
+                setErrorMess(data.msg);
+            } else {
+                setErrorMess(SCAN_STATUS.ZAP_INTERNAL_ERROR.msg);
             }
-            eventSource.onerror = (event: Event) => {
-                SpiderZAPScan.disconnect();
-
-                console.log("onerror: ", event);
-                if (event instanceof MessageEvent) {
-                    const data = JSON.parse(event.data);
-                    setErrorMess(data.msg);
-                }
-                toggleProcessing();
-                if (scanProgressDisplay === 0) {
-                    dispatch(endScanProgress());
-                }
-            }
-        } catch (error) {
-            console.log("error: ", error);
-            if (error instanceof AxiosError) {
-                const errorData: {
-                    statusCode: number;
-                    msg: string
-                } | undefined = error.response?.data;
-                if (!errorData || !errorData.statusCode) {
-                    setErrorMess(ScanField.CANNOT_REQUEST_ERROR_MESS);
-                } else {
-                    setErrorMess(errorData.msg);
-                }
-            } else if (error instanceof TypeError) {
-
-            }
-            SpiderZAPScan.disconnect();
-            toggleProcessing();
-            if (scanProgressDisplay === 0) {
-                dispatch(endScanProgress());
-            }
+            TrialSpiderZAPScan.disconnect();
+            dispatch(setStatusScanProgress({ status: false }));
         }
     }
 
@@ -114,7 +94,7 @@ const ScanField = (props: TScanFieldProps) => {
             <div className="field-container">
                 <input type="text" placeholder='Enter a URL, IP address, or hostname...' ref={ref_urlInput} />
                 <div className="scan-button button primary-button" onClick={handleClickScan}>
-                    {isProcessing ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
+                    {isScanProgressing ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
                 </div>
             </div>
             {errorMess

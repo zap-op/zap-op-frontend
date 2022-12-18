@@ -7,9 +7,8 @@ import { RootState } from '../../store/store';
 import landingImage from "../../assets/landing-image.svg";
 
 const HomePage = () => {
-    const listScanInfo = useSelector((state: RootState) => state.scan.scanInfosDisplay);
+    const scanInfosDisplay = useSelector((state: RootState) => state.scan.scanInfosDisplay);
     const scanProgress = useSelector((state: RootState) => state.scan.scanProgressDisplay);
-    const isStartScanProgress = useSelector((state: RootState) => state.scan.isStartScanProgress);
 
     return (
         <div className='home-landing-container'>
@@ -45,10 +44,10 @@ const HomePage = () => {
                         <div className="home_scan-field-container">
                             <ScanField title={TS_ZAP.fullName} typeScan={TS_ZAP.typeCode} />
                         </div>
-                        {isStartScanProgress ? <ProgressTable
+                        {scanProgress ? <ProgressTable
                             initAutoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
                             scanProgress={scanProgress}
-                            tableBody={listScanInfo.map((item, index) => {
+                            tableBody={scanInfosDisplay.map((item, index) => {
                                 return <TABLEROW_TS_ZAP key={index} number={index} url={item} />
                             })} /> : <></>}
                     </div>
