@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import scanApi from '../../services/scanApi';
 
 type TScanState = {
-    isStartScanProgress: boolean,
-    scanProgressDisplay: number,
+    isScanProgressing: boolean,
+    scanProgressDisplay?: number,
     scanInfosDisplay: string[],
 }
 
 const initialState: TScanState = {
-    isStartScanProgress: false,
-    scanProgressDisplay: 0,
+    isScanProgressing: false,
+    scanProgressDisplay: undefined,
     scanInfosDisplay: [],
 }
 
@@ -16,42 +17,34 @@ const scanSlice = createSlice({
     name: "scanStorage",
     initialState,
     reducers: {
-        startScanProgress: (state) => {
-            state.isStartScanProgress = true;
-        },
-        endScanProgress: (state) => {
-            state.isStartScanProgress = false;
-        },
-        concatScanInfosDisplay: (state, action: PayloadAction<{
-            listUrl: TScanState["scanInfosDisplay"],
+        setStatusScanProgress: (state, action: PayloadAction<{
+            status: TScanState["isScanProgressing"],
         }>) => {
-            state.scanInfosDisplay = state.scanInfosDisplay.concat(action.payload.listUrl);
-        },
-        clearScanInfosDisplay: (state) => {
-            state.scanInfosDisplay = [];
+            state.isScanProgressing = action.payload.status;
         },
         updateScanProgressDisplay: (state, action: PayloadAction<{
             scanProgress: TScanState["scanProgressDisplay"],
         }>) => {
             state.scanProgressDisplay = action.payload.scanProgress;
         },
-        resetScanProgressDisplay: (state) => {
-            state.scanProgressDisplay = 0;
-        },
         resetScanDisplay: (state) => {
-            scanSlice.caseReducers.clearScanInfosDisplay(state);
-            scanSlice.caseReducers.resetScanProgressDisplay(state);
-        }
+            state = initialState;
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(
+            scanApi.endpoints.getResultsByOffset.matchFulfilled,
+            (state, action) => {
+                const dif = action.payload.filter((item) => !state.scanInfosDisplay.includes(item));
+                state.scanInfosDisplay = state.scanInfosDisplay.concat(dif);
+            }
+        )
     }
 })
 
 export default scanSlice;
 export const {
-    startScanProgress,
-    endScanProgress,
-    concatScanInfosDisplay,
-    clearScanInfosDisplay,
+    setStatusScanProgress,
     updateScanProgressDisplay,
-    resetScanProgressDisplay,
     resetScanDisplay,
 } = scanSlice.actions;
