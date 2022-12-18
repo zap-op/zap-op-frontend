@@ -17,7 +17,6 @@ const ProgressTable = (props: TProgressTableProps) => {
     useEffect(() => {
         ref_autoScrollCheckbox.current!.checked = props.initAutoScrollState;
         updateIsActiveAutoScrollState();
-        
     }, [])
 
     useEffect(() => {
@@ -64,21 +63,19 @@ const ProgressTable = (props: TProgressTableProps) => {
                     </div>
                 </div>
                 <div className="table-container">
-                    <div className="table-scroll-wrap">
-                        <div className="table-head-container">
-                            <ul className="thead">
-                                <li className="no">
-                                    No.
-                                </li>
-                                <li className="url">
-                                    Url Found
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="table-body-container">
-                            {props.tableBody}
-                            <div className="bottom-scroller" ref={ref_tableBottomScroller}></div>
-                        </div>
+                    <div className="table-head-container">
+                        <ul className="thead">
+                            <li className="no">
+                                No.
+                            </li>
+                            <li className="url">
+                                Url Found
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="table-body-container">
+                        {props.tableBody}
+                        <div className="bottom-scroller" ref={ref_tableBottomScroller}></div>
                     </div>
                 </div>
             </div>

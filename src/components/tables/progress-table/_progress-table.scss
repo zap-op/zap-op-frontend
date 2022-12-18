@@ -92,38 +92,37 @@ div.progress-table-container {
 
     // TABLE
     div.table-container {
-    
-        div.table-scroll-wrap {
-            height: 50vh;
 
+        height: 50vh;
+        overflow: auto;
+
+        ul {
+            display: flex;
+            flex-direction: row;
+
+            li {
+                display: inherit;
+                padding: 1rem 0;
+
+                &.no {
+                    flex: 1 0 0px;
+                }
+
+                &.url {
+                    flex: 9 0 0px;
+                }
+
+            }
+        }
+
+        div.table-head-container {
+            bottom: 100%;
+            left: 0;
+        }
+
+        div.table-body-container {
             ul {
-                display: flex;
-                flex-direction: row;
-
-                li {
-                    display: inherit;
-                    padding: 1rem 0;
-
-                    &.no {
-                        flex: 1 0 0px;
-                    }
-
-                    &.url {
-                        flex: 9 0 0px;
-                    }
-
-                }
-            }
-
-            div.table-head-container {
-                bottom: 100%;
-                left: 0;
-            }
-
-            div.table-body-container {
-                ul {
-                    border-top: 1px solid $black-color-1;
-                }
+                border-top: 1px solid $black-color-1;
             }
         }
     }
