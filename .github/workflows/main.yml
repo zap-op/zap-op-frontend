@@ -1,21 +1,32 @@
 name: Build and Deploy
 on:
   workflow_dispatch:
+    inputs:
+      commitMessage:
+        description: 'Commit message'
+        default: ""
 jobs:
-  build:
+  main:
+    name: Setup, Build and Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout lastest src and submodules
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
         
+      - name: Install npm
+        run: npm install
+      
       - name: Build
-        run: |
-          npm install
-          npm run build
-          
+        run: npm run build
+        env:
+          CI: false
+      
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build
+          commit-message: "${{ github.event.inputs.commitMessage }}\nDeploying to gh-pages from @${{ github.sha }}"
