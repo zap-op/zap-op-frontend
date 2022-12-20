@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/zap-op-frontend/static/css/main.2252b529.css",
+    "main.js": "/zap-op-frontend/static/js/main.98cb86c7.js",
+    "static/media/landing-image.svg": "/zap-op-frontend/static/media/landing-image.c25ce34213c81f3eaecf648dd451409b.svg",
+    "static/media/owlens-logo_light.svg": "/zap-op-frontend/static/media/owlens-logo_light.ad33ae289f5ef1769116509131a85e96.svg",
+    "static/media/work-space.svg": "/zap-op-frontend/static/media/work-space.79040daaacee246785fd3123745f0a54.svg",
+    "static/media/gear-solid.svg": "/zap-op-frontend/static/media/gear-solid.7ab558e1b4da42b48d62.svg",
+    "index.html": "/zap-op-frontend/index.html",
+    "static/media/rocket-solid.svg": "/zap-op-frontend/static/media/rocket-solid.369f1dbf74fd69c36329.svg",
+    "static/media/chart-bar-solid.svg": "/zap-op-frontend/static/media/chart-bar-solid.243241d26ea86188c137.svg",
+    "static/media/bullseye-solid.svg": "/zap-op-frontend/static/media/bullseye-solid.97bf0f7e4d77cdebdb72.svg",
+    "static/media/sheet-plastic-solid.svg": "/zap-op-frontend/static/media/sheet-plastic-solid.30ffc91031de91c60651.svg",
+    "static/media/magnifying-glass-solid.svg": "/zap-op-frontend/static/media/magnifying-glass-solid.b04fd7cf84532d5d3677.svg",
+    "static/media/chevron-right-solid.svg": "/zap-op-frontend/static/media/chevron-right-solid.c8185579b989903d7ca5.svg",
+    "main.2252b529.css.map": "/zap-op-frontend/static/css/main.2252b529.css.map",
+    "main.98cb86c7.js.map": "/zap-op-frontend/static/js/main.98cb86c7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2252b529.css",
+    "static/js/main.98cb86c7.js"
+  ]
+}
