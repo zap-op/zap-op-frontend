@@ -1,6 +1,6 @@
 // REACT IMPORT
 import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route, HashRouter } from 'react-router-dom'
 // REDUX IMPORT
 import { Provider } from 'react-redux'
 import store from './store/store';
@@ -25,7 +25,7 @@ import './style/style.scss';
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
     <Provider store={store}>
-        <BrowserRouter basename={process.env['PUBLIC_URL']}>
+        <HashRouter>
             <Routes>
                 <Route path='/' element={<LandingPage />}>
                     <Route index element={<Home />} />
@@ -70,7 +70,7 @@ root.render(
                 </Route>
             </Routes>
             <ToolkitPortal />
-        </BrowserRouter>
+        </HashRouter>
         <ToasterMgr />
     </Provider >
 );
