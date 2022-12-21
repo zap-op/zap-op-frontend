@@ -19,11 +19,8 @@ const NavBar = () => {
                     </Link>
                 </ul>
                 <ul className="nav-bar-id">
-                    <Link to="/login" className='log-in button secondary-button' draggable={false}>
+                    <Link to="/login" className='create-account button primary-button' draggable={false}>
                         {NavBar.NAV_ITEM.LOGIN}
-                    </Link>
-                    <Link to="/signup" className='create-account button primary-button' draggable={false}>
-                        {NavBar.NAV_ITEM.SIGNUP}
                     </Link>
                 </ul>
             </div>
@@ -34,8 +31,7 @@ const NavBar = () => {
 NavBar.NAV_ITEM = {
     ITEM_1: "Lorem",
     ITEM_2: "Lorem",
-    LOGIN: "Log in",
-    SIGNUP: "Create Account"
+    LOGIN: "Get Started",
 };
 
 export default NavBar;
