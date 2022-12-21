@@ -7,7 +7,6 @@ import store from './store/store';
 // CONFIG IMPORT
 // COMPONENT IMPORT
 import Home from './pages/home/home-page';
-import SignUp from './pages/signup/signup-page';
 import LogIn from './pages/login/login-page';
 import AppBoard from './pages/app-board/app-board-page';
 import LandingPage from './pages/landing-warp/landing-wrap';
@@ -29,7 +28,6 @@ root.render(
             <Routes>
                 <Route path='/' element={<LandingPage />}>
                     <Route index element={<Home />} />
-                    <Route path='signup' element={<SignUp />} />
                     <Route path='login' element={<LogIn />} />
                 </Route>
                 <Route path='app' element={<AppBoard />}>
