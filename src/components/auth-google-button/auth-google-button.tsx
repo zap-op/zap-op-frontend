@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useLoginMutation } from "../../services/authApi";
+import { RootState } from '../../store/store';
 
 // https://developers.google.com/identity/gsi/web/reference/js-reference#GsiButtonConfiguration
 type GsiButtonConfiguration = {
@@ -23,10 +25,13 @@ type TAuthGoogleButtonProps = {
 }
 
 const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
+    const isAuth = useSelector((state: RootState) => state.auth.isAuth);
     const [login] = useLoginMutation();
-    const handleCredentialResponse = (response: GoogleCredentialResponse) => {
-        login(response.credential);
-        console.log(response.credential);
+    const handleCredentialResponse = async (response: GoogleCredentialResponse) => {
+        await login(response.credential);
+        if (isAuth) {
+            window.location.replace(`${window.location.origin}#/app`);
+        }
     }
 
     useEffect(() => {
@@ -45,12 +50,6 @@ const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
         }
         renderGoogleButton();
     }, [])
-    // if (!this.props.option) {
-    //     return (
-    //         <></>
-    //     )
-    // }
-    // clientId={process.env.REACT_APP_GOOGLE_OAUTH2_CLIENT_ID}
 
     return (
         <div id={AuthGoogleButton.GOOGLE_BUTTON_ID_ELEMENT}>
