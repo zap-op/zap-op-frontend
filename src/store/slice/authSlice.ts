@@ -53,7 +53,6 @@ const authSlice = createSlice({
                 state.name = userInfo.name;
                 state.familyName = userInfo.familyName;
                 state.givenName = userInfo.givenName;
-                window.location.pathname = "/app";
             })
         builder.addMatcher(
             authApi.endpoints.login.matchRejected,

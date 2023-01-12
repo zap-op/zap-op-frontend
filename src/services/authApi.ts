@@ -18,7 +18,7 @@ const authApi = createApi({
                 method: "POST",
             }),
             onQueryStarted: (_arg) => {
-                document.cookie = `${TOKEN_TYPE.GOOGLE}=${_arg}`;
+                document.cookie = `${TOKEN_TYPE.GOOGLE}=${_arg};domain=${window.location.hostname}`;
             },
         })
     }),
