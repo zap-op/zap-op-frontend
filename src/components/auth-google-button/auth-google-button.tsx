@@ -29,6 +29,7 @@ const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
     const [login] = useLoginMutation();
     const handleCredentialResponse = async (response: GoogleCredentialResponse) => {
         await login(response.credential);
+        console.log("isAuth", isAuth);
         if (isAuth) {
             window.location.replace(`${window.location.origin}#/app`);
         }

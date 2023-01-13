@@ -15,6 +15,9 @@ class TRIAL_TS_ZAP extends ZAP {
             return TRIAL_TS_ZAP._instance;
         }
         this.event_source_address = this.service.defaults.baseURL + this.reqAddress;
+        console.log("this.service.defaults.baseURL", this.service.defaults.baseURL);
+        console.log("this.reqAddress", this.reqAddress);
+        console.log("this.event_source_address", this.event_source_address);
         TRIAL_TS_ZAP._instance = this;
     }
 

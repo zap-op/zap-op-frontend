@@ -47,16 +47,19 @@ const authSlice = createSlice({
                     return;
                 }
                 state.isAuth = true;
+                console.log(("state.isAuth", state.isAuth));
                 state.userId = userInfo.userId;
                 state.email = userInfo.email;
                 state.picture = userInfo.picture;
                 state.name = userInfo.name;
                 state.familyName = userInfo.familyName;
                 state.givenName = userInfo.givenName;
+                console.log("login.matchFulfilled");
             })
         builder.addMatcher(
             authApi.endpoints.login.matchRejected,
             (state, action) => {
+                console.log("login.matchRejected");
                 if (!action.payload || !action.payload.data) {
                     console.log(action);
                     state.errorMessage = "Something went wrong!"
