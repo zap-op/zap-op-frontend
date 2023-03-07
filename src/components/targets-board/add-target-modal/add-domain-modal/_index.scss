@@ -1,0 +1,39 @@
+@use '../../../../style/variables' as *;
+
+@mixin style_index {
+    div.add-domain-modal-container {
+        div.title-container {
+            h3 {
+                color: $black-color-1;
+                margin: 0.5rem 0;
+            }
+        }
+
+        div.content-container {
+            div.field-container {
+                margin: 1rem 0;
+            }
+
+            div.target-name-field {
+                margin-bottom: 1.5rem;
+            }
+
+            div.domain-field {}
+        }
+
+        div.navigator-state-containter {
+            display: flex;
+
+            a.back-state {
+                text-decoration: none;
+                color: $black-color-1;
+                margin-right: auto;
+            }
+
+            div.add {
+                margin-left: auto;
+                font-weight: 400;
+            }
+        }
+    }
+}

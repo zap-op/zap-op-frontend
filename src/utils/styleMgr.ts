@@ -1,7 +1,5 @@
 const STYLE = {
-    FONT_SIZE: 16
-}
+	FONT_SIZE: 16,
+};
 
-export const {
-    FONT_SIZE,
-} = STYLE
+export const { FONT_SIZE } = STYLE;

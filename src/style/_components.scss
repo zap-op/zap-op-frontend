@@ -1,34 +1,24 @@
 //  DASHBOARD
-@use '../components/boards/panel/panel-board';
-@use '../components/boards/targets/targets-board';
-@use '../components/boards/results/results-board';
-@use '../components/boards/add-scan/add-scan-board';
-@use '../components/boards/select-target/select-target-board';
+@use '../components/panel-dashboard';
+@use '../components/targets-board';
+@use '../components/results-board';
+@use '../components/add-scan-board';
+@use '../components/select-target-board';
 
 // TABLE
-@use '../components/tables/progress-table/progress-table';
-@use '../components/tables/targets-table/targets-table';
-@use '../components/tables/results-table/results-table';
-@use '../components/tables/select-target-table/select-target-table';
+@use '../components/progress-table';
 
 // TOOLKIT
 @use '../components/toolkits/describable/describable';
 @use '../components/toolkits/toolkit/toolkit-portal';
-@use '../components/toolkits/modal/modal-portal';
+@use '../components/toolkits/modal-portal';
 
 // COMPONENT
-@use '../components/breadcrumb/breadcrumb';
+@use '../components/breadcrumb';
+@use '../components/nav-bar';
 
-@use '../components/navs/nav-bar/nav-bar';
-@use '../components/navs/nav-step/nav-step';
+@use '../components/scan-field';
 
-@use '../components/fields/scan-field/scan-field';
-@use '../components/fields/content-input-field/content-input-field';
-
-@use '../components/search-bars/search-bar/search-bar';
-@use '../components/search-bars/collapse-search-bar/collapse-search-bar';
-
-@use '../components/progress-bar/progress-bar';
-@use '../components/progress-ring/progress-ring';
-
-@use '../components/more-options-button/more-options-button'
+@use '../components/fields';
+@use '../components/search-bars';
+@use '../components/buttons';

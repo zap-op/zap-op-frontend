@@ -1,25 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { TTarget } from "../../submodules/utility/model"
+import { createSlice } from "@reduxjs/toolkit";
+import { TTarget } from "../../submodules/utility/model";
 
 type TTargetState = {
-    listTarget: TTarget[],
-}
+	listTarget: TTarget[];
+};
 
 const initialState: TTargetState = {
-    listTarget: [],
-}
+	listTarget: [],
+};
 
 const targetSlice = createSlice({
-    name: "targetStorge",
-    initialState,
-    reducers: {
-
-    },
-    extraReducers: (builder) => {
-    }
-})
+	name: "targetStorge",
+	initialState,
+	reducers: {},
+	extraReducers: (builder) => {},
+});
 
 export default targetSlice;
-export const {
-
-} = targetSlice.reducer;
+export const {} = targetSlice.reducer;
