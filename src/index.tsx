@@ -6,9 +6,6 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 // CONFIG IMPORT
 // COMPONENT IMPORT
-import HomePage from "./pages/home-page";
-import LogInPage from "./pages/login-page";
-import AppBoard from "./pages/app-board";
 import ResultsBoard from "./components/results-board";
 import ZAP from "./entities/zap";
 import TS_ZAP from "./entities/ts-zap";
@@ -18,8 +15,8 @@ import SelectTargetBoard from "./components/select-target-board";
 // STYLE IMPORT
 import "./style/style.scss";
 import AddScanBoard from "./components/add-scan-board";
-import LandingWrap from "./pages/landing-warp";
 import TargetsBoard from "./components/targets-board";
+import { AppBoardPage, HomePage, LandingWrap, LogInPage } from "./pages";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
@@ -40,7 +37,7 @@ root.render(
 				</Route>
 				<Route
 					path="app"
-					element={<AppBoard />}>
+					element={<AppBoardPage />}>
 					<Route
 						index
 						path="dashboard"
