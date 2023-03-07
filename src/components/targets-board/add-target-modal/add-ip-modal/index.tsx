@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { TModalProps } from "../../../toolkits/modal/modal-portal";
+import { TModalProps } from "../../../toolkits/modal-portal";
 import { useAddTargetMutation } from "../../../../services/targetApi";
 import { RootState } from "../../../../store/store";
 import { TTarget } from "../../../../submodules/utility/model";

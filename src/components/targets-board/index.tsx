@@ -7,7 +7,7 @@ import AddTargetsModal from "./add-target-modal";
 import CollapseSearchBar from "../search-bars/collapse-search-bar";
 import TargetsTable from "./targets-table";
 import TABLEROW_Targets from "./targets-table/tr-targets";
-import ModalPortal from "../toolkits/modal/modal-portal";
+import ModalPortal from "../toolkits/modal-portal";
 
 const TargetsBoard = () => {
     const {
