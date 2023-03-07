@@ -11,7 +11,7 @@ const HomePage = () => {
     const scanProgress = useSelector((state: RootState) => state.scan.scanProgressDisplay);
 
     return (
-        <div className='home-landing-container'>
+        <div className='home-page-container'>
             <section className='welcome-section'>
                 <div className='welcome-content-container section-container'>
                     <div className="content-container">
