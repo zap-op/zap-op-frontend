@@ -1,26 +1,35 @@
-import { useEffect, useRef } from 'react';
-import NodeStep, { TNodeStepProps } from './node-step';
+import { useEffect, useRef } from "react";
+import NodeStep, { TNodeStepProps } from "./node-step";
 
 export type TNavStepProps = {
-    steps: TNodeStepProps[];
-}
+	steps: TNodeStepProps[];
+};
 
 const NavStep = (props: TNavStepProps) => {
-    const ref_self = useRef<HTMLDivElement>(null);
+	const ref_self = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const stepLength = props.steps.length;
-        const marginValue = 100 / (stepLength * 2);
-        ref_self.current?.style.setProperty("--linker-margin-left-right", `${marginValue}%`);
-    }, [])
+	useEffect(() => {
+		const stepLength = props.steps.length;
+		const marginValue = 100 / (stepLength * 2);
+		ref_self.current?.style.setProperty("--linker-margin-left-right", `${marginValue}%`);
+	}, []);
 
-    return (
-        <div className="nav-step-container" ref={ref_self}>
-            {props.steps.map((item, index) => {
-                return <NodeStep key={index} title={item.title} state={item.state} startNode={index === 0 ? true : false} />
-            })}
-        </div>
-    );
-}
+	return (
+		<div
+			className="nav-step-container"
+			ref={ref_self}>
+			{props.steps.map((item, index) => {
+				return (
+					<NodeStep
+						key={index}
+						title={item.title}
+						state={item.state}
+						startNode={index === 0 ? true : false}
+					/>
+				);
+			})}
+		</div>
+	);
+};
 
 export default NavStep;

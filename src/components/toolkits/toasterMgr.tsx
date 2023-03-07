@@ -1,10 +1,7 @@
-import { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
 
 const ToasterMgr = () => {
-    return (
-        <Toaster
-        />
-    )
-}
+	return <Toaster />;
+};
 
-export default ToasterMgr
+export default ToasterMgr;

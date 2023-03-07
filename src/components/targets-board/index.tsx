@@ -10,76 +10,79 @@ import TABLEROW_Targets from "./targets-table/tr-targets";
 import ModalPortal from "../toolkits/modal-portal";
 
 const TargetsBoard = () => {
-    const {
-        data: listTarget,
-    } = useGetTargetQuery();
+	const { data: listTarget } = useGetTargetQuery();
 
-    const location = useLocation();
+	const location = useLocation();
 
-    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+	const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
-    const handleOpenModal = (status: boolean) => {
-        const handleEscapeKey = (event: KeyboardEvent) => {
-            if (event.code === "Escape") {
-                setIsOpenModal(false);
-                document.removeEventListener("keydown", handleEscapeKey);
-            }
-        }
+	const handleOpenModal = (status: boolean) => {
+		const handleEscapeKey = (event: KeyboardEvent) => {
+			if (event.code === "Escape") {
+				setIsOpenModal(false);
+				document.removeEventListener("keydown", handleEscapeKey);
+			}
+		};
 
-        setIsOpenModal(status);
-        if (status) {
-            document.addEventListener("keydown", handleEscapeKey);
-        }
-    }
+		setIsOpenModal(status);
+		if (status) {
+			document.addEventListener("keydown", handleEscapeKey);
+		}
+	};
 
-    const handleAddTarget = () => {
-        location.state = null;
-        handleOpenModal(true);
-    }
+	const handleAddTarget = () => {
+		location.state = null;
+		handleOpenModal(true);
+	};
 
-    let currentModal = undefined;
-    if (isOpenModal) {
-        const currentState = location.state;
-        switch (currentState) {
-            case AddDomainModal.LOCATION_STATE:
-                currentModal = <AddDomainModal handleOpenModal={handleOpenModal}/>
-                break;
-            case AddIPModal.LOCATION_STATE:
-                currentModal = <AddIPModal handleOpenModal={handleOpenModal}/>
-                break;
-            default:
-                currentModal = <AddTargetsModal />
-                break;
-        }
-    }
+	let currentModal = undefined;
+	if (isOpenModal) {
+		const currentState = location.state;
+		switch (currentState) {
+			case AddDomainModal.LOCATION_STATE:
+				currentModal = <AddDomainModal handleOpenModal={handleOpenModal} />;
+				break;
+			case AddIPModal.LOCATION_STATE:
+				currentModal = <AddIPModal handleOpenModal={handleOpenModal} />;
+				break;
+			default:
+				currentModal = <AddTargetsModal />;
+				break;
+		}
+	}
 
-    return (
-        <>
-            <div className="targets-board-container">
-                <div className="action-container">
-                    <CollapseSearchBar placeholder="Search target" />
-                    <div className="add-target-button button primary-button" onClick={handleAddTarget}>
-                        New target
-                    </div>
-                </div>
-                <div className="targets-board_targets-table-container">
-                    <TargetsTable>
-                        {listTarget?.map((item, index) => {
-                            return <TABLEROW_Targets key={index} _id={item._id} name={item.name} target={item.target} tag={item.tag} createdAt={item.createdAt} updatedAt={item.updatedAt} />
-                        })}
-                    </TargetsTable>
-                </div>
-            </div>
-            {isOpenModal
-                ?
-                <ModalPortal handleOpenModal={handleOpenModal}>
-                    {currentModal}
-                </ModalPortal>
-                :
-                <></>
-            }
-        </>
-    )
-}
+	return (
+		<>
+			<div className="targets-board-container">
+				<div className="action-container">
+					<CollapseSearchBar placeholder="Search target" />
+					<div
+						className="add-target-button button primary-button"
+						onClick={handleAddTarget}>
+						New target
+					</div>
+				</div>
+				<div className="targets-board_targets-table-container">
+					<TargetsTable>
+						{listTarget?.map((item, index) => {
+							return (
+								<TABLEROW_Targets
+									key={index}
+									_id={item._id}
+									name={item.name}
+									target={item.target}
+									tag={item.tag}
+									createdAt={item.createdAt}
+									updatedAt={item.updatedAt}
+								/>
+							);
+						})}
+					</TargetsTable>
+				</div>
+			</div>
+			{isOpenModal ? <ModalPortal handleOpenModal={handleOpenModal}>{currentModal}</ModalPortal> : <></>}
+		</>
+	);
+};
 
 export default TargetsBoard;

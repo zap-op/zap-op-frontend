@@ -2,7 +2,7 @@ type TProgressRingProps = {
     state: string;
 }
 
-const ProgressRing = (props:TProgressRingProps) => {
+const ProgressRing = (props: TProgressRingProps) => {
     let progressRing;
     if (!props.state || props.state === ProgressRing.PROCESSING) {
         progressRing = <div className="progress-ring spin">

@@ -1,13 +1,16 @@
 import SearchBar from "../search-bar";
 
 type TCollapseSearchBarProps = {
-    placeholder: string;
-}
+	placeholder: string;
+};
 
-const CollapseSearchBar = (props:TCollapseSearchBarProps) => {
-    return (
-        <SearchBar placeholder={props.placeholder} extendClass="collapse-search-bar" />
-    )
-}
+const CollapseSearchBar = (props: TCollapseSearchBarProps) => {
+	return (
+		<SearchBar
+			placeholder={props.placeholder}
+			extendClass="collapse-search-bar"
+		/>
+	);
+};
 
 export default CollapseSearchBar;
