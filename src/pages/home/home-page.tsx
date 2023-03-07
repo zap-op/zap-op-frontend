@@ -1,10 +1,10 @@
-import ScanField from '../../components/fields/scan-field/scan-field';
-import ProgressTable from '../../components/tables/progress-table/progress-table';
-import TABLEROW_TS_ZAP from '../../components/tables/progress-table/tr-ts-zap';
+import ProgressTable from '../../components/progress-table';
+import TABLEROW_TS_ZAP from '../../components/progress-table/tr-ts-zap';
 import TS_ZAP from '../../entities/ts-zap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import landingImage from "../../assets/landing-image.svg";
+import ScanField from '../../components/scan-field';
 
 const HomePage = () => {
     const scanInfosDisplay = useSelector((state: RootState) => state.scan.scanInfosDisplay);

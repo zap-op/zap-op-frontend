@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../../components/navs/nav-bar/nav-bar";
+import NavBar from "../../components/nav-bar";
 
 const LandingWrap = () => {
     return (

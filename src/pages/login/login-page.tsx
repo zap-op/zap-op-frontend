@@ -1,4 +1,4 @@
-import AuthGoogleButton from "../../components/auth-google-button/auth-google-button";
+import AuthGoogleButton from "../../components/buttons/auth-google-button";
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 

@@ -1,7 +1,7 @@
 @use '../../../style/variables' as *;
-@use '../../modals/add-target/add-target-modal' as add-target-modal;
-@use '../../modals/add-domain/add-domain-modal' as add-domain-modal;
-@use '../../modals/add-ip/add-ip-modal' as add-ip-modal;
+@use '../../targets-board/add-target-modal' as add-target-modal;
+@use '../../targets-board/add-target-modal/add-domain-modal' as add-domain-modal;
+@use '../../targets-board/add-target-modal/add-ip-modal' as add-ip-modal;
 
 div.modal-portal-container {
     background-color: rgba($color: #000000, $alpha: 0.2);

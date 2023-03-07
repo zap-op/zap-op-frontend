@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Breadcrumb, { TBreadcrumbProps } from "../../components/breadcrumb/breadcrumb";
-import PanelDashboard from "../../components/boards/panel/panel-board";
+import PanelDashboard from "../../components/panel-dashboard";
+import Breadcrumb, { TBreadcrumbProps } from "../../components/breadcrumb";
 
 const AppBoardPage = () => {
     const [listBreadcrumb, updateListBreadcrumb] = useState<TBreadcrumbProps["listBeadcrumb"]>([{
