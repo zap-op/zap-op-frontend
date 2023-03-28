@@ -39,7 +39,7 @@ const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
 		function renderGoogleButton() {
 			// Config ID to use Google auth
 			window.google.accounts.id.initialize({
-				client_id: `${process.env["REACT_APP_GOOGLE_OAUTH2_CLIENT_ID"]}`,
+				client_id: `${import.meta.env["VITE_APP_GOOGLE_OAUTH2_CLIENT_ID"]}`,
 				callback: handleCredentialResponse,
 			});
 
