@@ -4,7 +4,6 @@ import workSpaceImage from "../../assets/work-space.svg";
 
 const PanelDashboard = () => {
 	const ref_panel = useRef<HTMLDivElement>(null);
-
 	useEffect(() => {
 		const panelWidth = localStorage.getItem(PanelDashboard.LOCAL_STORAGE_KEY_PANEL_WIDTH);
 		if (!panelWidth) {

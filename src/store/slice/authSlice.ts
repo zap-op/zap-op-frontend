@@ -44,17 +44,15 @@ const authSlice = createSlice({
 				return;
 			}
 			state.isAuth = true;
-			console.log(("state.isAuth", state.isAuth));
 			state.userId = userInfo.userId;
 			state.email = userInfo.email;
 			state.picture = userInfo.picture;
 			state.name = userInfo.name;
 			state.familyName = userInfo.familyName;
 			state.givenName = userInfo.givenName;
-			console.log("login.matchFulfilled");
+			window.location.href = new URL("app", window.location.origin).href;
 		});
 		builder.addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
-			console.log("login.matchRejected");
 			if (!action.payload || !action.payload.data) {
 				console.log(action);
 				state.errorMessage = "Something went wrong!";

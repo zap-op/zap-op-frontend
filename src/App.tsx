@@ -95,7 +95,6 @@ function App() {
 				</BrowserRouter>
 				<ToasterMgr />
 			</Provider>
-			,
 		</div>
 	);
 }
