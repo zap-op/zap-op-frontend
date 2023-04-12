@@ -20,13 +20,7 @@ const reducers = {
 
 const store = configureStore({
 	reducer: reducers,
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({
-			serializableCheck: {
-				ignoredActions: ["describe/setDescribeElement"],
-				ignoreState: true,
-			},
-		}).concat([authApi.middleware, scanApi.middleware, targetApi.middleware]),
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([authApi.middleware, scanApi.middleware, targetApi.middleware]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

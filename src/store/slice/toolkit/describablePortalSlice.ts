@@ -1,29 +1,38 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TDescribablePortalState = {
-    isDescribing: boolean,
-    describeElement: JSX.Element | undefined,
-}
+	isDescribing: boolean;
+	describeInfo:
+		| undefined
+		| {
+				offset: {
+					top: number;
+					left: number;
+				};
+				title: string;
+		  };
+};
 
 const initialState: TDescribablePortalState = {
-    isDescribing: false,
-    describeElement: undefined,
-}
+	isDescribing: false,
+	describeInfo: undefined,
+};
 
 const describablePortalSlice = createSlice({
-    name: "describablePortal",
-    initialState,
-    reducers: {
-        setDescribeElement: (state, action: PayloadAction<{
-            describeElement: TDescribablePortalState["describeElement"],
-        }>) => {
-            state.describeElement = action.payload.describeElement;
-            state.isDescribing = (state.describeElement !== undefined);
-        },
-    },
-})
+	name: "describablePortal",
+	initialState,
+	reducers: {
+		setDescribeInfo: (
+			state,
+			action: PayloadAction<{
+				describeInfo: TDescribablePortalState["describeInfo"];
+			}>,
+		) => {
+			state.describeInfo = action.payload.describeInfo;
+			state.isDescribing = action.payload.describeInfo !== undefined;
+		},
+	},
+});
 
 export default describablePortalSlice;
-export const {
-    setDescribeElement,
-} = describablePortalSlice.actions;
+export const { setDescribeInfo } = describablePortalSlice.actions;
