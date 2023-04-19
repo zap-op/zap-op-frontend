@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { GoogleCredentialResponse } from "../components/buttons/auth-google-button";
-import authSlice from "../store/slice/authSlice";
 import { TStatusResponse } from "../submodules/utility/status";
 import { TOKEN_TYPE } from "../submodules/utility/token";
 import api from "./api";
 
 const authApi = createApi({
-	reducerPath: `${authSlice.name}Api`,
+	reducerPath: "authApi",
 	baseQuery: fetchBaseQuery({
 		baseUrl: api.defaults.baseURL,
 		credentials: "include",

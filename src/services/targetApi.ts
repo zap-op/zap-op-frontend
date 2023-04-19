@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ObjectId } from "bson";
-import targetSlice from "../store/slice/targetSlice";
 import { TAG_TARGET, TTarget } from "../submodules/utility/model";
 import { TStatusResponse } from "../submodules/utility/status";
 import api from "./api";
 
 const targetApi = createApi({
-	reducerPath: `${targetSlice.name}Api`,
+	reducerPath: "targetApi",
 	baseQuery: fetchBaseQuery({
 		baseUrl: api.defaults.baseURL + "/management",
 		credentials: "include",

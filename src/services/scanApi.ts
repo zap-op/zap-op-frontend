@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import scanSlice from "../store/slice/scanSlice";
 import api from "./api";
 
 const scanApi = createApi({
-	reducerPath: `${scanSlice.name}Api`,
+	reducerPath: "scanApi",
 	baseQuery: fetchBaseQuery({
 		baseUrl: api.defaults.baseURL + "/scan",
 	}),
