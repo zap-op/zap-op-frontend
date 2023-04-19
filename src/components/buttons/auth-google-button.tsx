@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useLoginMutation } from "../../services/authApi";
-import { RootState } from "../../store/store";
 
 // https://developers.google.com/identity/gsi/web/reference/js-reference#GsiButtonConfiguration
 type GsiButtonConfiguration = {
@@ -25,8 +23,8 @@ type TAuthGoogleButtonProps = {
 };
 
 const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
-	const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 	const [login] = useLoginMutation();
+
 	const handleCredentialResponse = async (response: GoogleCredentialResponse) => {
 		await login(response.credential);
 	};

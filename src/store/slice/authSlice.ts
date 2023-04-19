@@ -50,7 +50,6 @@ const authSlice = createSlice({
 			state.name = userInfo.name;
 			state.familyName = userInfo.familyName;
 			state.givenName = userInfo.givenName;
-			window.location.href = new URL("app", window.location.origin).href;
 		});
 		builder.addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
 			if (!action.payload || !action.payload.data) {
