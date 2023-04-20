@@ -1,5 +1,4 @@
-@use '../progress-bar';
-@use '../../style/variables' as *;
+@use '../../../style/variables' as *;
 
 div.progress-bar-container {
     border: 1px solid $black-color-1;
