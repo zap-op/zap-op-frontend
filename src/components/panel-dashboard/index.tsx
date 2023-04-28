@@ -49,7 +49,7 @@ const PanelDashboard = () => {
 						/>
 					</span>
 					<div className="title-container">
-						<h4 className="title">Example</h4>
+						<h5 className="title">Example</h5>
 						<span className="sub-title">Sub example</span>
 					</div>
 				</div>
