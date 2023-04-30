@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import NavStep, { TNavStepProps } from "./nav-step";
 import SelectTargetBoard from "../select-target-board";
+import ScanOptionsBoard from "./scan-options-board";
 
 type TAddScanBoardProps = {
 	configSteps: TNavStepProps["steps"];
@@ -32,6 +33,8 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 		switch (currentLinkState) {
 			case SelectTargetBoard.NAME:
 				return <SelectTargetBoard />;
+			case ScanOptionsBoard.NAME:
+				return <ScanOptionsBoard />;
 			default:
 				return <></>;
 		}

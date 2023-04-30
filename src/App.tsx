@@ -12,6 +12,7 @@ import ToasterMgr from "./components/toolkits/toasterMgr";
 
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
+import ScanOptionsBoard from "./components/add-scan-board/scan-options-board";
 
 function App() {
 	const isAuth = useSelector((state: RootState) => state.auth.isAuth);
@@ -99,7 +100,7 @@ function App() {
 										},
 										{
 											title: "Configure Scans",
-											state: "configure-scans-name",
+											state: ScanOptionsBoard.NAME,
 										},
 									]}
 								/>
