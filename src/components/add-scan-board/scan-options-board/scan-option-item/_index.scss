@@ -1,0 +1,33 @@
+@use '../../../../style/variables' as *;
+
+div.scan-option-item-container {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: $blue-color-8;
+    }
+
+    label {
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+
+        input {
+            cursor: pointer;
+        }
+
+        div.content-container {
+            margin-inline: 1rem;
+
+            h5.title {
+                margin-bottom: 0.5rem;
+            }
+
+            div.description {
+                font-size: 0.875rem;
+                color: $black-color-3;
+            }
+        }
+    }
+}
