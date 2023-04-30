@@ -34,7 +34,11 @@ const scanSlice = createSlice({
 			state.scanProgressDisplay = action.payload.scanProgress;
 		},
 		resetScanDisplay: (state) => {
-			state = initialState;
+			return {
+				isScanProgressing: false,
+				scanProgressDisplay: undefined,
+				scanInfosDisplay: [],
+			} as TScanState;
 		},
 	},
 	extraReducers: (builder) => {
