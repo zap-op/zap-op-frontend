@@ -7,13 +7,13 @@ import { parseJwt } from "../../utils/tokenMgr";
 
 type TAuthState = {
 	isAuth: boolean;
-	userId: UserTokenData["userId"] | undefined;
-	email: UserTokenData["email"] | undefined;
-	picture: UserTokenData["picture"] | undefined;
-	name: UserTokenData["name"] | undefined;
-	familyName: UserTokenData["familyName"] | undefined;
-	givenName: UserTokenData["givenName"] | undefined;
-	errorMessage: string | undefined;
+	userId?: UserTokenData["userId"];
+	email?: UserTokenData["email"];
+	picture?: UserTokenData["picture"];
+	name?: UserTokenData["name"];
+	familyName?: UserTokenData["familyName"];
+	givenName?: UserTokenData["givenName"];
+	errorMessage?: string;
 };
 
 const initialState: TAuthState = {
