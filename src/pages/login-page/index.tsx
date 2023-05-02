@@ -14,9 +14,11 @@ const LogInPage = () => {
 					<AuthGoogleButton option={AuthGoogleButton.LOG_IN_BUTTON_TEXT} />
 				</div>
 				<div className="github-option"></div>
-				<div className="error-message-container">
-					<h4 className="error-message">{errorMessage ? errorMessage : undefined}</h4>
-				</div>
+				{!!errorMessage && (
+					<div className="error-message-container">
+						<h4 className="error-message">{errorMessage}</h4>
+					</div>
+				)}
 			</div>
 		</div>
 	);
