@@ -1,3 +1,4 @@
+import BaseURL from "../utils/BaseURL";
 import ZAP from "./zap";
 
 /**
@@ -23,7 +24,7 @@ class TS_ZAP extends ZAP {
 		if (TS_ZAP._instance) {
 			return TS_ZAP._instance;
 		}
-		this.event_source_address = this.service.defaults.baseURL + this.reqAddress;
+		this.event_source_address = new URL(this.reqAddress, BaseURL).href;
 		TS_ZAP._instance = this;
 	}
 
@@ -58,17 +59,6 @@ class TS_ZAP extends ZAP {
 				subtreeOnly: this.subtreeOnly,
 			},
 		};
-	}
-
-	/**
-	 * Request scan
-	 * @throws {ReferenceError}
-	 */
-	public request() {
-		if (!this.url) {
-			throw ReferenceError("url is not defined");
-		}
-		return this.service.post(this.reqAddress, this.createScanRequestObject());
 	}
 
 	/**
