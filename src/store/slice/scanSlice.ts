@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import scanApi from "../../services/scanApi";
+import { TStatusResponse } from "../../submodules/utility/status";
 
 type TScanState = {
 	isScanProgressing: boolean;
 	scanProgressDisplay?: number;
 	scanInfosDisplay: string[];
+	scanError?: TStatusResponse;
 };
 
 const initialState: TScanState = {
 	isScanProgressing: false,
 	scanProgressDisplay: undefined,
 	scanInfosDisplay: [],
+	scanError: undefined,
 };
 
 const scanSlice = createSlice({
@@ -33,12 +36,21 @@ const scanSlice = createSlice({
 		) => {
 			state.scanProgressDisplay = action.payload.scanProgress;
 		},
-		resetScanDisplay: (state) => {
+		resetScanDisplay: () => {
 			return {
 				isScanProgressing: false,
 				scanProgressDisplay: undefined,
 				scanInfosDisplay: [],
+				scanError: undefined,
 			} as TScanState;
+		},
+		setScanError: (
+			state,
+			action: PayloadAction<{
+				scanError: TStatusResponse;
+			}>,
+		) => {
+			state.scanError = action.payload.scanError;
 		},
 	},
 	extraReducers: (builder) => {
@@ -50,4 +62,4 @@ const scanSlice = createSlice({
 });
 
 export default scanSlice;
-export const { setStatusScanProgress, updateScanProgressDisplay, resetScanDisplay } = scanSlice.actions;
+export const { setStatusScanProgress, updateScanProgressDisplay, resetScanDisplay, setScanError } = scanSlice.actions;
