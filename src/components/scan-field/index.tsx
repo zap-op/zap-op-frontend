@@ -1,9 +1,7 @@
-import { createRef, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import ProgressRing from "./progress-ring";
-import { setStatusScanProgress, updateScanProgressDisplay, resetScanDisplay } from "../../store/slice/scanSlice";
 import { RootState } from "../../store/store";
-import { SCAN_STATUS } from "../../submodules/utility/status";
 import { useLazyScanQuery } from "../../services/scanApi";
 import { _assertCast, isFetchBaseQueryErrorType } from "../../utils/helpers";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
