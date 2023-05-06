@@ -1,9 +1,7 @@
-import TS_ZAP from "../../../entities/ts-zap";
-import ZAP from "../../../entities/zap";
 import Describable from "../../toolkits/describable/describable";
 
 export type TSUB_TABLEROW_ResultsProps = {
-	scanType: typeof ZAP.fullName | typeof TS_ZAP.fullName;
+	scanType: ("OWASP ZAP" | "Traditonal Spider ZAP");
 	state: string;
 	progress: number;
 	listExportResultType: string[];

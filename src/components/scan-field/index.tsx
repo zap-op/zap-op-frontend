@@ -1,11 +1,10 @@
-import { createRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import ProgressRing from "./progress-ring";
-import { setStatusScanProgress, updateScanProgressDisplay, resetScanDisplay } from "../../store/slice/scanSlice";
 import { RootState } from "../../store/store";
-import TRIAL_TS_ZAP from "../../entities/trial-ts-zap";
-import { SCAN_STATUS } from "../../submodules/utility/status";
-import { useGetResultsByOffsetMutation } from "../../services/scanApi";
+import { useLazyScanQuery } from "../../services/scanApi";
+import { _assertCast, isFetchBaseQueryErrorType } from "../../utils/helpers";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 type TScanFieldProps = {
 	title: string;
@@ -14,78 +13,36 @@ type TScanFieldProps = {
 
 const ScanField = (props: TScanFieldProps) => {
 	const isScanProgressing = useSelector((state: RootState) => state.scan.isScanProgressing);
+	const scanError = useSelector((state: RootState) => state.scan.scanError);
 
-	const [getResultsByOffset] = useGetResultsByOffsetMutation();
+	const [errorStatus, setErrorStatus] = useState<string>();
+	const [url, setUrl] = useState<string>("");
 
-	const dispatch = useDispatch();
+	const [scan, { error }] = useLazyScanQuery();
 
-	const [errorMess, setErrorMess] = useState<string | undefined>(undefined);
+	useEffect(() => {
+		if (error && isFetchBaseQueryErrorType(error)) {
+			_assertCast<FetchBaseQueryError>(error);
+			if (error.status === "FETCH_ERROR") {
+				setErrorStatus(error.error);
+			}
+		}
+	}, [error]);
 
-	const ref_urlInput = createRef<HTMLInputElement>();
+	useEffect(() => {
+		if (scanError) {
+			setErrorStatus(scanError.msg);
+		}
+	}, [scanError]);
 
 	const handleClickScan = async () => {
 		if (isScanProgressing) {
 			return;
 		}
 
-		setErrorMess(undefined);
-		dispatch(resetScanDisplay());
-		dispatch(setStatusScanProgress({ status: true }));
-
-		const scan_url = ref_urlInput.current!.value;
-		if (!scan_url) {
-			setErrorMess(ScanField.EMPTY_URL_ERROR_MESS);
-			dispatch(setStatusScanProgress({ status: false }));
-			return;
-		}
-		const TrialSpiderZAPScan = TRIAL_TS_ZAP.getIntance();
-		TrialSpiderZAPScan.url = scan_url;
-		TrialSpiderZAPScan.connect();
-		const eventSource = TrialSpiderZAPScan.connectionSource();
-
-		let id: string;
-		eventSource.addEventListener("id", (event: MessageEvent) => {
-			const data = JSON.parse(event.data);
-			id = data.id;
-			if (!id) {
-				setErrorMess(SCAN_STATUS.INVALID_ID.msg);
-				dispatch(setStatusScanProgress({ status: false }));
-			}
+		scan({
+			url,
 		});
-
-		eventSource.addEventListener("status", (event: MessageEvent) => {
-			const data = JSON.parse(event.data);
-			dispatch(
-				updateScanProgressDisplay({
-					scanProgress: data.status,
-				}),
-			);
-			// const offset = store.getState().scan.scanInfosDisplay.length;
-			getResultsByOffset({
-				id: id,
-				offset: 0,
-			}).catch((error) => {
-				console.log(error);
-			});
-
-			if (data.status === "100") {
-				TrialSpiderZAPScan.disconnect();
-				dispatch(setStatusScanProgress({ status: false }));
-				return;
-			}
-		});
-
-		eventSource.onerror = (event: Event) => {
-			console.log("onerror: ", event);
-			if (event instanceof MessageEvent) {
-				const data = JSON.parse(event.data);
-				setErrorMess(data.msg);
-			} else {
-				setErrorMess(SCAN_STATUS.ZAP_INTERNAL_ERROR.msg);
-			}
-			TrialSpiderZAPScan.disconnect();
-			dispatch(setStatusScanProgress({ status: false }));
-		};
 	};
 
 	return (
@@ -95,7 +52,7 @@ const ScanField = (props: TScanFieldProps) => {
 				<input
 					type="text"
 					placeholder="Enter a URL, IP address, or hostname..."
-					ref={ref_urlInput}
+					onChange={(event) => setUrl(event.target.value)}
 				/>
 				<div
 					className="scan-button button primary-button"
@@ -103,13 +60,9 @@ const ScanField = (props: TScanFieldProps) => {
 					{isScanProgressing ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
 				</div>
 			</div>
-			{errorMess ? <div className={`message error-message primary-error-message`}>{errorMess}</div> : <></>}
+			{!!errorStatus && <div className={`message error-message primary-error-message`}>{errorStatus}</div>}
 		</div>
 	);
 };
-
-ScanField.UNKOWN_ERROR_MESS = "Unknown error";
-ScanField.EMPTY_URL_ERROR_MESS = "URL is empty!";
-ScanField.CANNOT_REQUEST_ERROR_MESS = "Cannot request session!";
 
 export default ScanField;
