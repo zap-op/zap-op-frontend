@@ -1,6 +1,5 @@
 import ProgressTable from "../../components/progress-table";
 import TABLEROW_TS_ZAP from "../../components/progress-table/tr-ts-zap";
-import TS_ZAP from "../../entities/ts-zap";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import landingImage from "../../assets/landing-image.svg";
@@ -42,8 +41,8 @@ const HomePage = () => {
 					<div className="free-scan-container">
 						<div className="home_scan-field-container">
 							<ScanField
-								title={TS_ZAP.fullName}
-								typeScan={TS_ZAP.typeCode}
+								title={"Traditonal Spider ZAP"}
+								typeScan={"zap-spider"}
 							/>
 						</div>
 						{scanProgress ? (

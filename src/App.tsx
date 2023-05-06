@@ -1,8 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import ZAP from "./entities/zap";
-import TS_ZAP from "./entities/ts-zap";
-
 import "./style/style.scss";
 
 import { AppBoardPage, HomePage, LandingWrap, LogInPage } from "./pages";
@@ -73,17 +70,17 @@ function App() {
 										{
 											name: "Lorem",
 											url: "https://lorem.com",
-											listScanType: [ZAP.fullName, TS_ZAP.fullName],
+											listScanType: ["OWASP ZAP", "Traditonal Spider ZAP"],
 										},
 										{
 											name: "Lorem",
 											url: "https://lorem.com",
-											listScanType: [ZAP.fullName, TS_ZAP.fullName],
+											listScanType: ["OWASP ZAP", "Traditonal Spider ZAP"],
 										},
 										{
 											name: "Lorem",
 											url: "https://lorem.com",
-											listScanType: [ZAP.fullName, TS_ZAP.fullName],
+											listScanType: ["OWASP ZAP", "Traditonal Spider ZAP"],
 										},
 									]}
 								/>
