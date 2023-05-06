@@ -2,14 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ObjectId } from "bson";
 import { TAG_TARGET, TTarget } from "../submodules/utility/model";
 import { TStatusResponse } from "../submodules/utility/status";
-import BaseURL from "../utils/BaseURL";
+import { BaseURL } from "../utils/urlMgr";
+import urlJoin from "url-join";
 
-const _URL = new URL("management", BaseURL);
+const _URL = urlJoin(BaseURL, "management");
 
 const targetApi = createApi({
 	reducerPath: "targetApi",
 	baseQuery: fetchBaseQuery({
-		baseUrl: _URL.href,
+		baseUrl: _URL,
 		credentials: "include",
 	}),
 	tagTypes: [TAG_TARGET],

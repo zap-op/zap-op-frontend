@@ -1,4 +1,4 @@
-import BaseURL from "../utils/BaseURL";
+import { BaseURL } from "../utils/urlMgr";
 import ZAP from "./zap";
 
 class TRIAL_TS_ZAP extends ZAP {
