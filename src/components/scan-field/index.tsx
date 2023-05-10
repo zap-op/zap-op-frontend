@@ -7,7 +7,7 @@ import { _assertCast, isFetchBaseQueryErrorType } from "../../utils/helpers";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 type TScanFieldProps = {
-	title: string;
+	title?: string;
 	typeScan: string;
 };
 

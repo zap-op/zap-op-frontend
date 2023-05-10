@@ -42,10 +42,7 @@ const HomePage = () => {
 					<h2>Take a Free Trial with</h2>
 					<div className="free-scan-container">
 						<div className="home_scan-field-container">
-							<ScanField
-								title={"Traditonal Spider ZAP"}
-								typeScan={"zap-spider"}
-							/>
+							<ScanField typeScan="zap-spider" />
 						</div>
 						{scanProgress ? (
 							<ProgressTable
