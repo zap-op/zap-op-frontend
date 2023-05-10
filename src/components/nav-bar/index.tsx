@@ -1,5 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, LinkProps } from "react-router-dom";
 import owlensLogo from "../../assets/logo/owlens-logo_light.svg";
+
+type TNavItem = {
+	content: string;
+	href: LinkProps["to"];
+};
+
+const LIST_NAV: TNavItem[] = [
+	{
+		content: "Take trial",
+		href: "#trial",
+	},
+];
 
 const NavBar = () => {
 	return (
@@ -19,36 +31,26 @@ const NavBar = () => {
 			</Link>
 			<div className="nav-wrap">
 				<ul className="nav-bar">
-					<Link
-						to="/"
-						className="nav-item"
-						draggable={false}>
-						{NavBar.NAV_ITEM.ITEM_1}
-					</Link>
-					<Link
-						to="/"
-						className="nav-item"
-						draggable={false}>
-						{NavBar.NAV_ITEM.ITEM_2}
-					</Link>
+					{LIST_NAV.map((item) => (
+						<Link
+							to={item.href}
+							className="nav-item"
+							draggable={false}>
+							{item.content}
+						</Link>
+					))}
 				</ul>
-				<ul className="nav-bar-id">
+				<ul className="nav-bar-auth">
 					<Link
 						to="/login"
 						className="create-account button primary-button"
 						draggable={false}>
-						{NavBar.NAV_ITEM.LOGIN}
+						Get Started
 					</Link>
 				</ul>
 			</div>
 		</div>
 	);
-};
-
-NavBar.NAV_ITEM = {
-	ITEM_1: "Lorem",
-	ITEM_2: "Lorem",
-	LOGIN: "Get Started",
 };
 
 export default NavBar;

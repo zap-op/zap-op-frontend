@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import landingImage from "../../assets/landing-image.svg";
 import ScanField from "../../components/scan-field";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
 	const scanInfosDisplay = useSelector((state: RootState) => state.scan.scanInfosDisplay);
@@ -15,15 +16,15 @@ const HomePage = () => {
 				<div className="welcome-content-container section-container">
 					<div className="content-container">
 						<div className="content-wrap">
-							<h1>Welcome Lorem Ipsum is simply</h1>
-							<div className="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>
+							<h1>Owlens</h1>
+							<div className="description">An automated web application security scanner based on the OWASP ZAP platform</div>
 						</div>
-						<a
+						<Link
 							className="explore-now-button button primary-button"
-							href="#"
+							to="/login"
 							draggable={false}>
 							Explore now
-						</a>
+						</Link>
 					</div>
 					<div className="landing-image-container">
 						<div className="landing-image">
@@ -35,15 +36,17 @@ const HomePage = () => {
 					</div>
 				</div>
 			</section>
-			<section className="trial-section">
+			<section
+				id="trial"
+				className="trial-section">
 				<div className="trial-container section-container">
 					<h2>Take a Free Trial with</h2>
+					<div className="description">
+						<b>Traditional ZAP Spider</b> to inspects HTML in a web application's response to detect links
+					</div>
 					<div className="free-scan-container">
 						<div className="home_scan-field-container">
-							<ScanField
-								title={"Traditonal Spider ZAP"}
-								typeScan={"zap-spider"}
-							/>
+							<ScanField typeScan="zap-spider" />
 						</div>
 						{scanProgress ? (
 							<ProgressTable
