@@ -1,7 +1,7 @@
 {
   "name": "zap-op-frontend",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "devDependencies": {
     "@types/google.accounts": "^0.0.2",
