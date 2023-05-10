@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import landingImage from "../../assets/landing-image.svg";
 import ScanField from "../../components/scan-field";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
 	const scanInfosDisplay = useSelector((state: RootState) => state.scan.scanInfosDisplay);
@@ -18,12 +19,12 @@ const HomePage = () => {
 							<h1>Welcome Lorem Ipsum is simply</h1>
 							<div className="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>
 						</div>
-						<a
+						<Link
 							className="explore-now-button button primary-button"
-							href="#"
+							to="/login"
 							draggable={false}>
 							Explore now
-						</a>
+						</Link>
 					</div>
 					<div className="landing-image-container">
 						<div className="landing-image">
