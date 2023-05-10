@@ -16,8 +16,8 @@ const HomePage = () => {
 				<div className="welcome-content-container section-container">
 					<div className="content-container">
 						<div className="content-wrap">
-							<h1>Welcome Lorem Ipsum is simply</h1>
-							<div className="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div>
+							<h1>Owlens</h1>
+							<div className="description">An automated web application security scanner based on the OWASP ZAP platform</div>
 						</div>
 						<Link
 							className="explore-now-button button primary-button"
@@ -41,6 +41,9 @@ const HomePage = () => {
 				className="trial-section">
 				<div className="trial-container section-container">
 					<h2>Take a Free Trial with</h2>
+					<div className="description">
+						<b>Traditional ZAP Spider</b> to inspects HTML in a web application's response to detect links
+					</div>
 					<div className="free-scan-container">
 						<div className="home_scan-field-container">
 							<ScanField typeScan="zap-spider" />
