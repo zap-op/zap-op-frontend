@@ -35,7 +35,9 @@ const HomePage = () => {
 					</div>
 				</div>
 			</section>
-			<section className="trial-section">
+			<section
+				id="trial"
+				className="trial-section">
 				<div className="trial-container section-container">
 					<h2>Take a Free Trial with</h2>
 					<div className="free-scan-container">
