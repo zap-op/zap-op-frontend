@@ -64,27 +64,7 @@ function App() {
 						/>
 						<Route
 							path="results"
-							element={
-								<ResultsBoard
-									listResult={[
-										{
-											name: "Lorem",
-											url: "https://lorem.com",
-											listScanType: ["OWASP ZAP", "Traditonal Spider ZAP"],
-										},
-										{
-											name: "Lorem",
-											url: "https://lorem.com",
-											listScanType: ["OWASP ZAP", "Traditonal Spider ZAP"],
-										},
-										{
-											name: "Lorem",
-											url: "https://lorem.com",
-											listScanType: ["OWASP ZAP", "Traditonal Spider ZAP"],
-										},
-									]}
-								/>
-							}
+							element={<ResultsBoard />}
 						/>
 						<Route
 							path="addscan"
