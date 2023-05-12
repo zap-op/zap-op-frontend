@@ -1,14 +1,30 @@
 import ProgressTable from "../../components/progress-table";
 import TABLEROW_TS_ZAP from "../../components/progress-table/tr-ts-zap";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 import landingImage from "../../assets/landing-image.svg";
 import ScanField from "../../components/scan-field";
 import { Link } from "react-router-dom";
+import scanApi from "../../services/scanApi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
-	const scanInfosDisplay = useSelector((state: RootState) => state.scan.scanInfosDisplay);
-	const scanProgress = useSelector((state: RootState) => state.scan.scanProgressDisplay);
+	const { url } = useSelector((state: RootState) => state.scan.trial);
+	const { data } = scanApi.endpoints.scan.useQueryState(url);
+	const {
+		data: _data,
+		progress,
+		isScanning,
+	} = {
+		...data,
+	};
+	const [isDisplayStreamBoard, setIsDisplayStreamBoard] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (!isDisplayStreamBoard && isScanning) {
+			setIsDisplayStreamBoard(true);
+		}
+	}, [isScanning]);
 
 	return (
 		<div className="home-page-container">
@@ -48,11 +64,11 @@ const HomePage = () => {
 						<div className="home_scan-field-container">
 							<ScanField typeScan="zap-spider" />
 						</div>
-						{scanProgress ? (
+						{isDisplayStreamBoard ? (
 							<ProgressTable
 								initAutoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
-								scanProgress={scanProgress}
-								tableBody={scanInfosDisplay.map((item, index) => {
+								scanProgress={progress ? progress : 0}
+								tableBody={(_data ? _data : []).map((item, index) => {
 									return (
 										<TABLEROW_TS_ZAP
 											key={index}
