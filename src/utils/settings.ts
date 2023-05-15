@@ -45,3 +45,5 @@ export const ListScanOption: TScanOption[] = [
 		description: "Passive check your web application for cross-domain configuration, insecure cookies, vulnerable JS dependencies, and more vulnerabilities.",
 	},
 ];
+
+export const ListIDScanOption: ScanType[] = ListScanOption.map((item) => item.id);

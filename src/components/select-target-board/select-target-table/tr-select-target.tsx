@@ -11,10 +11,8 @@ type TSelectTargetItemProps = TSelectTargetItem &
 		defaultChecked: boolean;
 	};
 
-const SelectTargetItem = ({ _id, name, target, tag, defaultChecked }: TSelectTargetItemProps) => {
+const SelectTargetItem = ({ _id, id, name, target, tag, defaultChecked }: TSelectTargetItemProps) => {
 	const dispatch = useDispatch();
-
-	const id = _id.toString();
 
 	const handleCheckBoxOnChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.checked) {
