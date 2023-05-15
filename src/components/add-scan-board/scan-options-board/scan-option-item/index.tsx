@@ -1,11 +1,8 @@
-import { THandleChangeValue, TInput } from "../../../../utils/componentGenericTypes";
+import { TScanOption } from "../../../../utils/settings";
 
-export type TScanOptionItem = TInput &
-	THandleChangeValue & {
-		title: string;
-		description: string;
-		isDisable?: boolean;
-	};
+export type TScanOptionItem = TScanOption & {
+	isDisable?: boolean;
+};
 const ScanOptionItem = (props: TScanOptionItem) => {
 	return (
 		<div className="scan-option-item-container">
@@ -14,7 +11,6 @@ const ScanOptionItem = (props: TScanOptionItem) => {
 					type="checkbox"
 					id={props.id}
 					disabled={!!props.isDisable}
-					onChange={props.handleChangeValue}
 				/>
 				<div className="content-container">
 					<h5 className="title">{props.title}</h5>
