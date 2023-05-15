@@ -2,10 +2,14 @@ import { ChangeEvent } from "react";
 import { TTarget } from "../../../submodules/utility/model";
 import { useDispatch } from "react-redux";
 import { addSelectTarget, removeSelectTarget } from "../../../store/slice/targetSlice";
+import { TInput } from "../../../utils/componentGenericTypes";
 
-export type TSelectTargetItemProps = Pick<TTarget, "_id" | "name" | "target" | "tag"> & {
-	isChecked: boolean;
-};
+export type TSelectTargetItem = Pick<TTarget, "_id" | "name" | "target" | "tag">;
+
+type TSelectTargetItemProps = TSelectTargetItem &
+	TInput & {
+		isChecked: boolean;
+	};
 
 const SelectTargetItem = ({ _id, name, target, tag, isChecked }: TSelectTargetItemProps) => {
 	const dispatch = useDispatch();

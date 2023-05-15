@@ -1,10 +1,10 @@
 import { PropsWithChildren } from "react";
-import TABLEROW_SelectTarget, { TSelectTargetItemProps } from "./tr-select-target";
+import TABLEROW_SelectTarget, { TSelectTargetItem } from "./tr-select-target";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
 type TSelectTargetTableProps = {
-	listChild: Omit<TSelectTargetItemProps, "isChecked">[];
+	listChild: TSelectTargetItem[];
 };
 
 const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTableProps>) => {
@@ -22,13 +22,17 @@ const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTablePr
 					</ul>
 				</div>
 				<div className="table-body-container">
-					{listChild.map((item) => (
-						<TABLEROW_SelectTarget
-							{...item}
-							key={item._id.toString()}
-							isChecked={listSelectedTarget.includes(item._id)}
-						/>
-					))}
+					{listChild.map((item) => {
+						const id = item._id.toString();
+						return (
+							<TABLEROW_SelectTarget
+								{...item}
+								key={id}
+								isChecked={listSelectedTarget.includes(item._id)}
+								id={id}
+							/>
+						);
+					})}
 				</div>
 			</div>
 		</div>
