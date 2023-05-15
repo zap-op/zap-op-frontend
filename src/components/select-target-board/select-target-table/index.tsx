@@ -28,7 +28,7 @@ const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTablePr
 							<TABLEROW_SelectTarget
 								{...item}
 								key={id}
-								isChecked={listSelectedTarget.includes(item._id)}
+								defaultChecked={listSelectedTarget.includes(item._id)}
 								id={id}
 							/>
 						);

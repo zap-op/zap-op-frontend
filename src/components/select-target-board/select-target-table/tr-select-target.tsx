@@ -8,10 +8,10 @@ export type TSelectTargetItem = Pick<TTarget, "_id" | "name" | "target" | "tag">
 
 type TSelectTargetItemProps = TSelectTargetItem &
 	TInput & {
-		isChecked: boolean;
+		defaultChecked: boolean;
 	};
 
-const SelectTargetItem = ({ _id, name, target, tag, isChecked }: TSelectTargetItemProps) => {
+const SelectTargetItem = ({ _id, name, target, tag, defaultChecked }: TSelectTargetItemProps) => {
 	const dispatch = useDispatch();
 
 	const id = _id.toString();
@@ -34,7 +34,7 @@ const SelectTargetItem = ({ _id, name, target, tag, isChecked }: TSelectTargetIt
 							type="checkbox"
 							name="select-row"
 							id={id}
-							defaultChecked={isChecked}
+							defaultChecked={defaultChecked}
 							onChange={handleCheckBoxOnChange}
 						/>
 					</div>
