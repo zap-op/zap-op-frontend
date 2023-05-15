@@ -13,7 +13,7 @@ const scanApi = createApi({
 		baseUrl: _URL,
 	}),
 	endpoints: (builder) => ({
-		scan: builder.query<{ data: string[]; error: TStatusResponse; isScanning: boolean; progress: number }, string>({
+		trialScan: builder.query<{ data: string[]; error: TStatusResponse; isScanning: boolean; progress: number }, string>({
 			queryFn: (arg, {}) => {
 				if (!arg) {
 					return {
@@ -45,7 +45,7 @@ const scanApi = createApi({
 					}),
 				);
 			},
-			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded}) {
 				await cacheDataLoaded;
 				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg}`));
 				let id: string;
@@ -108,5 +108,5 @@ const scanApi = createApi({
 	}),
 });
 
-export const { useLazyScanQuery } = scanApi;
+export const { useLazyTrialScanQuery } = scanApi;
 export default scanApi;
