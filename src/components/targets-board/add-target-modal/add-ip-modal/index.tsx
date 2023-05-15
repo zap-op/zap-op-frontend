@@ -6,9 +6,9 @@ import { Link, useLocation } from "react-router-dom";
 import { TModalProps } from "../../../toolkits/modal-portal";
 import { useAddTargetMutation } from "../../../../services/targetApi";
 import { RootState } from "../../../../store/store";
-import { TTarget } from "../../../../submodules/utility/model";
 import { TStatusResponse } from "../../../../submodules/utility/status";
 import TextField from "../../../fields/text-field";
+import { TCoreTarget } from "../../../../utils/settings";
 
 type TAddIPModalProps = TModalProps & {};
 
@@ -18,9 +18,9 @@ const AddIPModal = (props: TAddIPModalProps) => {
 
 	const location = useLocation();
 
-	const [nameTarget, setNameTarget] = useState<TTarget["name"]>();
+	const [nameTarget, setNameTarget] = useState<TCoreTarget["name"]>();
 	const [isDisplayErrorMessageNameTargetField, setIsDisplayErrorMessageNameTargetField] = useState<boolean>();
-	const [target, setTarget] = useState<TTarget["target"]>();
+	const [target, setTarget] = useState<TCoreTarget["target"]>();
 	const [isDisplayErrorMessageTargetField, setIsDisplayErrorMessageTargetField] = useState<boolean>();
 
 	const handleAddTarget = () => {
@@ -38,7 +38,7 @@ const AddIPModal = (props: TAddIPModalProps) => {
 			}
 			return;
 		}
-		let newTarget: TTarget = {
+		let newTarget: TCoreTarget = {
 			userId: userId as unknown as ObjectId,
 			name: nameTarget,
 			target: target,

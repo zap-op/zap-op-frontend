@@ -1,3 +1,8 @@
+import { TTarget } from "../submodules/utility/model";
+
+//TARGET
+export type TCoreTarget = Omit<TTarget, "_id" | "updatedAt" | "createdAt">;
+// SCAN
 export enum ScanType {
 	NMAP_TCP = "nmap-tcp",
 	NMAP_UDP = "nmap-udp",
