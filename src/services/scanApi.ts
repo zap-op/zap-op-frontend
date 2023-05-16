@@ -69,7 +69,7 @@ const scanApi = createApi({
 					}),
 				);
 			},
-			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded}) {
+			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded }) {
 				await cacheDataLoaded;
 				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg}`));
 				let id: string;
@@ -184,5 +184,10 @@ const scanApi = createApi({
 	}),
 });
 
-export const { useLazyTrialScanQuery, useDigestTargetsWithOptionsMutation } = scanApi;
+export const {
+	useTrialScanQuery, //
+	useLazyTrialScanQuery,
+	useDigestTargetsWithOptionsMutation,
+	useSpiderScanMutation,
+} = scanApi;
 export default scanApi;
