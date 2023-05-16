@@ -1,8 +1,33 @@
-import { FetchBaseQueryError, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseURL } from "../utils/urlMgr";
 import { SCAN_STATUS, TStatusResponse } from "../submodules/utility/status";
 import urlJoin from "url-join";
-import { resetScanDisplay, setScanError, setStatusScanProgress, updateScanProgressDisplay } from "../store/slice/scanSlice";
+import { _assertCast } from "../utils/helpers";
+import { setTrial } from "../store/slice/scanSlice";
+import { RootState } from "../store/store";
+import { ScanType } from "../utils/settings";
+import { TScanSession, TZapSpiderScanSession } from "../submodules/utility/model";
+import { ObjectId } from "bson";
+
+type TErrorInjected = {
+	error: TStatusResponse;
+};
+
+type TSpiderTrialRequest = TScanSession["url"];
+
+type TSpiderTrialResponse = {
+	data: string[];
+	isScanning: boolean;
+	progress: number;
+};
+
+type TSpiderRequest = Pick<TScanSession, "url"> & TZapSpiderScanSession;
+
+type TSpiderResponse = {
+	scanSession: ObjectId;
+	scanId: string;
+	scanStatus: TStatusResponse;
+};
 
 const _URL = urlJoin(BaseURL, "scan");
 
@@ -12,123 +37,157 @@ const scanApi = createApi({
 		baseUrl: _URL,
 	}),
 	endpoints: (builder) => ({
-		getResultsByOffset: builder.query<string[], { id: string; offset: number }>({
-			query: (arg) => {
-				const { id, offset } = arg;
-				return {
-					url: `trial/results?id=${id}&offset=${offset}`,
-					method: "GET",
-				};
-			},
-		}),
-		scan: builder.query<void, { url: string }>({
-			queryFn: (arg, { dispatch }) => {
-				if (!arg.url) {
-					dispatch(
-						setStatusScanProgress({
-							status: false,
-						}),
-					);
+		trialScan: builder.query<TSpiderTrialResponse & TErrorInjected, TSpiderTrialRequest>({
+			queryFn: (arg, {}) => {
+				if (!arg) {
 					return {
 						error: {
 							status: "FETCH_ERROR",
 							error: "URL is empty!",
-						} as FetchBaseQueryError,
+						},
 					};
 				}
 				return {
-					data: undefined,
+					data: {
+						isScanning: true,
+						progress: 0,
+						data: [],
+						error: {
+							statusCode: NaN,
+							msg: "",
+						},
+					},
 				};
 			},
-			onQueryStarted: (_, { dispatch }) => {
-				dispatch(resetScanDisplay());
+			onQueryStarted: (arg, { updateCachedData, dispatch }) => {
+				updateCachedData((draft) => {
+					draft.isScanning = true;
+				});
 				dispatch(
-					setStatusScanProgress({
-						status: true,
+					setTrial({
+						url: arg,
 					}),
 				);
 			},
-			async onCacheEntryAdded(arg, { dispatch, cacheDataLoaded, cacheEntryRemoved }) {
-				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg.url}`));
-
+			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded }) {
 				await cacheDataLoaded;
+				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg}`));
 				let id: string;
 				eventSource.addEventListener("id", (event: MessageEvent) => {
-					const data = JSON.parse(event.data);
-					id = data.id;
+					id = JSON.parse(event.data).id;
+
 					if (!id) {
-						dispatch(
-							setScanError({
-								scanError: data as TStatusResponse,
-							}),
-						);
-						dispatch(
-							setStatusScanProgress({
-								status: false,
-							}),
-						);
+						eventSource.close();
+						updateCachedData((draft) => {
+							draft.isScanning = false;
+						});
 					}
 				});
 
 				eventSource.addEventListener("status", (event: MessageEvent) => {
-					const data = JSON.parse(event.data);
-					dispatch(
-						updateScanProgressDisplay({
-							scanProgress: data.status,
-						}),
-					);
-					dispatch(
-						scanApi.util.prefetch(
-							"getResultsByOffset",
-							{
-								id,
-								offset: 0,
-							},
-							{
-								force: true,
-							},
-						),
-					);
+					const status = JSON.parse(event.data).status * 1;
 
-					if (data.status === "100") {
+					updateCachedData((draft) => {
+						draft.progress = status;
+					});
+
+					fetch(urlJoin(_URL, `trial/results?id=${id}&offset=0`))
+						.then((result) => result.json())
+						.then((resData) => {
+							_assertCast<string[]>(resData);
+							updateCachedData(({ data }) => {
+								const nonDuplicateData = resData.filter((item) => !data.includes(item));
+								data.push(...nonDuplicateData);
+							});
+						})
+						.catch((error) => console.log(error));
+
+					if (status === 100) {
 						eventSource.close();
-						dispatch(
-							setStatusScanProgress({
-								status: false,
-							}),
-						);
-						return;
+						updateCachedData((draft) => {
+							draft.isScanning = false;
+						});
 					}
 				});
 
 				eventSource.onerror = (event: Event) => {
 					console.log("onerror: ", event);
 					if (event instanceof MessageEvent) {
-						const data = JSON.parse(event.data);
-						console.log(data.msg);
-						dispatch(
-							setScanError({
-								scanError: data as TStatusResponse,
-							}),
-						);
+						const data = JSON.parse(event.data) as TStatusResponse;
+						updateCachedData((draft) => {
+							draft.error = data;
+						});
 					} else {
-						console.log(SCAN_STATUS.ZAP_INTERNAL_ERROR);
-						dispatch(
-							setScanError({
-								scanError: SCAN_STATUS.ZAP_INTERNAL_ERROR,
-							}),
-						);
+						updateCachedData((draft) => {
+							draft.error = SCAN_STATUS.ZAP_INTERNAL_ERROR;
+						});
 					}
 					eventSource.close();
-					dispatch(setStatusScanProgress({ status: false }));
+					updateCachedData((draft) => {
+						draft.isScanning = false;
+					});
 				};
+			},
+		}),
+		spiderScan: builder.mutation<TSpiderResponse, TSpiderRequest>({
+			query: (arg) => ({
+				url: "target",
+				method: "POST",
+				body: arg,
+			}),
+		}),
+		digestTargetsWithOptions: builder.mutation<{ error: TStatusResponse }, void>({
+			queryFn: (_, { getState }, {}, fetchWithBaseQuery) => {
+				const targetState = (getState() as RootState).target;
+				const { listSelectedTarget, listSelectedScanOption } = targetState;
+				if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
+					return {
+						error: {
+							status: "FETCH_ERROR",
+							error: "Targets or Options are empty!",
+						},
+					};
+				}
 
-				await cacheEntryRemoved;
-				eventSource.close();
+				listSelectedTarget.forEach((targetItem) =>
+					listSelectedScanOption.forEach((optionItem) => {
+						switch (optionItem) {
+							case ScanType.NMAP_TCP:
+								break;
+							case ScanType.NMAP_UDP:
+								break;
+							case ScanType.ZAP_SPIDER:
+								scanApi.endpoints.trialScan.initiate;
+								break;
+							case ScanType.ZAP_AJAX:
+								break;
+							case ScanType.ZAP_ACTIVE:
+								break;
+							case ScanType.ZAP_PASSIVE:
+								break;
+							default:
+								break;
+						}
+					}),
+				);
+
+				return {
+					data: {
+						error: {
+							statusCode: NaN,
+							msg: "",
+						},
+					},
+				};
 			},
 		}),
 	}),
 });
 
-export const { useLazyGetResultsByOffsetQuery, useLazyScanQuery } = scanApi;
+export const {
+	useTrialScanQuery, //
+	useLazyTrialScanQuery,
+	useDigestTargetsWithOptionsMutation,
+	useSpiderScanMutation,
+} = scanApi;
 export default scanApi;

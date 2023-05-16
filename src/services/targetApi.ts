@@ -4,6 +4,7 @@ import { TAG_TARGET, TTarget } from "../submodules/utility/model";
 import { TStatusResponse } from "../submodules/utility/status";
 import { BaseURL } from "../utils/urlMgr";
 import urlJoin from "url-join";
+import { TCoreTarget } from "../utils/settings";
 
 const _URL = urlJoin(BaseURL, "management");
 
@@ -22,7 +23,7 @@ const targetApi = createApi({
 			}),
 			providesTags: [TAG_TARGET],
 		}),
-		addTarget: builder.mutation<TStatusResponse, TTarget>({
+		addTarget: builder.mutation<TStatusResponse, TCoreTarget>({
 			query: (target) => ({
 				url: "target",
 				method: "POST",

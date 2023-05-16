@@ -9,6 +9,7 @@ import { useAddTargetMutation } from "../../../../services/targetApi";
 import { TTarget } from "../../../../submodules/utility/model";
 import { TStatusResponse } from "../../../../submodules/utility/status";
 import TextField from "../../../fields/text-field";
+import { TCoreTarget } from "../../../../utils/settings";
 
 type TAddDomainModalProps = TModalProps & {};
 
@@ -18,9 +19,9 @@ const AddDomainModal = (props: TAddDomainModalProps) => {
 
 	const location = useLocation();
 
-	const [nameTarget, setNameTarget] = useState<TTarget["name"]>();
+	const [nameTarget, setNameTarget] = useState<TCoreTarget["name"]>();
 	const [isDisplayErrorMessageNameTargetField, setIsDisplayErrorMessageNameTargetField] = useState<boolean>();
-	const [target, setTarget] = useState<TTarget["target"]>();
+	const [target, setTarget] = useState<TCoreTarget["target"]>();
 	const [isDisplayErrorMessageTargetField, setIsDisplayErrorMessageTargetField] = useState<boolean>();
 
 	const handleAddTarget = async () => {
@@ -38,7 +39,7 @@ const AddDomainModal = (props: TAddDomainModalProps) => {
 			}
 			return;
 		}
-		let newTarget: TTarget = {
+		let newTarget: TCoreTarget = {
 			userId: userId as unknown as ObjectId,
 			name: nameTarget,
 			target: target,

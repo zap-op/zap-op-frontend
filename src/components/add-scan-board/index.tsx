@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavStep, { TNavStepProps } from "./nav-step";
 import SelectTargetBoard from "../select-target-board";
 import ScanOptionsBoard from "./scan-options-board";
+import { useDigestTargetsWithOptionsMutation } from "../../services/scanApi";
 
 type TAddScanBoardProps = {
 	configSteps: TNavStepProps["steps"];
@@ -14,6 +15,11 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 	let currentLinkState: string = "";
 	let currentLinkStateIndex: number = 0;
 	let nextLinkState: string = "";
+
+	const [digestTargetsWithOptions] = useDigestTargetsWithOptionsMutation();
+	const handleStartScanWithOptions = () => {
+		digestTargetsWithOptions();
+	};
 
 	if (location.state) {
 		/* === this.props.configSteps > 0 */ currentLinkStateIndex = props.configSteps.findIndex((item) => item.state === location.state);
@@ -67,7 +73,11 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 						Next
 					</Link>
 				) : (
-					<div className="start-state button primary-button">Start</div>
+					<div
+						className="start-state button primary-button"
+						onClick={handleStartScanWithOptions}>
+						Start
+					</div>
 				)}
 			</div>
 		</div>

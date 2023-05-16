@@ -52,17 +52,26 @@ div.select-target-table-container {
 
                 &:hover {
                     background-color: $blue-color-6;
-                    cursor: pointer;
                 }
 
-                li.selected {
-                    div.selection-container {
-                        input.target-selector {
-                            accent-color: $blue-color-1;
-                            cursor: pointer;
+                label {
+                    display: flex;
+                    width: 100%;
+
+                    &,
+                    input {
+                        cursor: pointer;
+                    }
+
+                    li.selected {
+                        div.selection-container {
+                            input.target-selector {
+                                accent-color: $blue-color-1;
+                            }
                         }
                     }
                 }
+
             }
         }
     }

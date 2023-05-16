@@ -11,8 +11,8 @@ div.scan-option-item-container {
     label {
         display: flex;
         flex-direction: row;
-        cursor: pointer;
 
+        &,
         input {
             cursor: pointer;
         }

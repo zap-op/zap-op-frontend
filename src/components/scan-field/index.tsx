@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import ProgressRing from "./progress-ring";
-import { RootState } from "../../store/store";
-import { useLazyScanQuery } from "../../services/scanApi";
+import scanApi, { useLazyTrialScanQuery } from "../../services/scanApi";
 import { _assertCast, isFetchBaseQueryErrorType } from "../../utils/helpers";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
@@ -12,13 +10,12 @@ type TScanFieldProps = {
 };
 
 const ScanField = (props: TScanFieldProps) => {
-	const isScanProgressing = useSelector((state: RootState) => state.scan.isScanProgressing);
-	const scanError = useSelector((state: RootState) => state.scan.scanError);
-
 	const [errorStatus, setErrorStatus] = useState<string>();
 	const [url, setUrl] = useState<string>("");
 
-	const [scan, { error }] = useLazyScanQuery();
+	const [triggerTrialScan] = useLazyTrialScanQuery();
+	const { data, error } = scanApi.endpoints.trialScan.useQueryState(url);
+	const { error: responseError, isScanning } = { ...data };
 
 	useEffect(() => {
 		if (error && isFetchBaseQueryErrorType(error)) {
@@ -30,19 +27,17 @@ const ScanField = (props: TScanFieldProps) => {
 	}, [error]);
 
 	useEffect(() => {
-		if (scanError) {
-			setErrorStatus(scanError.msg);
+		if (responseError) {
+			setErrorStatus(responseError.msg);
 		}
-	}, [scanError]);
+	}, [responseError]);
 
 	const handleClickScan = async () => {
-		if (isScanProgressing) {
+		if (isScanning) {
 			return;
 		}
 
-		scan({
-			url,
-		});
+		triggerTrialScan(url);
 	};
 
 	return (
@@ -57,7 +52,7 @@ const ScanField = (props: TScanFieldProps) => {
 				<div
 					className="scan-button button primary-button"
 					onClick={handleClickScan}>
-					{isScanProgressing ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
+					{isScanning ? <ProgressRing state={ProgressRing.PROCESSING} /> : "Scan"}
 				</div>
 			</div>
 			{!!errorStatus && <div className={`message error-message primary-error-message`}>{errorStatus}</div>}
