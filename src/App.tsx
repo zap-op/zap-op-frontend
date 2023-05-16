@@ -4,12 +4,12 @@ import "./style/style.scss";
 
 import { AppBoardPage, HomePage, LandingWrap, LogInPage } from "./pages";
 import { AddScanBoard, ResultsBoard, SelectTargetBoard, TargetsBoard } from "./components";
-import ToolkitPortal from "./components/toolkits/toolkit/toolkit-portal";
+import ToolkitPortal from "./components/toolkits/ToolkitPortal";
 import ToasterMgr from "./components/toolkits/toasterMgr";
 
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
-import ScanOptionsBoard from "./components/add-scan-board/scan-options-board";
+import ScanOptionsBoard from "./components/AddScanBoard/ScanOptionsBoard";
 
 function App() {
 	const isAuth = useSelector((state: RootState) => state.auth.isAuth);

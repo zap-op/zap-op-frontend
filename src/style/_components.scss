@@ -1,24 +1,24 @@
 //  DASHBOARD
-@use '../components/panel-dashboard';
-@use '../components/targets-board';
-@use '../components/results-board';
-@use '../components/add-scan-board';
-@use '../components/select-target-board';
+@use '../components/PanelDashboard';
+@use '../components/TargetsBoard';
+@use '../components/ResultsBoard';
+@use '../components/AddScanBoard';
+@use '../components/SelectTargetBoard';
 
 // TABLE
-@use '../components/progress-table';
+@use '../components/ProgressTable';
 
 // TOOLKIT
-@use '../components/toolkits/describable/describable';
-@use '../components/toolkits/toolkit/toolkit-portal';
-@use '../components/toolkits/modal-portal';
+@use '../components/toolkits/Describable';
+@use '../components/toolkits/ToolkitPortal';
+@use '../components/toolkits/ModalPortal';
 
 // COMPONENT
-@use '../components/breadcrumb';
-@use '../components/nav-bar';
+@use '../components/Breadcrumb';
+@use '../components/NavBar';
 
-@use '../components/scan-field';
+@use '../components/ScanField';
 
-@use '../components/fields';
-@use '../components/search-bars';
-@use '../components/buttons';
+@use '../components/Fields';
+@use '../components/SearchBars';
+@use '../components/Buttons';

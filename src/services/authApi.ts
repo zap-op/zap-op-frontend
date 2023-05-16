@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GoogleCredentialResponse } from "../components/buttons/auth-google-button";
+import { GoogleCredentialResponse } from "../components/Buttons/AuthGoogleButton";
 import { TStatusResponse } from "../submodules/utility/status";
 import { TOKEN_TYPE } from "../submodules/utility/token";
 import { BaseURL } from "../utils/urlMgr";

@@ -1,4 +1,4 @@
-import BreadcrumbCell from "./breadcrumb-cell";
+import BreadcrumbCell from "./BreadcrumbCell";
 
 export type TBreadcrumbProps = {
 	listBeadcrumb: {

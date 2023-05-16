@@ -1,6 +1,6 @@
-import AppBoardPage from "./app-board-page";
-import HomePage from "./home-page";
-import LandingWrap from "./landing-warp";
-import LogInPage from "./login-page";
+import AppBoardPage from "./AppBoardPage";
+import HomePage from "./HomePage";
+import LandingWrap from "./LandingWrap";
+import LogInPage from "./LogInPage";
 
 export { AppBoardPage, HomePage, LandingWrap, LogInPage };
