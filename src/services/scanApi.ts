@@ -4,6 +4,30 @@ import { SCAN_STATUS, TStatusResponse } from "../submodules/utility/status";
 import urlJoin from "url-join";
 import { _assertCast } from "../utils/helpers";
 import { setTrial } from "../store/slice/scanSlice";
+import { RootState } from "../store/store";
+import { ScanType } from "../utils/settings";
+import { TScanSession, TZapSpiderScanSession } from "../submodules/utility/model";
+import { ObjectId } from "bson";
+
+type TErrorInjected = {
+	error: TStatusResponse;
+};
+
+type TSpiderTrialRequest = TScanSession["url"];
+
+type TSpiderTrialResponse = {
+	data: string[];
+	isScanning: boolean;
+	progress: number;
+};
+
+type TSpiderRequest = Pick<TScanSession, "url"> & TZapSpiderScanSession;
+
+type TSpiderResponse = {
+	scanSession: ObjectId;
+	scanId: string;
+	scanStatus: TStatusResponse;
+};
 
 const _URL = urlJoin(BaseURL, "scan");
 
@@ -13,7 +37,7 @@ const scanApi = createApi({
 		baseUrl: _URL,
 	}),
 	endpoints: (builder) => ({
-		trialScan: builder.query<{ data: string[]; error: TStatusResponse; isScanning: boolean; progress: number }, string>({
+		trialScan: builder.query<TSpiderTrialResponse & TErrorInjected, TSpiderTrialRequest>({
 			queryFn: (arg, {}) => {
 				if (!arg) {
 					return {
@@ -105,8 +129,60 @@ const scanApi = createApi({
 				};
 			},
 		}),
+		spiderScan: builder.mutation<TSpiderResponse, TSpiderRequest>({
+			query: (arg) => ({
+				url: "target",
+				method: "POST",
+				body: arg,
+			}),
+		}),
+		digestTargetsWithOptions: builder.mutation<{ error: TStatusResponse }, void>({
+			queryFn: (_, { getState }, {}, fetchWithBaseQuery) => {
+				const targetState = (getState() as RootState).target;
+				const { listSelectedTarget, listSelectedScanOption } = targetState;
+				if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
+					return {
+						error: {
+							status: "FETCH_ERROR",
+							error: "Targets or Options are empty!",
+						},
+					};
+				}
+
+				listSelectedTarget.forEach((targetItem) =>
+					listSelectedScanOption.forEach((optionItem) => {
+						switch (optionItem) {
+							case ScanType.NMAP_TCP:
+								break;
+							case ScanType.NMAP_UDP:
+								break;
+							case ScanType.ZAP_SPIDER:
+								scanApi.endpoints.trialScan.initiate;
+								break;
+							case ScanType.ZAP_AJAX:
+								break;
+							case ScanType.ZAP_ACTIVE:
+								break;
+							case ScanType.ZAP_PASSIVE:
+								break;
+							default:
+								break;
+						}
+					}),
+				);
+
+				return {
+					data: {
+						error: {
+							statusCode: NaN,
+							msg: "",
+						},
+					},
+				};
+			},
+		}),
 	}),
 });
 
-export const { useLazyTrialScanQuery } = scanApi;
+export const { useLazyTrialScanQuery, useDigestTargetsWithOptionsMutation } = scanApi;
 export default scanApi;
