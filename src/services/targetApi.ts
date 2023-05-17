@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ObjectId } from "bson";
-import { TAG_TARGET, TTarget } from "../submodules/utility/model";
-import { TStatusResponse } from "../submodules/utility/status";
 import { BaseURL } from "../utils/urlMgr";
 import urlJoin from "url-join";
-import { TCoreTarget } from "../utils/settings";
+import { EntityTag } from "../utils/settings";
+import { TStatusResponse, TTarget, TTargetModel } from "../utils/types";
 
 const _URL = urlJoin(BaseURL, "management");
 
@@ -14,29 +13,29 @@ const targetApi = createApi({
 		baseUrl: _URL,
 		credentials: "include",
 	}),
-	tagTypes: [TAG_TARGET],
+	tagTypes: [EntityTag.TARGET],
 	endpoints: (builder) => ({
-		getTarget: builder.query<TTarget[], void>({
+		getTarget: builder.query<TTargetModel[], void>({
 			query: () => ({
 				url: "targets",
 				method: "GET",
 			}),
-			providesTags: [TAG_TARGET],
+			providesTags: [EntityTag.TARGET],
 		}),
-		addTarget: builder.mutation<TStatusResponse, TCoreTarget>({
+		addTarget: builder.mutation<TStatusResponse, TTarget>({
 			query: (target) => ({
 				url: "target",
 				method: "POST",
 				body: target,
 			}),
-			invalidatesTags: [TAG_TARGET],
+			invalidatesTags: [EntityTag.TARGET],
 		}),
 		moveToTrashTarget: builder.mutation<TStatusResponse, ObjectId>({
 			query: (id) => ({
 				url: `target?id=${id}`,
 				method: "DELETE",
 			}),
-			invalidatesTags: [TAG_TARGET],
+			invalidatesTags: [EntityTag.TARGET],
 		}),
 	}),
 });

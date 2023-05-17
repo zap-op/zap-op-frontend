@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { GoogleCredentialResponse } from "../components/Buttons/AuthGoogleButton";
-import { TStatusResponse } from "../submodules/utility/status";
-import { TOKEN_TYPE } from "../submodules/utility/token";
+import { TStatusResponse, TOKEN_TYPE } from "../utils/types";
 import { BaseURL } from "../utils/urlMgr";
 
 const authApi = createApi({

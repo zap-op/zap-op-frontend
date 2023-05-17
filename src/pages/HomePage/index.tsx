@@ -10,7 +10,9 @@ import { useEffect, useState } from "react";
 
 const HomePage = () => {
 	const { url } = useSelector((state: RootState) => state.scan.trial);
-	const { data } = scanApi.endpoints.trialScan.useQueryState(url);
+	const { data } = scanApi.endpoints.trialScan.useQueryState({
+		url,
+	});
 	const {
 		data: _data,
 		progress,

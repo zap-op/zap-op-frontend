@@ -1,33 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseURL } from "../utils/urlMgr";
-import { SCAN_STATUS, TStatusResponse } from "../submodules/utility/status";
+import { SCAN_STATUS, TStatusResponse } from "../utils/types";
 import urlJoin from "url-join";
 import { _assertCast } from "../utils/helpers";
 import { setTrial } from "../store/slice/scanSlice";
 import { RootState } from "../store/store";
 import { ScanType } from "../utils/settings";
-import { TScanSession, TZapSpiderScanSession } from "../submodules/utility/model";
-import { ObjectId } from "bson";
-
-type TErrorInjected = {
-	error: TStatusResponse;
-};
-
-type TSpiderTrialRequest = TScanSession["url"];
-
-type TSpiderTrialResponse = {
-	data: string[];
-	isScanning: boolean;
-	progress: number;
-};
-
-type TSpiderRequest = Pick<TScanSession, "url"> & TZapSpiderScanSession;
-
-type TSpiderResponse = {
-	scanSession: ObjectId;
-	scanId: string;
-	scanStatus: TStatusResponse;
-};
+import { TErrorInjected, TPOST, TZapSpiderRequest, TZapSpiderResponse, TZapSpiderTrialGETRequest, TZapSpiderTrialGETResponse, TZapSpiderTrialResultsGETRequest, TZapSpiderTrialResultsGETResponse } from "../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan");
 
@@ -37,7 +16,7 @@ const scanApi = createApi({
 		baseUrl: _URL,
 	}),
 	endpoints: (builder) => ({
-		trialScan: builder.query<TSpiderTrialResponse & TErrorInjected, TSpiderTrialRequest>({
+		trialScan: builder.query<TZapSpiderTrialGETResponse, TZapSpiderTrialGETRequest>({
 			queryFn: (arg, {}) => {
 				if (!arg) {
 					return {
@@ -65,14 +44,14 @@ const scanApi = createApi({
 				});
 				dispatch(
 					setTrial({
-						url: arg,
+						url: arg.url,
 					}),
 				);
 			},
 			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded }) {
 				await cacheDataLoaded;
 				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg}`));
-				let id: string;
+				let id: TZapSpiderTrialResultsGETRequest["scanId"];
 				eventSource.addEventListener("id", (event: MessageEvent) => {
 					id = JSON.parse(event.data).id;
 
@@ -94,7 +73,7 @@ const scanApi = createApi({
 					fetch(urlJoin(_URL, `trial/results?id=${id}&offset=0`))
 						.then((result) => result.json())
 						.then((resData) => {
-							_assertCast<string[]>(resData);
+							_assertCast<TZapSpiderTrialResultsGETResponse>(resData);
 							updateCachedData(({ data }) => {
 								const nonDuplicateData = resData.filter((item) => !data.includes(item));
 								data.push(...nonDuplicateData);
@@ -129,14 +108,14 @@ const scanApi = createApi({
 				};
 			},
 		}),
-		spiderScan: builder.mutation<TSpiderResponse, TSpiderRequest>({
+		spiderScan: builder.mutation<TZapSpiderResponse<TPOST>, TZapSpiderRequest<TPOST>>({
 			query: (arg) => ({
 				url: "target",
 				method: "POST",
 				body: arg,
 			}),
 		}),
-		digestTargetsWithOptions: builder.mutation<{ error: TStatusResponse }, void>({
+		digestTargetsWithOptions: builder.mutation<TErrorInjected, void>({
 			queryFn: (_, { getState }, {}, fetchWithBaseQuery) => {
 				const targetState = (getState() as RootState).target;
 				const { listSelectedTarget, listSelectedScanOption } = targetState;

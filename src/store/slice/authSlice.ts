@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import authApi from "../../services/authApi";
-import { LOGIN_STATUS, TStatusResponse } from "../../submodules/utility/status";
-import { UserTokenData } from "../../submodules/utility/user";
 import { getCookie } from "../../utils/cookieMgr";
 import { parseJwt } from "../../utils/tokenMgr";
+import { LOGIN_STATUS, TStatusResponse, UserTokenData } from "../../utils/types";
 
 type TAuthState = {
 	isAuth: boolean;

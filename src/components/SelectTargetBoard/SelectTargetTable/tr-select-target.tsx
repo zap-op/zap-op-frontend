@@ -1,10 +1,10 @@
 import { ChangeEvent } from "react";
-import { TTarget } from "../../../submodules/utility/model";
+import { TTarget, TTargetModel } from "../../../utils/types";
 import { useDispatch } from "react-redux";
 import { addSelectTarget, removeSelectTarget } from "../../../store/slice/targetSlice";
 import { TInput } from "../../../utils/componentGenericTypes";
 
-export type TSelectTargetItem = Pick<TTarget, "_id" | "name" | "target" | "tag">;
+export type TSelectTargetItem = Pick<TTargetModel, "_id" | "name" | "target" | "tag">;
 
 type TSelectTargetItemProps = TSelectTargetItem &
 	TInput & {

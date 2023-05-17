@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TTarget } from "../../submodules/utility/model";
 import { ScanType } from "../../utils/settings";
+import { TTarget, TTargetModel } from "../../utils/types";
 
 type TTargetState = {
 	listTarget: TTarget[];
-	listSelectedTarget: TTarget["_id"][];
+	listSelectedTarget: TTargetModel["_id"][];
 	listSelectedScanOption: ScanType[];
 };
 
@@ -18,13 +18,13 @@ const targetSlice = createSlice({
 	name: "targetStorge",
 	initialState,
 	reducers: {
-		addSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TTarget["_id"]>) => {
+		addSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TTargetModel["_id"]>) => {
 			if (listSelectedTarget.includes(action.payload)) {
 				return;
 			}
 			listSelectedTarget.push(action.payload);
 		},
-		removeSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TTarget["_id"]>) => {
+		removeSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TTargetModel["_id"]>) => {
 			const indexToRemove = listSelectedTarget.indexOf(action.payload);
 			if (indexToRemove !== -1) {
 				listSelectedTarget.splice(indexToRemove, 1);

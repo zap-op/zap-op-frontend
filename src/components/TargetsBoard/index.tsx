@@ -64,16 +64,11 @@ const TargetsBoard = () => {
 				</div>
 				<div className="targets-board_targets-table-container">
 					<TargetsTable>
-						{listTarget?.map((item, index) => {
+						{listTarget?.map((item) => {
 							return (
 								<TABLEROW_Targets
-									key={index}
-									_id={item._id}
-									name={item.name}
-									target={item.target}
-									tag={item.tag}
-									createdAt={item.createdAt}
-									updatedAt={item.updatedAt}
+									{...item}
+									key={item._id.toString()}
 								/>
 							);
 						})}
