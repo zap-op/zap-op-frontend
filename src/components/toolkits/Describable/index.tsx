@@ -33,7 +33,7 @@ const Describable = (props: PropsWithChildren<TDescribableProps>) => {
 
 	const handleMouseEnter = () => {
 		clearTimeout(waiterMouseStop);
-		setWaiterMouseStop(setTimeout(handleMouseStop, TIME_TO_DESCRIBABLE));
+		setWaiterMouseStop(window.setTimeout(handleMouseStop, TIME_TO_DESCRIBABLE));
 	};
 
 	const handleMouseLeave = () => {
