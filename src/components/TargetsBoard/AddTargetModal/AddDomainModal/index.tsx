@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import { TModalProps } from "../../../toolkits/ModalPortal";
 import TextField from "../../../Fields/TextField";
 
-import { useAddTargetMutation } from "../../../../services/targetApi";
+import { useAddTargetMutation } from "../../../../store/store";
 import { TTarget, TStatusResponse } from "../../../../utils/types";
 
 type TAddDomainModalProps = TModalProps & {};

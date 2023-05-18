@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast";
-import { useMoveToTrashTargetMutation } from "../../../services/targetApi";
+import { useMoveToTrashTargetMutation } from "../../../store/store";
 
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { TStatusResponse, TTargetModel } from "../../../utils/types";

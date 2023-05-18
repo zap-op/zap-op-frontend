@@ -4,8 +4,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { TModalProps } from "../../../toolkits/ModalPortal";
-import { useAddTargetMutation } from "../../../../services/targetApi";
-import { RootState } from "../../../../store/store";
+import { RootState, useAddTargetMutation } from "../../../../store/store";
 import TextField from "../../../Fields/TextField";
 import { TStatusResponse, TTarget } from "../../../../utils/types";
 

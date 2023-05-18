@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authApi } from "../../services/service";
+import { authApi } from "../../store/store";
 import { getCookie } from "../../utils/cookieMgr";
 import { parseJwt } from "../../utils/tokenMgr";
 import { LOGIN_STATUS, TStatusResponse, UserTokenData } from "../../utils/types";
