@@ -4,7 +4,7 @@ import { BaseURL } from "../utils/urlMgr";
 import { _assertCast } from "../utils/helpers";
 import { ScanType } from "../utils/settings";
 import {
-	RootState, //
+	useSelector, //
 	setTrial,
 } from "../store/store";
 import {
@@ -128,9 +128,8 @@ const scanApi = createApi({
 			}),
 		}),
 		digestTargetsWithOptions: builder.mutation<TErrorInjected, void>({
-			queryFn: (_, { getState }, {}, fetchWithBaseQuery) => {
-				const targetState = (getState() as RootState).target;
-				const { listSelectedTarget, listSelectedScanOption } = targetState;
+			queryFn: (_, {}, {}, fetchWithBaseQuery) => {
+				const { listSelectedTarget, listSelectedScanOption } = useSelector((state) => state.target);
 				if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
 					return {
 						error: {
