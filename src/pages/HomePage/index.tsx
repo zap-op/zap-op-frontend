@@ -3,14 +3,14 @@ import TABLEROW_TS_ZAP from "../../components/ProgressTable/tr-ts-zap";
 import landingImage from "../../assets/landing-image.svg";
 import ScanField from "../../components/ScanField";
 import { Link } from "react-router-dom";
-import scanApi from "../../services/scanApi";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { useSelector, scanApi } from "../../store";
 import { useEffect, useState } from "react";
 
 const HomePage = () => {
-	const { url } = useSelector((state: RootState) => state.scan.trial);
-	const { data } = scanApi.endpoints.trialScan.useQueryState(url);
+	const { url } = useSelector((state) => state.scan.trial);
+	const { data } = scanApi.endpoints.trialScan.useQueryState({
+		url,
+	});
 	const {
 		data: _data,
 		progress,

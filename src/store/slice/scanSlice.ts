@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TScanSession } from "../../utils/types";
 
 export type TScanState = {
-	trial: {
-		url: string;
-	};
+	trial: Pick<TScanSession, "url">;
 };
 
 const initialState: TScanState = {

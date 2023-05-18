@@ -1,27 +1,23 @@
-import { ObjectId } from "bson";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+
 import { TModalProps } from "../../../toolkits/ModalPortal";
-import { RootState } from "../../../../store/store";
-import { useAddTargetMutation } from "../../../../services/targetApi";
-import { TTarget } from "../../../../submodules/utility/model";
-import { TStatusResponse } from "../../../../submodules/utility/status";
 import TextField from "../../../Fields/TextField";
-import { TCoreTarget } from "../../../../utils/settings";
+
+import { useAddTargetMutation } from "../../../../store";
+import { TTarget, TStatusResponse } from "../../../../utils/types";
 
 type TAddDomainModalProps = TModalProps & {};
 
 const AddDomainModal = (props: TAddDomainModalProps) => {
-	const userId = useSelector((state: RootState) => state.auth.userId);
 	const [addTarget] = useAddTargetMutation();
 
 	const location = useLocation();
 
-	const [nameTarget, setNameTarget] = useState<TCoreTarget["name"]>();
+	const [nameTarget, setNameTarget] = useState<TTarget["name"]>();
 	const [isDisplayErrorMessageNameTargetField, setIsDisplayErrorMessageNameTargetField] = useState<boolean>();
-	const [target, setTarget] = useState<TCoreTarget["target"]>();
+	const [target, setTarget] = useState<TTarget["target"]>();
 	const [isDisplayErrorMessageTargetField, setIsDisplayErrorMessageTargetField] = useState<boolean>();
 
 	const handleAddTarget = async () => {
@@ -39,8 +35,7 @@ const AddDomainModal = (props: TAddDomainModalProps) => {
 			}
 			return;
 		}
-		let newTarget: TCoreTarget = {
-			userId: userId as unknown as ObjectId,
+		let newTarget: TTarget = {
 			name: nameTarget,
 			target: target,
 		};

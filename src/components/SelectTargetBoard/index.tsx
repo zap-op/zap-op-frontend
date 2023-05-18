@@ -1,4 +1,4 @@
-import { useGetTargetQuery } from "../../services/targetApi";
+import { useGetTargetQuery } from "../../store";
 import SearchBar from "../SearchBars/SearchBar";
 import SelectTargetTable from "./SelectTargetTable";
 

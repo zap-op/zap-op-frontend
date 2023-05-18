@@ -1,10 +1,10 @@
 import { toast } from "react-hot-toast";
-import { useMoveToTrashTargetMutation } from "../../../services/targetApi";
-import { TTarget } from "../../../submodules/utility/model";
-import { TStatusResponse } from "../../../submodules/utility/status";
-import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
+import { useMoveToTrashTargetMutation } from "../../../store";
 
-export type TTABLEROW_Targets_Props = Omit<TTarget, "userId">;
+import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
+import { TStatusResponse, TTargetModel } from "../../../utils/types";
+
+export type TTABLEROW_Targets_Props = TTargetModel
 
 const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
 	const newScanOption: TOptionItem = {

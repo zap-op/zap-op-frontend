@@ -6,13 +6,12 @@ import { AppBoardPage, HomePage, LandingWrap, LogInPage } from "./pages";
 import { AddScanBoard, ResultsBoard, SelectTargetBoard, TargetsBoard } from "./components";
 import ToolkitPortal from "./components/toolkits/ToolkitPortal";
 import ToasterMgr from "./components/toolkits/toasterMgr";
-
-import { useSelector } from "react-redux";
-import { RootState } from "./store/store";
 import ScanOptionsBoard from "./components/AddScanBoard/ScanOptionsBoard";
 
+import { useSelector } from "./store";
+
 function App() {
-	const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+	const isAuth = useSelector((state) => state.auth.isAuth);
 
 	return (
 		<div className="App">

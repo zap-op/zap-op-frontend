@@ -1,6 +1,8 @@
 import { PropsWithChildren, useRef, useState } from "react";
-import { setDescribeInfo } from "../../../store/slice/toolkit/describablePortalSlice";
-import { useDispatch } from "react-redux";
+import {
+	useDispatch, //
+	setDescribeInfo,
+} from "../../../store";
 
 type TDescribableProps = {
 	dataTitle: string;
@@ -33,7 +35,7 @@ const Describable = (props: PropsWithChildren<TDescribableProps>) => {
 
 	const handleMouseEnter = () => {
 		clearTimeout(waiterMouseStop);
-		setWaiterMouseStop(setTimeout(handleMouseStop, TIME_TO_DESCRIBABLE));
+		setWaiterMouseStop(window.setTimeout(handleMouseStop, TIME_TO_DESCRIBABLE));
 	};
 
 	const handleMouseLeave = () => {

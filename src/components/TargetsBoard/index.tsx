@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useGetTargetQuery } from "../../services/targetApi";
+import { useGetTargetQuery } from "../../store";
 import AddDomainModal from "./AddTargetModal/AddDomainModal";
 import AddIPModal from "./AddTargetModal/AddIPModal";
 import AddTargetsModal from "./AddTargetModal";
@@ -64,16 +64,11 @@ const TargetsBoard = () => {
 				</div>
 				<div className="targets-board_targets-table-container">
 					<TargetsTable>
-						{listTarget?.map((item, index) => {
+						{listTarget?.map((item) => {
 							return (
 								<TABLEROW_Targets
-									key={index}
-									_id={item._id}
-									name={item.name}
-									target={item.target}
-									tag={item.tag}
-									createdAt={item.createdAt}
-									updatedAt={item.updatedAt}
+									{...item}
+									key={item._id.toString()}
 								/>
 							);
 						})}

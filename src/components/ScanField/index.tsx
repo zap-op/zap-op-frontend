@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProgressRing from "./ProgressRing";
-import scanApi, { useLazyTrialScanQuery } from "../../services/scanApi";
+import { scanApi, useLazyTrialScanQuery } from "../../store";
 import { _assertCast, isFetchBaseQueryErrorType } from "../../utils/helpers";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
@@ -14,7 +14,9 @@ const ScanField = (props: TScanFieldProps) => {
 	const [url, setUrl] = useState<string>("");
 
 	const [triggerTrialScan] = useLazyTrialScanQuery();
-	const { data, error } = scanApi.endpoints.trialScan.useQueryState(url);
+	const { data, error } = scanApi.endpoints.trialScan.useQueryState({
+		url,
+	});
 	const { error: responseError, isScanning } = { ...data };
 
 	useEffect(() => {
@@ -37,7 +39,9 @@ const ScanField = (props: TScanFieldProps) => {
 			return;
 		}
 
-		triggerTrialScan(url);
+		triggerTrialScan({
+			url,
+		});
 	};
 
 	return (

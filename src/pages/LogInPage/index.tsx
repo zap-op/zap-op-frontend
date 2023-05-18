@@ -1,9 +1,8 @@
 import AuthGoogleButton from "../../components/Buttons/AuthGoogleButton";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { useSelector } from "../../store";
 
 const LogInPage = () => {
-	const errorMessage = useSelector((state: RootState) => state.auth.errorMessage);
+	const errorMessage = useSelector((state) => state.auth.errorMessage);
 
 	return (
 		<div className="log-in-container">

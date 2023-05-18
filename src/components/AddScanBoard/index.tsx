@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavStep, { TNavStepProps } from "./NavStep";
 import SelectTargetBoard from "../SelectTargetBoard";
 import ScanOptionsBoard from "./ScanOptionsBoard";
-import { useDigestTargetsWithOptionsMutation } from "../../services/scanApi";
+import { useDigestTargetsWithOptionsMutation } from "../../store";
 
 type TAddScanBoardProps = {
 	configSteps: TNavStepProps["steps"];
