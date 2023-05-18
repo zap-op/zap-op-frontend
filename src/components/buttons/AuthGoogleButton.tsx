@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLoginMutation } from "../../store/store";
+import { useLoginMutation } from "../../store";
 import { TGoogleCredentialResponse } from "../../utils/types";
 
 // https://developers.google.com/identity/gsi/web/reference/js-reference#GsiButtonConfiguration

@@ -1,4 +1,4 @@
-import { useSelector } from "../../../store/store";
+import { useSelector } from "../../../store";
 import DescribeElement from "../Describable/DescribeElement";
 
 const ToolkitPortal = () => {

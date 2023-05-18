@@ -10,9 +10,9 @@ import scanSlice from "./slice/scanSlice";
 import targetSlice from "./slice/targetSlice";
 import describablePortalSlice from "./slice/toolkit/describablePortalSlice";
 
-import authApi from "../services/authApi";
-import scanApi from "../services/scanApi";
-import targetApi from "../services/targetApi";
+import authApi from "./services/authApi";
+import scanApi from "./services/scanApi";
+import targetApi from "./services/targetApi";
 
 const reducers = {
 	auth: authSlice.reducer,
@@ -42,9 +42,9 @@ export * from "./slice/scanSlice";
 export * from "./slice/targetSlice";
 export * from "./slice/toolkit/describablePortalSlice";
 
-export * from "../services/authApi";
-export * from "../services/scanApi";
-export * from "../services/targetApi";
+export * from "./services/authApi";
+export * from "./services/scanApi";
+export * from "./services/targetApi";
 export {
 	authApi, //
 	scanApi,

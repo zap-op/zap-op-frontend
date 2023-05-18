@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { BaseURL } from "../utils/urlMgr";
+import { BaseURL } from "../../utils/urlMgr";
 import {
 	TStatusResponse, //
 	TOKEN_TYPE,
 	TGoogleCredentialResponse,
-} from "../utils/types";
+} from "../../utils/types";
 
 const authApi = createApi({
 	reducerPath: "authApi",

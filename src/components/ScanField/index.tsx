@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProgressRing from "./ProgressRing";
-import { scanApi, useLazyTrialScanQuery } from "../../store/store";
+import { scanApi, useLazyTrialScanQuery } from "../../store";
 import { _assertCast, isFetchBaseQueryErrorType } from "../../utils/helpers";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 

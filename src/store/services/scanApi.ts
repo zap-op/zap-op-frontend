@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import urlJoin from "url-join";
-import { BaseURL } from "../utils/urlMgr";
-import { _assertCast } from "../utils/helpers";
-import { ScanType } from "../utils/settings";
+import { BaseURL } from "../../utils/urlMgr";
+import { _assertCast } from "../../utils/helpers";
+import { ScanType } from "../../utils/settings";
 import {
 	useSelector, //
 	setTrial,
-} from "../store/store";
+} from "..";
 import {
 	TStatusResponse, //
 	SCAN_STATUS,
@@ -18,7 +18,7 @@ import {
 	TZapSpiderTrialGETResponse,
 	TZapSpiderTrialResultsGETRequest,
 	TZapSpiderTrialResultsGETResponse,
-} from "../utils/types";
+} from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan");
 

@@ -1,5 +1,5 @@
 import AuthGoogleButton from "../../components/Buttons/AuthGoogleButton";
-import { useSelector } from "../../store/store";
+import { useSelector } from "../../store";
 
 const LogInPage = () => {
 	const errorMessage = useSelector((state) => state.auth.errorMessage);

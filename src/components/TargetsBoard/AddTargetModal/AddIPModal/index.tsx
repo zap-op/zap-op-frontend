@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 import { TModalProps } from "../../../toolkits/ModalPortal";
-import { useSelector, useAddTargetMutation } from "../../../../store/store";
+import { useSelector, useAddTargetMutation } from "../../../../store";
 import TextField from "../../../Fields/TextField";
 import { TStatusResponse, TTarget } from "../../../../utils/types";
 

@@ -4,7 +4,7 @@ import {
 	useDispatch, //
 	addSelectTarget,
 	removeSelectTarget,
-} from "../../../store/store";
+} from "../../../store";
 import { TInput } from "../../../utils/componentGenericTypes";
 
 export type TSelectTargetItem = Pick<TTargetModel, "_id" | "name" | "target" | "tag">;

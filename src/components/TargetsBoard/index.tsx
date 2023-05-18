@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useGetTargetQuery } from "../../store/store";
+import { useGetTargetQuery } from "../../store";
 import AddDomainModal from "./AddTargetModal/AddDomainModal";
 import AddIPModal from "./AddTargetModal/AddIPModal";
 import AddTargetsModal from "./AddTargetModal";

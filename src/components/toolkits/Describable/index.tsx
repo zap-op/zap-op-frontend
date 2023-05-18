@@ -2,7 +2,7 @@ import { PropsWithChildren, useRef, useState } from "react";
 import {
 	useDispatch, //
 	setDescribeInfo,
-} from "../../../store/store";
+} from "../../../store";
 
 type TDescribableProps = {
 	dataTitle: string;

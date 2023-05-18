@@ -8,7 +8,7 @@ import ToolkitPortal from "./components/toolkits/ToolkitPortal";
 import ToasterMgr from "./components/toolkits/toasterMgr";
 import ScanOptionsBoard from "./components/AddScanBoard/ScanOptionsBoard";
 
-import { useSelector } from "./store/store";
+import { useSelector } from "./store";
 
 function App() {
 	const isAuth = useSelector((state) => state.auth.isAuth);

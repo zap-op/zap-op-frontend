@@ -1,6 +1,6 @@
 import { ListScanOption, ScanType } from "../../../utils/settings";
 import ScanOptionItem, { TScanOptionItem } from "./ScanOptionItem";
-import { useSelector } from "../../../store/store";
+import { useSelector } from "../../../store";
 
 const injectDisable = [ScanType.NMAP_TCP, ScanType.NMAP_UDP, ScanType.ZAP_ACTIVE, ScanType.ZAP_PASSIVE];
 const ListScanOptionItem: Omit<TScanOptionItem, "defaultChecked">[] = ListScanOption.map((item) => ({

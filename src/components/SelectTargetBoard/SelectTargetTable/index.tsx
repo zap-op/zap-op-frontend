@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import TABLEROW_SelectTarget, { TSelectTargetItem } from "./tr-select-target";
-import { useSelector } from "../../../store/store";
+import { useSelector } from "../../../store";
 
 type TSelectTargetTableProps = {
 	listChild: TSelectTargetItem[];
