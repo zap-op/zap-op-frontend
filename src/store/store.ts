@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authApi from "../services/authApi";
-import scanApi from "../services/scanApi";
-import targetApi from "../services/targetApi";
 import authSlice from "./slice/authSlice";
 import scanSlice from "./slice/scanSlice";
 import targetSlice from "./slice/targetSlice";
 import describablePortalSlice from "./slice/toolkit/describablePortalSlice";
+
+import authApi from "../services/authApi";
+import scanApi from "../services/scanApi";
+import targetApi from "../services/targetApi";
 
 const reducers = {
 	auth: authSlice.reducer,
@@ -24,5 +25,18 @@ const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispach = typeof store.dispatch;
 export default store;
+
+export * from "./slice/authSlice";
+export * from "./slice/scanSlice";
+export * from "./slice/targetSlice";
+export * from "./slice/toolkit/describablePortalSlice";
+
+export * from "../services/authApi";
+export * from "../services/scanApi";
+export * from "../services/targetApi";
+export {
+	authApi, //
+	scanApi,
+	targetApi,
+};

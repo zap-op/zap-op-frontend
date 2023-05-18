@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLoginMutation } from "../../services/authApi";
+import { TGoogleCredentialResponse } from "../../utils/types";
 
 // https://developers.google.com/identity/gsi/web/reference/js-reference#GsiButtonConfiguration
 type GsiButtonConfiguration = {
@@ -13,11 +14,6 @@ type GsiButtonConfiguration = {
 	locale?: string;
 };
 
-export type GoogleCredentialResponse = {
-	credential: string;
-	select_by: string;
-};
-
 type TAuthGoogleButtonProps = {
 	option: GsiButtonConfiguration["text"];
 };
@@ -25,7 +21,7 @@ type TAuthGoogleButtonProps = {
 const AuthGoogleButton = (props: TAuthGoogleButtonProps) => {
 	const [login] = useLoginMutation();
 
-	const handleCredentialResponse = async (response: GoogleCredentialResponse) => {
+	const handleCredentialResponse = async (response: TGoogleCredentialResponse) => {
 		await login(response.credential);
 	};
 

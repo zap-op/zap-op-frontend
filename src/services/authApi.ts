@@ -1,7 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GoogleCredentialResponse } from "../components/Buttons/AuthGoogleButton";
-import { TStatusResponse, TOKEN_TYPE } from "../utils/types";
 import { BaseURL } from "../utils/urlMgr";
+import {
+	TStatusResponse, //
+	TOKEN_TYPE,
+	TGoogleCredentialResponse,
+} from "../utils/types";
 
 const authApi = createApi({
 	reducerPath: "authApi",
@@ -10,7 +13,7 @@ const authApi = createApi({
 		credentials: "include",
 	}),
 	endpoints: (builder) => ({
-		login: builder.mutation<TStatusResponse, GoogleCredentialResponse["credential"]>({
+		login: builder.mutation<TStatusResponse, TGoogleCredentialResponse["credential"]>({
 			query: () => ({
 				url: "login",
 				method: "POST",
