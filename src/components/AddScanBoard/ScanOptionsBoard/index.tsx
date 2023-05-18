@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
 import { ListScanOption, ScanType } from "../../../utils/settings";
 import ScanOptionItem, { TScanOptionItem } from "./ScanOptionItem";
-import { RootState } from "../../../store/store";
+import { useSelector } from "../../../store/store";
 
 const injectDisable = [ScanType.NMAP_TCP, ScanType.NMAP_UDP, ScanType.ZAP_ACTIVE, ScanType.ZAP_PASSIVE];
 const ListScanOptionItem: Omit<TScanOptionItem, "defaultChecked">[] = ListScanOption.map((item) => ({
@@ -10,7 +9,7 @@ const ListScanOptionItem: Omit<TScanOptionItem, "defaultChecked">[] = ListScanOp
 }));
 
 const ScanOptionsBoard = () => {
-	const listSelectedScanOption = useSelector((state: RootState) => state.target.listSelectedScanOption);
+	const listSelectedScanOption = useSelector((state) => state.target.listSelectedScanOption);
 
 	return (
 		<div className="scan-options-board-container">

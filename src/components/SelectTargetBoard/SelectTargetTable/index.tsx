@@ -1,14 +1,13 @@
 import { PropsWithChildren } from "react";
 import TABLEROW_SelectTarget, { TSelectTargetItem } from "./tr-select-target";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { useSelector } from "../../../store/store";
 
 type TSelectTargetTableProps = {
 	listChild: TSelectTargetItem[];
 };
 
 const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTableProps>) => {
-	const listSelectedTarget = useSelector((state: RootState) => state.target.listSelectedTarget);
+	const listSelectedTarget = useSelector((state) => state.target.listSelectedTarget);
 
 	return (
 		<div className="select-target-table-container table-container">

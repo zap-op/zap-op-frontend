@@ -1,10 +1,9 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { useSelector } from "../../../store/store";
 import DescribeElement from "../Describable/DescribeElement";
 
 const ToolkitPortal = () => {
-	const isDescribing = useSelector((state: RootState) => state.describablePortal.isDescribing);
-	const describeInfo = useSelector((state: RootState) => state.describablePortal.describeInfo);
+	const isDescribing = useSelector((state) => state.describablePortal.isDescribing);
+	const describeInfo = useSelector((state) => state.describablePortal.describeInfo);
 
 	return (
 		<div className="toolkit-portal">

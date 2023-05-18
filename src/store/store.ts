@@ -1,4 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import {
+	TypedUseSelectorHook, //
+	useDispatch as useReduxDispatch,
+	useSelector as useReduxSelector,
+} from "react-redux";
+
 import authSlice from "./slice/authSlice";
 import scanSlice from "./slice/scanSlice";
 import targetSlice from "./slice/targetSlice";
@@ -25,7 +31,11 @@ const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+export type Dispatch = typeof store.dispatch;
 export default store;
+
+export const useDispatch = () => useReduxDispatch<Dispatch>();
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
 export * from "./slice/authSlice";
 export * from "./slice/scanSlice";

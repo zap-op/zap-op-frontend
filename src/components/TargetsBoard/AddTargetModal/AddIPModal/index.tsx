@@ -1,17 +1,15 @@
-import { ObjectId } from "bson";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { TModalProps } from "../../../toolkits/ModalPortal";
-import { RootState, useAddTargetMutation } from "../../../../store/store";
+import { useSelector, useAddTargetMutation } from "../../../../store/store";
 import TextField from "../../../Fields/TextField";
 import { TStatusResponse, TTarget } from "../../../../utils/types";
 
 type TAddIPModalProps = TModalProps & {};
 
 const AddIPModal = (props: TAddIPModalProps) => {
-	const userId = useSelector((state: RootState) => state.auth.userId);
+	const userId = useSelector((state) => state.auth.userId);
 	const [addTarget] = useAddTargetMutation();
 
 	const location = useLocation();
