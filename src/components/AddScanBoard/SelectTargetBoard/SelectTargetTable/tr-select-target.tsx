@@ -1,11 +1,11 @@
 import { ChangeEvent } from "react";
-import { TTargetModel } from "../../../utils/types";
+import { TTargetModel } from "../../../../utils/types";
 import {
 	useDispatch, //
 	addSelectTarget,
 	removeSelectTarget,
-} from "../../../store";
-import { TInput } from "../../../utils/componentGenericTypes";
+} from "../../../../store";
+import { TInput } from "../../../../utils/componentGenericTypes";
 
 export type TSelectTargetItem = Pick<TTargetModel, "_id" | "name" | "target" | "tag">;
 

@@ -1,5 +1,5 @@
-import { useGetTargetQuery } from "../../store";
-import SearchBar from "../SearchBars/SearchBar";
+import { useGetTargetQuery } from "../../../store";
+import SearchBar from "../../SearchBars/SearchBar";
 import SelectTargetTable from "./SelectTargetTable";
 
 const SelectTargetBoard = () => {
@@ -15,7 +15,5 @@ const SelectTargetBoard = () => {
 		</div>
 	);
 };
-
-SelectTargetBoard.NAME = "select-target-board";
 
 export default SelectTargetBoard;

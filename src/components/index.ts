@@ -1,7 +1,6 @@
 import AddScanBoard from "./AddScanBoard";
 import PanelDashboard from "./PanelDashboard";
 import ResultsBoard from "./ResultsBoard";
-import SelectTargetBoard from "./SelectTargetBoard";
 import TargetsBoard from "./TargetsBoard";
 
 import Breadcrumb from "./Breadcrumb";
@@ -15,6 +14,22 @@ import CollapseSearchBar from "./SearchBars/CollapseSearchBar";
 import SearchBar from "./SearchBars/SearchBar";
 import ModalPortal from "./toolkits/ModalPortal";
 
-export { AddScanBoard, PanelDashboard, ResultsBoard, SelectTargetBoard, TargetsBoard };
-export { Breadcrumb, AuthGoogleButton, MoreOptionsButton, TextField, NavBar, ProgressTable, ScanField, SearchBar, CollapseSearchBar };
+export * from "./AddScanBoard";
+export {
+	AddScanBoard, //
+	PanelDashboard,
+	ResultsBoard,
+	TargetsBoard,
+};
+export {
+	Breadcrumb, //
+	AuthGoogleButton,
+	MoreOptionsButton,
+	TextField,
+	NavBar,
+	ProgressTable,
+	ScanField,
+	SearchBar,
+	CollapseSearchBar,
+};
 export { ModalPortal };

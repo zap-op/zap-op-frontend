@@ -26,5 +26,4 @@ const ScanOptionsBoard = () => {
 	);
 };
 
-ScanOptionsBoard.NAME = "scan-options-board";
 export default ScanOptionsBoard;

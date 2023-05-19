@@ -2,11 +2,20 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import "./style/style.scss";
 
-import { AppBoardPage, HomePage, LandingWrap, LogInPage } from "./pages";
-import { AddScanBoard, ResultsBoard, SelectTargetBoard, TargetsBoard } from "./components";
+import {
+	AppBoardPage, //
+	HomePage,
+	LandingWrap,
+	LogInPage,
+} from "./pages";
+import {
+	AddScanBoard,
+	AddScanBoardLinkState, //
+	ResultsBoard,
+	TargetsBoard,
+} from "./components";
 import ToolkitPortal from "./components/toolkits/ToolkitPortal";
 import ToasterMgr from "./components/toolkits/toasterMgr";
-import ScanOptionsBoard from "./components/AddScanBoard/ScanOptionsBoard";
 
 import { useSelector } from "./store";
 
@@ -72,11 +81,11 @@ function App() {
 									configSteps={[
 										{
 											title: "Select Targets",
-											state: SelectTargetBoard.NAME,
+											state: AddScanBoardLinkState.SelectTarget,
 										},
 										{
 											title: "Configure Scans",
-											state: ScanOptionsBoard.NAME,
+											state: AddScanBoardLinkState.ScanOptions,
 										},
 									]}
 								/>
