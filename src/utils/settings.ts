@@ -1,6 +1,6 @@
-export enum EntityTag {
-	TARGET = "TARGET"
-}
+export const TARGET_TAG = "TARGET"
+export const TRIAL_SCAN_TAG = "TRIAL_SCAN"
+
 // SCAN
 export enum ScanType {
 	NMAP_TCP = "nmap-tcp",

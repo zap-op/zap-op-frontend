@@ -15,6 +15,7 @@ import SearchBar from "./SearchBars/SearchBar";
 import ModalPortal from "./toolkits/ModalPortal";
 
 export * from "./AddScanBoard";
+export * from "./Breadcrumb";
 export {
 	AddScanBoard, //
 	PanelDashboard,

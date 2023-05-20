@@ -60,64 +60,69 @@ const scanApi = createApi({
 					}),
 				);
 			},
-			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded }) {
-				await cacheDataLoaded;
-				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg}`));
+			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg.url}`));
 				let id: TZapSpiderTrialResultsGETRequest["scanId"];
-				eventSource.addEventListener("id", (event: MessageEvent) => {
-					id = JSON.parse(event.data).id;
+				try {
+					await cacheDataLoaded;
 
-					if (!id) {
-						eventSource.close();
-						updateCachedData((draft) => {
-							draft.isScanning = false;
-						});
-					}
-				});
+					eventSource.addEventListener("id", (event: MessageEvent) => {
+						id = JSON.parse(event.data).id;
 
-				eventSource.addEventListener("status", (event: MessageEvent) => {
-					const status = JSON.parse(event.data).status * 1;
-
-					updateCachedData((draft) => {
-						draft.progress = status;
-					});
-
-					fetch(urlJoin(_URL, `trial/results?id=${id}&offset=0`))
-						.then((result) => result.json())
-						.then((resData) => {
-							_assertCast<TZapSpiderTrialResultsGETResponse>(resData);
-							updateCachedData(({ data }) => {
-								const nonDuplicateData = resData.filter((item) => !data.includes(item));
-								data.push(...nonDuplicateData);
+						if (!id) {
+							eventSource.close();
+							updateCachedData((draft) => {
+								draft.isScanning = false;
 							});
-						})
-						.catch((error) => console.log(error));
+						}
+					});
 
-					if (status === 100) {
-						eventSource.close();
+					eventSource.addEventListener("status", (event: MessageEvent) => {
+						const status = JSON.parse(event.data).status * 1;
+
+						updateCachedData((draft) => {
+							draft.progress = status;
+						});
+
+						fetch(urlJoin(_URL, `trial/results?id=${id}&offset=0`))
+							.then((result) => result.json())
+							.then((resData) => {
+								_assertCast<TZapSpiderTrialResultsGETResponse>(resData);
+								updateCachedData(({ data }) => {
+									const nonDuplicateData = resData.filter((item) => !data.includes(item));
+									data.push(...nonDuplicateData);
+								});
+							})
+							.catch((error) => console.log(error));
+
+						if (status === 100) {
+							eventSource.close();
+							updateCachedData((draft) => {
+								draft.isScanning = false;
+							});
+						}
+					});
+
+					eventSource.onerror = (event: Event) => {
+						console.log("onerror: ", event);
+						if (event instanceof MessageEvent) {
+							const data = JSON.parse(event.data) as TStatusResponse;
+							updateCachedData((draft) => {
+								draft.error = data;
+							});
+						} else {
+							updateCachedData((draft) => {
+								draft.error = SCAN_STATUS.ZAP_INTERNAL_ERROR;
+							});
+						}
 						updateCachedData((draft) => {
 							draft.isScanning = false;
 						});
-					}
-				});
-
-				eventSource.onerror = (event: Event) => {
-					console.log("onerror: ", event);
-					if (event instanceof MessageEvent) {
-						const data = JSON.parse(event.data) as TStatusResponse;
-						updateCachedData((draft) => {
-							draft.error = data;
-						});
-					} else {
-						updateCachedData((draft) => {
-							draft.error = SCAN_STATUS.ZAP_INTERNAL_ERROR;
-						});
-					}
-					eventSource.close();
-					updateCachedData((draft) => {
-						draft.isScanning = false;
-					});
-				};
+						eventSource.close();
+					};
+				} catch (error) {}
+				await cacheEntryRemoved;
+				eventSource.close();
 			},
 		}),
 		spiderScan: builder.mutation<TZapSpiderResponse<TPOST>, TZapSpiderRequest<TPOST>>({

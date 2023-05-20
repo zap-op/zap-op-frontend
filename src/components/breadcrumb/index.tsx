@@ -1,5 +1,3 @@
-import BreadcrumbCell from "./BreadcrumbCell";
-
 export type TBreadcrumbProps = {
 	listBeadcrumb: {
 		href: string;
@@ -22,6 +20,23 @@ const Breadcrumb = (props: TBreadcrumbProps) => {
 				})}
 			</ol>
 		</nav>
+	);
+};
+
+type TBreadcrumbCellProps = {
+	href: string;
+	name: string;
+};
+
+const BreadcrumbCell = (props: TBreadcrumbCellProps) => {
+	return (
+		<li className="breadcrumb-cell">
+			<a
+				className="breadcrumb-link"
+				href={props.href}>
+				<span className="breadcrumb-name">{props.name}</span>
+			</a>
+		</li>
 	);
 };
 

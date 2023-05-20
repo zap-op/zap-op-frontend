@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ObjectId } from "bson";
 import { BaseURL } from "../../utils/urlMgr";
 import urlJoin from "url-join";
-import { EntityTag } from "../../utils/settings";
 import { TStatusResponse, TTarget, TTargetModel } from "../../utils/types";
+import { TARGET_TAG } from "../../utils/settings";
 
 const _URL = urlJoin(BaseURL, "management");
 
@@ -13,14 +13,14 @@ const targetApi = createApi({
 		baseUrl: _URL,
 		credentials: "include",
 	}),
-	tagTypes: [EntityTag.TARGET],
+	tagTypes: [TARGET_TAG],
 	endpoints: (builder) => ({
 		getTarget: builder.query<TTargetModel[], void>({
 			query: () => ({
 				url: "targets",
 				method: "GET",
 			}),
-			providesTags: [EntityTag.TARGET],
+			providesTags: [TARGET_TAG],
 		}),
 		addTarget: builder.mutation<TStatusResponse, TTarget>({
 			query: (target) => ({
@@ -28,14 +28,14 @@ const targetApi = createApi({
 				method: "POST",
 				body: target,
 			}),
-			invalidatesTags: [EntityTag.TARGET],
+			invalidatesTags: [TARGET_TAG],
 		}),
 		moveToTrashTarget: builder.mutation<TStatusResponse, ObjectId>({
 			query: (id) => ({
 				url: `target?id=${id}`,
 				method: "DELETE",
 			}),
-			invalidatesTags: [EntityTag.TARGET],
+			invalidatesTags: [TARGET_TAG],
 		}),
 	}),
 });

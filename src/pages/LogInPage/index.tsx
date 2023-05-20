@@ -1,4 +1,4 @@
-import AuthGoogleButton from "../../components/Buttons/AuthGoogleButton";
+import { AuthGoogleButton } from "../../components";
 import { useSelector } from "../../store";
 
 const LogInPage = () => {
