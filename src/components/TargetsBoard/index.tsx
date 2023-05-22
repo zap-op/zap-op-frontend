@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useGetTargetQuery } from "../../store";
 import AddDomainModal from "./AddTargetModal/AddDomainModal";
 import AddIPModal from "./AddTargetModal/AddIPModal";
 import AddTargetsModal from "./AddTargetModal";
 import CollapseSearchBar from "../SearchBars/CollapseSearchBar";
 import TargetsTable from "./TargetsTable";
-import TABLEROW_Targets from "./TargetsTable/tr-targets";
 import ModalPortal from "../toolkits/ModalPortal";
 
 const TargetsBoard = () => {
-	const { data: listTarget } = useGetTargetQuery();
-
 	const location = useLocation();
 
 	const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -63,16 +59,7 @@ const TargetsBoard = () => {
 					</div>
 				</div>
 				<div className="targets-board_targets-table-container">
-					<TargetsTable>
-						{listTarget?.map((item) => {
-							return (
-								<TABLEROW_Targets
-									{...item}
-									key={item._id.toString()}
-								/>
-							);
-						})}
-					</TargetsTable>
+					<TargetsTable />
 				</div>
 			</div>
 			{isOpenModal ? <ModalPortal handleOpenModal={handleOpenModal}>{currentModal}</ModalPortal> : <></>}
