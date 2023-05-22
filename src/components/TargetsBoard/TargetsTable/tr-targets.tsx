@@ -3,10 +3,21 @@ import { useMoveToTrashTargetMutation } from "../../../store";
 
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { TStatusResponse, TTargetModel } from "../../../utils/types";
+import { useMemo } from "react";
 
-export type TTABLEROW_Targets_Props = TTargetModel
+export type TTABLEROW_Targets_Props = TTargetModel;
 
-const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
+const TABLEROW_Targets = ({
+	_id: targetId, //
+	name,
+	target,
+	tag,
+	createdAt,
+	updatedAt,
+}: TTABLEROW_Targets_Props) => {
+	const displayCreateAt = useMemo(() => new Date(createdAt).toLocaleDateString(), [createdAt]);
+	const displayUpdateAt = useMemo(() => new Date(updatedAt).toLocaleDateString(), [updatedAt]);
+
 	const newScanOption: TOptionItem = {
 		name: "New scan",
 		handle: () => {
@@ -18,16 +29,16 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
 	const deleteOption: TOptionItem = {
 		name: "Move to trash",
 		handle: () => {
-			const toastId = toast.loading(`Moving ${props.name} target to trash`);
-			if (!props._id) {
+			const toastId = toast.loading(`Moving ${name} target to trash`);
+			if (!targetId) {
 				toast.error("Something went wrong");
 				return;
 			}
-			moveToTrashTarget(props._id)
+			moveToTrashTarget(targetId)
 				.unwrap()
 				.then((result) => {
 					if (result.statusCode > 0) {
-						toast.success(`${props.name} ${result.msg}`, {
+						toast.success(`${name} ${result.msg}`, {
 							id: toastId,
 						});
 					} else {
@@ -52,11 +63,11 @@ const TABLEROW_Targets = (props: TTABLEROW_Targets_Props) => {
 
 	return (
 		<ul className="trow">
-			<li className="name">{props.name}</li>
-			<li className="target">{props.target}</li>
-			<li className="tag">{props.tag}</li>
-			<li className="first-seen">{props.createdAt}</li>
-			<li className="last-seen">{props.updatedAt}</li>
+			<li className="name">{name}</li>
+			<li className="target">{target}</li>
+			<li className="tag">{tag}</li>
+			<li className="first-seen">{displayCreateAt}</li>
+			<li className="last-seen">{displayUpdateAt}</li>
 			<li className="action">
 				<MoreOptionsButton listOptions={[newScanOption, deleteOption]} />
 			</li>
