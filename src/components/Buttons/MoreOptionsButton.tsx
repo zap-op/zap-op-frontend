@@ -10,7 +10,7 @@ type TMoreOptionsButtonProps = {
 	listOptions: TOptionItem[];
 };
 
-const MoreOptionsButton = (props: TMoreOptionsButtonProps) => {
+const MoreOptionsButton = ({ listOptions }: TMoreOptionsButtonProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const ref_self = useRef<HTMLDivElement>(null);
@@ -27,6 +27,7 @@ const MoreOptionsButton = (props: TMoreOptionsButtonProps) => {
 		if (ref_self.current && ref_self.current.contains(event.target as Node)) {
 			return;
 		}
+		handleCloseOptions();
 	};
 
 	const handleCloseOptions = () => {
@@ -53,7 +54,7 @@ const MoreOptionsButton = (props: TMoreOptionsButtonProps) => {
 			</div>
 			{isOpen ? (
 				<div className="options">
-					{props.listOptions.map((item) => {
+					{listOptions.map((item) => {
 						return (
 							<span
 								key={item.name}
