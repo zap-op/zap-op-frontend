@@ -16,9 +16,10 @@
         div.content-container {
             margin: 1rem 0;
 
-            a.type-option {
+            div.type-option {
                 background-color: $black-color-5;
                 border-radius: 5px;
+                cursor: pointer;
                 display: flex;
                 margin: 0.5rem 0;
                 padding: 1rem;
