@@ -20,7 +20,6 @@ const AddDomainModal = () => {
 	const [isDisplayErrorMessageTargetField, setIsDisplayErrorMessageTargetField] = useState<boolean>();
 
 	const handleAddTarget = async () => {
-		const toastId = toast.loading("Adding target");
 		if (!nameTarget || !target) {
 			if (!nameTarget) {
 				setIsDisplayErrorMessageNameTargetField(true);
@@ -33,7 +32,8 @@ const AddDomainModal = () => {
 				setIsDisplayErrorMessageTargetField(false);
 			}
 			return;
-		}
+		}		
+		const toastId = toast.loading("Adding target");
 		let newTarget: TTarget = {
 			name: nameTarget,
 			target: target,
