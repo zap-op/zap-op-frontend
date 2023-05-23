@@ -19,7 +19,6 @@ const AddIPModal = () => {
 	const [isDisplayErrorMessageTargetField, setIsDisplayErrorMessageTargetField] = useState<boolean>();
 
 	const handleAddTarget = () => {
-		const toastId = toast.loading("Adding target");
 		if (!nameTarget || !target) {
 			if (!nameTarget) {
 				setIsDisplayErrorMessageNameTargetField(true);
@@ -33,6 +32,7 @@ const AddIPModal = () => {
 			}
 			return;
 		}
+		const toastId = toast.loading("Adding target");
 		let newTarget: TTarget = {
 			name: nameTarget,
 			target: target,
