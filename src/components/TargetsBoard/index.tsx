@@ -1,51 +1,20 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
-import AddDomainModal from "./AddTargetModal/AddDomainModal";
-import AddIPModal from "./AddTargetModal/AddIPModal";
 import AddTargetsModal from "./AddTargetModal";
 import CollapseSearchBar from "../SearchBars/CollapseSearchBar";
 import TargetsTable from "./TargetsTable";
-import ModalPortal from "../toolkits/ModalPortal";
+import { ModalContext } from "../toolkits/ModalPortal";
 
 const TargetsBoard = () => {
 	const location = useLocation();
 
-	const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-
-	const handleOpenModal = (status: boolean) => {
-		const handleEscapeKey = (event: KeyboardEvent) => {
-			if (event.code === "Escape") {
-				setIsOpenModal(false);
-				document.removeEventListener("keydown", handleEscapeKey);
-			}
-		};
-
-		setIsOpenModal(status);
-		if (status) {
-			document.addEventListener("keydown", handleEscapeKey);
-		}
-	};
+	const modalContext = useContext(ModalContext);
 
 	const handleAddTarget = () => {
 		location.state = null;
-		handleOpenModal(true);
+		modalContext?.setModalComponent(<AddTargetsModal />);
+		modalContext?.handleOpenModal(true);
 	};
-
-	let currentModal = undefined;
-	if (isOpenModal) {
-		const currentState = location.state;
-		switch (currentState) {
-			case AddDomainModal.LOCATION_STATE:
-				currentModal = <AddDomainModal handleOpenModal={handleOpenModal} />;
-				break;
-			case AddIPModal.LOCATION_STATE:
-				currentModal = <AddIPModal handleOpenModal={handleOpenModal} />;
-				break;
-			default:
-				currentModal = <AddTargetsModal />;
-				break;
-		}
-	}
 
 	return (
 		<>
@@ -62,7 +31,6 @@ const TargetsBoard = () => {
 					<TargetsTable />
 				</div>
 			</div>
-			{isOpenModal ? <ModalPortal handleOpenModal={handleOpenModal}>{currentModal}</ModalPortal> : <></>}
 		</>
 	);
 };

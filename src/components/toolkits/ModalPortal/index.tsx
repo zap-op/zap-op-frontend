@@ -1,17 +1,32 @@
-import { PropsWithChildren } from "react";
+import {
+	PropsWithChildren, //
+	Dispatch,
+	SetStateAction,
+	createContext,
+	useEffect,
+} from "react";
 
 export type TModalProps = {
 	handleOpenModal: (status: boolean) => void;
 };
 
-type TModalPortalProps = TModalProps & {};
+type TModalPortalProps = TModalProps;
 
-const ModalPortal = (props: PropsWithChildren<TModalPortalProps>) => {
+const ModalPortal = ({ handleOpenModal, children }: PropsWithChildren<TModalPortalProps>) => {
+	const handleEscKey = (event: KeyboardEvent) => {
+		event.key === "Escape" && handleOpenModal(false);
+	};
+
+	useEffect(() => {
+		window.addEventListener("keydown", handleEscKey);
+		return () => window.removeEventListener("keydown", handleEscKey);
+	}, []);
+
 	return (
 		<div className="modal-portal-container">
 			<div
 				className="modal-wrap"
-				onClick={() => props.handleOpenModal(false)}>
+				onClick={() => handleOpenModal(false)}>
 				<div
 					className="modal-inner"
 					onClick={(event) => {
@@ -19,8 +34,8 @@ const ModalPortal = (props: PropsWithChildren<TModalPortalProps>) => {
 					}}>
 					<span
 						className="close-button"
-						onClick={() => props.handleOpenModal(false)}></span>
-					<div className="modal-container">{props.children}</div>
+						onClick={() => handleOpenModal(false)}></span>
+					<div className="modal-container">{children}</div>
 				</div>
 			</div>
 		</div>
@@ -28,3 +43,12 @@ const ModalPortal = (props: PropsWithChildren<TModalPortalProps>) => {
 };
 
 export default ModalPortal;
+
+type TModalContext = {
+	isOpenModal: boolean;
+	handleOpenModal: Dispatch<SetStateAction<boolean>>;
+	setModalComponent: Dispatch<SetStateAction<JSX.Element | null>>;
+};
+
+const ModalContext = createContext<TModalContext | null>(null);
+export { ModalContext };
