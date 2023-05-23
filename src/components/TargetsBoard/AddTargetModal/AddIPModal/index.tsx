@@ -1,18 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useLocation } from "react-router-dom";
-import { TModalProps } from "../../../toolkits/ModalPortal";
+import { ModalContext} from "../../../toolkits/ModalPortal";
 import { useSelector, useAddTargetMutation } from "../../../../store";
 import TextField from "../../../Fields/TextField";
 import { TStatusResponse, TTarget } from "../../../../utils/types";
+import { AddTargetsModalContext } from "..";
 
-type TAddIPModalProps = TModalProps & {};
-
-const AddIPModal = (props: TAddIPModalProps) => {
+const AddIPModal = () => {
 	const userId = useSelector((state) => state.auth.userId);
 	const [addTarget] = useAddTargetMutation();
 
-	const location = useLocation();
+	const addTargetsModalContext = useContext(AddTargetsModalContext);
+	const modalContext = useContext(ModalContext);
 
 	const [nameTarget, setNameTarget] = useState<TTarget["name"]>();
 	const [isDisplayErrorMessageNameTargetField, setIsDisplayErrorMessageNameTargetField] = useState<boolean>();
@@ -38,8 +37,7 @@ const AddIPModal = (props: TAddIPModalProps) => {
 			name: nameTarget,
 			target: target,
 		};
-		location.state = "";
-		props.handleOpenModal(false);
+		modalContext?.handleOpenModal(false);
 		addTarget(newTarget)
 			.unwrap()
 			.then((result) => {
@@ -98,12 +96,11 @@ const AddIPModal = (props: TAddIPModalProps) => {
 				</div>
 			</div>
 			<div className="navigator-state-containter">
-				<Link
-					to=""
-					state={undefined}
-					className="back-state button secondary-button">
+				<div
+					className="back-state button secondary-button"
+					onClick={addTargetsModalContext?.goBack}>
 					Back
-				</Link>
+				</div>
 				<div
 					className="add button primary-button"
 					onClick={handleAddTarget}>
