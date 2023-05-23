@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { ModalContext} from "../../../toolkits/ModalPortal";
-import { useSelector, useAddTargetMutation } from "../../../../store";
+import { useAddTargetMutation } from "../../../../store";
 import TextField from "../../../Fields/TextField";
 import { TStatusResponse, TTarget } from "../../../../utils/types";
 import { AddTargetsModalContext } from "..";
 
 const AddIPModal = () => {
-	const userId = useSelector((state) => state.auth.userId);
 	const [addTarget] = useAddTargetMutation();
 
 	const addTargetsModalContext = useContext(AddTargetsModalContext);
