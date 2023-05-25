@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavStep, { TNavStepProps } from "./NavStep";
 import SelectTargetBoard from "./SelectTargetBoard";
 import ScanOptionsBoard from "./ScanOptionsBoard";
-import { useDigestTargetsWithOptionsMutation } from "../../store";
+import { useDigestTargetsWithOptions } from "../../hooks";
 
 export enum AddScanBoardLinkState {
 	SelectTarget = "select-target",
@@ -15,15 +15,14 @@ type TAddScanBoardProps = {
 
 const AddScanBoard = (props: TAddScanBoardProps) => {
 	const location = useLocation();
-
+	const { digest } = useDigestTargetsWithOptions();
 	let previousLinkState: string = "";
 	let currentLinkState: string = "";
 	let currentLinkStateIndex: number = 0;
 	let nextLinkState: string = "";
 
-	const [digestTargetsWithOptions] = useDigestTargetsWithOptionsMutation();
 	const handleStartScanWithOptions = () => {
-		digestTargetsWithOptions();
+		digest();
 	};
 
 	if (location.state) {

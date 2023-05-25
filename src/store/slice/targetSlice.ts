@@ -1,15 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ScanType } from "../../utils/settings";
-import { TTarget, TTargetModel } from "../../utils/types";
+import { TTargetModel } from "../../utils/types";
+
+type TSelectedTarget = Pick<TTargetModel, "_id" | "name">;
 
 type TTargetState = {
-	listTarget: TTarget[];
-	listSelectedTarget: TTargetModel["_id"][];
+	listSelectedTarget: TSelectedTarget[];
 	listSelectedScanOption: ScanType[];
 };
 
 const initialState: TTargetState = {
-	listTarget: [],
 	listSelectedTarget: [],
 	listSelectedScanOption: [],
 };
@@ -18,13 +18,13 @@ const targetSlice = createSlice({
 	name: "targetStorge",
 	initialState,
 	reducers: {
-		addSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TTargetModel["_id"]>) => {
+		addSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TSelectedTarget>) => {
 			if (listSelectedTarget.includes(action.payload)) {
 				return;
 			}
 			listSelectedTarget.push(action.payload);
 		},
-		removeSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TTargetModel["_id"]>) => {
+		removeSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TSelectedTarget>) => {
 			const indexToRemove = listSelectedTarget.indexOf(action.payload);
 			if (indexToRemove !== -1) {
 				listSelectedTarget.splice(indexToRemove, 1);
@@ -59,5 +59,5 @@ export const {
 	clearSelectTarget,
 	addScanOption,
 	removeScanOption,
-	clearScanOption
+	clearScanOption,
 } = targetSlice.actions;

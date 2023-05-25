@@ -2,18 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import urlJoin from "url-join";
 import { BaseURL } from "../../utils/urlMgr";
 import { _assertCast } from "../../utils/helpers";
-import { ScanType } from "../../utils/settings";
-import {
-	useSelector, //
-	setTrial,
-} from "..";
+import { setTrial } from "..";
 import {
 	TStatusResponse, //
 	SCAN_STATUS,
-	TErrorInjected,
-	TPOST,
-	TZapSpiderRequest,
-	TZapSpiderResponse,
 	TZapSpiderTrialGETRequest,
 	TZapSpiderTrialGETResponse,
 	TZapSpiderTrialResultsGETRequest,
@@ -22,8 +14,8 @@ import {
 
 const _URL = urlJoin(BaseURL, "scan");
 
-const scanApi = createApi({
-	reducerPath: "scanApi",
+const trialScanApi = createApi({
+	reducerPath: "trialScanApi",
 	baseQuery: fetchBaseQuery({
 		baseUrl: _URL,
 	}),
@@ -122,58 +114,6 @@ const scanApi = createApi({
 					};
 				} catch (error) {}
 				await cacheEntryRemoved;
-				eventSource.close();
-			},
-		}),
-		spiderScan: builder.mutation<TZapSpiderResponse<TPOST>, TZapSpiderRequest<TPOST>>({
-			query: (arg) => ({
-				url: "target",
-				method: "POST",
-				body: arg,
-			}),
-		}),
-		digestTargetsWithOptions: builder.mutation<TErrorInjected, void>({
-			queryFn: (_, {}, {}, fetchWithBaseQuery) => {
-				const { listSelectedTarget, listSelectedScanOption } = useSelector((state) => state.target);
-				if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
-					return {
-						error: {
-							status: "FETCH_ERROR",
-							error: "Targets or Options are empty!",
-						},
-					};
-				}
-
-				listSelectedTarget.forEach((targetItem) =>
-					listSelectedScanOption.forEach((optionItem) => {
-						switch (optionItem) {
-							case ScanType.NMAP_TCP:
-								break;
-							case ScanType.NMAP_UDP:
-								break;
-							case ScanType.ZAP_SPIDER:
-								scanApi.endpoints.trialScan.initiate;
-								break;
-							case ScanType.ZAP_AJAX:
-								break;
-							case ScanType.ZAP_ACTIVE:
-								break;
-							case ScanType.ZAP_PASSIVE:
-								break;
-							default:
-								break;
-						}
-					}),
-				);
-
-				return {
-					data: {
-						error: {
-							statusCode: NaN,
-							msg: "",
-						},
-					},
-				};
 			},
 		}),
 	}),
@@ -182,7 +122,5 @@ const scanApi = createApi({
 export const {
 	useTrialScanQuery, //
 	useLazyTrialScanQuery,
-	useDigestTargetsWithOptionsMutation,
-	useSpiderScanMutation,
-} = scanApi;
-export default scanApi;
+} = trialScanApi;
+export default trialScanApi;

@@ -1,13 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TScanSession } from "../../utils/types";
+import { TScanSession, TTargetModel } from "../../utils/types";
+import authScanApi from "../services/authScanApi";
 
 export type TScanState = {
 	trial: Pick<TScanSession, "url">;
+	authed: {
+		listSpiderTargetId: TTargetModel["_id"][];
+	};
 };
 
 const initialState: TScanState = {
 	trial: {
 		url: "",
+	},
+	authed: {
+		listSpiderTargetId: [],
 	},
 };
 
@@ -24,7 +31,12 @@ const scanSlice = createSlice({
 			};
 		},
 	},
-	extraReducers: (builder) => {},
+	extraReducers: (builder) => {
+		builder.addMatcher(authScanApi.endpoints.spiderScan.matchFulfilled, ({ authed: { listSpiderTargetId } }, action) => {
+			console.log("authScanApi.endpoints.spiderScan.matchFulfilled");
+			console.log(action);
+		});
+	},
 });
 
 export default scanSlice;
