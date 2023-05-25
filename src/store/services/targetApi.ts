@@ -2,8 +2,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ObjectId } from "bson";
 import { BaseURL } from "../../utils/urlMgr";
 import urlJoin from "url-join";
-import { TStatusResponse, TTarget, TTargetModel } from "../../utils/types";
 import { TARGET_TAG } from "../../utils/settings";
+import {
+	TTarget, //
+	TTargetModel,
+	TStatusResponse,
+} from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "management");
 

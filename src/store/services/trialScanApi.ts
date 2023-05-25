@@ -4,8 +4,8 @@ import { BaseURL } from "../../utils/urlMgr";
 import { _assertCast } from "../../utils/helpers";
 import { setTrial } from "..";
 import {
-	TStatusResponse, //
-	SCAN_STATUS,
+	SCAN_STATUS, //
+	TStatusResponse,
 	TZapSpiderTrialGETRequest,
 	TZapSpiderTrialGETResponse,
 	TZapSpiderTrialResultsGETRequest,
