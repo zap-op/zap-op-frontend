@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { ScanType } from "../utils/settings";
@@ -6,31 +6,24 @@ import { TStatusResponse } from "../utils/types";
 import { _assertCast, isFetchBaseQueryErrorType } from "../utils/helpers";
 import {
 	useSelector, //
+	clearScanOption,
+	clearSelectTarget,
 	useSpiderScanMutation,
+	useDispatch,
 } from "../store";
 
 export const useDigestTargetsWithOptions = () => {
+	const dispatch = useDispatch();
 	const { listSelectedTarget, listSelectedScanOption } = useSelector((state) => state.target);
-	const [spiderScan, { error: spiderError, originalArgs: spiderOriginalArgs }] = useSpiderScanMutation();
 
-	useEffect(() => {
-		if (spiderError && isFetchBaseQueryErrorType(spiderError)) {
-			_assertCast<FetchBaseQueryError>(spiderError);
-			const msg = (spiderError.data as any).msg;
-			console.log("spiderOriginalArgs", spiderOriginalArgs);
-			toast.error(`Fail to start ${"qwe"} spider with ${msg}`);
-		}
-	}, [spiderError]);
+	const [spiderScan] = useSpiderScanMutation();
 
-	const digest = () => {
+	const digest = async () => {
 		if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
-			// setGlobalError({
-			// 	statusCode: NaN,
-			// 	msg: "Targets or Options are empty!",
-			// });
+			toast.error("Targets or Options are empty!");
 			return;
 		}
-		listSelectedTarget.forEach((target) =>
+		listSelectedTarget.forEach((target) => {
 			listSelectedScanOption.forEach((optionItem) => {
 				switch (optionItem) {
 					case ScanType.NMAP_TCP:
@@ -41,7 +34,12 @@ export const useDigestTargetsWithOptions = () => {
 						spiderScan({
 							_id: target._id,
 							scanConfig: {},
-						});
+						})
+							.unwrap()
+							.catch((error) => {
+								const msg = error.data.msg;
+								toast.error(`Fail to start ${target.name} spider with ${msg}`);
+							});
 						break;
 					case ScanType.ZAP_AJAX:
 						break;
@@ -52,8 +50,10 @@ export const useDigestTargetsWithOptions = () => {
 					default:
 						break;
 				}
-			}),
-		);
+			});
+		});
+		dispatch(clearScanOption());
+		dispatch(clearSelectTarget());
 	};
 
 	return {
