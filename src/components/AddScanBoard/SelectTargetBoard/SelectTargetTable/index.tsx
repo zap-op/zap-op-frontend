@@ -27,7 +27,7 @@ const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTablePr
 							<TABLEROW_SelectTarget
 								{...item}
 								key={id}
-								defaultChecked={listSelectedTarget.includes(item._id)}
+								defaultChecked={listSelectedTarget.some(browsItem => browsItem._id == item._id)}
 								id={id}
 							/>
 						);

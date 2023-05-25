@@ -31,7 +31,7 @@ const targetSlice = createSlice({
 			}
 		},
 		clearSelectTarget: ({ listSelectedTarget }) => {
-			listSelectedTarget = [];
+			listSelectedTarget.length = 0;
 		},
 		addScanOption: ({ listSelectedScanOption }, action: PayloadAction<ScanType>) => {
 			if (listSelectedScanOption.includes(action.payload)) {
@@ -46,7 +46,7 @@ const targetSlice = createSlice({
 			}
 		},
 		clearScanOption: ({ listSelectedScanOption }) => {
-			listSelectedScanOption = [];
+			listSelectedScanOption.length = 0;
 		},
 	},
 	extraReducers: (builder) => {},
