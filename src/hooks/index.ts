@@ -1,1 +1,2 @@
-export * from "./useDigestTargetsWithOptions"
+export * from "./useDigestTargetsWithOptions";
+export * from "./useDebounce";

@@ -1,15 +1,19 @@
-type TSearchBarProps = {
+import { Dispatch } from "react";
+
+export type TSearchBarProps = {
 	placeholder: string;
 	extendClass?: string;
+	handleChangeValue: Dispatch<React.SetStateAction<any | undefined>>;
 };
 
-const SearchBar = (props: TSearchBarProps) => {
+const SearchBar = ({ placeholder, extendClass, handleChangeValue }: TSearchBarProps) => {
 	return (
-		<label className={`search-bar-container ${props.extendClass}`}>
+		<label className={`search-bar-container ${extendClass}`}>
 			<input
 				className="search-input-box"
 				type="text"
-				placeholder={props.placeholder}
+				placeholder={placeholder}
+				onChange={(event) => handleChangeValue(event.target.value)}
 			/>
 			<div className="search-icon-container">
 				<span className="search-icon"></span>

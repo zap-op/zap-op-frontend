@@ -1,12 +1,50 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import AddTargetsModal from "./AddTargetModal";
 import CollapseSearchBar from "../SearchBars/CollapseSearchBar";
 import TargetsTable from "./TargetsTable";
 import { ModalContext } from "../toolkits/ModalPortal";
+import { useGetTargetQuery } from "../../store";
+import { useDebounceEffect } from "../../hooks";
 
 const TargetsBoard = () => {
 	const location = useLocation();
+	const { data: listTarget } = useGetTargetQuery();
+
+	const [listShowTarget, setListShowTarget] = useState<typeof listTarget>();
+	const [inputSearch, setInputSearch] = useState<string>("");
+
+	useDebounceEffect(
+		() => {
+			if (!inputSearch) {
+				setListShowTarget(listTarget);
+				return;
+			}
+			const listFiltered = listTarget?.filter((item) => {
+				if (item && item.name) {
+					return item.name.includes(inputSearch);
+				}
+				return false;
+			});
+			setListShowTarget(listFiltered);
+		},
+		[inputSearch],
+		300,
+	);
+
+	useEffect(() => {
+		if (!inputSearch) {
+			setListShowTarget(listTarget);
+			return;
+		}
+		const listFiltered = listTarget?.filter((item) => {
+			if (item && item.name) {
+				return item.name.includes(inputSearch);
+			}
+			return false;
+		});
+		setListShowTarget(listFiltered);
+	}, [listTarget]);
 
 	const modalContext = useContext(ModalContext);
 
@@ -20,7 +58,10 @@ const TargetsBoard = () => {
 		<>
 			<div className="targets-board-container">
 				<div className="action-container">
-					<CollapseSearchBar placeholder="Search target" />
+					<CollapseSearchBar
+						placeholder="Search target"
+						handleChangeValue={setInputSearch}
+					/>
 					<div
 						className="add-target-button button primary-button"
 						onClick={handleAddTarget}>
@@ -28,7 +69,7 @@ const TargetsBoard = () => {
 					</div>
 				</div>
 				<div className="targets-board_targets-table-container">
-					<TargetsTable />
+					<TargetsTable listTarget={listShowTarget ? listShowTarget : []} />
 				</div>
 			</div>
 		</>
