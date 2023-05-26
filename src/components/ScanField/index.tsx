@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProgressRing from "./ProgressRing";
-import { scanApi, useDispatch, useLazyTrialScanQuery } from "../../store";
+import { trialScanApi, useDispatch, useLazyTrialScanQuery, useSelector } from "../../store";
 import { _assertCast, isFetchBaseQueryErrorType } from "../../utils/helpers";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
@@ -10,14 +10,14 @@ type TScanFieldProps = {
 };
 
 const ScanField = (props: TScanFieldProps) => {
+	const { url: storeUrl } = useSelector((state) => state.scan.trial);
+	const [url, setUrl] = useState<string>(storeUrl);
 	const [errorStatus, setErrorStatus] = useState<string>();
-	const [url, setUrl] = useState<string>("");
-
 	const dispatch = useDispatch();
 
 	const [triggerTrialScan] = useLazyTrialScanQuery();
-	const { data, error } = scanApi.endpoints.trialScan.useQueryState({
-		url,
+	const { data, error } = trialScanApi.endpoints.trialScan.useQueryState({
+		url: storeUrl,
 	});
 	const { error: responseError, isScanning } = { ...data };
 
@@ -41,7 +41,7 @@ const ScanField = (props: TScanFieldProps) => {
 			return;
 		}
 
-		dispatch(scanApi.util.resetApiState());
+		dispatch(trialScanApi.util.resetApiState());
 
 		triggerTrialScan({
 			url,
@@ -55,6 +55,8 @@ const ScanField = (props: TScanFieldProps) => {
 				<input
 					type="text"
 					placeholder="Enter a URL, IP address, or hostname..."
+					value={url}
+					disabled={isScanning}
 					onChange={(event) => setUrl(event.target.value)}
 				/>
 				<div

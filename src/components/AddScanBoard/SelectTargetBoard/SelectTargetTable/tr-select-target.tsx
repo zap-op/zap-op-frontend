@@ -1,11 +1,11 @@
 import { ChangeEvent } from "react";
 import { TTargetModel } from "../../../../utils/types";
+import { TInput } from "../../../../utils/componentGenericTypes";
 import {
 	useDispatch, //
 	addSelectTarget,
 	removeSelectTarget,
 } from "../../../../store";
-import { TInput } from "../../../../utils/componentGenericTypes";
 
 export type TSelectTargetItem = Pick<TTargetModel, "_id" | "name" | "target" | "tag">;
 
@@ -19,10 +19,20 @@ const SelectTargetItem = ({ _id, id, name, target, tag, defaultChecked }: TSelec
 
 	const handleCheckBoxOnChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.checked) {
-			dispatch(addSelectTarget(_id));
+			dispatch(
+				addSelectTarget({
+					_id,
+					name,
+				}),
+			);
 			return;
 		}
-		dispatch(removeSelectTarget(_id));
+		dispatch(
+			removeSelectTarget({
+				_id,
+				name,
+			}),
+		);
 	};
 
 	return (
