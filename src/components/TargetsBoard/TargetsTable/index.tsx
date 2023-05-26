@@ -1,13 +1,14 @@
 import { toast } from "react-hot-toast";
-import { useGetTargetQuery, useMoveToTrashTargetMutation } from "../../../store";
-
+import { useMemo } from "react";
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { TStatusResponse, TTargetModel } from "../../../utils/types";
-import { useMemo } from "react";
+import { useMoveToTrashTargetMutation } from "../../../store";
 
-const TargetsTable = () => {
-	const { data: listTarget } = useGetTargetQuery();
+type TTargetsTable = {
+	listTarget: TItemRow[];
+};
 
+const TargetsTable = ({ listTarget }: TTargetsTable) => {
 	return (
 		<div className="targets-table-container table-container">
 			<div className="table-scroll-wrap">
