@@ -1,7 +1,5 @@
 @use '../../../style/variables' as *;
 @use '../../TargetsBoard/AddTargetModal' as AddTargetModal;
-@use '../../TargetsBoard/AddTargetModal/AddDomainModal' as AddDomainModal;
-@use '../../TargetsBoard/AddTargetModal/AddIpModal' as AddIpModal;
 
 div.modal-portal-container {
     background-color: rgba($color: #000000, $alpha: 0.2);
@@ -63,8 +61,6 @@ div.modal-portal-container {
 
             div.modal-container {
                 @include AddTargetModal.style_index;
-                @include AddDomainModal.style_index;
-                @include AddIpModal.style_index;
             }
         }
     }

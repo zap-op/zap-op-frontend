@@ -55,4 +55,40 @@
             }
         }
     }
+
+    div.add-modal-container {
+        div.title-container {
+            h3 {
+                color: $black-color-1;
+                margin: 0.5rem 0;
+            }
+        }
+
+        div.content-container {
+            div.field-container {
+                margin: 1rem 0;
+            }
+
+            div.target-name-field {
+                margin-bottom: 1.5rem;
+            }
+
+            div.target-field {}
+        }
+
+        div.navigator-state-containter {
+            display: flex;
+
+            a.back-state {
+                color: $black-color-1;
+                margin-right: auto;
+                text-decoration: none;
+            }
+
+            div.add {
+                font-weight: 400;
+                margin-left: auto;
+            }
+        }
+    }
 }
