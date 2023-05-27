@@ -24,8 +24,48 @@ const authScanApi = createApi({
 				body: arg,
 			}),
 		}),
+		streamSpiderScan: builder.query<any, { scanSession: string; scanId: string }>({
+			queryFn: (arg, {}) => {
+				if (!arg) {
+					return {
+						error: {
+							status: "FETCH_ERROR",
+							error: "URL is empty!",
+						},
+					};
+				}
+				return {
+					data: {
+						isScanning: true,
+						progress: 0,
+						data: [],
+						error: {
+							statusCode: NaN,
+							msg: "",
+						},
+					},
+				};
+			},
+
+			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+				const eventSource = new EventSource(urlJoin(_URL, `spider?scanSession=${arg.scanSession}&scanId=${arg.scanId}`), {
+					withCredentials: true,
+				});
+				try {
+					await cacheDataLoaded;
+					eventSource.onerror = (event: Event) => {
+						console.log("onerror: ", event);
+						eventSource.close();
+					};
+				} catch (error) {}
+				await cacheEntryRemoved;
+			},
+		}),
 	}),
 });
 
-export const { useSpiderScanMutation } = authScanApi;
+export const {
+	useSpiderScanMutation, //
+	useLazyStreamSpiderScanQuery,
+} = authScanApi;
 export default authScanApi;

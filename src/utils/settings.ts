@@ -1,5 +1,6 @@
-export const TARGET_TAG = "TARGET"
-export const TRIAL_SCAN_TAG = "TRIAL_SCAN"
+export const SCAN_SESSION_TAG = "SCAN_SESSION";
+export const TARGET_TAG = "TARGET";
+export const TRIAL_SCAN_TAG = "TRIAL_SCAN";
 
 // SCAN
 export enum ScanType {

@@ -1,23 +1,40 @@
-import { PropsWithChildren, useRef, useState } from "react";
 import Describable from "../../toolkits/Describable";
+import { TMgmtScanSessionsResponse } from "../../../utils/types";
+import { useMemo } from "react";
 
-type TResultsTableProps = {};
+type TResultsTableProps = {
+	listScanResult: TMgmtScanSessionsResponse;
+};
 
-const ResultsTable = (props: PropsWithChildren<TResultsTableProps>) => {
-
+const ResultsTable = ({ listScanResult }: TResultsTableProps) => {
 	return (
 		<div className="results-table-container table-container">
 			<div className="table-scroll-wrap">
 				<div className="table-head-container">
 					<ul className="thead">
-						<li className="dropdown"></li>
 						<li className="name">Name</li>
 						<li className="target">Target</li>
-						<li className="scan-types">Scan types</li>
-						<li className="action"></li>
+						<li className="type">Type</li>
+						<li className="state">State</li>
+						<li className="progress">Progress</li>
+						<li className="first-seen">Create at</li>
+						<li className="last-seen">Update at</li>
 					</ul>
 				</div>
-				<div className="table-body-container">{props.children}</div>
+				<div className="table-body-container">
+					{listScanResult.map((item) => (
+						<ItemRow
+							key={item._id.toString()}
+							name={item.targetPop.name}
+							url={item.targetPop.target}
+							type={item.__t}
+							state={""}
+							progress={100}
+							createdAt={item.createdAt}
+							updatedAt={item.updatedAt}
+						/>
+					))}
+				</div>
 			</div>
 		</div>
 	);
@@ -28,70 +45,37 @@ export default ResultsTable;
 type TItemRow = {
 	name: string;
 	url: string;
-	listScanType: ("OWASP ZAP" | "Traditonal Spider ZAP")[];
+	type: string;
+	createdAt: string;
+	updatedAt: string;
+	state: string;
+	progress: number;
 };
 
-const ItemRow = (props: TItemRow) => {
-	const [isOpeningSubContent, setIsOpeningSubContent] = useState<boolean>(false);
-
-	const ref_dropdownInput = useRef<HTMLInputElement>(null);
-
-	const updateIsOpeningSubContentState = () => {
-		setIsOpeningSubContent(ref_dropdownInput.current?.checked ? true : false);
-	};
-
-	const handleDropdownButton = () => {
-		updateIsOpeningSubContentState();
-	};
+const ItemRow = ({
+	name, //
+	url,
+	type,
+	createdAt,
+	updatedAt,
+	state,
+	progress,
+}: TItemRow) => {
+	const displayCreateAt = useMemo(() => new Date(createdAt).toLocaleDateString(), [createdAt]);
+	const displayUpdateAt = useMemo(() => new Date(updatedAt).toLocaleDateString(), [updatedAt]);
 
 	return (
 		<div className="trow-container">
 			<ul className="trow">
-				<li className="dropdown">
-					<label
-						className="dropdown-button button"
-						onClick={handleDropdownButton}>
-						<input
-							type="checkbox"
-							className="checkbox-input"
-							ref={ref_dropdownInput}
-						/>
-						<div className="arrow"></div>
-					</label>
-				</li>
-				<li className="name">{props.name}</li>
-				<li className="target">{props.url}</li>
-				<li className="scan-types">
-					{props.listScanType.map((item) => {
-						return (
-							<span
-								key={item}
-								className="scan-type-item">
-								{item}
-							</span>
-						);
-					})}
-				</li>
-				<li className="action"></li>
+				<li className="name">{name}</li>
+				<li className="target">{url}</li>
+				<li className="type">{type}</li>
+				<li className="state">{state}</li>
+				{state}
+				<li className="progress">{progress}</li>
+				<li className="first-seen">{displayCreateAt}</li>
+				<li className="last-seen">{displayUpdateAt}</li>
 			</ul>
-			<div className={`sub-trow-container ${isOpeningSubContent ? "is-opening" : ""}`}>
-				<div className="sub-trow-wrap">
-					<SubItemRow
-						scanType="OWASP ZAP"
-						state={`SUCCEEDED`}
-						progress={100}
-						listExportResultType={["PDF", "XML"]}
-						createdSince={"1 day ago"}
-					/>
-					<SubItemRow
-						scanType="OWASP ZAP"
-						state={`SUCCEEDED`}
-						progress={100}
-						listExportResultType={["PDF", "XML"]}
-						createdSince={"1 day ago"}
-					/>
-				</div>
-			</div>
 		</div>
 	);
 };

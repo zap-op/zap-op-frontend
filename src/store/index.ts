@@ -14,6 +14,7 @@ import authApi from "./services/authApi";
 import trialScanApi from "./services/trialScanApi";
 import authScanApi from "./services/authScanApi";
 import targetApi from "./services/targetApi";
+import scanSessionApi from "./services/scanSession";
 
 const reducers = {
 	auth: authSlice.reducer,
@@ -23,13 +24,21 @@ const reducers = {
 	[authScanApi.reducerPath]: authScanApi.reducer,
 	target: targetSlice.reducer,
 	[targetApi.reducerPath]: targetApi.reducer,
+	[scanSessionApi.reducerPath]: scanSessionApi.reducer,
 	// Tookit
 	describablePortal: describablePortalSlice.reducer,
 };
 
 const store = configureStore({
 	reducer: reducers,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([authApi.middleware, trialScanApi.middleware, authScanApi.middleware, targetApi.middleware]),
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat([
+			authApi.middleware, //
+			trialScanApi.middleware,
+			authScanApi.middleware,
+			targetApi.middleware,
+			scanSessionApi.middleware,
+		]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -48,9 +57,11 @@ export * from "./services/authApi";
 export * from "./services/trialScanApi";
 export * from "./services/authScanApi";
 export * from "./services/targetApi";
+export * from "./services/scanSession";
 export {
 	authApi, //
 	trialScanApi,
 	authScanApi,
 	targetApi,
+	scanSessionApi,
 };
