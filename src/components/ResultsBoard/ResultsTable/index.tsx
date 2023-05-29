@@ -1,6 +1,7 @@
 import Describable from "../../toolkits/Describable";
-import { TMgmtScanSessionsResponse } from "../../../utils/types";
+import { ScanState, TMgmtScanSessionsResponse, TObject } from "../../../utils/types";
 import { useMemo } from "react";
+import moment from "moment";
 
 type TResultsTableProps = {
 	listScanResult: TMgmtScanSessionsResponse;
@@ -25,11 +26,11 @@ const ResultsTable = ({ listScanResult }: TResultsTableProps) => {
 					{listScanResult.map((item) => (
 						<ItemRow
 							key={item._id.toString()}
+							id={item._id}
 							name={item.targetPop.name}
 							url={item.targetPop.target}
 							type={item.__t}
-							state={""}
-							progress={100}
+							state={item.status.state}
 							createdAt={item.createdAt}
 							updatedAt={item.updatedAt}
 						/>
@@ -43,13 +44,13 @@ const ResultsTable = ({ listScanResult }: TResultsTableProps) => {
 export default ResultsTable;
 
 type TItemRow = {
+	id: TObject["_id"];
 	name: string;
 	url: string;
 	type: string;
 	createdAt: string;
 	updatedAt: string;
-	state: string;
-	progress: number;
+	state: ScanState;
 };
 
 const ItemRow = ({
@@ -59,10 +60,9 @@ const ItemRow = ({
 	createdAt,
 	updatedAt,
 	state,
-	progress,
 }: TItemRow) => {
-	const displayCreateAt = useMemo(() => new Date(createdAt).toLocaleDateString(), [createdAt]);
-	const displayUpdateAt = useMemo(() => new Date(updatedAt).toLocaleDateString(), [updatedAt]);
+	const displayCreateAt = moment(createdAt).fromNow();
+	const displayUpdateAt = moment(updatedAt).fromNow();
 
 	return (
 		<div className="trow-container">
@@ -71,8 +71,7 @@ const ItemRow = ({
 				<li className="target">{url}</li>
 				<li className="type">{type}</li>
 				<li className="state">{state}</li>
-				{state}
-				<li className="progress">{progress}</li>
+				<li className="progress">{state === ScanState.PROCESSING && state}</li>
 				<li className="first-seen">{displayCreateAt}</li>
 				<li className="last-seen">{displayUpdateAt}</li>
 			</ul>
@@ -86,36 +85,4 @@ type TSubItemRow = {
 	progress: number;
 	listExportResultType: string[];
 	createdSince: string;
-};
-
-const SubItemRow = (props: TSubItemRow) => {
-	return (
-		<ul className="sub-trow">
-			<Describable dataTitle="type">
-				<li className="scan-type-name">{props.scanType}</li>
-			</Describable>
-			<Describable dataTitle="state">
-				<li className="state">{props.state}</li>
-			</Describable>
-			<Describable dataTitle="progress">
-				<li className="progress">{props.progress}</li>
-			</Describable>
-			<li className="result-types">
-				{props.listExportResultType.map((item) => {
-					return (
-						<Describable
-							dataTitle={`${item} result`}
-							key={item}>
-							<span
-								key={item}
-								className="result-type-item">
-								{item}
-							</span>
-						</Describable>
-					);
-				})}
-			</li>
-			<li className="created-since">{props.createdSince}</li>
-		</ul>
-	);
 };

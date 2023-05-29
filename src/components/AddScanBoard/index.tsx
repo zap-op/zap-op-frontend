@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NavStep, { TNavStepProps } from "./NavStep";
 import SelectTargetBoard from "./SelectTargetBoard";
 import ScanOptionsBoard from "./ScanOptionsBoard";
@@ -14,6 +14,7 @@ type TAddScanBoardProps = {
 };
 
 const AddScanBoard = (props: TAddScanBoardProps) => {
+	const navigate = useNavigate();
 	const location = useLocation();
 	const { digest } = useDigestTargetsWithOptions();
 	let previousLinkState: string = "";
@@ -22,7 +23,9 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 	let nextLinkState: string = "";
 
 	const handleStartScanWithOptions = () => {
-		digest();
+		digest().then(()=>{
+			navigate("../results")
+		});
 	};
 
 	if (location.state) {

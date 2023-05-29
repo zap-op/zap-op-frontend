@@ -6,12 +6,11 @@ import {
 } from "../../store";
 
 const ResultsBoard = () => {
-	const { data: listScanSession } = useGetScanSessionQuery();
-	const { refetch: refetchListScanSession } = scanSessionApi.endpoints.getScanSession.useQuerySubscription();
-
-	useEffect(() => {
-		refetchListScanSession();
-	}, []);
+	const { data: listScanSession } = useGetScanSessionQuery(undefined, {
+		refetchOnFocus: true,
+		refetchOnReconnect: true,
+		refetchOnMountOrArgChange: true,
+	});
 
 	return (
 		<div className="results-board-container">

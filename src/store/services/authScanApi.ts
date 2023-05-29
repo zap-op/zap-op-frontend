@@ -7,6 +7,8 @@ import {
 	TZapSpiderRequest,
 	TZapSpiderResponse,
 } from "../../utils/types";
+import { SCAN_SESSION_TAG } from "../../utils/settings";
+import scanSessionApi from "./scanSessionApi";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
 
@@ -23,6 +25,10 @@ const authScanApi = createApi({
 				method: "POST",
 				body: arg,
 			}),
+			onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
+				await queryFulfilled;
+				dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
+			},
 		}),
 		streamSpiderScan: builder.query<any, { scanSession: string; scanId: string }>({
 			queryFn: (arg, {}) => {
