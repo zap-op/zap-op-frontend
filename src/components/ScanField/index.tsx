@@ -10,14 +10,14 @@ type TScanFieldProps = {
 };
 
 const ScanField = (props: TScanFieldProps) => {
-	const { url: storeUrl } = useSelector((state) => state.scan.trial);
+	const { target: storeUrl } = useSelector((state) => state.scan.trial);
 	const [url, setUrl] = useState<string>(storeUrl);
 	const [errorStatus, setErrorStatus] = useState<string>();
 	const dispatch = useDispatch();
 
 	const [triggerTrialScan] = useLazyTrialScanQuery();
 	const { data, error } = trialScanApi.endpoints.trialScan.useQueryState({
-		url: storeUrl,
+		target: storeUrl,
 	});
 	const { error: responseError, isScanning } = { ...data };
 
@@ -44,7 +44,7 @@ const ScanField = (props: TScanFieldProps) => {
 		dispatch(trialScanApi.util.resetApiState());
 
 		triggerTrialScan({
-			url,
+			target: url,
 		});
 	};
 

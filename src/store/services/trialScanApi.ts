@@ -48,12 +48,12 @@ const trialScanApi = createApi({
 				});
 				dispatch(
 					setTrial({
-						url: arg.url,
+						target: arg.target,
 					}),
 				);
 			},
 			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
-				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg.url}`));
+				const eventSource = new EventSource(urlJoin(_URL, `trial?url=${arg.target}`));
 				let id: TZapSpiderTrialResultsGETRequest["scanId"];
 				try {
 					await cacheDataLoaded;

@@ -3,7 +3,7 @@ import { TScanSession, TTargetModel } from "../../utils/types";
 import authScanApi from "../services/authScanApi";
 
 export type TScanState = {
-	trial: Pick<TScanSession, "url">;
+	trial: Pick<TTargetModel, "target">;
 	authed: {
 		listSpiderTargetId: TTargetModel["_id"][];
 	};
@@ -11,7 +11,7 @@ export type TScanState = {
 
 const initialState: TScanState = {
 	trial: {
-		url: "",
+		target: "",
 	},
 	authed: {
 		listSpiderTargetId: [],
@@ -23,20 +23,15 @@ const scanSlice = createSlice({
 	initialState,
 	reducers: {
 		setTrial: ({ trial }, action: PayloadAction<TScanState["trial"]>) => {
-			trial.url = action.payload.url;
+			trial.target = action.payload.target;
 		},
 		cleanTrial: ({ trial }) => {
 			trial = {
-				url: "",
+				target: "",
 			};
 		},
 	},
-	extraReducers: (builder) => {
-		builder.addMatcher(authScanApi.endpoints.spiderScan.matchFulfilled, ({ authed: { listSpiderTargetId } }, action) => {
-			console.log("authScanApi.endpoints.spiderScan.matchFulfilled");
-			console.log(action);
-		});
-	},
+	extraReducers: (builder) => {},
 });
 
 export default scanSlice;

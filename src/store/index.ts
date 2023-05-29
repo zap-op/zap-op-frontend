@@ -14,7 +14,7 @@ import authApi from "./services/authApi";
 import trialScanApi from "./services/trialScanApi";
 import authScanApi from "./services/authScanApi";
 import targetApi from "./services/targetApi";
-import scanSessionApi from "./services/scanSession";
+import scanSessionApi from "./services/scanSessionApi";
 
 const reducers = {
 	auth: authSlice.reducer,
@@ -57,7 +57,7 @@ export * from "./services/authApi";
 export * from "./services/trialScanApi";
 export * from "./services/authScanApi";
 export * from "./services/targetApi";
-export * from "./services/scanSession";
+export * from "./services/scanSessionApi";
 export {
 	authApi, //
 	trialScanApi,

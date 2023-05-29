@@ -7,9 +7,9 @@ import { useSelector, trialScanApi } from "../../store";
 import { useEffect, useState } from "react";
 
 const HomePage = () => {
-	const { url } = useSelector((state) => state.scan.trial);
+	const { target } = useSelector((state) => state.scan.trial);
 	const { data } = trialScanApi.endpoints.trialScan.useQueryState({
-		url,
+		target,
 	});
 	const {
 		data: _data,
