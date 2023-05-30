@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ScanType } from "../../utils/settings";
+import { ScanType } from "../../utils/types";
 import { TTargetModel } from "../../utils/types";
 
 type TSelectedTarget = Pick<TTargetModel, "_id" | "name">;

@@ -1,9 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import { ScanType } from "../utils/settings";
-import { TStatusResponse } from "../utils/types";
-import { _assertCast, isFetchBaseQueryErrorType } from "../utils/helpers";
+import { _assertCast } from "../utils/helpers";
+import { ScanType } from "../utils/types";
 import {
 	useSelector, //
 	clearScanOption,
