@@ -7,6 +7,7 @@ import {
 	clearSelectTarget,
 	useSpiderScanMutation,
 	useDispatch,
+	useAjaxScanMutation,
 } from "../store";
 
 export const useDigestTargetsWithOptions = () => {
@@ -14,6 +15,7 @@ export const useDigestTargetsWithOptions = () => {
 	const { listSelectedTarget, listSelectedScanOption } = useSelector((state) => state.target);
 
 	const [spiderScan] = useSpiderScanMutation();
+	const [ajaxScan] = useAjaxScanMutation();
 
 	const digest = async () => {
 		if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
@@ -39,6 +41,15 @@ export const useDigestTargetsWithOptions = () => {
 							});
 						break;
 					case ScanType.ZAP_AJAX:
+						ajaxScan({
+							_id: target._id,
+							scanConfig: {},
+						})
+							.unwrap()
+							.catch((error) => {
+								const msg = error.data.msg;
+								toast.error(`Fail to start ${target.name} spider with ${msg}`);
+							});
 						break;
 					case ScanType.ZAP_ACTIVE:
 						break;

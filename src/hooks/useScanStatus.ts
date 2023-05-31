@@ -1,4 +1,4 @@
-import { useStreamSpiderScanQuery } from "../store";
+import { useStreamAjaxScanQuery, useStreamSpiderScanQuery } from "../store";
 import {
 	ScanType, //
 	TAuthScanSession,
@@ -17,18 +17,29 @@ export const useScanStatus = (
 	| undefined => {
 	switch (scanType) {
 		case ScanType.ZAP_SPIDER:
-			const { data } = useStreamSpiderScanQuery(arg);
+			const { data: spiderData } = useStreamSpiderScanQuery(arg);
 			return {
-				progress: data ? data.progress : 0,
-				isScanning: data ? data.isScanning : false,
-				error: data
-					? data.error
+				progress: spiderData ? spiderData.progress : 0,
+				isScanning: spiderData ? spiderData.isScanning : false,
+				error: spiderData
+					? spiderData.error
 					: {
 							statusCode: NaN,
 							msg: "",
 					  },
 			};
-
+		case ScanType.ZAP_AJAX:
+			const { data: ajaxData } = useStreamAjaxScanQuery(arg);
+			return {
+				progress: ajaxData ? ajaxData.progress : 0,
+				isScanning: ajaxData ? ajaxData.isScanning : false,
+				error: ajaxData
+					? ajaxData.error
+					: {
+							statusCode: NaN,
+							msg: "",
+					  },
+			};
 		default:
 			return undefined;
 	}

@@ -7,7 +7,7 @@ import {
 	ScanState,
 	TMgmtScanSessionsResponse,
 } from "../../../utils/types";
-import { useEffect } from "react";
+import { useMemo } from "react";
 
 type TResultsTableProps = {
 	listScanResult: TMgmtScanSessionsResponse;
@@ -89,12 +89,6 @@ const ItemRow = ({
 		type,
 	);
 
-	const {
-		progress, //
-		isScanning,
-		error,
-	} = { ...scanStatus };
-
 	return (
 		<div className="trow-container">
 			<ul className="trow">
@@ -102,7 +96,7 @@ const ItemRow = ({
 				<li className="target">{url}</li>
 				<li className="type">{type}</li>
 				<li className="state">{state}</li>
-				<li className="progress">{progress ? progress : ""}</li>
+				<li className="progress">{scanStatus && scanStatus.progress}</li>
 				<li className="first-seen">{displayCreateAt}</li>
 				<li className="last-seen">{displayUpdateAt}</li>
 			</ul>
