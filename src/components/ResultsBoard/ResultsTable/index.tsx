@@ -59,7 +59,7 @@ export default ResultsTable;
 
 type TItemRow = {
 	id: TObject["_id"];
-	scanId: number;
+	scanId: string;
 	name: string;
 	url: string;
 	type: ScanType;
