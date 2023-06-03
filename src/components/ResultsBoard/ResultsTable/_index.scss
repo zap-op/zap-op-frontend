@@ -16,28 +16,38 @@ div.results-table-container {
                 display: inherit;
                 justify-content: center;
                 margin: 0.5rem;
-
-                &.dropdown {
-                    flex: 0.25 0 0px;
-                }
+                text-align: center;
 
                 &.name {
-                    flex: 4 0 0px;
+                    flex: 3 0 0px;
                     justify-content: left;
                 }
 
                 &.target {
-                    flex: 5 0 0px;
+                    flex: 3 0 0px;
                     justify-content: left;
                 }
 
-                &.scan-types {
+                &.type {
                     flex: 3 0 0px;
                 }
 
-                &.action {
+                &.state {
                     flex: 1 0 0px;
                 }
+
+                &.progress {
+                    flex: 1 0 0px;
+                }
+
+                &.first-seen {
+                    flex: 1 0 0px;
+                }
+
+                &.last-seen {
+                    flex: 1 0 0px;
+                }
+
             }
         }
 
@@ -56,131 +66,6 @@ div.results-table-container {
 
                     &:hover {
                         background-color: $blue-color-6;
-                    }
-
-                    li.dropdown {
-                        $arrow-button-size: 0.5rem;
-
-                        label.dropdown-button {
-                            border-radius: 50%;
-                            height: 0;
-                            margin: auto 0;
-                            padding: 1.75 * $arrow-button-size;
-                            position: relative;
-                            width: 0;
-
-                            input.checkbox-input {
-                                align-items: center;
-                                bottom: 0;
-                                left: 0;
-                                margin: auto;
-                                position: absolute;
-                                right: 0;
-                                top: 0;
-                                width: 0;
-
-                                &:checked+div.arrow {
-                                    transform: rotate(135deg);
-                                }
-                            }
-
-                            div.arrow {
-                                border-color: black;
-                                border-right-style: solid;
-                                border-right-width: 0.2 * $arrow-button-size;
-                                border-top-style: solid;
-                                border-top-width: 0.2 * $arrow-button-size;
-                                bottom: 0;
-                                height: $arrow-button-size;
-                                left: 0;
-                                margin: auto;
-                                position: absolute;
-                                right: 0;
-                                top: 0;
-                                transform: rotate(45deg);
-                                transition: border-width 200ms ease-in-out;
-                                transition: transform 400ms ease-in-out;
-                                width: $arrow-button-size;
-                            }
-
-                            &:hover div.arrow {
-                                border-right-width: 0.3 * $arrow-button-size;
-                                border-top-width: 0.3 * $arrow-button-size;
-                            }
-
-
-                        }
-
-                    }
-
-                    li.scan-types {
-                        flex-wrap: wrap;
-
-                        span.scan-type-item {
-                            &:not(:last-child)::after {
-                                content: ",";
-                                margin-right: 0.25rem;
-                            }
-                        }
-                    }
-                }
-
-                div.sub-trow-container {
-                    color: $black-color-3;
-                    max-height: 0;
-                    opacity: 0;
-                    overflow: hidden;
-                    transition: max-height 300ms ease-in-out,
-                        opacity 500ms ease-in-out;
-
-                    &.is-opening {
-                        max-height: 11rem;
-                        opacity: 1;
-                    }
-
-                    div.sub-trow-wrap {
-                        border-bottom: 8px solid $black-color-6;
-                        border-bottom-left-radius: 10px;
-                        border-bottom-right-radius: 10px;
-                        border-left: 8px solid $black-color-6;
-                        border-right: 8px solid $black-color-6;
-                        margin-left: 3rem;
-                        margin-right: 1rem;
-
-                        ul.sub-trow {
-
-                            &:not(:last-child) {
-                                border-bottom: 1px solid $black-color-5;
-                            }
-
-                            &:hover {
-                                background-color: $black-color-7;
-                            }
-
-                            li {
-                                flex: 1 0 0px;
-                            }
-
-                            li.scan-type-name {}
-
-                            li.state {}
-
-                            li.progress {}
-
-                            li.result-types {
-                                span.result-type-item {
-                                    color: $black-color-3;
-                                    font-weight: 600;
-                                    margin: 0 0.125rem;
-
-                                    &:hover {
-                                        color: $black-color-2;
-                                    }
-                                }
-                            }
-
-                            li.created-since {}
-                        }
                     }
                 }
             }

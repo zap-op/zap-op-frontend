@@ -1,15 +1,8 @@
-export const TARGET_TAG = "TARGET"
-export const TRIAL_SCAN_TAG = "TRIAL_SCAN"
+import { ScanType } from "./types";
 
-// SCAN
-export enum ScanType {
-	NMAP_TCP = "nmap-tcp",
-	NMAP_UDP = "nmap-udp",
-	ZAP_SPIDER = "zap-spider",
-	ZAP_AJAX = "zap-ajax",
-	ZAP_ACTIVE = "zap-active",
-	ZAP_PASSIVE = "zap-passive",
-}
+export const SCAN_SESSION_TAG = "SCAN_SESSION";
+export const TARGET_TAG = "TARGET";
+export const TRIAL_SCAN_TAG = "TRIAL_SCAN";
 
 export type TScanOption = {
 	id: ScanType;

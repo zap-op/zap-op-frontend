@@ -1,15 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import { ScanType } from "../utils/settings";
-import { TStatusResponse } from "../utils/types";
-import { _assertCast, isFetchBaseQueryErrorType } from "../utils/helpers";
+import { _assertCast, getScanOptionTitleByID } from "../utils/helpers";
+import { ScanType } from "../utils/types";
 import {
 	useSelector, //
 	clearScanOption,
 	clearSelectTarget,
 	useSpiderScanMutation,
 	useDispatch,
+	useAjaxScanMutation,
 } from "../store";
 
 export const useDigestTargetsWithOptions = () => {
@@ -17,6 +15,7 @@ export const useDigestTargetsWithOptions = () => {
 	const { listSelectedTarget, listSelectedScanOption } = useSelector((state) => state.target);
 
 	const [spiderScan] = useSpiderScanMutation();
+	const [ajaxScan] = useAjaxScanMutation();
 
 	const digest = async () => {
 		if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
@@ -24,24 +23,45 @@ export const useDigestTargetsWithOptions = () => {
 			return;
 		}
 		listSelectedTarget.forEach((target) => {
-			listSelectedScanOption.forEach((optionItem) => {
-				switch (optionItem) {
+			listSelectedScanOption.forEach(async (scanType) => {
+				const optionName = getScanOptionTitleByID(scanType);
+				const toastId = toast.loading(`Initializing ${optionName} for ${target.name}`);
+				switch (scanType) {
 					case ScanType.NMAP_TCP:
 						break;
 					case ScanType.NMAP_UDP:
 						break;
 					case ScanType.ZAP_SPIDER:
-						spiderScan({
+						await spiderScan({
 							_id: target._id,
 							scanConfig: {},
 						})
 							.unwrap()
 							.catch((error) => {
 								const msg = error.data.msg;
-								toast.error(`Fail to start ${target.name} spider with ${msg}`);
+								toast.error(`Fail to initialize ${optionName} for ${target.name} with ${msg}`, {
+									id: toastId,
+								});
 							});
-						break;
+						toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+							id: toastId,
+						});
+						return;
 					case ScanType.ZAP_AJAX:
+						await ajaxScan({
+							_id: target._id,
+							scanConfig: {},
+						})
+							.unwrap()
+							.catch((error) => {
+								const msg = error.data.msg;
+								toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${msg}`, {
+									id: toastId,
+								});
+							});
+						toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+							id: toastId,
+						});
 						break;
 					case ScanType.ZAP_ACTIVE:
 						break;
