@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast";
-import { _assertCast } from "../utils/helpers";
+import { _assertCast, getScanOptionTitleByID } from "../utils/helpers";
 import { ScanType } from "../utils/types";
 import {
 	useSelector, //
@@ -23,33 +23,45 @@ export const useDigestTargetsWithOptions = () => {
 			return;
 		}
 		listSelectedTarget.forEach((target) => {
-			listSelectedScanOption.forEach((optionItem) => {
-				switch (optionItem) {
+			listSelectedScanOption.forEach(async (scanType) => {
+				const optionName = getScanOptionTitleByID(scanType);
+				const toastId = toast.loading(`Initializing ${optionName} for ${target.name}`);
+				switch (scanType) {
 					case ScanType.NMAP_TCP:
 						break;
 					case ScanType.NMAP_UDP:
 						break;
 					case ScanType.ZAP_SPIDER:
-						spiderScan({
+						await spiderScan({
 							_id: target._id,
 							scanConfig: {},
 						})
 							.unwrap()
 							.catch((error) => {
 								const msg = error.data.msg;
-								toast.error(`Fail to start ${target.name} spider with ${msg}`);
+								toast.error(`Fail to initialize ${optionName} for ${target.name} with ${msg}`, {
+									id: toastId,
+								});
 							});
-						break;
+						toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+							id: toastId,
+						});
+						return;
 					case ScanType.ZAP_AJAX:
-						ajaxScan({
+						await ajaxScan({
 							_id: target._id,
 							scanConfig: {},
 						})
 							.unwrap()
 							.catch((error) => {
 								const msg = error.data.msg;
-								toast.error(`Fail to start ${target.name} spider with ${msg}`);
+								toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${msg}`, {
+									id: toastId,
+								});
 							});
+						toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+							id: toastId,
+						});
 						break;
 					case ScanType.ZAP_ACTIVE:
 						break;

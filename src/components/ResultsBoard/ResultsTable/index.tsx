@@ -81,14 +81,56 @@ const ItemRow = ({
 	const displayCreateAt = moment(createdAt).fromNow();
 	const displayUpdateAt = moment(updatedAt).fromNow();
 
-	const scanStatus = useScanStatus(
-		{
-			scanSession: id,
-			scanId,
-		},
-		type,
-	);
-
+	if (state === ScanState.PROCESSING) {
+		let scanStatus = undefined;
+		switch (type) {
+			case ScanType.ZAP_SPIDER:
+				scanStatus = useScanStatus<ScanType.ZAP_SPIDER>(
+					{
+						scanSession: id,
+						scanId,
+					},
+					type,
+				);
+				return (
+					<div className="trow-container">
+						<ul className="trow">
+							<li className="name">{name}</li>
+							<li className="target">{url}</li>
+							<li className="type">{type}</li>
+							<li className="state">{state}</li>
+							<li className="progress">{scanStatus && scanStatus.progress}</li>
+							<li className="first-seen">{displayCreateAt}</li>
+							<li className="last-seen">{displayUpdateAt}</li>
+						</ul>
+					</div>
+				);
+			case ScanType.ZAP_AJAX:
+				scanStatus = useScanStatus<ScanType.ZAP_AJAX>(
+					{
+						scanSession: id,
+						scanId,
+					},
+					type,
+				);
+				scanStatus.progress;
+				return (
+					<div className="trow-container">
+						<ul className="trow">
+							<li className="name">{name}</li>
+							<li className="target">{url}</li>
+							<li className="type">{type}</li>
+							<li className="state">{state}</li>
+							<li className="progress">{scanStatus && scanStatus.progress}</li>
+							<li className="first-seen">{displayCreateAt}</li>
+							<li className="last-seen">{displayUpdateAt}</li>
+						</ul>
+					</div>
+				);
+			default:
+				return <></>;
+		}
+	}
 	return (
 		<div className="trow-container">
 			<ul className="trow">
@@ -96,7 +138,7 @@ const ItemRow = ({
 				<li className="target">{url}</li>
 				<li className="type">{type}</li>
 				<li className="state">{state}</li>
-				<li className="progress">{scanStatus && scanStatus.progress}</li>
+				<li className="progress"></li>
 				<li className="first-seen">{displayCreateAt}</li>
 				<li className="last-seen">{displayUpdateAt}</li>
 			</ul>

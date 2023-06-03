@@ -14,6 +14,7 @@ import {
 	TZapSpiderRequest,
 	TZapSpiderResponse,
 	TZapSpiderResultsGETResponse,
+	TZapAjaxGETResponse,
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
@@ -137,7 +138,7 @@ const authScanApi = createApi({
 				return {
 					data: {
 						isScanning: true,
-						progress: 0,
+						progress: "initializing",
 						data: [],
 						error: {
 							statusCode: NaN,
@@ -147,14 +148,13 @@ const authScanApi = createApi({
 				};
 			},
 			async onCacheEntryAdded({ scanSession, scanId }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+				await cacheDataLoaded;
 				const eventSource = new EventSource(urlJoin(_URL, `ajax?scanSession=${scanSession}&zapClientId=${scanId}`), {
 					withCredentials: true,
 				});
 				try {
-					await cacheDataLoaded;
 					eventSource.addEventListener("status", (event: MessageEvent) => {
-						const status = JSON.parse(event.data).status * 1;
-
+						const status:TZapAjaxGETResponse["progress"] = JSON.parse(event.data).status;
 						updateCachedData((draft) => {
 							draft.progress = status;
 						});
@@ -172,7 +172,7 @@ const authScanApi = createApi({
 						// 	})
 						// 	.catch((error) => console.log(error));
 
-						if (status === 100) {
+						if (status === "stopped") {
 							eventSource.close();
 							updateCachedData((draft) => {
 								draft.isScanning = false;

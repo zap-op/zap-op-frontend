@@ -1,20 +1,18 @@
 import { useStreamAjaxScanQuery, useStreamSpiderScanQuery } from "../store";
 import {
-	ScanType, //
+	TGET, //
+	ScanType,
 	TAuthScanSession,
-	TStatusResponse,
+	TZapAjaxResponse,
+	TZapSpiderResponse,
 } from "../utils/types";
 
-export const useScanStatus = (
-	arg: TAuthScanSession,
-	scanType: ScanType,
-):
-	| {
-			progress: number;
-			isScanning: boolean;
-			error: TStatusResponse;
-	  }
-	| undefined => {
+export type TUseScanStatus = undefined;
+
+function useScanStatus<T extends ScanType.ZAP_SPIDER>(arg: TAuthScanSession, scanType: ScanType.ZAP_SPIDER): TZapSpiderResponse<TGET>;
+function useScanStatus<T extends ScanType.ZAP_AJAX>(arg: TAuthScanSession, scanType: ScanType.ZAP_AJAX): TZapAjaxResponse<TGET>;
+function useScanStatus<T extends Exclude<ScanType, ScanType.ZAP_SPIDER | ScanType.ZAP_AJAX>>(arg: TAuthScanSession, scanType: ScanType): undefined;
+function useScanStatus(arg: TAuthScanSession, scanType: ScanType) {
 	switch (scanType) {
 		case ScanType.ZAP_SPIDER:
 			const { data: spiderData } = useStreamSpiderScanQuery(arg);
@@ -31,7 +29,7 @@ export const useScanStatus = (
 		case ScanType.ZAP_AJAX:
 			const { data: ajaxData } = useStreamAjaxScanQuery(arg);
 			return {
-				progress: ajaxData ? ajaxData.progress : 0,
+				progress: ajaxData ? ajaxData.progress : "initializing",
 				isScanning: ajaxData ? ajaxData.isScanning : false,
 				error: ajaxData
 					? ajaxData.error
@@ -43,4 +41,5 @@ export const useScanStatus = (
 		default:
 			return undefined;
 	}
-};
+}
+export { useScanStatus };
