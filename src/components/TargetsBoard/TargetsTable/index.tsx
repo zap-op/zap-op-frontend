@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { TStatusResponse, TTargetModel } from "../../../utils/types";
 import { useMoveToTrashTargetMutation } from "../../../store";
+import moment from "moment";
 
 type TTargetsTable = {
 	listTarget: TItemRow[];
@@ -47,8 +48,8 @@ const ItemRow = ({
 	createdAt,
 	updatedAt,
 }: TItemRow) => {
-	const displayCreateAt = useMemo(() => new Date(createdAt).toLocaleDateString(), [createdAt]);
-	const displayUpdateAt = useMemo(() => new Date(updatedAt).toLocaleDateString(), [updatedAt]);
+	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
+	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
 	const newScanOption: TOptionItem = {
 		name: "New scan",

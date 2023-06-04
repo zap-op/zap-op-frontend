@@ -7,6 +7,7 @@ import {
 	ScanState,
 	TMgmtScanSessionsResponse,
 } from "../../../utils/types";
+import { useMemo } from "react";
 
 type TResultsTableProps = {
 	listScanResult: TMgmtScanSessionsResponse;
@@ -77,8 +78,8 @@ const ItemRow = ({
 	updatedAt,
 	state,
 }: TItemRow) => {
-	const displayCreateAt = moment(createdAt).fromNow();
-	const displayUpdateAt = moment(updatedAt).fromNow();
+	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
+	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
 	if (state === ScanState.PROCESSING) {
 		let scanStatus = undefined;
