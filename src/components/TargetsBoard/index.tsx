@@ -63,7 +63,11 @@ const TargetsBoard = () => {
 
 	const handleAddTarget = () => {
 		location.state = null;
-		modalContext?.setModalComponent(<AddTargetsModal />);
+		modalContext?.setModalComponent(
+			<ModalContext.Provider value={modalContext}>
+				<AddTargetsModal />
+			</ModalContext.Provider>,
+		);
 		modalContext?.handleOpenModal(true);
 	};
 
