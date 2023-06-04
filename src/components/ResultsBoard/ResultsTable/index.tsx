@@ -7,7 +7,6 @@ import {
 	ScanState,
 	TMgmtScanSessionsResponse,
 } from "../../../utils/types";
-import { useMemo } from "react";
 
 type TResultsTableProps = {
 	listScanResult: TMgmtScanSessionsResponse;
