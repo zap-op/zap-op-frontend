@@ -1,6 +1,13 @@
 import { PropsWithChildren } from "react";
-import TABLEROW_SelectTarget, { TSelectTargetItem } from "./tr-select-target";
-import { useSelector } from "../../../../store";
+import { ChangeEvent } from "react";
+import { TTargetModel } from "../../../../utils/types";
+import { TInput } from "../../../../utils/componentGenericTypes";
+import {
+	useSelector, //
+	useDispatch,
+	addSelectTarget,
+	removeSelectTarget,
+} from "../../../../store";
 
 type TSelectTargetTableProps = {
 	listChild: TSelectTargetItem[];
@@ -24,10 +31,10 @@ const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTablePr
 					{listChild.map((item) => {
 						const id = item._id.toString();
 						return (
-							<TABLEROW_SelectTarget
+							<ItemRow
 								{...item}
 								key={id}
-								defaultChecked={listSelectedTarget.some(browsItem => browsItem._id == item._id)}
+								defaultChecked={listSelectedTarget.some((browsItem) => browsItem._id == item._id)}
 								id={id}
 							/>
 						);
@@ -39,3 +46,61 @@ const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTablePr
 };
 
 export default SelectTargetTable;
+
+type TSelectTargetItem = Pick<TTargetModel, "_id" | "name" | "target" | "tag">;
+
+type TItemRow = TSelectTargetItem &
+	TInput & {
+		defaultChecked: boolean;
+	};
+
+const ItemRow = ({ _id, id, name, target, tag, defaultChecked }: TItemRow) => {
+	const dispatch = useDispatch();
+
+	const handleCheckBoxOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+		if (event.target.checked) {
+			dispatch(
+				addSelectTarget({
+					_id,
+					name,
+				}),
+			);
+			return;
+		}
+		dispatch(
+			removeSelectTarget({
+				_id,
+				name,
+			}),
+		);
+	};
+
+	return (
+		<ul className="trow">
+			<label htmlFor={id}>
+				<li className="selected">
+					<div className="selection-container">
+						<input
+							className="target-selector"
+							type="checkbox"
+							name="select-row"
+							id={id}
+							defaultChecked={defaultChecked}
+							onChange={handleCheckBoxOnChange}
+						/>
+					</div>
+				</li>
+				<li className="name">{name}</li>
+				<li className="target">
+					<a
+						href={target}
+						target="_blank"
+						rel="noopener noreferrer">
+						{target}
+					</a>
+				</li>
+				<li className="tag">{tag}</li>
+			</label>
+		</ul>
+	);
+};

@@ -93,7 +93,14 @@ const ItemRow = ({
 	return (
 		<ul className="trow">
 			<li className="name">{name}</li>
-			<li className="target">{target}</li>
+			<li className="target">
+				<a
+					href={target}
+					target="_blank"
+					rel="noopener noreferrer">
+					{target}
+				</a>
+			</li>
 			<li className="tag">{tag}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>

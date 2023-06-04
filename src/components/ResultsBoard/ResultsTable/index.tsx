@@ -96,7 +96,14 @@ const ItemRow = ({
 					<div className="trow-container">
 						<ul className="trow">
 							<li className="name">{name}</li>
-							<li className="target">{url}</li>
+							<li className="target">
+								<a
+									href={url}
+									target="_blank"
+									rel="noopener noreferrer">
+									{url}
+								</a>
+							</li>
 							<li className="type">{type}</li>
 							<li className="state">{state}</li>
 							<li className="progress">{scanStatus && scanStatus.progress}</li>
@@ -118,7 +125,14 @@ const ItemRow = ({
 					<div className="trow-container">
 						<ul className="trow">
 							<li className="name">{name}</li>
-							<li className="target">{url}</li>
+							<li className="target">
+								<a
+									href={url}
+									target="_blank"
+									rel="noopener noreferrer">
+									{url}
+								</a>
+							</li>
 							<li className="type">{type}</li>
 							<li className="state">{state}</li>
 							<li className="progress">{scanStatus && scanStatus.progress}</li>
@@ -135,7 +149,14 @@ const ItemRow = ({
 		<div className="trow-container">
 			<ul className="trow">
 				<li className="name">{name}</li>
-				<li className="target">{url}</li>
+				<li className="target">
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</li>
 				<li className="type">{type}</li>
 				<li className="state">{state}</li>
 				<li className="progress"></li>
