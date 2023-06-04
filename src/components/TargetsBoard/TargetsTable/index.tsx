@@ -24,7 +24,10 @@ const TargetsTable = ({ listTarget }: TTargetsTable) => {
 				</div>
 				<div className="table-body-container">
 					{listTarget?.map((item) => (
-						<ItemRow {...item} />
+						<ItemRow
+							{...item}
+							key={item._id.toString()}
+						/>
 					))}
 				</div>
 			</div>
