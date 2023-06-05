@@ -25,7 +25,7 @@ const targetSlice = createSlice({
 			listSelectedTarget.push(action.payload);
 		},
 		removeSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TSelectedTarget>) => {
-			const indexToRemove = listSelectedTarget.indexOf(action.payload);
+			const indexToRemove = listSelectedTarget.map(item => item._id).indexOf(action.payload._id);
 			if (indexToRemove !== -1) {
 				listSelectedTarget.splice(indexToRemove, 1);
 			}
