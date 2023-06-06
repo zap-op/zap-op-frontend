@@ -4,7 +4,7 @@ label.search-bar-container {
     background-color: $black-color-7;
     border: 2px solid;
     border-color: $black-color-5;
-    border-radius: 5px;
+    border-radius: $app-border-radius;
     cursor: text;
     display: flex;
     transition: border-color 300ms ease-in-out;

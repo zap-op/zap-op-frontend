@@ -1,1 +1,23 @@
 @use './TextField';
+@use './TagField';
+
+@use '../../style/variables' as *;
+
+div.field-container {
+
+    h4 {
+        color: $black-color-1;
+        font-size: 0.625rem;
+        margin: 0.5rem 0;
+
+        &.is-required::after {
+            color: $error-color;
+            content: "\002A";
+            margin: 0 0.125rem;
+        }
+    }
+
+    div.message {
+        margin: 0.25rem 0;
+    }
+}

@@ -4,6 +4,7 @@ import { ModalContext } from "../../toolkits/ModalPortal";
 import TextField from "../../Fields/TextField";
 import { useAddTargetMutation } from "../../../store";
 import { TStatusResponse, TTarget } from "../../../utils/types";
+import TagField from "../../Fields/TagField";
 
 type TStateModal = "ip" | "domain" | undefined;
 
@@ -164,6 +165,15 @@ const AddModal = ({ typeTarget }: TAddModal) => {
 						handleChangeValue={setTarget}
 						errorMessage="Target is required"
 						isDisplayErrorMessage={isDisplayErrorMessageTargetField}
+					/>
+				</div>
+				<div className="field-container tag-field">
+					<TagField
+						id="tag-field"
+						type="text"
+						title="Enter target tags"
+						placeHolder="Tags"
+						handleChangeValue={setTarget}
 					/>
 				</div>
 			</div>

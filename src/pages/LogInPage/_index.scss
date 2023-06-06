@@ -17,7 +17,7 @@ div.log-in-container {
 
     div.options-container {
         border: 1px solid black;
-        border-radius: 10px;
+        border-radius: $app-border-radius;
         display: inherit;
         flex-flow: column;
         padding: 1rem 2rem;

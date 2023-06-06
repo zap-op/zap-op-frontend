@@ -1,0 +1,84 @@
+@use '../../../style/variables' as *;
+
+div.field-container label.tag-field-container {
+    ul {
+        background-color: $black-color-5;
+        border-radius: $app-border-radius;
+        border-style: none;
+        color: $black-blue-color-1;
+        cursor: text;
+        display: flex;
+        flex-wrap: wrap;
+        transition: box-shadow 150ms ease-in-out;
+        width: 15rem;
+
+        &:hover {
+            box-shadow:
+                rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+                rgb(209, 213, 219) 0px 0px 0px 1px inset;
+        }
+
+        &:focus-within {
+            box-shadow: $blue-color-6 0px 0px 0px 3px;
+            outline: none;
+        }
+
+        li {
+            background-color: white;
+            border-radius: $app-border-radius;
+            list-style: none;
+            margin: 0.125rem;
+            padding: 0.25rem 0.5rem;
+            padding-right: 1.5rem;
+            position: relative;
+
+            $close-button-size: 0.375rem;
+
+            i.close-button {
+                background-color: $black-color-4;
+                border-radius: 50%;
+                cursor: pointer;
+                display: block;
+                padding: $close-button-size;
+                position: absolute;
+                right: 0.25rem;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: background-color 200ms ease-in-out;
+
+                &::before,
+                &::after {
+                    background-color: $black-color-7;
+                    content: "";
+                    height: calc($close-button-size / 6);
+                    position: absolute;
+                    width: $close-button-size;
+                }
+
+                &::before {
+                    transform: translate(-50%, -50%) rotate(45deg);
+                }
+
+                &::after {
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }
+
+                &:hover,
+                &:focus {
+                    background-color: $black-color-3;
+                }
+            }
+
+        }
+
+        input {
+            background-color: $black-color-5;
+            border-radius: 0;
+            border-style: none;
+            border-width: 0;
+            flex: 1;
+            outline: none;
+            padding: 0;
+        }
+    }
+}

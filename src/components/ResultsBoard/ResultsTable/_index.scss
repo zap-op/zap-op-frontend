@@ -61,7 +61,7 @@ div.results-table-container {
 
                 ul.trow {
                     background-color: $blue-color-7;
-                    border-radius: 5px;
+                    border-radius: $app-border-radius;
                     transition: background-color 200ms ease-in-out;
 
                     &:hover {

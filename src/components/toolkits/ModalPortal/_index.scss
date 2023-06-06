@@ -15,7 +15,7 @@ div.modal-portal-container {
 
         div.modal-inner {
             background-color: $black-color-7;
-            border-radius: 10px;
+            border-radius: $app-border-radius;
             left: 50%;
             padding: 2rem;
             position: fixed;
