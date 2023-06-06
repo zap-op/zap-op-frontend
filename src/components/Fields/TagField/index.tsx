@@ -1,11 +1,23 @@
-import { Dispatch, HTMLInputTypeAttribute, useEffect, useRef } from "react";
+import {
+	useRef, //
+	Dispatch,
+	KeyboardEvent,
+	PropsWithChildren,
+	HTMLInputTypeAttribute,
+} from "react";
+
+type TTag = string;
+
+type TListTag = TTag[];
 
 type TTagFieldProps = {
 	id: string;
 	title?: string;
 	placeHolder?: string;
+	listSubmitTag: TListTag;
+	listDataTag: TListTag;
 	type: HTMLInputTypeAttribute;
-	handleChangeValue: Dispatch<React.SetStateAction<any | undefined>>;
+	handleChangeValue: Dispatch<React.SetStateAction<TListTag>>;
 };
 
 const TagField = ({
@@ -13,29 +25,58 @@ const TagField = ({
 	type,
 	title,
 	placeHolder,
+	listSubmitTag,
+	listDataTag,
 	handleChangeValue,
 }: TTagFieldProps) => {
+	const ref_input = useRef<HTMLInputElement>(null);
+
+	const handleAddTag = (tag: TTag) => {
+		if (!listSubmitTag.includes(tag)) {
+			handleChangeValue([...listSubmitTag, tag]);
+		}
+	};
+
+	const handleAddTagOnEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === "Enter" && ref_input.current && ref_input.current.value.length !== 0) {
+			handleAddTag(ref_input.current.value);
+			ref_input.current.value = "";
+		}
+	};
+
+	const handleRemoveTag = (tag: TTag) => {
+		handleChangeValue((prev) => {
+			const indexToRemove = prev.indexOf(tag);
+			if (indexToRemove !== -1) {
+				return prev.splice(indexToRemove, 1);
+			}
+			return prev;
+		});
+	};
+
 	return (
 		<div className="field-container">
 			{title && <h4>{title}</h4>}
 			<label
-				htmlFor={id}
+				htmlFor={`label-${id}`}
 				className="tag-field-container">
 				<ul className="input">
-					{/* <li>
-						1
-						<i className="close-button"></i>
-					</li> */}
+					{listSubmitTag.map((tag) => (
+						<TagItem handleRemoveSelf={() => handleRemoveTag(tag)}>{tag}</TagItem>
+					))}
 
 					<input
-						id={id}
+						ref={ref_input}
+						id={`label-${id}`}
 						type={type}
-						list="test"
+						list={`list-${id}`}
 						placeholder={placeHolder}
-						onChange={(event) => handleChangeValue(event.target.value)}
+						onKeyDown={handleAddTagOnEnter}
 					/>
-					<datalist id="test">
-						<option value={1} />
+					<datalist id={`list-${id}`}>
+						{listDataTag.map((tag) => (
+							<option value={tag} />
+						))}
 					</datalist>
 				</ul>
 			</label>
@@ -44,3 +85,21 @@ const TagField = ({
 };
 
 export default TagField;
+
+type TTagItem = {
+	handleRemoveSelf: () => void;
+};
+
+const TagItem = ({
+	children, //
+	handleRemoveSelf,
+}: PropsWithChildren<TTagItem>) => {
+	return (
+		<li>
+			{children}
+			<i
+				className="close-button"
+				onClick={handleRemoveSelf}></i>
+		</li>
+	);
+};

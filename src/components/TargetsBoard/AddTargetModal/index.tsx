@@ -88,6 +88,9 @@ const AddModal = ({ typeTarget }: TAddModal) => {
 	const addTargetsModalContext = useContext(AddTargetsModalContext);
 	const modalContext = useContext(ModalContext);
 
+	const [listSubmitTag, setListSubmitTag] = useState<string[]>([]);
+	const listDataTag: string[] = ["123", "234"];
+
 	const [nameTarget, setNameTarget] = useState<TTarget["name"]>();
 	const [isDisplayErrorMessageNameTargetField, setIsDisplayErrorMessageNameTargetField] = useState<boolean>();
 	const [target, setTarget] = useState<TTarget["target"]>();
@@ -173,7 +176,9 @@ const AddModal = ({ typeTarget }: TAddModal) => {
 						type="text"
 						title="Enter target tags"
 						placeHolder="Tags"
-						handleChangeValue={setTarget}
+						listDataTag={listDataTag}
+						listSubmitTag={listSubmitTag}
+						handleChangeValue={setListSubmitTag}
 					/>
 				</div>
 			</div>
