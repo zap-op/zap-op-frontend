@@ -15,6 +15,7 @@ import {
 	TZapSpiderResponse,
 	TZapSpiderResultsGETResponse,
 	TZapAjaxGETResponse,
+	ScanState,
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
@@ -32,12 +33,8 @@ const authScanApi = createApi({
 				method: "POST",
 				body: arg,
 			}),
-			onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-				await queryFulfilled;
-				dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
-			},
 		}),
-		streamSpiderScan: builder.query<TZapSpiderResponse<TGET>, TZapSpiderRequest<TGET>>({
+		streamSpiderScan: builder.query<TZapSpiderResponse<TGET>, TZapSpiderRequest<TGET> & { scanState: ScanState }>({
 			queryFn: (arg, {}) => {
 				if (!arg) {
 					return {
@@ -59,12 +56,15 @@ const authScanApi = createApi({
 					},
 				};
 			},
-			async onCacheEntryAdded({ scanSession, scanId }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+			async onCacheEntryAdded({ scanSession, scanId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
+				await cacheDataLoaded;
+				if (scanState !== ScanState.PROCESSING) {
+					return;
+				}
 				const eventSource = new EventSource(urlJoin(_URL, `spider?scanSession=${scanSession}&scanId=${scanId}`), {
 					withCredentials: true,
 				});
 				try {
-					await cacheDataLoaded;
 					eventSource.addEventListener("status", (event: MessageEvent) => {
 						const status = JSON.parse(event.data).status * 1;
 
@@ -90,6 +90,7 @@ const authScanApi = createApi({
 							updateCachedData((draft) => {
 								draft.isScanning = false;
 							});
+							dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 						}
 					});
 
@@ -120,12 +121,8 @@ const authScanApi = createApi({
 				method: "POST",
 				body: arg,
 			}),
-			onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-				await queryFulfilled;
-				dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
-			},
 		}),
-		streamAjaxScan: builder.query<TZapAjaxResponse<TGET>, TZapAjaxRequest<TGET>>({
+		streamAjaxScan: builder.query<TZapAjaxResponse<TGET>, TZapAjaxRequest<TGET> & { scanState: ScanState }>({
 			queryFn: (arg, {}) => {
 				if (!arg) {
 					return {
@@ -147,14 +144,17 @@ const authScanApi = createApi({
 					},
 				};
 			},
-			async onCacheEntryAdded({ scanSession, scanId }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+			async onCacheEntryAdded({ scanSession, scanId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
 				await cacheDataLoaded;
+				if (scanState !== ScanState.PROCESSING) {
+					return;
+				}
 				const eventSource = new EventSource(urlJoin(_URL, `ajax?scanSession=${scanSession}&zapClientId=${scanId}`), {
 					withCredentials: true,
 				});
 				try {
 					eventSource.addEventListener("status", (event: MessageEvent) => {
-						const status:TZapAjaxGETResponse["progress"] = JSON.parse(event.data).status;
+						const status: TZapAjaxGETResponse["progress"] = JSON.parse(event.data).status;
 						updateCachedData((draft) => {
 							draft.progress = status;
 						});
@@ -171,12 +171,12 @@ const authScanApi = createApi({
 						// 		});
 						// 	})
 						// 	.catch((error) => console.log(error));
-
 						if (status === "stopped") {
 							eventSource.close();
 							updateCachedData((draft) => {
 								draft.isScanning = false;
 							});
+							dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 						}
 					});
 

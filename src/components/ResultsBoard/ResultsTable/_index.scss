@@ -7,66 +7,65 @@ div.results-table-container {
     width: 100%;
 
     div.table-scroll-wrap {
-        ul {
-            display: flex;
-            flex-direction: row;
+        height: 90vh;
+    }
 
-            li {
-                align-items: center;
-                display: inherit;
-                justify-content: center;
-                margin: 0.5rem;
-                text-align: center;
+    ul {
+        display: flex;
+        flex-direction: row;
 
-                &.name {
-                    flex: 3 0 0px;
-                    justify-content: left;
-                }
+        li {
+            align-items: center;
+            display: inherit;
+            justify-content: center;
+            margin: 0.5rem;
+            text-align: center;
 
-                &.target {
-                    flex: 3 0 0px;
-                    justify-content: left;
-                }
+            &.name {
+                flex: 3 0 0px;
+                justify-content: left;
+            }
 
-                &.type {
-                    flex: 3 0 0px;
-                }
+            &.target {
+                flex: 3 0 0px;
+                justify-content: left;
+            }
 
-                &.state {
-                    flex: 1 0 0px;
-                }
+            &.type {
+                flex: 3 0 0px;
+            }
 
-                &.progress {
-                    flex: 1 0 0px;
-                }
+            &.state {
+                flex: 1 0 0px;
+            }
 
-                &.first-seen {
-                    flex: 1 0 0px;
-                }
+            &.progress {
+                flex: 1 0 0px;
+            }
 
-                &.last-seen {
-                    flex: 1 0 0px;
-                }
+            &.first-seen {
+                flex: 1 0 0px;
+            }
 
+            &.last-seen {
+                flex: 1 0 0px;
             }
         }
+    }
 
-        div.table-head-container {}
+    div.table-body-container {
+        color: $black-color-2;
 
-        div.table-body-container {
-            color: $black-color-2;
+        div.trow-container {
+            margin: 0.5rem 0;
 
-            div.trow-container {
-                margin: 0.5rem 0;
+            ul.trow {
+                background-color: $blue-color-7;
+                border-radius: $app-border-radius;
+                transition: background-color 200ms ease-in-out;
 
-                ul.trow {
-                    background-color: $blue-color-7;
-                    border-radius: $app-border-radius;
-                    transition: background-color 200ms ease-in-out;
-
-                    &:hover {
-                        background-color: $blue-color-6;
-                    }
+                &:hover {
+                    background-color: $blue-color-6;
                 }
             }
         }

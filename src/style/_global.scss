@@ -81,7 +81,7 @@ section {
 }
 
 div.table-scroll-wrap {
-    // overflow-y: auto;
+    overflow-y: auto;
 
     &::-webkit-scrollbar-track {
         border-radius: 10px;

@@ -8,7 +8,9 @@ import {
 	useSpiderScanMutation,
 	useDispatch,
 	useAjaxScanMutation,
+	scanSessionApi,
 } from "../store";
+import { SCAN_SESSION_TAG } from "../utils/settings";
 
 export const useDigestTargetsWithOptions = () => {
 	const dispatch = useDispatch();
@@ -37,15 +39,26 @@ export const useDigestTargetsWithOptions = () => {
 							scanConfig: {},
 						})
 							.unwrap()
+							.then((response) => {
+								if (response.statusCode > 0) {
+									toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+										id: toastId,
+									});
+								} else {
+									toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${response.msg}`, {
+										id: toastId,
+									});
+								}
+							})
 							.catch((error) => {
 								const msg = error.data.msg;
 								toast.error(`Fail to initialize ${optionName} for ${target.name} with ${msg}`, {
 									id: toastId,
 								});
+							})
+							.finally(() => {
+								dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 							});
-						toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
-							id: toastId,
-						});
 						return;
 					case ScanType.ZAP_AJAX:
 						await ajaxScan({
@@ -53,22 +66,33 @@ export const useDigestTargetsWithOptions = () => {
 							scanConfig: {},
 						})
 							.unwrap()
+							.then((response) => {
+								if (response.statusCode > 0) {
+									toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+										id: toastId,
+									});
+								} else {
+									toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${response.msg}`, {
+										id: toastId,
+									});
+								}
+							})
 							.catch((error) => {
 								const msg = error.data.msg;
 								toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${msg}`, {
 									id: toastId,
 								});
+							})
+							.finally(() => {
+								dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 							});
-						toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
-							id: toastId,
-						});
-						break;
+						return;
 					case ScanType.ZAP_ACTIVE:
-						break;
+						return;
 					case ScanType.ZAP_PASSIVE:
-						break;
+						return;
 					default:
-						break;
+						return;
 				}
 			});
 		});
