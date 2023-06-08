@@ -15,6 +15,7 @@ import {
 	TZapSpiderResponse,
 	TZapSpiderResultsGETResponse,
 	TZapAjaxGETResponse,
+	ScanState,
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
@@ -37,7 +38,7 @@ const authScanApi = createApi({
 				dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 			},
 		}),
-		streamSpiderScan: builder.query<TZapSpiderResponse<TGET>, TZapSpiderRequest<TGET>>({
+		streamSpiderScan: builder.query<TZapSpiderResponse<TGET>, TZapSpiderRequest<TGET> & { scanState: ScanState }>({
 			queryFn: (arg, {}) => {
 				if (!arg) {
 					return {
@@ -59,7 +60,7 @@ const authScanApi = createApi({
 					},
 				};
 			},
-			async onCacheEntryAdded({ scanSession, scanId }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+			async onCacheEntryAdded({ scanSession, scanId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
 				const eventSource = new EventSource(urlJoin(_URL, `spider?scanSession=${scanSession}&scanId=${scanId}`), {
 					withCredentials: true,
 				});
@@ -125,7 +126,7 @@ const authScanApi = createApi({
 				dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 			},
 		}),
-		streamAjaxScan: builder.query<TZapAjaxResponse<TGET>, TZapAjaxRequest<TGET>>({
+		streamAjaxScan: builder.query<TZapAjaxResponse<TGET>, TZapAjaxRequest<TGET> & { scanState: ScanState }>({
 			queryFn: (arg, {}) => {
 				if (!arg) {
 					return {
@@ -147,7 +148,7 @@ const authScanApi = createApi({
 					},
 				};
 			},
-			async onCacheEntryAdded({ scanSession, scanId }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+			async onCacheEntryAdded({ scanSession, scanId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
 				await cacheDataLoaded;
 				const eventSource = new EventSource(urlJoin(_URL, `ajax?scanSession=${scanSession}&zapClientId=${scanId}`), {
 					withCredentials: true,
