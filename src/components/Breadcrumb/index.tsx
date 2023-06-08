@@ -1,41 +1,64 @@
+import { useEffect, useState } from "react";
+import { Link, LinkProps, useLocation } from "react-router-dom";
+
 export type TBreadcrumbProps = {
-	listBeadcrumb: {
-		href: string;
-		name: string;
-	}[];
+	rootLink: TBreadcrumbCell;
 };
 
-const Breadcrumb = (props: TBreadcrumbProps) => {
+const Breadcrumb = ({ rootLink }: TBreadcrumbProps) => {
+	const location = useLocation();
+	const [listCellBreadcrumb, setListCellBreadcrumb] = useState<TBreadcrumbCell[]>([]);
+
+	useEffect(() => {
+		const listPathCell = location.pathname.split("/").splice(2);
+		const listBreadcrumbCell: TBreadcrumbCell[] = [rootLink].concat(
+			listPathCell.map((item) => ({
+				href: item,
+				name: item,
+			})),
+		);
+		listBreadcrumbCell.forEach((item, index, arr) => {
+			arr[index].href =
+				"../" +
+				arr
+					.slice(0, index + 1)
+					.map((item) => item.href)
+					.join("/");
+		});
+		setListCellBreadcrumb(listBreadcrumbCell);
+	}, [location]);
+
 	return (
 		<nav className="breadcrumb-container">
 			<ol className="list-breadcrumb">
-				{props.listBeadcrumb.map((item) => {
-					return (
-						<BreadcrumbCell
-							key={item.name}
-							href={item.href}
-							name={item.name}
-						/>
-					);
-				})}
+				{listCellBreadcrumb.map((item) => (
+					<BreadcrumbCell
+						key={item.name}
+						href={item.href}
+						name={item.name}
+					/>
+				))}
 			</ol>
 		</nav>
 	);
 };
 
-type TBreadcrumbCellProps = {
-	href: string;
+type TBreadcrumbCell = {
+	href: LinkProps["to"];
 	name: string;
 };
 
-const BreadcrumbCell = (props: TBreadcrumbCellProps) => {
+const BreadcrumbCell = ({
+	href, //
+	name,
+}: TBreadcrumbCell) => {
 	return (
 		<li className="breadcrumb-cell">
-			<a
+			<Link
 				className="breadcrumb-link"
-				href={props.href}>
-				<span className="breadcrumb-name">{props.name}</span>
-			</a>
+				to={href}>
+				<span className="breadcrumb-name">{name}</span>
+			</Link>
 		</li>
 	);
 };
