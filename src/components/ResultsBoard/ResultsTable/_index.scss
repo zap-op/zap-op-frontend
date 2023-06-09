@@ -57,16 +57,26 @@ div.results-table-container {
     div.table-body-container {
         color: $black-color-2;
 
-        div.trow-container {
-            margin: 0.5rem 0;
+        a {
+            color: unset;
+            text-decoration: none;
 
-            ul.trow {
-                background-color: $blue-color-7;
-                border-radius: $app-border-radius;
-                transition: background-color 200ms ease-in-out;
+            div.trow-container {
+                margin: 0.5rem 0;
 
-                &:hover {
-                    background-color: $blue-color-6;
+                ul.trow {
+                    background-color: $blue-color-7;
+                    border-radius: $app-border-radius;
+                    transition: background-color 200ms ease-in-out;
+
+                    &:hover {
+                        background-color: $blue-color-6;
+                    }
+
+                    li a {
+                        color: -webkit-link;
+                        text-decoration: underline;
+                    }
                 }
             }
         }

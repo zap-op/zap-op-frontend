@@ -1,22 +1,29 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+	Route, //
+	Routes,
+	Navigate,
+	BrowserRouter,
+} from "react-router-dom";
 
 import "./style/style.scss";
 
 import {
-	AppBoardPage, //
-	HomePage,
-	LandingWrap,
+	HomePage, //
 	LogInPage,
+	LandingWrap,
+	AppBoardPage,
 } from "./pages";
 import {
-	AddScanBoard,
-	AddScanBoardLinkState,
+	ToasterMgr, //
+	ModalPortal,
 	ModalContext,
-	ModalPortal, //
+	AddScanBoard,
 	ResultsBoard,
+	ResultsTable,
 	TargetsBoard,
-	ToasterMgr,
 	ToolkitPortal,
+	ResultsDetail,
+	AddScanBoardLinkState,
 } from "./components";
 
 import { useSelector } from "./store";
@@ -87,8 +94,16 @@ function App() {
 						/>
 						<Route
 							path="results"
-							element={<ResultsBoard />}
-						/>
+							element={<ResultsBoard />}>
+							<Route
+								index
+								element={<ResultsTable />}
+							/>
+							<Route
+								path=":resultId"
+								element={<ResultsDetail />}
+							/>
+						</Route>
 						<Route
 							path="addscan"
 							element={

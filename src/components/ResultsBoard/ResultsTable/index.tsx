@@ -5,19 +5,21 @@ import {
 	TObject, //
 	ScanType,
 	ScanState,
-	TMgmtScanSessionsResponse,
 } from "../../../utils/types";
 import {
-	useStreamAjaxScanQuery, //
+	useGetScanSessionQuery, //
+	useStreamAjaxScanQuery,
 	useStreamSpiderScanQuery,
 } from "../../../store";
 import Describable from "../../toolkits/Describable";
+import { Link } from "react-router-dom";
 
-type TResultsTableProps = {
-	listScanResult: TMgmtScanSessionsResponse;
-};
-
-const ResultsTable = ({ listScanResult }: TResultsTableProps) => {
+const ResultsTable = () => {
+	const { data: listScanSession } = useGetScanSessionQuery(undefined, {
+		refetchOnFocus: true,
+		refetchOnReconnect: true,
+		refetchOnMountOrArgChange: true,
+	});
 	return (
 		<div className="results-table-container table-container">
 			<div className="table-head-container">
@@ -33,44 +35,51 @@ const ResultsTable = ({ listScanResult }: TResultsTableProps) => {
 			</div>
 			<div className="table-scroll-wrap">
 				<div className="table-body-container">
-					{listScanResult.map((item) => {
-						const scanType = item.__t;
-						if (Object.values(ScanType).includes(scanType as ScanType)) {
-							_assertCast<ScanType>(scanType);
-							switch (scanType) {
-								case ScanType.ZAP_SPIDER:
-									return (
-										<SpiderItemRow
-											key={item._id.toString()}
-											id={item._id}
-											scanId={item.scanId}
-											name={item.targetPop.name}
-											url={item.targetPop.target}
-											type={scanType}
-											state={item.status.state}
-											createdAt={item.createdAt}
-											updatedAt={item.updatedAt}
-										/>
-									);
-								case ScanType.ZAP_AJAX:
-									return (
-										<AjaxItemRow
-											key={item._id.toString()}
-											id={item._id}
-											scanId={item.scanId}
-											name={item.targetPop.name}
-											url={item.targetPop.target}
-											type={scanType}
-											state={item.status.state}
-											createdAt={item.createdAt}
-											updatedAt={item.updatedAt}
-										/>
-									);
-									break;
+					{listScanSession &&
+						listScanSession.map((item) => {
+							const scanType = item.__t;
+							const strId = item._id.toString();
+							const objId = item._id;
+							if (Object.values(ScanType).includes(scanType as ScanType)) {
+								_assertCast<ScanType>(scanType);
+								switch (scanType) {
+									case ScanType.ZAP_SPIDER:
+										return (
+											<Link to={strId}>
+												<SpiderItemRow
+													key={strId}
+													id={objId}
+													scanId={item.scanId}
+													name={item.targetPop.name}
+													url={item.targetPop.target}
+													type={scanType}
+													state={item.status.state}
+													createdAt={item.createdAt}
+													updatedAt={item.updatedAt}
+												/>
+											</Link>
+										);
+									case ScanType.ZAP_AJAX:
+										return (
+											<Link to={strId}>
+												<AjaxItemRow
+													key={strId}
+													id={objId}
+													scanId={item.scanId}
+													name={item.targetPop.name}
+													url={item.targetPop.target}
+													type={scanType}
+													state={item.status.state}
+													createdAt={item.createdAt}
+													updatedAt={item.updatedAt}
+												/>
+											</Link>
+										);
+										break;
+								}
 							}
-						}
-						return <></>;
-					})}
+							return <></>;
+						})}
 				</div>
 			</div>
 		</div>

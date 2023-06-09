@@ -4,6 +4,7 @@ import ResultsBoard from "./ResultsBoard";
 import TargetsBoard from "./TargetsBoard";
 
 export * from "./AddScanBoard";
+export * from "./ResultsBoard";
 export {
 	AddScanBoard, //
 	PanelDashboard,
