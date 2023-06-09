@@ -1,17 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ScanType } from "../../utils/types";
 import { TTargetModel } from "../../utils/types";
+import targetApi from "../services/targetApi";
 
 type TSelectedTarget = Pick<TTargetModel, "_id" | "name">;
 
 type TTargetState = {
 	listSelectedTarget: TSelectedTarget[];
 	listSelectedScanOption: ScanType[];
+	listTargetTag: string[];
 };
 
 const initialState: TTargetState = {
 	listSelectedTarget: [],
 	listSelectedScanOption: [],
+	listTargetTag: [],
 };
 
 const targetSlice = createSlice({
@@ -25,7 +28,7 @@ const targetSlice = createSlice({
 			listSelectedTarget.push(action.payload);
 		},
 		removeSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TSelectedTarget>) => {
-			const indexToRemove = listSelectedTarget.map(item => item._id).indexOf(action.payload._id);
+			const indexToRemove = listSelectedTarget.map((item) => item._id).indexOf(action.payload._id);
 			if (indexToRemove !== -1) {
 				listSelectedTarget.splice(indexToRemove, 1);
 			}
@@ -49,7 +52,20 @@ const targetSlice = createSlice({
 			listSelectedScanOption.length = 0;
 		},
 	},
-	extraReducers: (builder) => {},
+	extraReducers: (builder) => {
+		builder.addMatcher(targetApi.endpoints.getTarget.matchFulfilled, (state, action) => {
+			const setTag = new Set<string>();
+			action.payload.forEach((target) => {
+				target.tag?.forEach((tag) => {
+					setTag.add(tag);
+				});
+			});
+			return {
+				...state,
+				listTargetTag: Array.from(setTag),
+			};
+		});
+	},
 });
 
 export default targetSlice;

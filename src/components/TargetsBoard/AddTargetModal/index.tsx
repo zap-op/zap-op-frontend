@@ -1,10 +1,23 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import {
+	useMemo, //
+	useState,
+	useContext,
+	createContext,
+	useEffect,
+} from "react";
 import toast from "react-hot-toast";
 import { ModalContext } from "../../toolkits/ModalPortal";
 import TextField from "../../Fields/TextField";
-import { useAddTargetMutation } from "../../../store";
-import { TStatusResponse, TTarget } from "../../../utils/types";
 import TagField from "../../Fields/TagField";
+import {
+	TTarget, //
+	TStatusResponse,
+} from "../../../utils/types";
+import {
+	useSelector, //
+	useAddTargetMutation,
+} from "../../../store";
+import { trimAllStringInArray } from "../../../utils/helpers";
 
 type TStateModal = "ip" | "domain" | undefined;
 
@@ -84,12 +97,11 @@ const AddModal = ({ typeTarget }: TAddModal) => {
 	}, []);
 
 	const [addTarget] = useAddTargetMutation();
+	const listDataTag = useSelector((state) => state.target.listTargetTag);
+	const [listSubmitTag, setListSubmitTag] = useState<string[]>([]);
 
 	const addTargetsModalContext = useContext(AddTargetsModalContext);
 	const modalContext = useContext(ModalContext);
-
-	const [listSubmitTag, setListSubmitTag] = useState<string[]>([]);
-	const listDataTag: string[] = ["123", "234"];
 
 	const [nameTarget, setNameTarget] = useState<TTarget["name"]>();
 	const [isDisplayErrorMessageNameTargetField, setIsDisplayErrorMessageNameTargetField] = useState<boolean>();
@@ -112,8 +124,9 @@ const AddModal = ({ typeTarget }: TAddModal) => {
 		}
 		const toastId = toast.loading("Adding target");
 		let newTarget: TTarget = {
-			name: nameTarget,
-			target: target,
+			name: nameTarget.trim(),
+			target: target.trim(),
+			tag: trimAllStringInArray(listSubmitTag),
 		};
 		modalContext?.handleOpenModal(false);
 		addTarget(newTarget)
