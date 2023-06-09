@@ -4,6 +4,7 @@ import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton"
 import { TStatusResponse, TTargetModel } from "../../../utils/types";
 import { useMoveToTrashTargetMutation } from "../../../store";
 import moment from "moment";
+import Describable from "../../toolkits/Describable";
 
 type TTargetsTable = {
 	listTarget: TItemRow[];
@@ -98,12 +99,14 @@ const ItemRow = ({
 		<ul className="trow">
 			<li className="name">{name}</li>
 			<li className="target">
-				<a
-					href={target}
-					target="_blank"
-					rel="noopener noreferrer">
-					{target}
-				</a>
+				<Describable dataTitle={target}>
+					<a
+						href={target}
+						target="_blank"
+						rel="noopener noreferrer">
+						{target}
+					</a>
+				</Describable>
 			</li>
 			<li className="tag">{tag}</li>
 			<li className="first-seen">{displayCreateAt}</li>

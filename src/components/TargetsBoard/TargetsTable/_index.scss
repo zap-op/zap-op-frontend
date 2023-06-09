@@ -23,6 +23,7 @@ div.targets-table-container {
             &.target {
                 flex: 5 0 0px;
                 justify-content: left;
+                overflow: hidden;
             }
 
             &.tag {
@@ -39,6 +40,7 @@ div.targets-table-container {
             }
         }
     }
+
     div.table-scroll-wrap {
         overflow: unset !important;
 

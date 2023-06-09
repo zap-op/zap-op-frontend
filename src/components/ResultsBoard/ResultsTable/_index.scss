@@ -29,6 +29,7 @@ div.results-table-container {
             &.target {
                 flex: 3 0 0px;
                 justify-content: left;
+                overflow: hidden;
             }
 
             &.type {

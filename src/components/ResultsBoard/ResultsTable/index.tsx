@@ -11,6 +11,7 @@ import {
 	useStreamAjaxScanQuery, //
 	useStreamSpiderScanQuery,
 } from "../../../store";
+import Describable from "../../toolkits/Describable";
 
 type TResultsTableProps = {
 	listScanResult: TMgmtScanSessionsResponse;
@@ -113,12 +114,14 @@ const SpiderItemRow = ({
 			<ul className="trow">
 				<li className="name">{name}</li>
 				<li className="target">
-					<a
-						href={url}
-						target="_blank"
-						rel="noopener noreferrer">
-						{url}
-					</a>
+					<Describable dataTitle={url}>
+						<a
+							href={url}
+							target="_blank"
+							rel="noopener noreferrer">
+							{url}
+						</a>
+					</Describable>
 				</li>
 				<li className="type">{type}</li>
 				<li className="state">{state}</li>
