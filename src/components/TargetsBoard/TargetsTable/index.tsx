@@ -108,7 +108,15 @@ const ItemRow = ({
 					</a>
 				</Describable>
 			</li>
-			<li className="tag">{tag}</li>
+			<li className="tag">
+				{tag?.map((item) => (
+					<span
+						key={item}
+						className="tag-item">
+						{item}
+					</span>
+				))}
+			</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
 			<li className="action">

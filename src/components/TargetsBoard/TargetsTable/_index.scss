@@ -28,6 +28,16 @@ div.targets-table-container {
 
             &.tag {
                 flex: 2 0 0px;
+                flex-wrap: wrap;
+
+                span.tag-item {
+                    background-color: white;
+                    border-radius: $app-border-radius;
+                    height: fit-content;
+                    margin: 0.125rem;
+                    padding: 0.25rem 0.5rem;
+
+                }
             }
 
             &.first-seen,
