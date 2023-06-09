@@ -7,71 +7,81 @@ div.select-target-table-container {
     width: 100%;
 
     div.table-scroll-wrap {
+        height: 60vh;
+    }
 
-        ul {
-            display: flex;
-            flex-direction: row;
+    ul {
+        display: flex;
+        flex-direction: row;
 
-            li {
-                display: inherit;
-                justify-content: center;
-                margin: 0.5rem;
+        li {
+            display: inherit;
+            justify-content: center;
+            margin: 0.5rem;
 
-                &.selected {
-                    flex: 0.25 0 0px;
-                }
+            &.selected {
+                flex: 0.25 0 0px;
+            }
 
-                &.name {
-                    flex: 3 0 0px;
-                    justify-content: left;
-                }
+            &.name {
+                flex: 3 0 0px;
+                justify-content: left;
+            }
 
-                &.target {
-                    flex: 6 0 0px;
-                    justify-content: left;
-                }
+            &.target {
+                flex: 6 0 0px;
+                justify-content: left;
+                overflow: hidden;
+            }
 
-                &.tag {
-                    flex: 2 0 0px;
+            &.tag {
+                flex: 2 0 0px;
+                flex-wrap: wrap;
+
+                span.tag-item {
+                    background-color: white;
+                    border-radius: $app-border-radius;
+                    height: fit-content;
+                    margin: 0.125rem;
+                    padding: 0.25rem 0.5rem;
                 }
             }
         }
+    }
 
-        div.table-head-container {
-            margin: 1rem 0;
-        }
+    div.table-head-container {
+        margin: 1rem 0;
+    }
 
-        div.table-body-container {
-            color: $black-color-2;
+    div.table-body-container {
+        color: $black-color-2;
 
-            ul.trow {
-                background-color: $blue-color-7;
-                border-radius: $app-border-radius;
-                margin: 0.5rem 0;
-                transition: background-color 200ms ease-in-out;
+        ul.trow {
+            background-color: $blue-color-7;
+            border-radius: $app-border-radius;
+            margin: 0.5rem 0;
+            transition: background-color 200ms ease-in-out;
 
-                &:hover {
-                    background-color: $blue-color-6;
+            &:hover {
+                background-color: $blue-color-6;
+            }
+
+            label {
+                display: flex;
+                width: 100%;
+
+                &,
+                input {
+                    cursor: pointer;
                 }
 
-                label {
-                    display: flex;
-                    width: 100%;
-
-                    &,
-                    input {
-                        cursor: pointer;
-                    }
-
-                    li.selected {
-                        div.selection-container {
-                            input.target-selector {
-                                accent-color: $blue-color-1;
-                            }
+                li.selected {
+                    div.selection-container {
+                        input.target-selector {
+                            accent-color: $blue-color-1;
                         }
                     }
                 }
-
             }
         }
     }

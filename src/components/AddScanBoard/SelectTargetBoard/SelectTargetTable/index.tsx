@@ -8,6 +8,7 @@ import {
 	addSelectTarget,
 	removeSelectTarget,
 } from "../../../../store";
+import Describable from "../../../toolkits/Describable";
 
 type TSelectTargetTableProps = {
 	listChild: TSelectTargetItem[];
@@ -18,15 +19,15 @@ const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTablePr
 
 	return (
 		<div className="select-target-table-container table-container">
+			<div className="table-head-container">
+				<ul className="thead">
+					<li className="selected">Select</li>
+					<li className="name">Name</li>
+					<li className="target">Target</li>
+					<li className="tag">Tag</li>
+				</ul>
+			</div>
 			<div className="table-scroll-wrap">
-				<div className="table-head-container">
-					<ul className="thead">
-						<li className="selected">Select</li>
-						<li className="name">Name</li>
-						<li className="target">Target</li>
-						<li className="tag">Tag</li>
-					</ul>
-				</div>
 				<div className="table-body-container">
 					{listChild.map((item) => {
 						const id = item._id.toString();
@@ -92,14 +93,24 @@ const ItemRow = ({ _id, id, name, target, tag, defaultChecked }: TItemRow) => {
 				</li>
 				<li className="name">{name}</li>
 				<li className="target">
-					<a
-						href={target}
-						target="_blank"
-						rel="noopener noreferrer">
-						{target}
-					</a>
+					<Describable dataTitle={target}>
+						<a
+							href={target}
+							target="_blank"
+							rel="noopener noreferrer">
+							{target}
+						</a>
+					</Describable>
 				</li>
-				<li className="tag">{tag}</li>
+				<li className="tag">
+					{tag?.map((item) => (
+						<span
+							key={item}
+							className="tag-item">
+							{item}
+						</span>
+					))}
+				</li>
 			</label>
 		</ul>
 	);
