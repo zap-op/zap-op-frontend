@@ -46,7 +46,7 @@ div.select-target-table-container {
 
             ul.trow {
                 background-color: $blue-color-7;
-                border-radius: 5px;
+                border-radius: $app-border-radius;
                 margin: 0.5rem 0;
                 transition: background-color 200ms ease-in-out;
 

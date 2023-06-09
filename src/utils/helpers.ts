@@ -15,3 +15,23 @@ export const getScanOptionTitleByID = (id: ScanType) => {
 	}
 	return option.title;
 };
+
+/**
+ *
+ * @param arr
+ * @returns new array
+ */
+export const trimAllStringInArray = (arr: string[]) => {
+	return arr.map((item) => item.trim());
+};
+
+/**
+ *
+ * @param arr
+ * @returns changed array
+ */
+export const strimAllStringInArray = (arr: string[]) => {
+	const x = arr.forEach((item) => item.trim());
+	console.log("x", x);
+	return x;
+};

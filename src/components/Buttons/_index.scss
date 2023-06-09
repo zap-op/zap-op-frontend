@@ -20,7 +20,7 @@ div.more-options-button {
 
     div.options {
         background-color: $black-color-7;
-        border-radius: 5px;
+        border-radius: $app-border-radius;
         box-shadow: $secondary-button-shadow;
         display: inherit !important;
         flex-direction: column !important;

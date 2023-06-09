@@ -35,11 +35,9 @@ div.nav-step-container {
             a {
                 color: transparent;
 
-                div.node:hover {
-                    &::before {
-                        background-color: $blue-color-1;
-                        color: $black-color-7;
-                    }
+                div.node:hover::before {
+                    background-color: $blue-color-1;
+                    color: $black-color-7;
                 }
 
                 div.node {
@@ -62,26 +60,18 @@ div.nav-step-container {
             }
         }
 
-        div.title-container {
-            h4 {
-                color: $black-color-4;
-            }
+        div.title-container h4 {
+            color: $black-color-4;
         }
 
         &.isActive {
-            div.node-container {
-                a {
-                    div.node::before {
-                        background-color: $blue-color-1;
-                        color: $black-color-7;
-                    }
-                }
+            div.node-container a div.node::before {
+                background-color: $blue-color-1;
+                color: $black-color-7;
             }
 
-            div.title-container {
-                h4 {
-                    color: $black-color-1;
-                }
+            div.title-container h4 {
+                color: $black-color-1;
             }
         }
     }

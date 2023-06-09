@@ -13,7 +13,7 @@ $black-blue-color-1: #42526E;
 $black-blue-color-2: #6B778C; //lighten( desaturate( #42526E, 12 ), 13 )
 
 // Blue
-$blue-color-1:#0066ff;
+$blue-color-1: #0066ff;
 $blue-color-2: lighten($blue-color-1, 5%);
 $blue-color-3: lighten($blue-color-1, 10%);
 $blue-color-4: lighten($blue-color-1, 20%);
@@ -27,6 +27,9 @@ $blue-color-20: #00ADB5;
 $disable-color: $black-color-2;
 $error-color: #ff4949;
 
+// APP
+$app-border-radius: 5px;
+
 // PROGRESS RING
 $ring-size: 15px;
 $ring-core-size: 0.6 * $ring-size;
@@ -39,7 +42,6 @@ $progress-bar-background-color: $blue-color-4;
 $progress-bar-background-color-pulse: $blue-color-5;
 
 // BUTTON
-$button-border-radius: 0.25rem;
 $primary-button-background-color: $blue-color-3;
 $primary-button-background-color-hover: $blue-color-2;
 $secondary-button-boder-color: $black-color-5;

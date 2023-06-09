@@ -2,7 +2,7 @@
 
 div.scan-option-item-container {
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: $app-border-radius;
 
     &:hover {
         background-color: $blue-color-8;

@@ -6,41 +6,41 @@ div.targets-table-container {
     min-width: $SM;
     width: 100%;
 
-    div.table-scroll-wrap {
+    ul {
+        display: flex;
+        flex-direction: row;
 
-        ul {
-            display: flex;
-            flex-direction: row;
+        li {
+            display: inherit;
+            justify-content: center;
+            margin: 0.5rem;
 
-            li {
-                display: inherit;
-                justify-content: center;
-                margin: 0.5rem;
+            &.name {
+                flex: 4 0 0px;
+                justify-content: left;
+            }
 
-                &.name {
-                    flex: 4 0 0px;
-                    justify-content: left;
-                }
+            &.target {
+                flex: 5 0 0px;
+                justify-content: left;
+            }
 
-                &.target {
-                    flex: 5 0 0px;
-                    justify-content: left;
-                }
+            &.tag {
+                flex: 2 0 0px;
+            }
 
-                &.tag {
-                    flex: 2 0 0px;
-                }
+            &.first-seen,
+            &.last-seen {
+                flex: 2 0 0px;
+            }
 
-                &.first-seen,
-                &.last-seen {
-                    flex: 2 0 0px;
-                }
-
-                &.action {
-                    flex: 1 0 0px;
-                }
+            &.action {
+                flex: 1 0 0px;
             }
         }
+    }
+    div.table-scroll-wrap {
+        overflow: unset !important;
 
         div.table-head-container {
             margin: 1rem 0;
@@ -51,7 +51,7 @@ div.targets-table-container {
 
             ul.trow {
                 background-color: $blue-color-7;
-                border-radius: 5px;
+                border-radius: $app-border-radius;
                 margin: 0.5rem 0;
                 transition: background-color 200ms ease-in-out;
 

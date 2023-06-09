@@ -34,11 +34,9 @@ div.panel-dashboard-container {
                 }
             }
 
-            div.title-container {
-                span.sub-title {
-                    color: $black-color-2;
-                    font-size: 0.7rem;
-                }
+            div.title-container span.sub-title {
+                color: $black-color-2;
+                font-size: 0.7rem;
             }
         }
 
@@ -54,7 +52,7 @@ div.panel-dashboard-container {
 
             a.nav-item {
                 align-items: center;
-                border-radius: 8px;
+                border-radius: $app-border-radius;
                 color: black;
                 display: flex;
                 padding: 0.75rem 0 0.75rem 1rem;
@@ -102,39 +100,24 @@ div.panel-dashboard-container {
                 }
             }
 
-            a.dashboard-container {
-
-                span.icon {
-                    mask-image: url("/src/assets/sheet-plastic-solid.svg");
-                }
+            a.dashboard-container span.icon {
+                mask-image: url("/src/assets/sheet-plastic-solid.svg");
             }
 
-            a.targets-container {
-
-                span.icon {
-                    mask-image: url("/src/assets/rocket-solid.svg");
-                }
+            a.targets-container span.icon {
+                mask-image: url("/src/assets/rocket-solid.svg");
             }
 
-            a.results-container {
-
-                span.icon {
-                    mask-image: url("/src/assets/chart-bar-solid.svg");
-                }
+            a.results-container span.icon {
+                mask-image: url("/src/assets/chart-bar-solid.svg");
             }
 
-            a.new-scan-container {
-
-                span.icon {
-                    mask-image: url("/src/assets/bullseye-solid.svg");
-                }
+            a.new-scan-container span.icon {
+                mask-image: url("/src/assets/bullseye-solid.svg");
             }
 
-            a.settings-container {
-
-                span.icon {
-                    mask-image: url("/src/assets/gear-solid.svg");
-                }
+            a.settings-container span.icon {
+                mask-image: url("/src/assets/gear-solid.svg");
             }
         }
 
@@ -162,10 +145,8 @@ div.panel-dashboard-container {
             padding: 0;
             width: 24px;
 
-            &:hover {
-                span.resize-bar {
-                    background-color: $blue-color-3;
-                }
+            &:hover span.resize-bar {
+                background-color: $blue-color-3;
             }
 
             span.resize-bar {

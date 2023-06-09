@@ -6,7 +6,7 @@ div.toolkit-portal {
         animation-duration: 200ms;
         animation-name: fade-in;
         background-color: $black-blue-color-1;
-        border-radius: 0.25rem;
+        border-radius: $app-border-radius;
         color: $black-color-7;
         font-size: 0.75rem;
         padding: 0.375rem;

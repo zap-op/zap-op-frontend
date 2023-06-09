@@ -12,13 +12,16 @@ type TTextFieldProps = {
 
 const TextField = (props: TTextFieldProps) => {
 	return (
-		<div className="text-field-container">
-			{props.title ? (
-				<div className="title-container">
-					<h4 className={props.isRequired ? "is-required" : ""}>{props.title}</h4>
-				</div>
-			) : (
-				<></>
+		<div className="field-container">
+			{props.title && (
+				<h4
+					className={
+						props.isRequired //
+							? "is-required"
+							: ""
+					}>
+					{props.title}
+				</h4>
 			)}
 			{props.errorMessage && props.isDisplayErrorMessage ? <div className="message error-message secondary-error-message">{props.errorMessage}</div> : <></>}
 			<div className="input-field-container">
