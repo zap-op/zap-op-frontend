@@ -8,9 +8,15 @@ export type TOptionItem = {
 
 type TMoreOptionsButtonProps = {
 	listOptions: TOptionItem[];
+	style?: {
+		isIsolate?: boolean;
+	};
 };
 
-const MoreOptionsButton = ({ listOptions }: TMoreOptionsButtonProps) => {
+const MoreOptionsButton = ({
+	style, //
+	listOptions,
+}: TMoreOptionsButtonProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const ref_self = useRef<HTMLDivElement>(null);
@@ -37,11 +43,10 @@ const MoreOptionsButton = ({ listOptions }: TMoreOptionsButtonProps) => {
 
 	return (
 		<div
-			className="more-options-button"
-			ref={ref_self}>
-			<div
-				className="three-dot"
-				onClick={handleClickOpen}>
+			className={`more-options-button ${style?.isIsolate && `isolate ${isOpen && "clicked"}`}`}
+			ref={ref_self}
+			onClick={handleClickOpen}>
+			<div className="three-dot">
 				{/* ellipsis-solid.svg */}
 				<svg
 					height={`${1.25 * FONT_SIZE}px`}

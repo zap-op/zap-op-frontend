@@ -64,7 +64,7 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 					<Link
 						to=""
 						state={previousLinkState}
-						className="previous-state button secondary-button"
+						className="previous-state button secondary-button link-button"
 						draggable={false}>
 						Back
 					</Link>
@@ -75,7 +75,7 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 					<Link
 						to=""
 						state={nextLinkState}
-						className="next-state button primary-button"
+						className="next-state button primary-button link-button"
 						draggable={false}>
 						Next
 					</Link>
