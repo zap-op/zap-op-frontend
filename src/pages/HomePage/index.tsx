@@ -1,23 +1,21 @@
-import ProgressTable from "../../components/ProgressTable";
-import TABLEROW_TS_ZAP from "../../components/ProgressTable/tr-ts-zap";
-import landingImage from "../../assets/landing-image.svg";
-import ScanField from "../../components/ScanField";
-import { Link } from "react-router-dom";
-import { useSelector, trialScanApi } from "../../store";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import landingImage from "../../assets/landing-image.svg";
+import { useSelector, trialScanApi } from "../../store";
+import { ProgressTable, ScanField } from "../../components";
 
 const HomePage = () => {
 	const { target } = useSelector((state) => state.scan.trial);
-	const { data } = trialScanApi.endpoints.trialScan.useQueryState({
+	const {
+		data: {
+			progress, //
+			isScanning,
+			data: trialScanData,
+		} = {},
+	} = trialScanApi.endpoints.trialScan.useQueryState({
 		target,
 	});
-	const {
-		data: _data,
-		progress,
-		isScanning,
-	} = {
-		...data,
-	};
+
 	const [isDisplayStreamBoard, setIsDisplayStreamBoard] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -66,17 +64,20 @@ const HomePage = () => {
 						</div>
 						{isDisplayStreamBoard ? (
 							<ProgressTable
-								initAutoScrollState={ProgressTable.AUTO_SCROLL_ACTIVE}
-								scanProgress={progress ? progress : 0}
-								tableBody={(_data ? _data : []).map((item, index) => {
-									return (
-										<TABLEROW_TS_ZAP
-											key={index}
-											number={index}
-											url={item}
-										/>
-									);
-								})}
+								options={{
+									progress: {
+										display: true,
+										scanProgress: progress ? progress : 0,
+									},
+									autoScroll: {
+										display: true,
+										initState: true,
+									},
+								}}
+								tableBody={trialScanData?.map((item, index) => ({
+									number: index,
+									url: item,
+								}))}
 							/>
 						) : (
 							<></>

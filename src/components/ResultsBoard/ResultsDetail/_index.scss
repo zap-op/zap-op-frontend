@@ -1,6 +1,8 @@
 @use '../../../style/variables' as *;
 
 div.result-detail-container {
+    color: $black-color-2;
+
     div.action-container {
         display: flex;
         margin: 0.25rem 0;
@@ -13,6 +15,47 @@ div.result-detail-container {
         div.more-options-button {
             margin-left: auto;
             margin-right: 3rem;
+        }
+    }
+
+    h2.message {
+        margin: 5rem auto;
+
+    }
+
+    ul.target-info-container {
+        font-size: 0.875rem;
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            font-weight: 600;
+            margin: 0.5rem 0;
+
+            &.first-seen,
+            &.last-seen {
+                font-size: 0.75rem;
+                margin: 0.1rem 0;
+            }
+
+            span:not(.tag-item) {
+                font-weight: 400;
+
+                &::before {
+                    content: ":";
+                    margin-right: 0.25rem;
+                }
+            }
+
+            span.tag-item {
+                background-color: $black-color-4;
+                border-radius: $app-border-radius;
+                color: $black-color-7;
+                font-weight: 200;
+                height: fit-content;
+                margin: 0.125rem;
+                padding: 0.25rem 0.5rem;
+            }
         }
     }
 }
