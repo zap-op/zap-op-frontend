@@ -16,6 +16,8 @@ import {
 	TZapSpiderResultsGETResponse,
 	TZapAjaxGETResponse,
 	ScanState,
+	TZapAjaxFullResultsGETResponse,
+	TZapAjaxFullResultGETRequest,
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
@@ -159,18 +161,6 @@ const authScanApi = createApi({
 							draft.progress = status;
 						});
 
-						// fetch(urlJoin(_URL, `ajax/results?id=${scanId}&offset=0`), {
-						// 	credentials: "include",
-						// })
-						// 	.then((result) => result.json())
-						// 	.then((resData) => {
-						// 		_assertCast<TZapSpiderResultsGETResponse>(resData);
-						// 		updateCachedData(({ data }) => {
-						// 			const nonDuplicateData = resData.filter((item) => !data.includes(item));
-						// 			data.push(...nonDuplicateData);
-						// 		});
-						// 	})
-						// 	.catch((error) => console.log(error));
 						if (status === "stopped") {
 							eventSource.close();
 							updateCachedData((draft) => {
@@ -201,6 +191,12 @@ const authScanApi = createApi({
 				await cacheEntryRemoved;
 			},
 		}),
+		getAjaxFullResult: builder.query<TZapAjaxFullResultsGETResponse, TZapAjaxFullResultGETRequest>({
+			query: ({ scanSession }) => ({
+				url: `ajax/fullResults?scanSession=${scanSession}`,
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
@@ -209,5 +205,6 @@ export const {
 	useStreamSpiderScanQuery,
 	useAjaxScanMutation,
 	useStreamAjaxScanQuery,
+	useGetAjaxFullResultQuery,
 } = authScanApi;
 export default authScanApi;

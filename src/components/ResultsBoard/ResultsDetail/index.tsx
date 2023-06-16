@@ -10,9 +10,13 @@ import {
 	ExtractArrayItemType,
 	TZapSpiderScanConfig,
 	TZapAjaxScanConfig,
+	TScanSession,
+	TAuthScanSession,
+	TZapAjaxFullResultGETRequest,
 } from "../../../utils/types";
 import {
 	scanSessionApi,
+	useGetAjaxFullResultQuery,
 	useSelector,
 	useStreamAjaxScanQuery, //
 	useStreamSpiderScanQuery,
@@ -33,6 +37,8 @@ const ResultsDetail = () => {
 	const {
 		__t, //
 		_id,
+		zapScanId,
+		zapClientId,
 		status,
 		targetPop,
 		createdAt,
@@ -150,7 +156,13 @@ const ResultsDetail = () => {
 							<span>{displayCreateAt}</span>
 						</li>
 					</ul>
-					<ProgressTable tableBody={[]} />
+					{__t === ScanType.ZAP_SPIDER ? ( //
+						<ZapSpiderFullResultTable />
+					) : __t === ScanType.ZAP_AJAX ? (
+						_id && <ZapAjaxFullResultTable scanSession={_id} />
+					) : (
+						<></>
+					)}
 				</>
 			) : (
 				<h2 className="message error-message">Some thing went wrong</h2>
@@ -160,6 +172,10 @@ const ResultsDetail = () => {
 };
 
 export default ResultsDetail;
+
+const ZapSpiderFullResultTable = () => {
+	return <></>;
+};
 
 const ZapSpiderConfig = ({ scanConfig }: TZapSpiderScanConfig) => {
 	const {
@@ -213,4 +229,15 @@ const ZapAjaxConfig = ({ scanConfig }: TZapAjaxScanConfig) => {
 			</li>
 		</ul>
 	);
+};
+
+const ZapAjaxFullResultTable = ({ scanSession }: TZapAjaxFullResultGETRequest) => {
+	const result = useGetAjaxFullResultQuery({
+		scanSession,
+	});
+
+	useEffect(() => {
+		console.log("result", result);
+	}, [result]);
+	return <></>;
 };
