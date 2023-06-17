@@ -159,7 +159,7 @@ const ResultsDetail = () => {
 					{__t === ScanType.ZAP_SPIDER ? ( //
 						<ZapSpiderFullResultTable />
 					) : __t === ScanType.ZAP_AJAX ? (
-						_id && <ZapAjaxFullResultTable scanSession={_id} />
+						_id && <ZapAjaxFullResultTable _id={_id} />
 					) : (
 						<></>
 					)}
@@ -231,9 +231,9 @@ const ZapAjaxConfig = ({ scanConfig }: TZapAjaxScanConfig) => {
 	);
 };
 
-const ZapAjaxFullResultTable = ({ scanSession }: TZapAjaxFullResultGETRequest) => {
+const ZapAjaxFullResultTable = ({ _id }: TZapAjaxFullResultGETRequest) => {
 	const result = useGetAjaxFullResultQuery({
-		scanSession,
+		_id,
 	});
 
 	useEffect(() => {

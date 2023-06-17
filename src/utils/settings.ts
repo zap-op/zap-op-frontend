@@ -11,16 +11,16 @@ export type TScanOption = {
 };
 
 export const ListScanOption: TScanOption[] = [
-	{
-		id: ScanType.NMAP_TCP,
-		title: "Nmap TCP Port Scan",
-		description: "Discover open ports on your servers with a complete TCP port scan.",
-	},
-	{
-		id: ScanType.NMAP_UDP,
-		title: "Nmap UDP Port Scan",
-		description: "Discover open ports of common UDP services.",
-	},
+	// {
+	// 	id: ScanType.NMAP_TCP,
+	// 	title: "Nmap TCP Port Scan",
+	// 	description: "Discover open ports on your servers with a complete TCP port scan.",
+	// },
+	// {
+	// 	id: ScanType.NMAP_UDP,
+	// 	title: "Nmap UDP Port Scan",
+	// 	description: "Discover open ports of common UDP services.",
+	// },
 	{
 		id: ScanType.ZAP_SPIDER,
 		title: "OWASP ZAP Spider",

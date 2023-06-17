@@ -18,6 +18,9 @@ import {
 	ScanState,
 	TZapAjaxFullResultsGETResponse,
 	TZapAjaxFullResultGETRequest,
+	TZapSpiderFullResultsGETResponse,
+	TZapActiveRequest,
+	TZapActiveResponse,
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
@@ -58,34 +61,20 @@ const authScanApi = createApi({
 					},
 				};
 			},
-			async onCacheEntryAdded({ scanSession, scanId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
+			async onCacheEntryAdded({ _id: sessionId, zapScanId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
 				await cacheDataLoaded;
 				if (scanState !== ScanState.PROCESSING) {
 					return;
 				}
-				const eventSource = new EventSource(urlJoin(_URL, `spider?scanSession=${scanSession}&scanId=${scanId}`), {
+				const eventSource = new EventSource(urlJoin(_URL, `spider?scanSession=${sessionId}&zapScanId=${zapScanId}`), {
 					withCredentials: true,
 				});
 				try {
 					eventSource.addEventListener("status", (event: MessageEvent) => {
 						const status = JSON.parse(event.data).status * 1;
-
 						updateCachedData((draft) => {
 							draft.progress = status;
 						});
-
-						fetch(urlJoin(_URL, `spider/results?id=${scanId}&offset=0`), {
-							credentials: "include",
-						})
-							.then((result) => result.json())
-							.then((resData) => {
-								_assertCast<TZapSpiderResultsGETResponse>(resData);
-								updateCachedData(({ data }) => {
-									const nonDuplicateData = resData.filter((item) => !data.includes(item));
-									data.push(...nonDuplicateData);
-								});
-							})
-							.catch((error) => console.log(error));
 
 						if (status === 100) {
 							eventSource.close();
@@ -117,6 +106,12 @@ const authScanApi = createApi({
 				await cacheEntryRemoved;
 			},
 		}),
+		getSpiderFullResult: builder.query<TZapSpiderFullResultsGETResponse, TZapAjaxFullResultGETRequest>({
+			query: ({ _id: sessionId }) => ({
+				url: `spider/fullResults?scanSession=${sessionId}`,
+				method: "GET",
+			}),
+		}),
 		ajaxScan: builder.mutation<TZapAjaxResponse<TPOST>, TZapAjaxRequest<TPOST>>({
 			query: (arg) => ({
 				url: "ajax",
@@ -146,12 +141,12 @@ const authScanApi = createApi({
 					},
 				};
 			},
-			async onCacheEntryAdded({ scanSession, scanId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
+			async onCacheEntryAdded({ _id: sessionId, zapClientId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
 				await cacheDataLoaded;
 				if (scanState !== ScanState.PROCESSING) {
 					return;
 				}
-				const eventSource = new EventSource(urlJoin(_URL, `ajax?scanSession=${scanSession}&zapClientId=${scanId}`), {
+				const eventSource = new EventSource(urlJoin(_URL, `ajax?scanSession=${sessionId}&zapClientId=${zapClientId}`), {
 					withCredentials: true,
 				});
 				try {
@@ -192,9 +187,16 @@ const authScanApi = createApi({
 			},
 		}),
 		getAjaxFullResult: builder.query<TZapAjaxFullResultsGETResponse, TZapAjaxFullResultGETRequest>({
-			query: ({ scanSession }) => ({
-				url: `ajax/fullResults?scanSession=${scanSession}`,
+			query: ({ _id: sessionId }) => ({
+				url: `ajax/fullResults?scanSession=${sessionId}`,
 				method: "GET",
+			}),
+		}),
+		activeScan: builder.mutation<TZapActiveResponse<TPOST>, TZapActiveRequest<TPOST>>({
+			query: (arg) => ({
+				url: "active",
+				method: "POST",
+				body: arg,
 			}),
 		}),
 	}),

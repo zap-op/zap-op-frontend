@@ -48,8 +48,8 @@ const ResultsTable = () => {
 											<Link to={strId}>
 												<SpiderItemRow
 													key={strId}
-													id={objId}
-													scanId={item.scanId}
+													sessionId={objId}
+													zapScanId={item.zapScanId}
 													name={item.targetPop.name}
 													url={item.targetPop.target}
 													type={scanType}
@@ -64,8 +64,9 @@ const ResultsTable = () => {
 											<Link to={strId}>
 												<AjaxItemRow
 													key={strId}
-													id={objId}
-													scanId={item.scanId}
+													sessionId={objId}
+													zapClientId={item.zapClientId}
+													zapScanId={item.zapScanId}
 													name={item.targetPop.name}
 													url={item.targetPop.target}
 													type={scanType}
@@ -89,8 +90,9 @@ const ResultsTable = () => {
 export default ResultsTable;
 
 type TItemRow = {
-	id: TObject["_id"];
-	scanId: string;
+	sessionId: TObject["_id"];
+	zapClientId: string;
+	zapScanId: string;
 	name: string;
 	url: string;
 	type: ScanType;
@@ -100,21 +102,21 @@ type TItemRow = {
 };
 
 const SpiderItemRow = ({
-	id, //
-	scanId,
+	sessionId, //
+	zapScanId,
 	name,
 	url,
 	type,
 	createdAt,
 	updatedAt,
 	state,
-}: TItemRow) => {
+}: Omit<TItemRow, "zapClientId">) => {
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
 	const scanStatus = useStreamSpiderScanQuery({
-		scanSession: id,
-		scanId,
+		_id: sessionId,
+		zapScanId,
 		scanState: state,
 	});
 
@@ -123,14 +125,12 @@ const SpiderItemRow = ({
 			<ul className="trow">
 				<li className="name">{name}</li>
 				<li className="target">
-					<Describable dataTitle={url}>
-						<a
-							href={url}
-							target="_blank"
-							rel="noopener noreferrer">
-							{url}
-						</a>
-					</Describable>
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						<Describable dataTitle={url}>{url}</Describable>
+					</a>
 				</li>
 				<li className="type">{type}</li>
 				<li className="state">{state}</li>
@@ -143,8 +143,9 @@ const SpiderItemRow = ({
 };
 
 const AjaxItemRow = ({
-	id, //
-	scanId,
+	sessionId, //
+	zapClientId,
+	zapScanId,
 	name,
 	url,
 	type,
@@ -156,8 +157,9 @@ const AjaxItemRow = ({
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
 	const scanStatus = useStreamAjaxScanQuery({
-		scanSession: id,
-		scanId,
+		_id: sessionId,
+		zapClientId,
+		zapScanId,
 		scanState: state,
 	});
 

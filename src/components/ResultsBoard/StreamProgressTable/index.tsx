@@ -7,29 +7,29 @@ type TStreamProgressTable = TAuthScanSession & {
 };
 
 const StreamProgressTable = ({
-	scanId, //
+	_id, //
 	scanState,
-	scanSession,
-}: TStreamProgressTable) => {
-    
-};
+	zapScanId,
+	zapClientId,
+}: TStreamProgressTable) => {};
 
 type TZapSpiderProgressTable = TAuthScanSession & {
 	scanState: ScanState;
 };
 
 export const ZapSpiderProgressTable = ({
-	scanId, //
+	_id, //
 	scanState,
-	scanSession,
+	zapScanId,
+	zapClientId,
 }: TZapSpiderProgressTable) => {
 	const {
 		data, //
 		error,
 	} = useStreamSpiderScanQuery({
-		scanId,
-		scanSession,
+		_id, //
 		scanState,
+		zapScanId,
 	});
 
 	const {
@@ -64,17 +64,18 @@ type TZapAjaxProgressTable = TAuthScanSession & {
 };
 
 export const ZapAjaxProgressTable = ({
-	scanId, //
+	_id, //
 	scanState,
-	scanSession,
+	zapScanId,
+	zapClientId,
 }: TZapAjaxProgressTable) => {
 	const {
 		data, //
 		error,
 	} = useStreamSpiderScanQuery({
-		scanId,
+		_id,
 		scanState,
-		scanSession,
+		zapScanId,
 	});
 
 	const {
