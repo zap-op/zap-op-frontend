@@ -31,8 +31,9 @@ const NavBar = () => {
 			</Link>
 			<div className="nav-wrap">
 				<ul className="nav-bar">
-					{LIST_NAV.map((item) => (
+					{LIST_NAV.map((item, index) => (
 						<Link
+							key={index}
 							to={item.href}
 							className="nav-item"
 							draggable={false}>
