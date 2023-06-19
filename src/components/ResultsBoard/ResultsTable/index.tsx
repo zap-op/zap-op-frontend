@@ -7,7 +7,8 @@ import {
 	ScanState,
 } from "../../../utils/types";
 import {
-	useGetScanSessionQuery, //
+	useGetScanSessionQuery,
+	useStreamActiveScanQuery, //
 	useStreamAjaxScanQuery,
 	useStreamSpiderScanQuery,
 } from "../../../store";
@@ -61,7 +62,7 @@ const ResultsTable = () => {
 										);
 									case ScanType.ZAP_AJAX:
 										return (
-											<Link to={strId}>
+											<Link to={strId} >
 												<AjaxItemRow
 													key={strId}
 													sessionId={objId}
@@ -76,7 +77,23 @@ const ResultsTable = () => {
 												/>
 											</Link>
 										);
-										break;
+									case ScanType.ZAP_ACTIVE:
+										return (
+											<Link to={strId}>
+												<ActiveItemRow
+													key={strId}
+													sessionId={objId}
+													zapClientId={item.zapClientId}
+													zapScanId={item.zapScanId}
+													name={item.targetPop.name}
+													url={item.targetPop.target}
+													type={scanType}
+													state={item.status.state}
+													createdAt={item.createdAt}
+													updatedAt={item.updatedAt}
+												/>
+											</Link>
+										);
 								}
 							}
 							return <></>;
@@ -157,6 +174,49 @@ const AjaxItemRow = ({
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
 	const scanStatus = useStreamAjaxScanQuery({
+		_id: sessionId,
+		zapClientId,
+		zapScanId,
+		scanState: state,
+	});
+
+	return (
+		<div className="trow-container">
+			<ul className="trow">
+				<li className="name">{name}</li>
+				<li className="target">
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</li>
+				<li className="type">{type}</li>
+				<li className="state">{state}</li>
+				<li className="progress">{scanStatus && scanStatus.data && scanStatus.data.progress}</li>
+				<li className="first-seen">{displayCreateAt}</li>
+				<li className="last-seen">{displayUpdateAt}</li>
+			</ul>
+		</div>
+	);
+};
+
+const ActiveItemRow = ({
+	sessionId, //
+	zapClientId,
+	zapScanId,
+	name,
+	url,
+	type,
+	createdAt,
+	updatedAt,
+	state,
+}: TItemRow) => {
+	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
+	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
+
+	const scanStatus = useStreamActiveScanQuery({
 		_id: sessionId,
 		zapClientId,
 		zapScanId,

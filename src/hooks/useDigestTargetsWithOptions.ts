@@ -9,6 +9,7 @@ import {
 	useDispatch,
 	useAjaxScanMutation,
 	scanSessionApi,
+	useActiveScanMutation,
 } from "../store";
 import { SCAN_SESSION_TAG } from "../utils/settings";
 
@@ -18,6 +19,7 @@ export const useDigestTargetsWithOptions = () => {
 
 	const [spiderScan] = useSpiderScanMutation();
 	const [ajaxScan] = useAjaxScanMutation();
+	const [activeScan] = useActiveScanMutation();
 
 	const digest = async () => {
 		if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
@@ -29,10 +31,6 @@ export const useDigestTargetsWithOptions = () => {
 				const optionName = getScanOptionTitleByID(scanType);
 				const toastId = toast.loading(`Initializing ${optionName} for ${target.name}`);
 				switch (scanType) {
-					case ScanType.NMAP_TCP:
-						break;
-					case ScanType.NMAP_UDP:
-						break;
 					case ScanType.ZAP_SPIDER:
 						await spiderScan({
 							_id: target._id,
@@ -88,6 +86,32 @@ export const useDigestTargetsWithOptions = () => {
 							});
 						return;
 					case ScanType.ZAP_ACTIVE:
+						await activeScan({
+							_id: target._id,
+							exploreType: "spider",
+							scanConfig: {},
+						})
+							.unwrap()
+							.then((response) => {
+								if (response.statusCode > 0) {
+									toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+										id: toastId,
+									});
+								} else {
+									toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${response.msg}`, {
+										id: toastId,
+									});
+								}
+							})
+							.catch((error) => {
+								const msg = error.data.msg;
+								toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${msg}`, {
+									id: toastId,
+								});
+							})
+							.finally(() => {
+								dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
+							});
 						return;
 					case ScanType.ZAP_PASSIVE:
 						return;

@@ -16,10 +16,11 @@ const ScanOptionsBoard = () => {
 	return (
 		<div className="scan-options-board-container">
 			{ListScanOptionItem.map((item) => (
-				<div className="scan-option-item-wrapper">
+				<div
+					className="scan-option-item-wrapper"
+					key={item.id}>
 					<ScanOptionItem
 						{...item}
-						key={item.id}
 						defaultChecked={listSelectedScanOption.includes(item.id)}
 					/>
 				</div>
