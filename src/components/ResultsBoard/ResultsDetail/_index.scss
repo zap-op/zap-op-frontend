@@ -3,6 +3,29 @@
 div.result-detail-container {
     color: $black-color-2;
 
+    .table-scroll-wrap {
+        height: 60vh;
+    }
+
+    .risk-high-style {
+        background-color: $error-color;
+        color: $black-color-6;
+    }
+
+    .risk-medium-style {
+        background-color: $medium-color;
+        color: $black-color-6;
+    }
+
+    .risk-low-style {
+        background-color: $low-color;
+    }
+
+    .risk-informational-style {
+        background-color: $blue-color-1;
+        color: $black-color-6;
+    }
+
     div.action-container {
         display: flex;
         margin: 0.25rem 0;
@@ -23,7 +46,7 @@ div.result-detail-container {
 
     }
 
-    ul.target-info-container {
+    ul.session-info-container {
         font-size: 0.875rem;
         list-style-type: none;
         padding: 0;
@@ -56,6 +79,154 @@ div.result-detail-container {
                 margin: 0.125rem;
                 padding: 0.25rem 0.5rem;
             }
+        }
+    }
+
+    div.alerts-detail-boards-container {
+        .summary-alerts-container {
+            ul.thead li {
+                font-size: 0.875rem;
+                font-weight: bold;
+                justify-content: center !important;
+            }
+
+            ul li.risk-level {
+                border-right: 1px solid $app-border-color;
+            }
+
+            ul {
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $app-border-color;
+                }
+
+                li {
+                    justify-content: center;
+                    padding: 0.25rem;
+
+                    &.risk-level {
+                        flex: 1 0 0px;
+                        justify-content: left;
+                    }
+
+                    &.alerts-total {
+                        flex: 1 0 0px;
+
+                    }
+                }
+            }
+        }
+
+        .alerts-information-container {
+
+            &.part-board-container {
+                margin: 2rem 0rem;
+            }
+
+            ul.thead li {
+                font-size: 0.875rem;
+                font-weight: bold;
+                justify-content: center !important;
+            }
+
+            ul li.alert-name,
+            ul li.risk-level {
+                border-right: 1px solid $app-border-color;
+            }
+
+            ul {
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $app-border-color;
+                }
+
+                li {
+                    justify-content: center;
+                    padding: 0.25rem;
+
+                    &.alert-name {
+                        flex: 4 0 0px;
+                        justify-content: left;
+                    }
+
+                    &.risk-level,
+                    &.alerts-total {
+                        flex: 1 0 0px;
+                    }
+                }
+            }
+        }
+
+        .detail-block {
+            border: 1px solid $app-border-color;
+            border-radius: $app-border-radius;
+            margin: 1rem;
+
+            ul li.label:not(:last-child),
+            ul li.detail:not(:last-child) {
+                border-right: 1px solid $app-border-color;
+            }
+
+            .instance:last-of-type+ul.trow {
+                border-top: 1px solid $app-border-color;
+            }
+
+            ul {
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $app-border-color;
+                }
+
+                li {
+                    justify-content: left;
+                    padding: 0.5rem 1rem;
+
+                    &.label {
+                        flex: 1 0 0px;
+                        font-size: 0.875rem;
+                        font-weight: bold;
+                    }
+
+                    &.detail {
+                        flex: 5 0 0px;
+                    }
+                }
+
+                &.references li.detail,
+                &.tags li.detail {
+                    flex-direction: column;
+
+                    a.reference,
+                    a.tag {
+                        margin: 0.25rem 0;
+                    }
+                }
+            }
+
+            div.instance {
+                position: relative;
+
+                span.instance-index {
+                    font-size: 0.875rem;
+                    position: absolute;
+                    right: 1rem;
+                    top: 0.5rem;
+                }
+
+                ul,
+                li {
+                    border: none !important;
+                }
+
+                ul.trow li.label::after {
+                    content: ":";
+                }
+
+                ul li.detail {
+                    overflow: hidden;
+                }
+            }
+
         }
     }
 }

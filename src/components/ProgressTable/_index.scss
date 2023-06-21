@@ -97,23 +97,17 @@ div.progress-table-container {
         height: 50vh;
         overflow: auto;
 
-        ul {
-            display: flex;
-            flex-direction: row;
+        ul li {
+            padding: 1rem 0;
 
-            li {
-                display: inherit;
-                padding: 1rem 0;
-
-                &.no {
-                    flex: 1 0 0px;
-                }
-
-                &.url {
-                    flex: 9 0 0px;
-                }
-
+            &.no {
+                flex: 1 0 0px;
             }
+
+            &.url {
+                flex: 9 0 0px;
+            }
+
         }
 
         div.table-head-container {

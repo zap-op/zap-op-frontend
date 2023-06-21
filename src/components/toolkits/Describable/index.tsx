@@ -18,8 +18,9 @@ const Describable = (props: PropsWithChildren<TDescribableProps>) => {
 	const ref_self = useRef<HTMLDivElement>(null);
 
 	const handleMouseStop = () => {
-		const presentOffsetTop = ref_self.current!.offsetTop + ref_self.current!.offsetHeight / 2;
-		const presentOffsetLeft = ref_self.current!.offsetLeft + ref_self.current!.offsetWidth / 2;
+		const clientRect = ref_self.current!.getBoundingClientRect();
+		const presentOffsetTop = clientRect.bottom + 10;
+		const presentOffsetLeft = clientRect.left + clientRect.width / 2;
 		dispatch(
 			setDescribeInfo({
 				describeInfo: {

@@ -21,6 +21,7 @@ import ProgressTable from "./ProgressTable";
 import ScanField from "./ScanField";
 import CollapseSearchBar from "./SearchBars/CollapseSearchBar";
 import SearchBar from "./SearchBars/SearchBar";
+import PartBoard from "./PartBoard";
 
 export * from "./Breadcrumb";
 export {
@@ -33,6 +34,7 @@ export {
 	ScanField,
 	SearchBar,
 	CollapseSearchBar,
+	PartBoard,
 };
 
 import ModalPortal from "./toolkits/ModalPortal";

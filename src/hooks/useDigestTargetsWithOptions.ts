@@ -1,6 +1,6 @@
 import { toast } from "react-hot-toast";
 import { _assertCast, getScanOptionTitleByID } from "../utils/helpers";
-import { ScanType } from "../utils/types";
+import { ScanType, TStatusResponse } from "../utils/types";
 import {
 	useSelector, //
 	clearScanOption,
@@ -10,6 +10,7 @@ import {
 	useAjaxScanMutation,
 	scanSessionApi,
 	useActiveScanMutation,
+	usePassiveScanMutation,
 } from "../store";
 import { SCAN_SESSION_TAG } from "../utils/settings";
 
@@ -20,6 +21,7 @@ export const useDigestTargetsWithOptions = () => {
 	const [spiderScan] = useSpiderScanMutation();
 	const [ajaxScan] = useAjaxScanMutation();
 	const [activeScan] = useActiveScanMutation();
+	const [passiveScan] = usePassiveScanMutation();
 
 	const digest = async () => {
 		if (listSelectedTarget.length == 0 || listSelectedScanOption.length == 0) {
@@ -85,6 +87,33 @@ export const useDigestTargetsWithOptions = () => {
 								dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 							});
 						return;
+					case ScanType.ZAP_PASSIVE:
+						await passiveScan({
+							_id: target._id,
+							exploreType: "ajax",
+						})
+							.unwrap()
+							.then((response) => {
+								if (response.statusCode > 0) {
+									toast.success(`Succeed to initialize ${optionName} for ${target.name}`, {
+										id: toastId,
+									});
+								} else {
+									toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${response.msg}`, {
+										id: toastId,
+									});
+								}
+							})
+							.catch((error) => {
+								const msg = error.data.msg;
+								toast.error(`Fail to  initialize ${optionName} for ${target.name} with ${msg}`, {
+									id: toastId,
+								});
+							})
+							.finally(() => {
+								dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
+							});
+						return;
 					case ScanType.ZAP_ACTIVE:
 						await activeScan({
 							_id: target._id,
@@ -113,8 +142,7 @@ export const useDigestTargetsWithOptions = () => {
 								dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
 							});
 						return;
-					case ScanType.ZAP_PASSIVE:
-						return;
+
 					default:
 						return;
 				}

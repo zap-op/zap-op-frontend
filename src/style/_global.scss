@@ -88,6 +88,7 @@ a.link-button {
 
 div.table-scroll-wrap {
     overflow-y: auto;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar-track {
         border-radius: 10px;
@@ -106,9 +107,15 @@ div.table-scroll-wrap {
 
 div.table-container {
     ul {
+        display: flex;
+        flex-direction: row;
         list-style-type: none;
         margin: 0;
         padding: 0;
+
+        li {
+            display: flex;
+        }
     }
 }
 

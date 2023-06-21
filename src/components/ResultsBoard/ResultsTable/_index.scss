@@ -7,50 +7,44 @@ div.results-table-container {
     width: 100%;
 
     div.table-scroll-wrap {
-        height: 90vh;
+        height: 80vh;
     }
 
-    ul {
-        display: flex;
-        flex-direction: row;
+    ul li {
+        align-items: center;
+        justify-content: center;
+        margin: 0.5rem;
+        text-align: center;
 
-        li {
-            align-items: center;
-            display: inherit;
-            justify-content: center;
-            margin: 0.5rem;
-            text-align: center;
+        &.name {
+            flex: 3 0 0px;
+            justify-content: left;
+        }
 
-            &.name {
-                flex: 3 0 0px;
-                justify-content: left;
-            }
+        &.target {
+            flex: 3 0 0px;
+            justify-content: left;
+            overflow: hidden;
+        }
 
-            &.target {
-                flex: 3 0 0px;
-                justify-content: left;
-                overflow: hidden;
-            }
+        &.type {
+            flex: 3 0 0px;
+        }
 
-            &.type {
-                flex: 3 0 0px;
-            }
+        &.state {
+            flex: 1 0 0px;
+        }
 
-            &.state {
-                flex: 1 0 0px;
-            }
+        &.progress {
+            flex: 1 0 0px;
+        }
 
-            &.progress {
-                flex: 1 0 0px;
-            }
+        &.first-seen {
+            flex: 1 0 0px;
+        }
 
-            &.first-seen {
-                flex: 1 0 0px;
-            }
-
-            &.last-seen {
-                flex: 1 0 0px;
-            }
+        &.last-seen {
+            flex: 1 0 0px;
         }
     }
 
@@ -61,22 +55,19 @@ div.results-table-container {
             color: unset;
             text-decoration: none;
 
-            div.trow-container {
+            ul.trow {
+                background-color: $blue-color-7;
+                border-radius: $app-border-radius;
                 margin: 0.5rem 0;
+                transition: background-color 200ms ease-in-out;
 
-                ul.trow {
-                    background-color: $blue-color-7;
-                    border-radius: $app-border-radius;
-                    transition: background-color 200ms ease-in-out;
+                &:hover {
+                    background-color: $blue-color-6;
+                }
 
-                    &:hover {
-                        background-color: $blue-color-6;
-                    }
-
-                    li a {
-                        color: -webkit-link;
-                        text-decoration: underline;
-                    }
+                li a {
+                    color: -webkit-link;
+                    text-decoration: underline;
                 }
             }
         }

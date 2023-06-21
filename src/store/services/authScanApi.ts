@@ -21,9 +21,12 @@ import {
 	TZapSpiderFullResultsGETResponse,
 	TZapActiveRequest,
 	TZapActiveResponse,
-	TZapAtiveGETResponse,
 	TZapActiveFullResultsGETResponse,
 	TZapActiveFullResultGETRequest,
+	TZapPassiveFullResultsGETResponse,
+	TZapPassiveFullResultGETRequest,
+	TZapPassiveRequest,
+	TZapPassiveResponse,
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
@@ -195,6 +198,86 @@ const authScanApi = createApi({
 				method: "GET",
 			}),
 		}),
+		passiveScan: builder.mutation<TZapPassiveResponse<TPOST>, TZapPassiveRequest<TPOST>>({
+			query: (arg) => ({
+				url: "passive",
+				method: "POST",
+				body: arg,
+			}),
+		}),
+		streamPassiveScan: builder.query<TZapPassiveResponse<TGET>, TZapPassiveRequest<TGET> & { scanState: ScanState }>({
+			queryFn: (arg, {}) => {
+				if (!arg) {
+					return {
+						error: {
+							status: "FETCH_ERROR",
+							error: "URL is empty!",
+						},
+					};
+				}
+				return {
+					data: {
+						isScanning: true,
+						progress: 0,
+						data: [],
+						error: {
+							statusCode: NaN,
+							msg: "",
+						},
+					},
+				};
+			},
+			async onCacheEntryAdded({ _id: sessionId, zapClientId, scanState }, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
+				await cacheDataLoaded;
+				if (scanState !== ScanState.PROCESSING) {
+					return;
+				}
+				const eventSource = new EventSource(urlJoin(_URL, `passive?scanSession=${sessionId}&zapClientId=${zapClientId}`), {
+					withCredentials: true,
+				});
+				try {
+					eventSource.addEventListener("status", (event: MessageEvent) => {
+						const status = JSON.parse(event.data).status * 1;
+						updateCachedData((draft) => {
+							draft.progress = status;
+						});
+
+						if (status === 100) {
+							eventSource.close();
+							updateCachedData((draft) => {
+								draft.isScanning = false;
+							});
+							dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
+						}
+					});
+
+					eventSource.onerror = (event: Event) => {
+						console.log("onerror: ", event);
+						if (event instanceof MessageEvent) {
+							const data = JSON.parse(event.data) as TStatusResponse;
+							updateCachedData((draft) => {
+								draft.error = data;
+							});
+						} else {
+							updateCachedData((draft) => {
+								draft.error = SCAN_STATUS.ZAP_INTERNAL_ERROR;
+							});
+						}
+						updateCachedData((draft) => {
+							draft.isScanning = false;
+						});
+						eventSource.close();
+					};
+				} catch (error) {}
+				await cacheEntryRemoved;
+			},
+		}),
+		getPassiveFullResult: builder.query<TZapPassiveFullResultsGETResponse, TZapPassiveFullResultGETRequest>({
+			query: ({ _id: sessionId }) => ({
+				url: `passive/fullResults?scanSession=${sessionId}`,
+				method: "GET",
+			}),
+		}),
 		activeScan: builder.mutation<TZapActiveResponse<TPOST>, TZapActiveRequest<TPOST>>({
 			query: (arg) => ({
 				url: "active",
@@ -286,6 +369,9 @@ export const {
 	useAjaxScanMutation,
 	useStreamAjaxScanQuery,
 	useGetAjaxFullResultQuery,
+	usePassiveScanMutation,
+	useStreamPassiveScanQuery,
+	useGetPassiveFullResultQuery,
 	useActiveScanMutation,
 	useStreamActiveScanQuery,
 	useGetActiveFullResultQuery,

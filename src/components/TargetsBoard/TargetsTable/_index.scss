@@ -6,49 +6,44 @@ div.targets-table-container {
     min-width: $SM;
     width: 100%;
 
-    ul {
-        display: flex;
-        flex-direction: row;
+    ul li {
+        justify-content: center;
+        margin: 0.5rem;
 
-        li {
-            display: inherit;
-            justify-content: center;
-            margin: 0.5rem;
+        &.name {
+            flex: 4 0 0px;
+            justify-content: left;
+        }
 
-            &.name {
-                flex: 4 0 0px;
-                justify-content: left;
-            }
+        &.target {
+            flex: 5 0 0px;
+            justify-content: left;
+            overflow: hidden;
+        }
 
-            &.target {
-                flex: 5 0 0px;
-                justify-content: left;
-                overflow: hidden;
-            }
+        &.tag {
+            flex: 2 0 0px;
+            flex-wrap: wrap;
 
-            &.tag {
-                flex: 2 0 0px;
-                flex-wrap: wrap;
-
-                span.tag-item {
-                    background-color: white;
-                    border-radius: $app-border-radius;
-                    height: fit-content;
-                    margin: 0.125rem;
-                    padding: 0.25rem 0.5rem;
-                }
-            }
-
-            &.first-seen,
-            &.last-seen {
-                flex: 2 0 0px;
-            }
-
-            &.action {
-                flex: 1 0 0px;
+            span.tag-item {
+                background-color: white;
+                border-radius: $app-border-radius;
+                height: fit-content;
+                margin: 0.125rem;
+                padding: 0.25rem 0.5rem;
             }
         }
+
+        &.first-seen,
+        &.last-seen {
+            flex: 2 0 0px;
+        }
+
+        &.action {
+            flex: 1 0 0px;
+        }
     }
+
 
     div.table-scroll-wrap {
         overflow: unset !important;
