@@ -1,16 +1,14 @@
 import jsPDF from "jspdf";
+import moment from "moment";
 import autoTable, { CellInput, Color, RowInput } from "jspdf-autotable";
 import {
 	ScanType, //
-	TAlertDetail,
-	TAlertsByRisk,
 	ExtractArrayItemType,
 	TMgmtScanSessionsResponse,
 	TZapActiveScanFullResults,
 	RiskLevel,
 } from "../../utils/types";
 import { _assertCast, getScanOptionTitleByID } from "../../utils/helpers";
-import moment from "moment";
 
 const HIGH_COLOR: Color = [255, 73, 73];
 const MEDIUM_COLOR: Color = [255, 164, 0];
@@ -279,7 +277,10 @@ const generateAlertsDetailDocument = (doc: jsPDF, finalY: any, fullResults: TAct
 
 				finalY = getFinalY(doc) + FONT_SIZE / 8;
 				risk.value.map((instance, index) => {
-					const alertDetail = alerts[parseInt(instance.id)];
+					const alertDetail = alerts[parseInt(instance.id)] || alerts.find((item) => item.id === instance.id);
+					if (!alertDetail) {
+						return;
+					}
 					const instanceBody: RowInput[] = [
 						[
 							{

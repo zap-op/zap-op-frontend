@@ -121,7 +121,10 @@ const AlertsDetailBoards = ({
 										<li className="detail">{risk.value.length}</li>
 									</ul>
 									{risk.value.map((instance, index) => {
-										const alertDetail = alerts[parseInt(instance.id)];
+										const alertDetail = alerts[parseInt(instance.id)] || alerts.find((item) => item.id === instance.id);
+										if (!alertDetail) {
+											return <></>;
+										}
 										const instanceUrl = instance.url;
 										return (
 											<div
