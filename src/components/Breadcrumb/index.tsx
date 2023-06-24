@@ -11,19 +11,20 @@ const Breadcrumb = ({ rootLink }: TBreadcrumbProps) => {
 
 	useEffect(() => {
 		const listPathCell = location.pathname.split("/").splice(2);
-		const listBreadcrumbCell: TBreadcrumbCell[] = [rootLink].concat(
-			listPathCell.map((item) => ({
+		const listBreadcrumbCell: TBreadcrumbCell[] = [];
+		listBreadcrumbCell.push(
+			{ ...rootLink },
+			...listPathCell.map((item) => ({
 				href: item,
 				name: item,
 			})),
 		);
 		listBreadcrumbCell.forEach((item, index, arr) => {
-			arr[index].href =
-				"../" +
-				arr
-					.slice(0, index + 1)
-					.map((item) => item.href)
-					.join("/");
+			if (index === 0) {
+				arr[index].href = "/" + arr[index].href;
+				return;
+			}
+			arr[index].href = arr[index - 1].href + "/" + arr[index].href;
 		});
 		setListCellBreadcrumb(listBreadcrumbCell);
 	}, [location]);
