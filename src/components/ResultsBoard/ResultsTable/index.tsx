@@ -1,5 +1,6 @@
 import moment from "moment";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import { _assertCast } from "../../../utils/helpers";
 import {
 	TObject, //
@@ -13,7 +14,6 @@ import {
 	useStreamSpiderScanQuery,
 } from "../../../store";
 import Describable from "../../toolkits/Describable";
-import { Link } from "react-router-dom";
 
 const ResultsTable = () => {
 	const { data: listScanSession } = useGetScanSessionQuery(undefined, {
@@ -44,7 +44,7 @@ const ResultsTable = () => {
 								case ScanType.ZAP_SPIDER:
 									return (
 										<Link
-											to={strId}
+											to={`/app/results/${strId}`}
 											key={strId}>
 											<SpiderItemRow
 												sessionId={objId}
@@ -61,7 +61,7 @@ const ResultsTable = () => {
 								case ScanType.ZAP_AJAX:
 									return (
 										<Link
-											to={strId}
+											to={`/app/results/${strId}`}
 											key={strId}>
 											<AjaxItemRow
 												sessionId={objId}
@@ -79,7 +79,7 @@ const ResultsTable = () => {
 								case ScanType.ZAP_PASSIVE:
 									return (
 										<Link
-											to={strId}
+											to={`/app/results/${strId}`}
 											key={strId}>
 											<PassiveItemRow
 												sessionId={objId}
@@ -97,7 +97,7 @@ const ResultsTable = () => {
 								case ScanType.ZAP_ACTIVE:
 									return (
 										<Link
-											to={strId}
+											to={`/app/results/${strId}`}
 											key={strId}>
 											<ActiveItemRow
 												sessionId={objId}

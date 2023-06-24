@@ -24,6 +24,7 @@ import {
 	ToolkitPortal,
 	ResultsDetail,
 	AddScanBoardLinkState,
+	DashBoard,
 } from "./components";
 
 import { useSelector } from "./store";
@@ -76,8 +77,7 @@ function App() {
 						}>
 						<Route
 							index
-							path="dashboard"
-							element={<></>}
+							element={<DashBoard />}
 						/>
 						<Route
 							path="targets"

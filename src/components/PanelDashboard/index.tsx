@@ -56,23 +56,26 @@ const PanelDashboard = () => {
 				<div className="work-space-nav-container">
 					<h4 className="nav-title management-title">MANAGEMENT</h4>
 					<NavLink
-						to="dashboard"
+						to=""
 						className="nav-item dashboard-container"
-						draggable={false}>
+						draggable={false}
+						end>
 						<span className="icon"></span>
 						<h4 className="title">Dashboard</h4>
 					</NavLink>
 					<NavLink
 						to="targets"
 						className="nav-item targets-container"
-						draggable={false}>
+						draggable={false}
+						end>
 						<span className="icon"></span>
 						<h4 className="title">Targets</h4>
 					</NavLink>
 					<NavLink
 						to="results"
 						className="nav-item results-container"
-						draggable={false}>
+						draggable={false}
+						end>
 						<span className="icon"></span>
 						<h4 className="title">Results</h4>
 					</NavLink>
@@ -80,7 +83,8 @@ const PanelDashboard = () => {
 					<NavLink
 						to="addscan"
 						className="nav-item new-scan-container"
-						draggable={false}>
+						draggable={false}
+						end>
 						<span className="icon"></span>
 						<h4 className="title">New scan</h4>
 					</NavLink>
@@ -90,7 +94,8 @@ const PanelDashboard = () => {
 					<NavLink
 						to="wspsettings"
 						className="nav-item settings-container"
-						draggable={false}>
+						draggable={false}
+						end>
 						<span className="icon"></span>
 						<h4 className="title">Workspace settings</h4>
 					</NavLink>
