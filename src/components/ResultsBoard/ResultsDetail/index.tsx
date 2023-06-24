@@ -1,45 +1,31 @@
-import moment from "moment";
-import { cloneElement, useEffect, useMemo, useRef, useState } from "react";
+import {
+	useEffect, //
+	useMemo,
+	useState,
+} from "react";
 import toast from "react-hot-toast";
+import moment from "moment";
+import { Link, useParams } from "react-router-dom";
+import jsPDF from "jspdf";
 import { _assertCast, getScanOptionTitleByID } from "../../../utils/helpers";
 import {
-	TObject, //
-	ScanType,
-	ScanState,
+	ScanType, //
 	TMgmtScanSessionsResponse,
 	ExtractArrayItemType,
 	TZapSpiderScanConfig,
 	TZapAjaxScanConfig,
-	TScanSession,
-	TAuthScanSession,
-	TZapAjaxFullResultGETRequest,
-	TZapActiveFullResultGETRequest,
-	RiskLevel,
-	TAlertsByRisk,
-	TAlertDetail,
-	TZapPassiveFullResultGETRequest,
-	TZapActiveScanFullResultsModel,
 	TZapActiveScanFullResults,
+	TZapPassiveScanFullResults,
+	TZapSpiderScanFullResults,
+	TZapAjaxScanFullResults,
 } from "../../../utils/types";
-import {
-	scanSessionApi,
-	useGetActiveFullResultQuery,
-	useGetAjaxFullResultQuery,
-	useGetPassiveFullResultQuery,
-	useSelector,
-	useStreamAjaxScanQuery, //
-	useStreamSpiderScanQuery,
-} from "../../../store";
-import Describable from "../../toolkits/Describable";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { scanSessionApi } from "../../../store";
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
-import ProgressTable from "../../ProgressTable";
-import PartBoard from "../../PartBoard";
-import jsPDF from "jspdf";
-import ReactDOMServer from "react-dom/server";
-import autoTable from "jspdf-autotable";
-import AlertsDetailBoards from "./AlertsDetailBoards";
 import { generateResultDetailDocument } from "../pdfExporter";
+import ZapSpiderFullResultTable from "./ZapSpiderFullResultTable";
+import ZapAjaxFullResultTable from "./ZapAjaxResultTable";
+import ZapPassiveFullResultTable from "./ZapPassiveFullResultTable";
+import ZapActiveFullResultTable from "./ZapActiveFullResultTable";
 
 type TResultsDetailParams = {
 	resultId: string;
@@ -95,20 +81,49 @@ const ResultsDetail = () => {
 		}
 	}, []);
 
+	const [spiderFullResult, setSpiderFullResult] = useState<TZapSpiderScanFullResults["fullResults"]>();
+	const [ajaxFullResult, setAjaxFullResult] = useState<TZapAjaxScanFullResults["fullResults"]>();
+	const [passiveFullResult, setPassiveFullResult] = useState<TZapPassiveScanFullResults["fullResults"]>();
 	const [activeFullResult, setActiveFullResult] = useState<TZapActiveScanFullResults["fullResults"]>();
-
-	const callback = (data: TZapActiveScanFullResults["fullResults"]) => {
-		setActiveFullResult(data);
-	};
 
 	const exportPdf: TOptionItem = {
 		name: "Export to PDF",
 		handle: () => {
+			// const toastId = toast.loading("")
 			const doc = new jsPDF();
-			if (!sessionInfo || !activeFullResult) {
+			if (!sessionInfo) {
 				return;
 			}
-			generateResultDetailDocument(doc, ScanType.ZAP_ACTIVE, sessionInfo, activeFullResult);
+
+			switch (__t as ScanType) {
+				case ScanType.ZAP_SPIDER:
+					if (!spiderFullResult) {
+						return;
+					}
+					generateResultDetailDocument(doc, ScanType.ZAP_SPIDER, sessionInfo, spiderFullResult);
+					break;
+				case ScanType.ZAP_AJAX:
+					if (!ajaxFullResult) {
+						return;
+					}
+					generateResultDetailDocument(doc, ScanType.ZAP_AJAX, sessionInfo, ajaxFullResult);
+					break;
+				case ScanType.ZAP_PASSIVE:
+					if (!passiveFullResult) {
+						return;
+					}
+					generateResultDetailDocument(doc, ScanType.ZAP_PASSIVE, sessionInfo, passiveFullResult);
+					break;
+				case ScanType.ZAP_ACTIVE:
+					if (!activeFullResult) {
+						return;
+					}
+					generateResultDetailDocument(doc, ScanType.ZAP_ACTIVE, sessionInfo, activeFullResult);
+					break;
+				default:
+					break;
+			}
+
 			doc.save("report.pdf");
 		},
 	};
@@ -178,16 +193,31 @@ const ResultsDetail = () => {
 						</li>
 					</ul>
 					{__t === ScanType.ZAP_SPIDER ? ( //
-						<ZapSpiderFullResultTable />
+						_id && (
+							<ZapSpiderFullResultTable
+								_id={_id}
+								liftUpDataCallback={setSpiderFullResult}
+							/>
+						)
 					) : __t === ScanType.ZAP_AJAX ? (
-						_id && <ZapAjaxFullResultTable _id={_id} />
+						_id && (
+							<ZapAjaxFullResultTable
+								_id={_id}
+								liftUpDataCallback={setAjaxFullResult}
+							/>
+						)
 					) : __t === ScanType.ZAP_PASSIVE ? (
-						_id && <ZapPassiveFullResultTable _id={_id} />
+						_id && (
+							<ZapPassiveFullResultTable
+								_id={_id}
+								liftUpDataCallback={setPassiveFullResult}
+							/>
+						)
 					) : __t === ScanType.ZAP_ACTIVE ? (
 						_id && (
 							<ZapActiveFullResultTable
 								_id={_id}
-								liftUpDataCallback={callback}
+								liftUpDataCallback={setActiveFullResult}
 							/>
 						)
 					) : (
@@ -254,62 +284,5 @@ const ZapAjaxConfig = ({ scanConfig }: TZapAjaxScanConfig) => {
 				<span>{subtreeOnly}</span>
 			</li>
 		</ul>
-	);
-};
-
-type TCallbackInjected = {
-	liftUpDataCallback: (data: TZapActiveScanFullResults["fullResults"]) => void;
-};
-
-const ZapSpiderFullResultTable = () => {
-	return <></>;
-};
-
-const ZapAjaxFullResultTable = ({ _id }: TZapAjaxFullResultGETRequest) => {
-	const result = useGetAjaxFullResultQuery({
-		_id,
-	});
-
-	useEffect(() => {
-		console.log("result", result);
-	}, [result]);
-	return <></>;
-};
-
-const ZapPassiveFullResultTable = ({ _id }: TZapPassiveFullResultGETRequest) => {
-	// const result = useGetPassiveFullResultQuery({
-	// 	_id,
-	// });
-	return <></>;
-};
-
-const ZapActiveFullResultTable = ({
-	_id, //
-	liftUpDataCallback,
-}: TZapActiveFullResultGETRequest & TCallbackInjected) => {
-	const result = useGetActiveFullResultQuery({
-		_id,
-	});
-	const {
-		alerts, //
-		alertsByRisk,
-	} = { ...result.data?.fullResults };
-
-	useEffect(() => {
-		if (result.data) {
-			liftUpDataCallback(result.data.fullResults);
-		}
-	}, [result.data]);
-
-	return (
-		<>
-			{alerts && alertsByRisk && (
-				<AlertsDetailBoards
-					alerts={alerts}
-					alertsByRisk={alertsByRisk}
-					extendClassName="active table-scroll-wrap"
-				/>
-			)}
-		</>
 	);
 };

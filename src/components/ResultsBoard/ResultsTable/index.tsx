@@ -123,6 +123,19 @@ const ResultsTable = () => {
 
 export default ResultsTable;
 
+const getStateStyle = (state: ScanState) => {
+	switch (state) {
+		case ScanState.PROCESSING:
+			return "processing";
+		case ScanState.SUCCESSFUL:
+			return "successful";
+		case ScanState.FAILED:
+			return "failed";
+		default:
+			return "";
+	}
+};
+
 type TItemRow = {
 	sessionId: TObject["_id"];
 	zapClientId: string;
@@ -166,7 +179,7 @@ const SpiderItemRow = ({
 				</a>
 			</li>
 			<li className="type">{type}</li>
-			<li className="state">{state}</li>
+			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{scanStatus && scanStatus.data && scanStatus.data.progress}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
@@ -207,7 +220,7 @@ const AjaxItemRow = ({
 				</a>
 			</li>
 			<li className="type">{type}</li>
-			<li className="state">{state}</li>
+			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{scanStatus && scanStatus.data && scanStatus.data.progress}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
@@ -249,7 +262,7 @@ const PassiveItemRow = ({
 				</a>
 			</li>
 			<li className="type">{type}</li>
-			<li className="state">{state}</li>
+			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{scanStatus && "" /*scanStatus.data && scanStatus.data.progress*/}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
@@ -290,7 +303,7 @@ const ActiveItemRow = ({
 				</a>
 			</li>
 			<li className="type">{type}</li>
-			<li className="state">{state}</li>
+			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{scanStatus && scanStatus.data && scanStatus.data.progress}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>

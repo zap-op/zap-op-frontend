@@ -7,10 +7,13 @@ import {
 	TMgmtScanSessionsResponse,
 	TZapActiveScanFullResults,
 	RiskLevel,
+	TZapAjaxScanFullResults,
+	TZapAjaxUrlResult,
 } from "../../utils/types";
 import { _assertCast, getScanOptionTitleByID } from "../../utils/helpers";
 
 const HIGH_COLOR: Color = [255, 73, 73];
+const ERROR_COLOR = HIGH_COLOR;
 const MEDIUM_COLOR: Color = [255, 164, 0];
 const LOW_COLOR: Color = [220, 247, 99];
 const INFORMATIONAL_COLOR: Color = [0, 102, 255];
@@ -35,13 +38,14 @@ const getColorByRiskLevel = (str: string) => {
 };
 
 type TActiveFullResult = TZapActiveScanFullResults["fullResults"];
+type TAjaxFullResult = TZapAjaxScanFullResults["fullResults"];
 
 type TSessionInfo = ExtractArrayItemType<TMgmtScanSessionsResponse>;
 
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_SPIDER, sessionInfo: TSessionInfo, fullResults?: any): any;
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_AJAX, sessionInfo: TSessionInfo, fullResults?: any): any;
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_PASSIVE, sessionInfo: TSessionInfo, fullResults?: any): any;
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_ACTIVE, sessionInfo: TSessionInfo, fullResults: TActiveFullResult): any;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_SPIDER, sessionInfo: TSessionInfo, fullResults?: any): void;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_AJAX, sessionInfo: TSessionInfo, fullResults?: TAjaxFullResult): void;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_PASSIVE, sessionInfo: TSessionInfo, fullResults?: any): void;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_ACTIVE, sessionInfo: TSessionInfo, fullResults: TActiveFullResult): void;
 function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionInfo: TSessionInfo, fullResults: TActiveFullResult | any) {
 	// const toastId = toast.loading("Generating pdf");
 
@@ -54,8 +58,13 @@ function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionI
 
 	switch (resultType) {
 		case ScanType.ZAP_SPIDER:
+			break;
 		case ScanType.ZAP_AJAX:
-			return 0;
+			_assertCast<TAjaxFullResult>(fullResults);
+			generateAjaxListUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS In Scope", fullResults.inScope, INFORMATIONAL_COLOR);
+			finalY = getFinalY(doc);
+			generateAjaxListUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS Out Of Scope", fullResults.outOfScope, ERROR_COLOR);
+			break;
 		case ScanType.ZAP_PASSIVE:
 		case ScanType.ZAP_ACTIVE:
 			_assertCast<TActiveFullResult>(fullResults);
@@ -64,9 +73,9 @@ function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionI
 			generateAlertsInformationDocument(doc, finalY + FONT_SIZE, fullResults);
 			finalY = getFinalY(doc);
 			generateAlertsDetailDocument(doc, finalY + FONT_SIZE, fullResults);
-			return 0;
+			break;
 		default:
-			return 0;
+			break;
 	}
 
 	// 			{/* {<ZapSpiderConfig scanConfig={sessionInfo["scanConfig"] as TZapSpiderScanConfig["scanConfig"]} />} */}
@@ -275,7 +284,10 @@ const generateAlertsDetailDocument = (doc: jsPDF, finalY: any, fullResults: TAct
 					body: bodyRows,
 				});
 
+				const marginInline = FONT_SIZE * 3;
+
 				finalY = getFinalY(doc) + FONT_SIZE / 8;
+
 				risk.value.map((instance, index) => {
 					const alertDetail = alerts[parseInt(instance.id)] || alerts.find((item) => item.id === instance.id);
 					if (!alertDetail) {
@@ -307,7 +319,6 @@ const generateAlertsDetailDocument = (doc: jsPDF, finalY: any, fullResults: TAct
 						["Evidence", alertDetail.evidence],
 					];
 
-					const marginInline = FONT_SIZE * 3;
 					autoTable(doc, {
 						rowPageBreak: "avoid",
 						startY: finalY,
@@ -319,6 +330,71 @@ const generateAlertsDetailDocument = (doc: jsPDF, finalY: any, fullResults: TAct
 				finalY = getFinalY(doc) + FONT_SIZE / 2;
 			}),
 		);
+};
+
+const generateAjaxListUrlDetailDocument = (doc: jsPDF, finalY: any, listTitle: string, listUrlDetail: TZapAjaxUrlResult[], fillColorHeader: Color) => {
+	doc.text(listTitle, FONT_SIZE, finalY);
+	finalY = finalY + FONT_SIZE / 4;
+	autoTable(doc, {
+		rowPageBreak: "avoid",
+		startY: finalY,
+		body: [
+			[
+				{
+					content: "Total",
+					styles: {
+						fillColor: fillColorHeader,
+						cellWidth: 30,
+					},
+				},
+				{
+					content: listUrlDetail.length,
+					styles: {
+						fillColor: fillColorHeader,
+					},
+				},
+			],
+		],
+	});
+
+	const marginInline = FONT_SIZE * 3;
+
+	finalY = getFinalY(doc) + FONT_SIZE / 8;
+
+	listUrlDetail.forEach((item, index) => {
+		const instanceBody: RowInput[] = [
+			[
+				{
+					content: index,
+					rowSpan: 4,
+					styles: {
+						valign: "middle",
+						halign: "center",
+						fillColor: fillColorHeader,
+						cellWidth: 10,
+					},
+				},
+				{
+					content: "URL",
+					styles: {
+						cellWidth: 30,
+					},
+				},
+				item.url,
+			],
+			["Method", item.method],
+			["Status Code", item.statusCode],
+			["Status Reason", item.statusReason],
+		];
+
+		autoTable(doc, {
+			rowPageBreak: "avoid",
+			startY: finalY,
+			margin: [0, FONT_SIZE, 0, marginInline],
+			body: instanceBody,
+		});
+		finalY = getFinalY(doc) + FONT_SIZE / 6;
+	});
 };
 
 export { generateResultDetailDocument };

@@ -33,6 +33,21 @@ div.results-table-container {
 
         &.state {
             flex: 1 0 0px;
+
+            &.processing {
+                color: $medium-color;
+                font-weight: 700;
+            }
+
+            &.successful {
+                color: $success-color;
+                font-weight: 700;
+            }
+
+            &.failed {
+                color: $error-color;
+                font-weight: 700;
+            }
         }
 
         &.progress {

@@ -18,69 +18,65 @@ const AlertsDetailBoards = ({
 	extendClassName,
 }: TAlertsDetailBoards) => {
 	return (
-		<div className={`alerts-detail-boards-container ${extendClassName && extendClassName}`}>
+		<div className={`alerts-detail-boards-container table-container ${extendClassName && extendClassName}`}>
 			<PartBoard
 				title="Alerts Summary"
 				extendClassName="summary-alerts-container">
-				<div className="table-container">
-					<ul className="thead">
-						<li className="risk-level">Risk Level</li>
-						<li className="alerts-total">Alert Total</li>
-					</ul>
-					<ul className="trow">
-						<li className="risk-level risk-high-style">High</li>
-						<li className="alerts-total">{alertsByRisk.High?.length}</li>
-					</ul>
-					<ul className="trow">
-						<li className="risk-level risk-medium-style">Medium</li>
-						<li className="alerts-total">{alertsByRisk.Medium?.length}</li>
-					</ul>
-					<ul className="trow">
-						<li className="risk-level risk-low-style">Low</li>
-						<li className="alerts-total">{alertsByRisk.Low?.length}</li>
-					</ul>
-					<ul className="trow">
-						<li className="risk-level risk-informational-style">Informational</li>
-						<li className="alerts-total">{alertsByRisk.Informational?.length}</li>
-					</ul>
-				</div>
+				<ul className="thead">
+					<li className="risk-level">Risk Level</li>
+					<li className="alerts-total">Alert Total</li>
+				</ul>
+				<ul className="trow">
+					<li className="risk-level risk-high-style">High</li>
+					<li className="alerts-total">{alertsByRisk.High?.length}</li>
+				</ul>
+				<ul className="trow">
+					<li className="risk-level risk-medium-style">Medium</li>
+					<li className="alerts-total">{alertsByRisk.Medium?.length}</li>
+				</ul>
+				<ul className="trow">
+					<li className="risk-level risk-low-style">Low</li>
+					<li className="alerts-total">{alertsByRisk.Low?.length}</li>
+				</ul>
+				<ul className="trow">
+					<li className="risk-level risk-informational-style">Informational</li>
+					<li className="alerts-total">{alertsByRisk.Informational?.length}</li>
+				</ul>
 			</PartBoard>
 			<PartBoard
 				title="Alerts Information"
 				extendClassName="alerts-information-container">
-				<div className="table-container">
-					<ul className="thead">
-						<li className="alert-name">Risk Name</li>
-						<li className="risk-level">Risk Level</li>
-						<li className="alerts-total">Instances Total</li>
-					</ul>
-					{Object.entries(alertsByRisk)
-						.reverse()
-						.map(([key, value]) =>
-							value.map((item, index) => (
-								<ul
-									className="trow"
-									key={index}>
-									<li className="alert-name">
-										<a href={`#${item.key}`}>{item.key}</a>
-									</li>
-									<li
-										className={`risk-level ${
-											key === RiskLevel.HIGH //
-												? "risk-high-style"
-												: key === RiskLevel.MEDIUM
-												? "risk-medium-style"
-												: key === RiskLevel.LOW
-												? "risk-low-style"
-												: "risk-informational-style"
-										}`}>
-										{key}
-									</li>
-									<li className="alerts-total">{item.value.length}</li>
-								</ul>
-							)),
-						)}
-				</div>
+				<ul className="thead">
+					<li className="alert-name">Risk Name</li>
+					<li className="risk-level">Risk Level</li>
+					<li className="alerts-total">Instances Total</li>
+				</ul>
+				{Object.entries(alertsByRisk)
+					.reverse()
+					.map(([key, value]) =>
+						value.map((item, index) => (
+							<ul
+								className="trow"
+								key={index}>
+								<li className="alert-name">
+									<a href={`#${item.key}`}>{item.key}</a>
+								</li>
+								<li
+									className={`risk-level ${
+										key === RiskLevel.HIGH //
+											? "risk-high-style"
+											: key === RiskLevel.MEDIUM
+											? "risk-medium-style"
+											: key === RiskLevel.LOW
+											? "risk-low-style"
+											: "risk-informational-style"
+									}`}>
+									{key}
+								</li>
+								<li className="alerts-total">{item.value.length}</li>
+							</ul>
+						)),
+					)}
 			</PartBoard>
 			<PartBoard
 				title="Alerts Detail"
@@ -98,7 +94,7 @@ const AlertsDetailBoards = ({
 								<div
 									key={index}
 									id={risk.key}
-									className="detail-block table-container">
+									className="detail-block">
 									<ul
 										className={`thead ${
 											key === RiskLevel.HIGH //
@@ -129,7 +125,7 @@ const AlertsDetailBoards = ({
 										return (
 											<div
 												key={index}
-												className="instance detail-block table-container">
+												className="instance detail-block">
 												<span className="instance-index">{index}</span>
 												<ul className="trow">
 													<li className="label">Target</li>
