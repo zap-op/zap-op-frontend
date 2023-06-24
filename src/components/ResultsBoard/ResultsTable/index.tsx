@@ -171,12 +171,14 @@ const SpiderItemRow = ({
 		<ul className="trow">
 			<li className="name">{name}</li>
 			<li className="target">
-				<a
-					href={url}
-					target="_blank"
-					rel="noopener noreferrer">
-					<Describable dataTitle={url}>{url}</Describable>
-				</a>
+				<Describable dataTitle={url}>
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</Describable>
 			</li>
 			<li className="type">{type}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
@@ -212,12 +214,14 @@ const AjaxItemRow = ({
 		<ul className="trow">
 			<li className="name">{name}</li>
 			<li className="target">
-				<a
-					href={url}
-					target="_blank"
-					rel="noopener noreferrer">
-					{url}
-				</a>
+				<Describable dataTitle={url}>
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</Describable>
 			</li>
 			<li className="type">{type}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
@@ -254,12 +258,14 @@ const PassiveItemRow = ({
 		<ul className="trow">
 			<li className="name">{name}</li>
 			<li className="target">
-				<a
-					href={url}
-					target="_blank"
-					rel="noopener noreferrer">
-					{url}
-				</a>
+				<Describable dataTitle={url}>
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</Describable>
 			</li>
 			<li className="type">{type}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
@@ -295,12 +301,14 @@ const ActiveItemRow = ({
 		<ul className="trow">
 			<li className="name">{name}</li>
 			<li className="target">
-				<a
-					href={url}
-					target="_blank"
-					rel="noopener noreferrer">
-					{url}
-				</a>
+				<Describable dataTitle={url}>
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</Describable>
 			</li>
 			<li className="type">{type}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
