@@ -86,6 +86,7 @@ div.result-detail-container {
     }
 
     .ajax,
+    .spider,
     .alerts-detail-boards-container .alerts-detail-container {
         .detail-block {
             border: 1px solid $app-border-color;
@@ -232,7 +233,7 @@ div.result-detail-container {
         }
 
         .alerts-detail-container .detail-block ul {
-            
+
 
             &.references li.detail,
             &.tags li.detail {

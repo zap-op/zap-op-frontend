@@ -8,7 +8,8 @@ import {
 	TZapActiveScanFullResults,
 	RiskLevel,
 	TZapAjaxScanFullResults,
-	TZapAjaxUrlResult,
+	TBaseUrlResult,
+	TZapSpiderScanFullResults,
 } from "../../utils/types";
 import { _assertCast, getScanOptionTitleByID } from "../../utils/helpers";
 
@@ -37,8 +38,9 @@ const getColorByRiskLevel = (str: string) => {
 	}
 };
 
-type TActiveFullResult = TZapActiveScanFullResults["fullResults"];
+type TSpiderFullResult = TZapSpiderScanFullResults["fullResults"];
 type TAjaxFullResult = TZapAjaxScanFullResults["fullResults"];
+type TActiveFullResult = TZapActiveScanFullResults["fullResults"];
 
 type TSessionInfo = ExtractArrayItemType<TMgmtScanSessionsResponse>;
 
@@ -58,12 +60,16 @@ function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionI
 
 	switch (resultType) {
 		case ScanType.ZAP_SPIDER:
+			_assertCast<TSpiderFullResult>(fullResults);
+			generateListBaseUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS In Scope", fullResults.urlsInScope, INFORMATIONAL_COLOR);
+			finalY = getFinalY(doc);
+			generateSpiderListUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS Out Of Scope", fullResults.urlsOutOfScope, ERROR_COLOR);
 			break;
 		case ScanType.ZAP_AJAX:
 			_assertCast<TAjaxFullResult>(fullResults);
-			generateAjaxListUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS In Scope", fullResults.inScope, INFORMATIONAL_COLOR);
+			generateListBaseUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS In Scope", fullResults.inScope, INFORMATIONAL_COLOR);
 			finalY = getFinalY(doc);
-			generateAjaxListUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS Out Of Scope", fullResults.outOfScope, ERROR_COLOR);
+			generateListBaseUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS Out Of Scope", fullResults.outOfScope, ERROR_COLOR);
 			break;
 		case ScanType.ZAP_PASSIVE:
 		case ScanType.ZAP_ACTIVE:
@@ -332,7 +338,7 @@ const generateAlertsDetailDocument = (doc: jsPDF, finalY: any, fullResults: TAct
 		);
 };
 
-const generateAjaxListUrlDetailDocument = (doc: jsPDF, finalY: any, listTitle: string, listUrlDetail: TZapAjaxUrlResult[], fillColorHeader: Color) => {
+const generateListBaseUrlDetailDocument = (doc: jsPDF, finalY: any, listTitle: string, listUrlDetail: TBaseUrlResult[], fillColorHeader: Color) => {
 	doc.text(listTitle, FONT_SIZE, finalY);
 	finalY = finalY + FONT_SIZE / 4;
 	autoTable(doc, {
@@ -394,6 +400,46 @@ const generateAjaxListUrlDetailDocument = (doc: jsPDF, finalY: any, listTitle: s
 			body: instanceBody,
 		});
 		finalY = getFinalY(doc) + FONT_SIZE / 6;
+	});
+};
+
+const generateSpiderListUrlDetailDocument = (doc: jsPDF, finalY: any, listTitle: string, listUrl: string[], fillColorHeader: Color) => {
+	doc.text(listTitle, FONT_SIZE, finalY);
+	finalY = finalY + FONT_SIZE / 4;
+
+	const tableBody: RowInput[] = [
+		[
+			{
+				content: "Total",
+				styles: {
+					fillColor: fillColorHeader,
+					cellWidth: 30,
+				},
+			},
+			{
+				content: listUrl.length,
+				styles: {
+					fillColor: fillColorHeader,
+				},
+			},
+		],
+	];
+	listUrl.forEach((url, index) =>
+		tableBody.push([
+			{
+				content: index,
+				styles: {
+					halign: "center",
+				},
+			},
+			url,
+		]),
+	);
+
+	autoTable(doc, {
+		rowPageBreak: "avoid",
+		startY: finalY,
+		body: tableBody,
 	});
 };
 

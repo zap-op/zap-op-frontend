@@ -1,15 +1,59 @@
 import { useEffect, useState } from "react";
 import { useGetAjaxFullResultQuery } from "../../../store";
-import { TZapAjaxFullResultGETRequest, TZapAjaxScanFullResults } from "../../../utils/types";
 import PartBoard from "../../PartBoard";
 import Describable from "../../toolkits/Describable";
+import {
+	TBaseUrlResult,
+	TZapAjaxFullResultGETRequest, //
+	TZapAjaxScanFullResults,
+	TZapAjaxUrlResult,
+} from "../../../utils/types";
 
-type TListUrlByMethod = {
+export type TListUrlByMethod = {
 	method: string;
 	value: {
 		url: string;
 		statusCode: string;
 	}[];
+};
+
+export const transformListUrl2ListUrlByMethod = (listUrl: TBaseUrlResult[]) => {
+	if (listUrl.length === 0) {
+		return [];
+	}
+	const listUrlByMethod: TListUrlByMethod[] = [];
+
+	listUrlByMethod.push({
+		method: listUrl[0].method,
+		value: [],
+	});
+
+	listUrl.forEach((item) => {
+		let isAdded = false;
+		for (const itemByMethod of listUrlByMethod) {
+			if (item.method === itemByMethod.method) {
+				itemByMethod.value.push({
+					url: item.url,
+					statusCode: item.statusCode,
+				});
+				isAdded = true;
+				break;
+			}
+		}
+		if (!isAdded) {
+			listUrlByMethod.push({
+				method: item.method,
+				value: [
+					{
+						url: item.url,
+						statusCode: item.statusCode,
+					},
+				],
+			});
+		}
+	});
+
+	return listUrlByMethod;
 };
 
 const ZapAjaxFullResultTable = ({
@@ -43,72 +87,9 @@ const ZapAjaxFullResultTable = ({
 			},
 		} = result.data;
 
-		const listUrlInScope: TListUrlByMethod[] = [];
-		const listUrlOutOfScope: TListUrlByMethod[] = [];
+		const listUrlInScope: TListUrlByMethod[] = transformListUrl2ListUrlByMethod(inScope);
+		const listUrlOutOfScope: TListUrlByMethod[] = transformListUrl2ListUrlByMethod(outOfScope);
 
-		if (inScope.length !== 0) {
-			listUrlInScope.push({
-				method: inScope[0].method,
-				value: [],
-			});
-
-			inScope.forEach((item) => {
-				let isAdded = false;
-				for (const itemByMethod of listUrlInScope) {
-					if (item.method === itemByMethod.method) {
-						itemByMethod.value.push({
-							url: item.url,
-							statusCode: item.statusCode,
-						});
-						isAdded = true;
-						break;
-					}
-				}
-				if (!isAdded) {
-					listUrlInScope.push({
-						method: item.method,
-						value: [
-							{
-								url: item.url,
-								statusCode: item.statusCode,
-							},
-						],
-					});
-				}
-			});
-		}
-
-		if (outOfScope.length !== 0) {
-			listUrlOutOfScope.push({
-				method: outOfScope[0].method,
-				value: [],
-			});
-
-			outOfScope.forEach((item) => {
-				let isAdded = false;
-				for (const itemByMethod of listUrlOutOfScope) {
-					if (item.method === itemByMethod.method) {
-						itemByMethod.value.push({
-							url: item.url,
-							statusCode: item.statusCode,
-						});
-						isAdded = true;
-						break;
-					}
-				}
-				if (!isAdded) {
-					listUrlOutOfScope.push({
-						method: item.method,
-						value: [
-							{
-								url: item.url,
-								statusCode: item.statusCode,
-							},
-						],
-					});
-				}
-			});
-		}
 		setFullResultsTransformed({
 			inScope: listUrlInScope,
 			outOfScope: listUrlOutOfScope,
@@ -120,94 +101,69 @@ const ZapAjaxFullResultTable = ({
 		<>
 			{fullResultsTransformed && (
 				<div className="ajax table-scroll-wrap table-container">
-					{fullResultsTransformed.inScope.length !== 0 && (
-						<PartBoard title="URLS In Scope">
-							{fullResultsTransformed!.inScope.map((item, index) => {
-								return (
-									<div
-										key={index}
-										className="detail-block">
-										<ul className="trow">
-											<li className="label">Method</li>
-											<li className="detail">{item.method}</li>
-										</ul>
-										{item.value.map((urlItem, index) => {
-											return (
-												<div
-													key={index}
-													className="instance detail-block">
-													<span className="instance-index">{index}</span>
-													<ul className="trow">
-														<li className="label">URL</li>
-														<li className="detail">
-															<Describable dataTitle={urlItem.url}>
-																<a
-																	href={urlItem.url}
-																	target="_blank"
-																	rel="noopener noreferrer">
-																	{urlItem.url}
-																</a>
-															</Describable>
-														</li>
-													</ul>
-													<ul className="trow">
-														<li className="label">Status Code</li>
-														<li className="detail">{urlItem.statusCode}</li>
-													</ul>
-												</div>
-											);
-										})}
-									</div>
-								);
-							})}
-						</PartBoard>
-					)}
-					{fullResultsTransformed.outOfScope.length !== 0 && (
-						<PartBoard title="URLS Out Of Scope">
-							{fullResultsTransformed!.outOfScope.map((item, index) => {
-								return (
-									<div
-										key={index}
-										className="detail-block">
-										<ul className="trow">
-											<li className="label">Method</li>
-											<li className="detail">{item.method}</li>
-										</ul>
-										{item.value.map((urlItem, index) => {
-											return (
-												<div
-													key={index}
-													className="instance detail-block">
-													<span className="instance-index">{index}</span>
-													<ul className="trow">
-														<li className="label">URL</li>
-														<li className="detail">
-															<Describable dataTitle={urlItem.url}>
-																<a
-																	href={urlItem.url}
-																	target="_blank"
-																	rel="noopener noreferrer">
-																	{urlItem.url}
-																</a>
-															</Describable>
-														</li>
-													</ul>
-													<ul className="trow">
-														<li className="label">Status Code</li>
-														<li className="detail">{urlItem.statusCode}</li>
-													</ul>
-												</div>
-											);
-										})}
-									</div>
-								);
-							})}
-						</PartBoard>
-					)}
+					<PartBoardURLS
+						title="URLS In Scope"
+						listUrlByMethod={fullResultsTransformed.inScope}
+					/>
+					<PartBoardURLS
+						title="URLS Out Of Scope"
+						listUrlByMethod={fullResultsTransformed.outOfScope}
+					/>
 				</div>
 			)}
 		</>
 	);
 };
+
+type TPartBoardURLS = {
+	title: string;
+	listUrlByMethod: TListUrlByMethod[];
+};
+
+export const PartBoardURLS = ({
+	title, //
+	listUrlByMethod,
+}: TPartBoardURLS) => (
+	<PartBoard title={title}>
+		{listUrlByMethod.map((item, index) => {
+			return (
+				<div
+					key={index}
+					className="detail-block">
+					<ul className="trow">
+						<li className="label">Method</li>
+						<li className="detail">{item.method}</li>
+					</ul>
+					{item.value.map((urlItem, index) => {
+						return (
+							<div
+								key={index}
+								className="instance detail-block">
+								<span className="instance-index">{index}</span>
+								<ul className="trow">
+									<li className="label">URL</li>
+									<li className="detail">
+										<Describable dataTitle={urlItem.url}>
+											<a
+												href={urlItem.url}
+												target="_blank"
+												rel="noopener noreferrer">
+												{urlItem.url}
+											</a>
+										</Describable>
+									</li>
+								</ul>
+								<ul className="trow">
+									<li className="label">Status Code</li>
+									<li className="detail">{urlItem.statusCode}</li>
+								</ul>
+							</div>
+						);
+					})}
+				</div>
+			);
+		})}
+	</PartBoard>
+);
 
 export default ZapAjaxFullResultTable;
