@@ -22,19 +22,18 @@ const TargetsTable = ({ listTarget, heightScrollWrap }: TTargetsTable) => {
 				<li className="last-seen">Update at</li>
 				<li className="action">Actions</li>
 			</ul>
+
 			<div
-				className="table-scroll-wrap"
+				className="table-body-container table-scroll-wrap"
 				style={{
 					maxHeight: heightScrollWrap,
 				}}>
-				<div className="table-body-container">
-					{listTarget?.map((item) => (
-						<ItemRow
-							{...item}
-							key={item._id.toString()}
-						/>
-					))}
-				</div>
+				{listTarget?.map((item) => (
+					<ItemRow
+						{...item}
+						key={item._id.toString()}
+					/>
+				))}
 			</div>
 		</div>
 	);

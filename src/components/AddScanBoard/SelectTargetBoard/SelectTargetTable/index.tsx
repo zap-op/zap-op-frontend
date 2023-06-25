@@ -12,9 +12,13 @@ import Describable from "../../../toolkits/Describable";
 
 type TSelectTargetTableProps = {
 	listChild: TSelectTargetItem[];
+	heightScrollWrap: string;
 };
 
-const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTableProps>) => {
+const SelectTargetTable = ({
+	listChild, //
+	heightScrollWrap,
+}: PropsWithChildren<TSelectTargetTableProps>) => {
 	const listSelectedTarget = useSelector((state) => state.target.listSelectedTarget);
 
 	return (
@@ -27,20 +31,22 @@ const SelectTargetTable = ({ listChild }: PropsWithChildren<TSelectTargetTablePr
 					<li className="tag">Tag</li>
 				</ul>
 			</div>
-			<div className="table-scroll-wrap">
-				<div className="table-body-container">
-					{listChild.map((item) => {
-						const id = item._id.toString();
-						return (
-							<ItemRow
-								{...item}
-								key={id}
-								defaultChecked={listSelectedTarget.some((browsItem) => browsItem._id == item._id)}
-								id={id}
-							/>
-						);
-					})}
-				</div>
+			<div
+				className="table-body-container table-scroll-wrap"
+				style={{
+					maxHeight: heightScrollWrap,
+				}}>
+				{listChild.map((item) => {
+					const id = item._id.toString();
+					return (
+						<ItemRow
+							{...item}
+							key={id}
+							defaultChecked={listSelectedTarget.some((browsItem) => browsItem._id == item._id)}
+							id={id}
+						/>
+					);
+				})}
 			</div>
 		</div>
 	);
