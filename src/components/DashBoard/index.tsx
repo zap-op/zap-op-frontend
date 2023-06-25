@@ -3,6 +3,8 @@ import { scanSessionApi, useGetTargetQuery } from "../../store";
 import { ResultsTable } from "../ResultsBoard";
 import TargetsTable from "../TargetsBoard/TargetsTable";
 
+const TABLE_HEIGHT_SCROLL_WRAP = "32vh";
+
 const DashBoard = () => {
 	const { data: listTarget } = useGetTargetQuery(undefined, {
 		refetchOnFocus: true,
@@ -43,14 +45,14 @@ const DashBoard = () => {
 				<>
 					<h3>Results</h3>
 					<div className="table-scroll-wrap">
-						<ResultsTable heightScrollWrap="40vh" />
+						<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
 					</div>
 					<hr />
 					<h3>Targets</h3>
 					<div className="table-scroll-wrap">
 						<TargetsTable
 							listTarget={listTarget ? listTarget : []}
-							heightScrollWrap="40vh"
+							heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
 						/>
 					</div>
 				</>
@@ -60,13 +62,13 @@ const DashBoard = () => {
 					<div className="table-scroll-wrap">
 						<TargetsTable
 							listTarget={listTarget ? listTarget : []}
-							heightScrollWrap="40vh"
+							heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
 						/>
 					</div>
 					<hr />
 					<h3>Results</h3>
 					<div className="table-scroll-wrap">
-						<ResultsTable heightScrollWrap="40vh" />
+						<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
 					</div>
 				</>
 			)}
