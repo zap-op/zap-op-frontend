@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { TStatusResponse, TTargetModel } from "../../../utils/types";
 import { useMoveToTrashTargetMutation } from "../../../store";
@@ -11,10 +11,31 @@ type TTargetsTable = {
 	heightScrollWrap: string;
 };
 
-const TargetsTable = ({ listTarget, heightScrollWrap }: TTargetsTable) => {
+const TARGET_TABLE_ID = "target-table";
+
+const TargetsTable = ({
+	listTarget, //
+	heightScrollWrap,
+}: TTargetsTable) => {
+	const ref_thead = useRef<HTMLUListElement>(null);
+	const [theadComputedHeight, setTheadComputedHeight] = useState<number>(0);
+
+	useEffect(() => {
+		const thead = ref_thead.current;
+		if (!thead) {
+			return;
+		}
+		const theadComputedStyle = getComputedStyle(thead);
+		setTheadComputedHeight(thead.offsetHeight + parseInt(theadComputedStyle.marginBottom));
+	}, []);
+
 	return (
-		<div className="targets-table-container table-container">
-			<ul className="thead">
+		<div
+			id={TARGET_TABLE_ID}
+			className="targets-table-container table-container">
+			<ul
+				ref={ref_thead}
+				className="thead">
 				<li className="name">Name</li>
 				<li className="target">Target</li>
 				<li className="tag">Tag</li>
@@ -22,7 +43,6 @@ const TargetsTable = ({ listTarget, heightScrollWrap }: TTargetsTable) => {
 				<li className="last-seen">Update at</li>
 				<li className="action">Actions</li>
 			</ul>
-
 			<div
 				className="table-body-container table-scroll-wrap"
 				style={{
@@ -31,6 +51,7 @@ const TargetsTable = ({ listTarget, heightScrollWrap }: TTargetsTable) => {
 				{listTarget?.map((item) => (
 					<ItemRow
 						{...item}
+						relativeHeight={theadComputedHeight}
 						key={item._id.toString()}
 					/>
 				))}
@@ -41,7 +62,9 @@ const TargetsTable = ({ listTarget, heightScrollWrap }: TTargetsTable) => {
 
 export default TargetsTable;
 
-type TItemRow = TTargetModel;
+type TItemRow = TTargetModel & {
+	relativeHeight?: number;
+};
 
 const ItemRow = ({
 	_id: targetId, //
@@ -50,15 +73,14 @@ const ItemRow = ({
 	tag,
 	createdAt,
 	updatedAt,
+	relativeHeight,
 }: TItemRow) => {
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
 	const newScanOption: TOptionItem = {
 		name: "New scan",
-		handle: () => {
-			toast.error("Under development");
-		},
+		handle: () => {},
 	};
 
 	const [moveToTrashTarget] = useMoveToTrashTargetMutation();
@@ -122,7 +144,13 @@ const ItemRow = ({
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
 			<li className="action">
-				<MoreOptionsButton listOptions={[newScanOption, deleteOption]} />
+				<MoreOptionsButton
+					listOptions={[newScanOption, deleteOption]}
+					style={{
+						relativeHeight,
+						parentIdContainPortal: TARGET_TABLE_ID,
+					}}
+				/>
 			</li>
 		</ul>
 	);

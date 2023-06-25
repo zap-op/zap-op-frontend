@@ -3,12 +3,14 @@
 div.targets-table-container {
     color: $black-color-3;
     font-size: 0.875rem;
-    min-width: $SM;
+    position: relative;
     width: 100%;
 
     ul li {
+        align-items: center;
         justify-content: center;
         margin: 0.5rem;
+        text-align: center;
 
         &.name {
             flex: 4 0 0px;

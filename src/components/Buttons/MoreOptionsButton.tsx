@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FONT_SIZE } from "../../utils/styleMgr";
+import { createPortal } from "react-dom";
 
 export type TOptionItem = {
 	name: string;
@@ -10,6 +11,8 @@ type TMoreOptionsButtonProps = {
 	listOptions: TOptionItem[];
 	style?: {
 		isIsolate?: boolean;
+		relativeHeight?: number;
+		parentIdContainPortal?: string;
 	};
 };
 
@@ -20,6 +23,19 @@ const MoreOptionsButton = ({
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const ref_self = useRef<HTMLDivElement>(null);
+
+	const [portalTopPosition, setPortalTopPosition] = useState<number>(0);
+	const [parentContainPortal, setParentContainPortal] = useState<HTMLElement>();
+
+	useEffect(() => {
+		if (!ref_self.current) {
+			return;
+		}
+		setParentContainPortal(document.getElementById(style?.parentIdContainPortal || "") || undefined);
+		const self = ref_self.current;
+		const selfComputedStyle = getComputedStyle(self);
+		setPortalTopPosition(self.getBoundingClientRect().top - (style?.relativeHeight || 0) - (self.offsetHeight + parseInt(selfComputedStyle.marginTop) + parseInt(selfComputedStyle.marginBottom)));
+	}, []);
 
 	const handleClickOpen = () => {
 		if (isOpen) {
@@ -57,10 +73,16 @@ const MoreOptionsButton = ({
 					<path d="M120 256c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm160 0c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm104 56c-30.9 0-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56s-25.1 56-56 56z" />
 				</svg>
 			</div>
-			{isOpen ? (
-				<div className="options">
-					{listOptions.map((item) => {
-						return (
+			{isOpen &&
+				parentContainPortal &&
+				createPortal(
+					<div
+						className="more-options-portal options"
+						style={{
+							right: 0,
+							top: portalTopPosition + "px",
+						}}>
+						{listOptions.map((item) => (
 							<span
 								key={item.name}
 								className="option-item"
@@ -73,12 +95,10 @@ const MoreOptionsButton = ({
 								}}>
 								{item.name}
 							</span>
-						);
-					})}
-				</div>
-			) : (
-				<></>
-			)}
+						))}
+					</div>,
+					parentContainPortal,
+				)}
 		</div>
 	);
 };

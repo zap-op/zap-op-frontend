@@ -44,32 +44,24 @@ const DashBoard = () => {
 			{isResultTableInFirstOrder ? (
 				<>
 					<h3>Results</h3>
-					<div className="table-scroll-wrap">
-						<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
-					</div>
+					<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
 					<hr />
 					<h3>Targets</h3>
-					<div className="table-scroll-wrap">
-						<TargetsTable
-							listTarget={listTarget ? listTarget : []}
-							heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
-						/>
-					</div>
+					<TargetsTable
+						listTarget={listTarget ? listTarget : []}
+						heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
+					/>
 				</>
 			) : (
 				<>
 					<h3>Targets</h3>
-					<div className="table-scroll-wrap">
-						<TargetsTable
-							listTarget={listTarget ? listTarget : []}
-							heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
-						/>
-					</div>
+					<TargetsTable
+						listTarget={listTarget ? listTarget : []}
+						heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
+					/>
 					<hr />
 					<h3>Results</h3>
-					<div className="table-scroll-wrap">
-						<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
-					</div>
+					<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
 				</>
 			)}
 		</div>
