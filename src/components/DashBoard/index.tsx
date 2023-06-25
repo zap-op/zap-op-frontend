@@ -42,18 +42,32 @@ const DashBoard = () => {
 			{isResultTableInFirstOrder ? (
 				<>
 					<h3>Results</h3>
-					<ResultsTable />
+					<div className="table-scroll-wrap">
+						<ResultsTable heightScrollWrap="40vh" />
+					</div>
 					<hr />
 					<h3>Targets</h3>
-					<TargetsTable listTarget={listTarget ? listTarget : []} />
+					<div className="table-scroll-wrap">
+						<TargetsTable
+							listTarget={listTarget ? listTarget : []}
+							heightScrollWrap="40vh"
+						/>
+					</div>
 				</>
 			) : (
 				<>
 					<h3>Targets</h3>
-					<TargetsTable listTarget={listTarget ? listTarget : []} />
+					<div className="table-scroll-wrap">
+						<TargetsTable
+							listTarget={listTarget ? listTarget : []}
+							heightScrollWrap="40vh"
+						/>
+					</div>
 					<hr />
 					<h3>Results</h3>
-					<ResultsTable />
+					<div className="table-scroll-wrap">
+						<ResultsTable heightScrollWrap="40vh" />
+					</div>
 				</>
 			)}
 		</div>

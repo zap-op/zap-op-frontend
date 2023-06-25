@@ -97,7 +97,7 @@ function App() {
 							element={<ResultsBoard />}>
 							<Route
 								index
-								element={<ResultsTable />}
+								element={<ResultsTable heightScrollWrap="80vh" />}
 							/>
 							<Route
 								path=":resultId"

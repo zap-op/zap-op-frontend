@@ -8,22 +8,25 @@ import Describable from "../../toolkits/Describable";
 
 type TTargetsTable = {
 	listTarget: TItemRow[];
+	heightScrollWrap: string;
 };
 
-const TargetsTable = ({ listTarget }: TTargetsTable) => {
+const TargetsTable = ({ listTarget, heightScrollWrap }: TTargetsTable) => {
 	return (
 		<div className="targets-table-container table-container">
-			<div className="table-head-container">
-				<ul className="thead">
-					<li className="name">Name</li>
-					<li className="target">Target</li>
-					<li className="tag">Tag</li>
-					<li className="first-seen">Create at</li>
-					<li className="last-seen">Update at</li>
-					<li className="action">Actions</li>
-				</ul>
-			</div>
-			<div className="table-scroll-wrap">
+			<ul className="thead">
+				<li className="name">Name</li>
+				<li className="target">Target</li>
+				<li className="tag">Tag</li>
+				<li className="first-seen">Create at</li>
+				<li className="last-seen">Update at</li>
+				<li className="action">Actions</li>
+			</ul>
+			<div
+				className="table-scroll-wrap"
+				style={{
+					maxHeight: heightScrollWrap,
+				}}>
 				<div className="table-body-container">
 					{listTarget?.map((item) => (
 						<ItemRow

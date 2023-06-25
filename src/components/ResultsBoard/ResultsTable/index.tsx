@@ -15,7 +15,11 @@ import {
 } from "../../../store";
 import Describable from "../../toolkits/Describable";
 
-const ResultsTable = () => {
+type TResultsTable = {
+	heightScrollWrap: string;
+};
+
+const ResultsTable = ({ heightScrollWrap }: TResultsTable) => {
 	const { data: listScanSession } = useGetScanSessionQuery(undefined, {
 		refetchOnFocus: true,
 		refetchOnReconnect: true,
@@ -32,7 +36,11 @@ const ResultsTable = () => {
 				<li className="first-seen">Create at</li>
 				<li className="last-seen">Update at</li>
 			</ul>
-			<div className="table-body-container table-scroll-wrap">
+			<div
+				className="table-body-container table-scroll-wrap"
+				style={{
+					maxHeight: heightScrollWrap,
+				}}>
 				{listScanSession &&
 					listScanSession.map((item) => {
 						const scanType = item.__t;

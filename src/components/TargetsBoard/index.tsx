@@ -86,7 +86,10 @@ const TargetsBoard = () => {
 					</div>
 				</div>
 				<div className="targets-board_targets-table-container">
-					<TargetsTable listTarget={listShowTarget ? listShowTarget : []} />
+					<TargetsTable
+						listTarget={listShowTarget ? listShowTarget : []}
+						heightScrollWrap="85vh"
+					/>
 				</div>
 			</div>
 		</>
