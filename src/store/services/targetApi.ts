@@ -44,5 +44,9 @@ const targetApi = createApi({
 	}),
 });
 
-export const { useGetTargetQuery, useAddTargetMutation, useMoveToTrashTargetMutation } = targetApi;
+export const {
+	useGetTargetQuery, //
+	useAddTargetMutation,
+	useMoveToTrashTargetMutation,
+} = targetApi;
 export default targetApi;
