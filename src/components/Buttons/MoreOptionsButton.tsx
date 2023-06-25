@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { FONT_SIZE } from "../../utils/styleMgr";
 import { createPortal } from "react-dom";
 
@@ -23,6 +23,7 @@ const MoreOptionsButton = ({
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const ref_self = useRef<HTMLDivElement>(null);
+	const ref_portal = useRef<HTMLDivElement>(null);
 
 	const [portalTopPosition, setPortalTopPosition] = useState<number>(0);
 	const [parentContainPortal, setParentContainPortal] = useState<HTMLElement>();
@@ -46,7 +47,7 @@ const MoreOptionsButton = ({
 	};
 
 	const handleClickOutside = (event: MouseEvent) => {
-		if (ref_self.current && ref_self.current.contains(event.target as Node)) {
+		if (ref_portal.current && ref_portal.current.contains(event.target as Node)) {
 			return;
 		}
 		handleCloseOptions();
@@ -59,8 +60,8 @@ const MoreOptionsButton = ({
 
 	return (
 		<div
-			className={`more-options-button ${style?.isIsolate && `isolate ${isOpen && "clicked"}`}`}
 			ref={ref_self}
+			className={`more-options-button ${style?.isIsolate && `isolate ${isOpen && "clicked"}`}`}
 			onClick={handleClickOpen}>
 			<div className="three-dot">
 				{/* ellipsis-solid.svg */}
@@ -77,6 +78,7 @@ const MoreOptionsButton = ({
 				parentContainPortal &&
 				createPortal(
 					<div
+						ref={ref_portal}
 						className="more-options-portal options"
 						style={{
 							right: 0,
@@ -87,11 +89,11 @@ const MoreOptionsButton = ({
 								key={item.name}
 								className="option-item"
 								onClick={() => {
-									handleCloseOptions();
 									if (!item.handle) {
 										return;
 									}
 									item.handle();
+									handleCloseOptions();
 								}}>
 								{item.name}
 							</span>

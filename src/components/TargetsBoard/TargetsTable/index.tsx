@@ -2,9 +2,11 @@ import { toast } from "react-hot-toast";
 import { useEffect, useMemo, useRef, useState } from "react";
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { TStatusResponse, TTargetModel } from "../../../utils/types";
-import { useMoveToTrashTargetMutation } from "../../../store";
+import { addSelectTarget, useDispatch, useMoveToTrashTargetMutation } from "../../../store";
 import moment from "moment";
 import Describable from "../../toolkits/Describable";
+import { useNavigate } from "react-router-dom";
+import { AddScanBoardLinkState } from "../../AddScanBoard";
 
 type TTargetsTable = {
 	listTarget: TItemRow[];
@@ -78,9 +80,23 @@ const ItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const newScanOption: TOptionItem = {
 		name: "New scan",
-		handle: () => {},
+		handle: () => {
+			console.log("herhe");
+			dispatch(
+				addSelectTarget({
+					_id: targetId,
+					name,
+				}),
+			);
+			navigate("/app/addscan", {
+				state: AddScanBoardLinkState.ScanOptions,
+			});
+		},
 	};
 
 	const [moveToTrashTarget] = useMoveToTrashTargetMutation();
