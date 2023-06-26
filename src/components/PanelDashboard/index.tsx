@@ -88,12 +88,12 @@ const PanelDashboard = () => {
 				<div className="br"></div>
 				<div className="work-space-nav-container">
 					<NavLink
-						to="wspsettings"
+						to="settings"
 						className="nav-item settings-container"
 						draggable={false}
 						end>
 						<span className="icon"></span>
-						<h4 className="title">Workspace settings</h4>
+						<h4 className="title">Settings</h4>
 					</NavLink>
 				</div>
 			</div>

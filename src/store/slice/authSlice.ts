@@ -33,7 +33,9 @@ const initialState: TAuthState = {
 const authSlice = createSlice({
 	name: "authentication",
 	initialState,
-	reducers: {},
+	reducers: {
+		clearState: () => initialState,
+	},
 	extraReducers: (builder) => {
 		builder.addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
 			const token = getCookie("accessToken");
@@ -66,4 +68,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice;
-export const {} = authSlice.actions;
+export const { clearState } = authSlice.actions;

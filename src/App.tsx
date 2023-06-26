@@ -25,6 +25,7 @@ import {
 	ResultsDetail,
 	AddScanBoardLinkState,
 	DashBoard,
+	SettingsBoard,
 } from "./components";
 
 import { useSelector } from "./store";
@@ -122,8 +123,8 @@ function App() {
 							}
 						/>
 						<Route
-							path="wspsettings"
-							element={<></>}
+							path="settings"
+							element={<SettingsBoard />}
 						/>
 					</Route>
 				</Routes>

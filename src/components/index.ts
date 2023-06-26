@@ -3,6 +3,7 @@ import PanelDashboard from "./PanelDashboard";
 import ResultsBoard from "./ResultsBoard";
 import TargetsBoard from "./TargetsBoard";
 import DashBoard from "./DashBoard";
+import SettingsBoard from "./SettingsBoard";
 
 export * from "./AddScanBoard";
 export * from "./ResultsBoard";
@@ -12,6 +13,7 @@ export {
 	ResultsBoard,
 	TargetsBoard,
 	DashBoard,
+	SettingsBoard,
 };
 
 import Breadcrumb from "./Breadcrumb";

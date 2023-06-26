@@ -1,0 +1,18 @@
+@use '../../style/variables' as *;
+
+div.settings-board-container {
+    font-size: 0.875rem;
+    
+    .hr {
+        margin: 0rem auto;
+        width: 50%;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    div.logout-button {
+        color: $black-color-3 !important;
+        margin: 0rem auto;
+        width: 5rem;
+    }
+}
