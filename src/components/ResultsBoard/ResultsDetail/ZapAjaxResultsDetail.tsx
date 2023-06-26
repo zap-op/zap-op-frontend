@@ -81,6 +81,7 @@ const ZapAjaxResultsDetail = (scanSessionWithTargetProps: TGeneralScanSessionWit
 					Back
 				</Link>
 				<MoreOptionsButton
+					id="ajax-results-detail-more-option"
 					listOptions={[exportPdf]}
 					style={{
 						isIsolate: true,
@@ -97,7 +98,6 @@ const ZapAjaxResultsDetail = (scanSessionWithTargetProps: TGeneralScanSessionWit
 					<span>{scanOptionTitle}</span>
 				</li>
 				<ZapAjaxConfig scanConfig={scanConfig} />
-				{/* {<ZapSpiderConfig scanConfig={sessionInfo["scanConfig"] as TZapSpiderScanConfig["scanConfig"]} />} */}
 				<li className="target-name">
 					Target Name
 					<span>{targetName}</span>

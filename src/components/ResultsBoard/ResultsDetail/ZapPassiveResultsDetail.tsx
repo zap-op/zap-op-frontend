@@ -83,6 +83,7 @@ const ZapPassiveResultsDetail = (scanSessionWithTargetProps: TGeneralScanSession
 					Back
 				</Link>
 				<MoreOptionsButton
+					id="passive-results-detail-more-option"
 					listOptions={[exportPdf]}
 					style={{
 						isIsolate: true,

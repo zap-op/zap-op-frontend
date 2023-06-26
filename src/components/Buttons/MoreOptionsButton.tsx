@@ -8,6 +8,7 @@ export type TOptionItem = {
 };
 
 type TMoreOptionsButtonProps = {
+	id: string;
 	listOptions: TOptionItem[];
 	style?: {
 		isIsolate?: boolean;
@@ -17,6 +18,7 @@ type TMoreOptionsButtonProps = {
 };
 
 const MoreOptionsButton = ({
+	id,
 	style, //
 	listOptions,
 }: TMoreOptionsButtonProps) => {
@@ -32,9 +34,15 @@ const MoreOptionsButton = ({
 		if (!ref_self.current) {
 			return;
 		}
-		setParentContainPortal(document.getElementById(style?.parentIdContainPortal || "") || undefined);
 		const self = ref_self.current;
-		setPortalTopPosition(self.offsetTop + self.offsetHeight);
+		if (style?.parentIdContainPortal) {
+			setParentContainPortal(document.getElementById(style.parentIdContainPortal) || undefined);
+			setPortalTopPosition(self.offsetTop + self.offsetHeight);
+			return;
+		}
+		setParentContainPortal(document.getElementById(id) || undefined);
+		setPortalTopPosition(30);
+		return;
 	}, []);
 
 	const handleClickOpen = () => {
@@ -60,6 +68,7 @@ const MoreOptionsButton = ({
 	return (
 		<div
 			ref={ref_self}
+			id={id}
 			className={`more-options-button ${style?.isIsolate && `isolate ${isOpen && "clicked"}`}`}
 			onClick={handleClickOpen}>
 			<div className="three-dot">

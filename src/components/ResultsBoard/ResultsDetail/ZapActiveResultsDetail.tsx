@@ -80,6 +80,7 @@ const ZapActiveResultsDetail = (scanSessionWithTargetProps: TGeneralScanSessionW
 					Back
 				</Link>
 				<MoreOptionsButton
+					id="active-results-detail-more-option"
 					listOptions={[exportPdf]}
 					style={{
 						isIsolate: true,

@@ -77,6 +77,7 @@ const ZapSpiderResultsDetail = (scanSessionWithTargetProps: TGeneralScanSessionW
 					Back
 				</Link>
 				<MoreOptionsButton
+					id="spider-results-detail-more-option"
 					listOptions={[exportPdf]}
 					style={{
 						isIsolate: true,

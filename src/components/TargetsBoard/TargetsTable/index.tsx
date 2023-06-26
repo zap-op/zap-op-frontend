@@ -77,6 +77,7 @@ const ItemRow = ({
 	updatedAt,
 	relativeHeight,
 }: TItemRow) => {
+	const targetIdStr = targetId.toString();
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
@@ -161,6 +162,7 @@ const ItemRow = ({
 			<li className="last-seen">{displayUpdateAt}</li>
 			<li className="action">
 				<MoreOptionsButton
+					id={targetIdStr}
 					listOptions={[newScanOption, deleteOption]}
 					style={{
 						relativeHeight,
