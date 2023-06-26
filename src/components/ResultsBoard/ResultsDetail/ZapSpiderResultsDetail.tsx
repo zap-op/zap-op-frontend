@@ -59,7 +59,15 @@ const ZapSpiderResultsDetail = (scanSessionWithTargetProps: TGeneralScanSessionW
 			if (!fullResults) {
 				return;
 			}
-			generateResultDetailDocument(doc, ScanType.ZAP_SPIDER, scanSessionWithTargetProps, fullResults);
+			generateResultDetailDocument(
+				doc,
+				ScanType.ZAP_SPIDER,
+				scanSessionWithTargetProps,
+				{
+					scanConfig,
+				},
+				fullResults,
+			);
 			doc.save("report.pdf");
 			toast.success(`Succeed export ${id} to PDF`, {
 				id: toastId,

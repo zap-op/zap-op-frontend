@@ -10,6 +10,10 @@ import {
 	TZapAjaxScanFullResults,
 	TBaseUrlResult,
 	TZapSpiderScanFullResults,
+	TZapSpiderScanConfig,
+	TZapAjaxScanConfig,
+	TZapPassiveScanConfig,
+	TZapActiveScanConfig,
 } from "../../utils/types";
 import { _assertCast, getScanOptionTitleByID } from "../../utils/helpers";
 
@@ -44,13 +48,11 @@ type TActiveFullResult = TZapActiveScanFullResults["fullResults"];
 
 type TSessionInfo = ExtractArrayItemType<TMgmtScanSessionsResponse>;
 
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_SPIDER, sessionInfo: TSessionInfo, fullResults?: any): void;
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_AJAX, sessionInfo: TSessionInfo, fullResults?: TAjaxFullResult): void;
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_PASSIVE, sessionInfo: TSessionInfo, fullResults?: any): void;
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_ACTIVE, sessionInfo: TSessionInfo, fullResults: TActiveFullResult): void;
-function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionInfo: TSessionInfo, fullResults: TActiveFullResult | any) {
-	// const toastId = toast.loading("Generating pdf");
-
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_SPIDER, sessionInfo: TSessionInfo, scanConfigInfor: TZapSpiderScanConfig, fullResults?: any): void;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_AJAX, sessionInfo: TSessionInfo, scanConfigInfor: TZapAjaxScanConfig, fullResults?: TAjaxFullResult): void;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_PASSIVE, sessionInfo: TSessionInfo, scanConfigInfor: TZapPassiveScanConfig, fullResults?: any): void;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType.ZAP_ACTIVE, sessionInfo: TSessionInfo, scanConfigInfor: TZapActiveScanConfig, fullResults: TActiveFullResult): void;
+function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionInfo: TSessionInfo, scanConfigInfor: TZapSpiderScanConfig | TZapAjaxScanConfig | TZapPassiveScanConfig | TZapActiveScanConfig, fullResults: TActiveFullResult | any) {
 	let finalY = getFinalY(doc);
 	doc.setFontSize(FONT_SIZE);
 
@@ -60,20 +62,39 @@ function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionI
 
 	switch (resultType) {
 		case ScanType.ZAP_SPIDER:
+			_assertCast<TZapSpiderScanConfig>(scanConfigInfor);
 			_assertCast<TSpiderFullResult>(fullResults);
+			generateSpiderConfigInfomation(doc, finalY + FONT_SIZE, scanConfigInfor);
+			finalY = getFinalY(doc);
 			generateListBaseUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS In Scope", fullResults.urlsInScope, INFORMATIONAL_COLOR);
 			finalY = getFinalY(doc);
 			generateSpiderListUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS Out Of Scope", fullResults.urlsOutOfScope, ERROR_COLOR);
 			break;
 		case ScanType.ZAP_AJAX:
 			_assertCast<TAjaxFullResult>(fullResults);
+			_assertCast<TZapAjaxScanConfig>(scanConfigInfor);
+			generateAjaxConfigInfomation(doc, finalY + FONT_SIZE, scanConfigInfor);
+			finalY = getFinalY(doc);
 			generateListBaseUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS In Scope", fullResults.inScope, INFORMATIONAL_COLOR);
 			finalY = getFinalY(doc);
 			generateListBaseUrlDetailDocument(doc, finalY + FONT_SIZE, "URLS Out Of Scope", fullResults.outOfScope, ERROR_COLOR);
 			break;
 		case ScanType.ZAP_PASSIVE:
+			_assertCast<TActiveFullResult>(fullResults);
+			_assertCast<TZapPassiveScanConfig>(scanConfigInfor);
+			generatePassiveConfigInfomation(doc, finalY + FONT_SIZE, scanConfigInfor);
+			finalY = getFinalY(doc);
+			generateAlertsSummaryDocument(doc, finalY + FONT_SIZE, fullResults);
+			finalY = getFinalY(doc);
+			generateAlertsInformationDocument(doc, finalY + FONT_SIZE, fullResults);
+			finalY = getFinalY(doc);
+			generateAlertsDetailDocument(doc, finalY + FONT_SIZE, fullResults);
+			break;
 		case ScanType.ZAP_ACTIVE:
 			_assertCast<TActiveFullResult>(fullResults);
+			_assertCast<TZapActiveScanConfig>(scanConfigInfor);
+			generateActiveConfigInfomation(doc, finalY + FONT_SIZE, scanConfigInfor);
+			finalY = getFinalY(doc);
 			generateAlertsSummaryDocument(doc, finalY + FONT_SIZE, fullResults);
 			finalY = getFinalY(doc);
 			generateAlertsInformationDocument(doc, finalY + FONT_SIZE, fullResults);
@@ -83,16 +104,22 @@ function generateResultDetailDocument(doc: jsPDF, resultType: ScanType, sessionI
 		default:
 			break;
 	}
-
-	// 			{/* {<ZapSpiderConfig scanConfig={sessionInfo["scanConfig"] as TZapSpiderScanConfig["scanConfig"]} />} */}
 }
 
 const generateSessionInfomation = (doc: jsPDF, finalY: any, sessionInfo: TSessionInfo) => {
-	doc.text("Session infomation", FONT_SIZE, finalY);
+	doc.text("Session information", FONT_SIZE, finalY);
 	autoTable(doc, {
 		startY: finalY + FONT_SIZE / 4,
 		body: [
-			["Scan Session", sessionInfo._id.toString()],
+			[
+				{
+					content: "Scan Session",
+					styles: {
+						cellWidth: 50,
+					},
+				},
+				sessionInfo._id.toString(),
+			],
 			["Type", getScanOptionTitleByID(sessionInfo.__t as ScanType)],
 			["Target Name", sessionInfo.targetPop.name],
 			["Target", sessionInfo.targetPop.target],
@@ -100,6 +127,157 @@ const generateSessionInfomation = (doc: jsPDF, finalY: any, sessionInfo: TSessio
 			["Update At", moment(sessionInfo.updatedAt).format("LLLL") + " UTC" || ""],
 			["Create At", moment(sessionInfo.createdAt).format("LLLL") + " UTC" || ""],
 		],
+	});
+};
+
+const generateSpiderConfigInfomation = (
+	doc: jsPDF,
+	finalY: any,
+	{
+		scanConfig: {
+			contextName, //
+			maxChildren,
+			recurse,
+			subtreeOnly,
+		},
+	}: TZapSpiderScanConfig,
+) => {
+	doc.text("Scan configurations", FONT_SIZE, finalY);
+	autoTable(doc, {
+		startY: finalY + FONT_SIZE / 4,
+		body: [
+			[
+				{
+					content: "Recurse",
+					styles: {
+						cellWidth: 50,
+					},
+				},
+				`${recurse}`,
+			],
+			["Context Name", contextName || ""],
+			["Max Children", maxChildren || ""],
+			["Subtree Only", `${subtreeOnly}`],
+		],
+	});
+};
+
+const generateAjaxConfigInfomation = (
+	doc: jsPDF,
+	finalY: any,
+	{
+		scanConfig: {
+			inScope, //
+			contextName,
+			subtreeOnly,
+		},
+	}: TZapAjaxScanConfig,
+) => {
+	doc.text("Scan configurations", FONT_SIZE, finalY);
+	autoTable(doc, {
+		startY: finalY + FONT_SIZE / 4,
+		body: [
+			[
+				{
+					content: "In Scope",
+					styles: {
+						cellWidth: 50,
+					},
+				},
+				`${inScope}`,
+			],
+			["Context Name", contextName || ""],
+			["Subtree Only", `${subtreeOnly}`],
+		],
+	});
+};
+
+const generatePassiveConfigInfomation = (
+	doc: jsPDF,
+	finalY: any,
+	{
+		exploreType, //
+		ajaxConfig,
+		spiderConfig,
+	}: TZapPassiveScanConfig,
+) => {
+	doc.text("Scan configurations", FONT_SIZE, finalY);
+	const bodyRows: RowInput[] = [];
+	bodyRows.push([
+		{
+			content: "Explore Type",
+			styles: {
+				cellWidth: 50,
+			},
+		},
+		exploreType,
+	]);
+	if (exploreType === "ajax") {
+		bodyRows.push(
+			["In Scope", `${ajaxConfig?.inScope}`], //
+			["Context Name", ajaxConfig?.contextName || ""],
+			["Subtree Only", `${ajaxConfig?.subtreeOnly}`],
+		);
+	} else if (exploreType === "spider") {
+		bodyRows.push(
+			["Recurse", `${spiderConfig?.recurse}`], //
+			["Context Name", spiderConfig?.contextName || ""],
+			["Max Children", spiderConfig?.maxChildren || ""],
+			["Subtree Only", `${spiderConfig?.subtreeOnly}`],
+		);
+	}
+	autoTable(doc, {
+		startY: finalY + FONT_SIZE / 4,
+		body: bodyRows,
+	});
+};
+
+const generateActiveConfigInfomation = (
+	doc: jsPDF,
+	finalY: any,
+	{
+		exploreType, //
+		ajaxConfig,
+		spiderConfig,
+		scanConfig,
+	}: TZapActiveScanConfig,
+) => {
+	doc.text("Scan configurations", FONT_SIZE, finalY);
+	const bodyRows: RowInput[] = [];
+	bodyRows.push([
+		{
+			content: "Explore Type",
+			styles: {
+				cellWidth: 50,
+			},
+		},
+		exploreType,
+	]);
+	if (exploreType === "ajax") {
+		bodyRows.push(
+			["In Scope", `${ajaxConfig?.inScope}`], //
+			["Context Name", ajaxConfig?.contextName || ""],
+			["Subtree Only", `${ajaxConfig?.subtreeOnly}`],
+		);
+	} else if (exploreType === "spider") {
+		bodyRows.push(
+			["Recurse", `${spiderConfig?.recurse}`], //
+			["Context Name", spiderConfig?.contextName || ""],
+			["Max Children", spiderConfig?.maxChildren || ""],
+			["Subtree Only", `${spiderConfig?.subtreeOnly}`],
+		);
+	}
+	bodyRows.push(
+		["Active Recurse", `${scanConfig?.recurse}`], //
+		["Active In Scope Only", `${scanConfig?.inScopeOnly}`],
+		["Active Scan Policy Name", scanConfig?.scanPolicyName || ""],
+		["Active Method", scanConfig?.method || ""],
+		["Active Post Data", scanConfig?.postData || ""],
+		["Active Context Id", scanConfig?.contextId || ""],
+	);
+	autoTable(doc, {
+		startY: finalY + FONT_SIZE / 4,
+		body: bodyRows,
 	});
 };
 

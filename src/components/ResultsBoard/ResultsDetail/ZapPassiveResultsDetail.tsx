@@ -65,7 +65,17 @@ const ZapPassiveResultsDetail = (scanSessionWithTargetProps: TGeneralScanSession
 			if (!fullResults) {
 				return;
 			}
-			generateResultDetailDocument(doc, ScanType.ZAP_PASSIVE, scanSessionWithTargetProps, fullResults);
+			generateResultDetailDocument(
+				doc,
+				ScanType.ZAP_PASSIVE,
+				scanSessionWithTargetProps,
+				{
+					exploreType,
+					spiderConfig,
+					ajaxConfig,
+				},
+				fullResults,
+			);
 			doc.save("report.pdf");
 			toast.success(`Succeed export ${id} to PDF`, {
 				id: toastId,
