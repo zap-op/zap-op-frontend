@@ -6,7 +6,6 @@ import {
 	transformListUrl2ListUrlByMethod,
 } from "./ZapAjaxFullResultTable";
 import PartBoard from "../../PartBoard";
-import Describable from "../../toolkits/Describable";
 
 const ZapSpiderFullResultTable = ({
 	urlsInScope, //
@@ -26,7 +25,7 @@ const ZapSpiderFullResultTable = ({
 					listUrlByMethod={listUrlInScopeTransformed}
 				/>
 			)}
-			{urlsOutOfScope.length != 0&& (
+			{urlsOutOfScope.length != 0 && (
 				<PartBoard title="URLS Out Of Scope">
 					<div className="detail-block">
 						{urlsOutOfScope.map((item, index) => (
@@ -34,14 +33,12 @@ const ZapSpiderFullResultTable = ({
 								key={index}
 								className="trow">
 								<li className="detail describable">
-									<Describable dataTitle={item}>
-										<a
-											href={item}
-											target="_blank"
-											rel="noopener noreferrer">
-											{item}
-										</a>
-									</Describable>
+									<a
+										href={item}
+										target="_blank"
+										rel="noopener noreferrer">
+										{item}
+									</a>
 								</li>
 							</ul>
 						))}

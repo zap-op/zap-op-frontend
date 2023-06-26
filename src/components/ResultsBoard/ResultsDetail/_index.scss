@@ -124,6 +124,7 @@ div.result-detail-container {
                     padding: 0.5rem 1rem;
 
                     &.label {
+                        display: inline;
                         flex: 1 0 0px;
                         font-size: 0.875rem;
                         font-weight: bold;
@@ -131,6 +132,8 @@ div.result-detail-container {
 
                     &.detail {
                         flex: 5 0 0px;
+                        padding-right: 2rem;
+                        word-break: break-all;
                     }
                 }
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import PartBoard from "../../PartBoard";
-import Describable from "../../toolkits/Describable";
 import {
 	TBaseUrlResult, //
 	TZapAjaxScanFullResults,
@@ -85,7 +84,7 @@ const ZapAjaxFullResultTable = ({
 							listUrlByMethod={fullResultsTransformed.inScope}
 						/>
 					)}
-					{fullResultsTransformed.outOfScope.length!= 0 && (
+					{fullResultsTransformed.outOfScope.length != 0 && (
 						<PartBoardURLS
 							title="URLS Out Of Scope"
 							listUrlByMethod={fullResultsTransformed.outOfScope}
@@ -125,14 +124,12 @@ export const PartBoardURLS = ({
 								<ul className="trow">
 									<li className="label">URL</li>
 									<li className="detail">
-										<Describable dataTitle={urlItem.url}>
-											<a
-												href={urlItem.url}
-												target="_blank"
-												rel="noopener noreferrer">
-												{urlItem.url}
-											</a>
-										</Describable>
+										<a
+											href={urlItem.url}
+											target="_blank"
+											rel="noopener noreferrer">
+											{urlItem.url}
+										</a>
 									</li>
 								</ul>
 								<ul className="trow">

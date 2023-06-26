@@ -110,7 +110,7 @@ const AlertsDetailBoards = ({
 									</ul>
 									<ul className="trow">
 										<li className="label">Description</li>
-										<li className="detail">{pioneerAlertDetail.description}</li>
+										<li className="detail read-text">{pioneerAlertDetail.description}</li>
 									</ul>
 									<ul className="trow">
 										<li className="label">Instance</li>
@@ -130,14 +130,12 @@ const AlertsDetailBoards = ({
 												<ul className="trow">
 													<li className="label">Target</li>
 													<li className="detail">
-														<Describable dataTitle={instanceUrl}>
-															<a
-																href={instanceUrl}
-																target="_blank"
-																rel="noopener noreferrer">
-																{instanceUrl}
-															</a>
-														</Describable>
+														<a
+															href={instanceUrl}
+															target="_blank"
+															rel="noopener noreferrer">
+															{instanceUrl}
+														</a>
 													</li>
 												</ul>
 												<ul className="trow">
@@ -161,7 +159,7 @@ const AlertsDetailBoards = ({
 									})}
 									<ul className="trow">
 										<li className="label">Solution</li>
-										<li className="detail">{pioneerAlertDetail.solution}</li>
+										<li className="detail read-text">{pioneerAlertDetail.solution}</li>
 									</ul>
 									<ul className="trow references">
 										<li className="label">References</li>
