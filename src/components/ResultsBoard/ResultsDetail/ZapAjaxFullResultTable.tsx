@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { useGetAjaxFullResultQuery } from "../../../store";
 import PartBoard from "../../PartBoard";
 import Describable from "../../toolkits/Describable";
 import {
-	TBaseUrlResult,
-	TZapAjaxFullResultGETRequest, //
+	TBaseUrlResult, //
 	TZapAjaxScanFullResults,
-	TZapAjaxUrlResult,
 } from "../../../utils/types";
 
 export type TListUrlByMethod = {
@@ -57,15 +54,10 @@ export const transformListUrl2ListUrlByMethod = (listUrl: TBaseUrlResult[]) => {
 };
 
 const ZapAjaxFullResultTable = ({
-	_id,
-	liftUpDataCallback,
-}: TZapAjaxFullResultGETRequest & {
-	liftUpDataCallback: (data: TZapAjaxScanFullResults["fullResults"]) => void;
-}) => {
-	const result = useGetAjaxFullResultQuery({
-		_id,
-	});
-
+	inScope, //
+	outOfScope,
+	errors,
+}: TZapAjaxScanFullResults["fullResults"]) => {
 	const [fullResultsTransformed, setFullResultsTransformed] = useState<{
 		inScope: TListUrlByMethod[];
 		outOfScope: TListUrlByMethod[];
@@ -73,20 +65,6 @@ const ZapAjaxFullResultTable = ({
 	}>();
 
 	useEffect(() => {
-		if (!result.data) {
-			return;
-		}
-
-		liftUpDataCallback(result.data.fullResults);
-
-		const {
-			fullResults: {
-				inScope, //
-				outOfScope,
-				errors,
-			},
-		} = result.data;
-
 		const listUrlInScope: TListUrlByMethod[] = transformListUrl2ListUrlByMethod(inScope);
 		const listUrlOutOfScope: TListUrlByMethod[] = transformListUrl2ListUrlByMethod(outOfScope);
 
@@ -95,23 +73,27 @@ const ZapAjaxFullResultTable = ({
 			outOfScope: listUrlOutOfScope,
 			errors,
 		});
-	}, [result.data]);
+	}, []);
 
 	return (
-		<>
+		<div className="ajax table-scroll-wrap table-container">
 			{fullResultsTransformed && (
-				<div className="ajax table-scroll-wrap table-container">
-					<PartBoardURLS
-						title="URLS In Scope"
-						listUrlByMethod={fullResultsTransformed.inScope}
-					/>
-					<PartBoardURLS
-						title="URLS Out Of Scope"
-						listUrlByMethod={fullResultsTransformed.outOfScope}
-					/>
-				</div>
+				<>
+					{fullResultsTransformed.inScope.length != 0 && (
+						<PartBoardURLS
+							title="URLS In Scope"
+							listUrlByMethod={fullResultsTransformed.inScope}
+						/>
+					)}
+					{fullResultsTransformed.outOfScope.length!= 0 && (
+						<PartBoardURLS
+							title="URLS Out Of Scope"
+							listUrlByMethod={fullResultsTransformed.outOfScope}
+						/>
+					)}
+				</>
 			)}
-		</>
+		</div>
 	);
 };
 

@@ -4,7 +4,7 @@ div.result-detail-container {
     color: $black-color-2;
 
     .table-scroll-wrap {
-        height: 60vh;
+        max-height: 60vh;
     }
 
     .risk-high-style {
@@ -52,7 +52,7 @@ div.result-detail-container {
 
         li {
             font-weight: 600;
-            margin: 0.5rem 0;
+            margin: 0.25rem 0;
 
             &.first-seen,
             &.last-seen {
@@ -78,6 +78,17 @@ div.result-detail-container {
                 margin: 0.125rem;
                 padding: 0.25rem 0.5rem;
             }
+        }
+    }
+
+    ul.config-container {
+        font-size: 0.75rem;
+        list-style: none;
+        margin-left: 1rem;
+        padding: 0;
+
+        li {
+            margin: 0;
         }
     }
 
