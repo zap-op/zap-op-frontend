@@ -46,7 +46,7 @@ function App() {
 							<>
 								{isAuth && (
 									<Navigate
-										to="app/dashboard"
+										to="app"
 										replace
 									/>
 								)}
