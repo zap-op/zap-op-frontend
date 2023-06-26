@@ -23,7 +23,7 @@ import { scanSessionApi, useDispatch } from "../../../store";
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { generateResultDetailDocument } from "../pdfExporter";
 import ZapSpiderFullResultTable from "./ZapSpiderFullResultTable";
-import ZapAjaxFullResultTable from "./ZapAjaxResultTable";
+import ZapAjaxFullResultTable from "./ZapAjaxFullResultTable";
 import ZapPassiveFullResultTable from "./ZapPassiveFullResultTable";
 import ZapActiveFullResultTable from "./ZapActiveFullResultTable";
 

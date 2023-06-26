@@ -8,7 +8,7 @@ import {
 	PartBoardURLS,
 	TListUrlByMethod, //
 	transformListUrl2ListUrlByMethod,
-} from "./ZapAjaxResultTable";
+} from "./ZapAjaxFullResultTable";
 import PartBoard from "../../PartBoard";
 import Describable from "../../toolkits/Describable";
 
