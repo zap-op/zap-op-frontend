@@ -26,7 +26,7 @@ const PartBoard = ({
 	};
 
 	return (
-		<div className={`part-board-container ${extendClassName && extendClassName}`}>
+		<div className={`part-board-container ${extendClassName || ""}`}>
 			<div
 				className="title-container"
 				onClick={handleTitleClick}>
