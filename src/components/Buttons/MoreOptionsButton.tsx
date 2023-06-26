@@ -34,8 +34,7 @@ const MoreOptionsButton = ({
 		}
 		setParentContainPortal(document.getElementById(style?.parentIdContainPortal || "") || undefined);
 		const self = ref_self.current;
-		const selfComputedStyle = getComputedStyle(self);
-		setPortalTopPosition(self.getBoundingClientRect().top - (style?.relativeHeight || 0) - (self.offsetHeight + parseInt(selfComputedStyle.marginTop) + parseInt(selfComputedStyle.marginBottom)));
+		setPortalTopPosition(self.offsetTop + self.offsetHeight);
 	}, []);
 
 	const handleClickOpen = () => {

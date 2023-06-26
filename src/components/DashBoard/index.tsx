@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { scanSessionApi, useGetTargetQuery } from "../../store";
 import { ResultsTable } from "../ResultsBoard";
 import TargetsTable from "../TargetsBoard/TargetsTable";
+import { useClientHeight } from "../../hooks";
 
 const TABLE_HEIGHT_SCROLL_WRAP = "32vh";
 
