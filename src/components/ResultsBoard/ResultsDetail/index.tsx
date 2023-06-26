@@ -19,7 +19,7 @@ import {
 	TZapSpiderScanFullResults,
 	TZapAjaxScanFullResults,
 } from "../../../utils/types";
-import { scanSessionApi } from "../../../store";
+import { scanSessionApi, useDispatch } from "../../../store";
 import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
 import { generateResultDetailDocument } from "../pdfExporter";
 import ZapSpiderFullResultTable from "./ZapSpiderFullResultTable";
@@ -32,9 +32,27 @@ type TResultsDetailParams = {
 };
 
 const ResultsDetail = () => {
+	const {
+		data: scanSessionApiData, //
+		isUninitialized,
+		isSuccess,
+	} = scanSessionApi.endpoints.getScanSession.useQueryState();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (isUninitialized) {
+			dispatch(
+				scanSessionApi.util.prefetch("getScanSession", undefined, {
+					force: true,
+				}),
+			);
+		}
+	}, []);
+
 	const { resultId } = useParams<TResultsDetailParams>();
-	const { data: scanSessionApiData } = scanSessionApi.endpoints.getScanSession.useQueryState();
+
 	const [sessionInfo, setSessionInfo] = useState<ExtractArrayItemType<TMgmtScanSessionsResponse>>();
+	console.log("sessionInfo", sessionInfo);
 	const {
 		__t, //
 		_id,
@@ -50,10 +68,6 @@ const ResultsDetail = () => {
 		name: targetName,
 		tag: listTargetTag,
 	} = { ...targetPop };
-	const {
-		state, //
-		message,
-	} = { ...status };
 
 	const id = useMemo(() => {
 		return _id?.toString();
@@ -70,7 +84,7 @@ const ResultsDetail = () => {
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
 	useEffect(() => {
-		if (scanSessionApiData && scanSessionApiData.length !== 0) {
+		if (isSuccess && scanSessionApiData && scanSessionApiData.length !== 0) {
 			const scanSessionDataFounded = scanSessionApiData.find((item) => item._id.toString() === resultId);
 			if (!scanSessionDataFounded) {
 				return;
@@ -79,7 +93,7 @@ const ResultsDetail = () => {
 				...scanSessionDataFounded,
 			});
 		}
-	}, []);
+	}, [isSuccess]);
 
 	const [spiderFullResult, setSpiderFullResult] = useState<TZapSpiderScanFullResults["fullResults"]>();
 	const [ajaxFullResult, setAjaxFullResult] = useState<TZapAjaxScanFullResults["fullResults"]>();
