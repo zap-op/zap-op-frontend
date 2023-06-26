@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
-import workSpaceImage from "../../assets/work-space.svg";
+import { Link, NavLink } from "react-router-dom";
+import logoLight from "../../assets/logo/owlens-logo_light.svg";
 
 const PanelDashboard = () => {
 	const ref_panel = useRef<HTMLDivElement>(null);
@@ -41,17 +41,13 @@ const PanelDashboard = () => {
 			<div
 				className="panel-container"
 				ref={ref_panel}>
-				<div className="work-space-info-container">
-					<span className="icon-container">
+				<div className="logo-container">
+					<Link to="/app">
 						<img
-							src={workSpaceImage}
-							alt="work-space.svg"
+							src={logoLight}
+							alt="owlens-logo_light.svg"
 						/>
-					</span>
-					<div className="title-container">
-						<h5 className="title">Example</h5>
-						<span className="sub-title">Sub example</span>
-					</div>
+					</Link>
 				</div>
 				<div className="work-space-nav-container">
 					<h4 className="nav-title management-title">MANAGEMENT</h4>

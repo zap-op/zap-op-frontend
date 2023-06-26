@@ -16,26 +16,14 @@ div.panel-dashboard-container {
         width: 300px;
 
 
-        div.work-space-info-container {
-            align-items: center;
-            display: inherit;
-            height: fit-content;
-            margin-bottom: 0.5rem;
-            padding: 1rem;
-            width: 100%;
+        div.logo-container {
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem 0rem;
+            padding: 0.5rem;
 
-            span.icon-container {
-                margin-right: 0.75rem;
-
-                img {
-                    height: 2rem;
-                    width: 2rem;
-                }
-            }
-
-            div.title-container span.sub-title {
-                color: $black-color-2;
-                font-size: 0.7rem;
+            img {
+                height: 3rem;
             }
         }
 
