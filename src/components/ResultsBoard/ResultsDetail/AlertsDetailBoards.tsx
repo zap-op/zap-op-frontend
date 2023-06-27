@@ -85,7 +85,7 @@ const AlertsDetailBoards = ({
 					.reverse()
 					.map(([key, valueRiskArray]) =>
 						valueRiskArray.map((risk, index) => {
-							const pioneerAlertDetail = alerts[parseInt(risk.value[0].id)];
+							const pioneerAlertDetail = alerts[parseInt(risk.value[0].id)] || alerts.find((alert) => alert.id === risk.value[0].id);
 							const listReference = pioneerAlertDetail.reference.split("\n");
 							const listTagRecord = pioneerAlertDetail.tags;
 							const CWEIDHref = `https://cwe.mitre.org/data/definitions/${pioneerAlertDetail.cweid}.html`;
