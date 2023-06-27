@@ -27,6 +27,8 @@ import {
 	TZapPassiveFullResultGETRequest,
 	TZapPassiveRequest,
 	TZapPassiveResponse,
+	TZapPassiveStreamStatusRaw,
+	TZapAjaxStreamStatus,
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "scan", "zap");
@@ -57,8 +59,8 @@ const authScanApi = createApi({
 				}
 				return {
 					data: {
-						isScanning: true,
-						progress: 0,
+						isScanning: false,
+						progress: NaN,
 						data: [],
 						error: {
 							statusCode: NaN,
@@ -72,6 +74,10 @@ const authScanApi = createApi({
 				if (scanState !== ScanState.PROCESSING) {
 					return;
 				}
+				updateCachedData((draft) => {
+					draft.progress = 0;
+					draft.isScanning = true;
+				});
 				const eventSource = new EventSource(urlJoin(_URL, `spider?scanSession=${sessionId}&zapScanId=${zapScanId}`), {
 					withCredentials: true,
 				});
@@ -137,9 +143,8 @@ const authScanApi = createApi({
 				}
 				return {
 					data: {
-						isScanning: true,
-						progress: "initializing",
-						data: [],
+						isScanning: false,
+						progress: "",
 						error: {
 							statusCode: NaN,
 							msg: "",
@@ -152,23 +157,25 @@ const authScanApi = createApi({
 				if (scanState !== ScanState.PROCESSING) {
 					return;
 				}
+				updateCachedData((draft) => {
+					draft.progress = "running";
+					draft.isScanning = true;
+				});
 				const eventSource = new EventSource(urlJoin(_URL, `ajax?scanSession=${sessionId}&zapClientId=${zapClientId}`), {
 					withCredentials: true,
 				});
 				try {
 					eventSource.addEventListener("status", (event: MessageEvent) => {
-						const status: TZapAjaxGETResponse["progress"] = JSON.parse(event.data).status;
+						const status = JSON.parse(event.data).status as TZapAjaxStreamStatus;
+						if (status === "running") {
+							return;
+						}
 						updateCachedData((draft) => {
 							draft.progress = status;
+							draft.isScanning = false;
 						});
-
-						if (status === "stopped") {
-							eventSource.close();
-							updateCachedData((draft) => {
-								draft.isScanning = false;
-							});
-							dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
-						}
+						dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
+						eventSource.close();
 					});
 
 					eventSource.onerror = (event: Event) => {
@@ -217,9 +224,8 @@ const authScanApi = createApi({
 				}
 				return {
 					data: {
-						isScanning: true,
-						progress: 0,
-						data: [],
+						isScanning: false,
+						progress: "",
 						error: {
 							statusCode: NaN,
 							msg: "",
@@ -232,23 +238,30 @@ const authScanApi = createApi({
 				if (scanState !== ScanState.PROCESSING) {
 					return;
 				}
+				updateCachedData((draft) => {
+					draft.progress = "running";
+					draft.isScanning = true;
+				});
 				const eventSource = new EventSource(urlJoin(_URL, `passive?scanSession=${sessionId}&zapClientId=${zapClientId}`), {
 					withCredentials: true,
 				});
 				try {
 					eventSource.addEventListener("status", (event: MessageEvent) => {
-						const status = JSON.parse(event.data).status * 1;
-						updateCachedData((draft) => {
-							draft.progress = status;
-						});
-
-						if (status === 100) {
-							eventSource.close();
-							updateCachedData((draft) => {
-								draft.isScanning = false;
-							});
-							dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
+						const eventData = JSON.parse(event.data) as TZapPassiveStreamStatusRaw;
+						const status = eventData.status;
+						if (status !== "explored") {
+							return;
 						}
+						const recordsToScanInt = parseInt(eventData.recordsToScan || "1");
+						if (recordsToScanInt !== 0) {
+							return;
+						}
+						updateCachedData((draft) => {
+							draft.progress = "stopped";
+							draft.isScanning = false;
+						});
+						dispatch(scanSessionApi.util.invalidateTags([SCAN_SESSION_TAG]));
+						eventSource.close();
 					});
 
 					eventSource.onerror = (event: Event) => {
@@ -298,8 +311,7 @@ const authScanApi = createApi({
 				return {
 					data: {
 						isScanning: true,
-						progress: 0,
-						data: [],
+						progress: NaN,
 						error: {
 							statusCode: NaN,
 							msg: "",
@@ -312,6 +324,10 @@ const authScanApi = createApi({
 				if (scanState !== ScanState.PROCESSING) {
 					return;
 				}
+				updateCachedData((draft) => {
+					draft.progress = 0;
+					draft.isScanning = true;
+				});
 				const eventSource = new EventSource(urlJoin(_URL, `active?scanSession=${sessionId}&zapClientId=${zapClientId}`), {
 					withCredentials: true,
 				});
@@ -358,7 +374,6 @@ const authScanApi = createApi({
 				method: "GET",
 			}),
 		}),
-		
 	}),
 });
 

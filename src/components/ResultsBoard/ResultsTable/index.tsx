@@ -11,6 +11,7 @@ import {
 	useGetScanSessionQuery,
 	useStreamActiveScanQuery, //
 	useStreamAjaxScanQuery,
+	useStreamPassiveScanQuery,
 	useStreamSpiderScanQuery,
 } from "../../../store";
 import Describable from "../../toolkits/Describable";
@@ -169,7 +170,7 @@ const SpiderItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
-	const scanStatus = useStreamSpiderScanQuery({
+	const { data: scanStatus } = useStreamSpiderScanQuery({
 		_id: sessionId,
 		zapScanId,
 		scanState: state,
@@ -190,7 +191,7 @@ const SpiderItemRow = ({
 			</li>
 			<li className="type">{type}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
-			<li className="progress">{scanStatus && scanStatus.data && scanStatus.data.progress}</li>
+			<li className="progress">{(scanStatus && scanStatus.progress) || ""}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
 		</ul>
@@ -211,7 +212,7 @@ const AjaxItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
-	const scanStatus = useStreamAjaxScanQuery({
+	const { data: scanStatus } = useStreamAjaxScanQuery({
 		_id: sessionId,
 		zapClientId,
 		zapScanId,
@@ -233,7 +234,7 @@ const AjaxItemRow = ({
 			</li>
 			<li className="type">{type}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
-			<li className="progress">{scanStatus && scanStatus.data && scanStatus.data.progress}</li>
+			<li className="progress">{scanStatus && scanStatus.progress}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
 		</ul>
@@ -254,51 +255,7 @@ const PassiveItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
-	const scanStatus = undefined;
-	// useStreamActiveScanQuery({
-	// 	_id: sessionId,
-	// 	zapClientId,
-	// 	zapScanId,
-	// 	scanState: state,
-	// });
-
-	return (
-		<ul className="trow">
-			<li className="name">{name}</li>
-			<li className="target">
-				<Describable dataTitle={url}>
-					<a
-						href={url}
-						target="_blank"
-						rel="noopener noreferrer">
-						{url}
-					</a>
-				</Describable>
-			</li>
-			<li className="type">{type}</li>
-			<li className={`state ${getStateStyle(state)}`}>{state}</li>
-			<li className="progress">{scanStatus && "" /*scanStatus.data && scanStatus.data.progress*/}</li>
-			<li className="first-seen">{displayCreateAt}</li>
-			<li className="last-seen">{displayUpdateAt}</li>
-		</ul>
-	);
-};
-
-const ActiveItemRow = ({
-	sessionId, //
-	zapClientId,
-	zapScanId,
-	name,
-	url,
-	type,
-	createdAt,
-	updatedAt,
-	state,
-}: TItemRow) => {
-	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
-	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
-
-	const scanStatus = useStreamActiveScanQuery({
+	const { data: scanStatus } = useStreamPassiveScanQuery({
 		_id: sessionId,
 		zapClientId,
 		zapScanId,
@@ -320,7 +277,50 @@ const ActiveItemRow = ({
 			</li>
 			<li className="type">{type}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
-			<li className="progress">{scanStatus && scanStatus.data && scanStatus.data.progress}</li>
+			<li className="progress">{scanStatus && scanStatus.progress}</li>
+			<li className="first-seen">{displayCreateAt}</li>
+			<li className="last-seen">{displayUpdateAt}</li>
+		</ul>
+	);
+};
+
+const ActiveItemRow = ({
+	sessionId, //
+	zapClientId,
+	zapScanId,
+	name,
+	url,
+	type,
+	createdAt,
+	updatedAt,
+	state,
+}: TItemRow) => {
+	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
+	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
+
+	const { data: scanStatus } = useStreamActiveScanQuery({
+		_id: sessionId,
+		zapClientId,
+		zapScanId,
+		scanState: state,
+	});
+
+	return (
+		<ul className="trow">
+			<li className="name">{name}</li>
+			<li className="target">
+				<Describable dataTitle={url}>
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</Describable>
+			</li>
+			<li className="type">{type}</li>
+			<li className={`state ${getStateStyle(state)}`}>{state}</li>
+			<li className="progress">{(scanStatus && scanStatus.progress) || ""}</li>
 			<li className="first-seen">{displayCreateAt}</li>
 			<li className="last-seen">{displayUpdateAt}</li>
 		</ul>
