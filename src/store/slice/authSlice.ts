@@ -58,7 +58,6 @@ const authSlice = createSlice({
 		});
 		builder.addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
 			if (!action.payload || !action.payload.data) {
-				console.log(action);
 				state.errorMessage = "Something went wrong!";
 				return;
 			}

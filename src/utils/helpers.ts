@@ -32,6 +32,5 @@ export const trimAllStringInArray = (arr: string[]) => {
  */
 export const strimAllStringInArray = (arr: string[]) => {
 	const x = arr.forEach((item) => item.trim());
-	console.log("x", x);
 	return x;
 };

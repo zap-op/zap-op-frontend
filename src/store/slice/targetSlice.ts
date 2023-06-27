@@ -7,13 +7,39 @@ type TSelectedTarget = Pick<TTargetModel, "_id" | "name">;
 
 type TTargetState = {
 	listSelectedTarget: TSelectedTarget[];
-	listSelectedScanOption: ScanType[];
+	scanOption: {
+		spider: boolean;
+		ajax: boolean;
+		passive: {
+			checked: boolean;
+			spider: boolean;
+			ajax: boolean;
+		};
+		active: {
+			checked: boolean;
+			spider: boolean;
+			ajax: boolean;
+		};
+	};
 	listTargetTag: string[];
 };
 
 const initialState: TTargetState = {
 	listSelectedTarget: [],
-	listSelectedScanOption: [],
+	scanOption: {
+		spider: false,
+		ajax: false,
+		passive: {
+			checked: false,
+			spider: true,
+			ajax: false,
+		},
+		active: {
+			checked: false,
+			spider: true,
+			ajax: false,
+		},
+	},
 	listTargetTag: [],
 };
 
@@ -21,35 +47,30 @@ const targetSlice = createSlice({
 	name: "targetStorge",
 	initialState,
 	reducers: {
-		addSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TSelectedTarget>) => {
-			if (listSelectedTarget.includes(action.payload)) {
+		addSelectTarget: (state, action: PayloadAction<TSelectedTarget>) => {
+			if (state.listSelectedTarget.includes(action.payload)) {
 				return;
 			}
-			listSelectedTarget.push(action.payload);
+			state.listSelectedTarget.push(action.payload);
 		},
-		removeSelectTarget: ({ listSelectedTarget }, action: PayloadAction<TSelectedTarget>) => {
-			const indexToRemove = listSelectedTarget.map((item) => item._id).indexOf(action.payload._id);
+		removeSelectTarget: (state, action: PayloadAction<TSelectedTarget>) => {
+			const indexToRemove = state.listSelectedTarget.map((item) => item._id).indexOf(action.payload._id);
 			if (indexToRemove !== -1) {
-				listSelectedTarget.splice(indexToRemove, 1);
+				state.listSelectedTarget.splice(indexToRemove, 1);
 			}
 		},
-		clearSelectTarget: ({ listSelectedTarget }) => {
-			listSelectedTarget.length = 0;
+		clearSelectTarget: (state) => {
+			state.listSelectedTarget.length = 0;
 		},
-		addScanOption: ({ listSelectedScanOption }, action: PayloadAction<ScanType>) => {
-			if (listSelectedScanOption.includes(action.payload)) {
-				return;
-			}
-			listSelectedScanOption.push(action.payload);
+		updateScanOption: (state, action: PayloadAction<TTargetState["scanOption"]>) => {
+			state.scanOption = {
+				...action.payload,
+			};
 		},
-		removeScanOption: ({ listSelectedScanOption }, action: PayloadAction<ScanType>) => {
-			const indexToRemove = listSelectedScanOption.indexOf(action.payload);
-			if (indexToRemove !== -1) {
-				listSelectedScanOption.splice(indexToRemove, 1);
-			}
-		},
-		clearScanOption: ({ listSelectedScanOption }) => {
-			listSelectedScanOption.length = 0;
+		clearScanOption: (state) => {
+			state.scanOption = {
+				...initialState.scanOption,
+			};
 		},
 	},
 	extraReducers: (builder) => {
@@ -73,7 +94,6 @@ export const {
 	addSelectTarget, //
 	removeSelectTarget,
 	clearSelectTarget,
-	addScanOption,
-	removeScanOption,
+	updateScanOption,
 	clearScanOption,
 } = targetSlice.actions;

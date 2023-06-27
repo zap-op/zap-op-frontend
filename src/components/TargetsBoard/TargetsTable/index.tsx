@@ -87,7 +87,6 @@ const ItemRow = ({
 	const newScanOption: TOptionItem = {
 		name: "New scan",
 		handle: () => {
-			console.log("herhe");
 			dispatch(
 				addSelectTarget({
 					_id: targetId,

@@ -1,5 +1,40 @@
-@use './ScanOptionItem';
+@use '../../../style/variables' as *;
 
-div.scan-options-board-container div.scan-option-item-wrapper {
+div.scan-options-board-container {
     margin: 1rem 0;
+
+    label {
+        border-radius: $app-border-radius;
+        display: flex;
+        flex-direction: row;
+        padding: 0.5rem 1rem;
+
+        &:hover {
+            background-color: $blue-color-8;
+        }
+
+        &,
+        input {
+            cursor: pointer;
+        }
+
+        div.content-container {
+            margin-inline: 1rem;
+
+            h5.title {
+                margin-bottom: 0.5rem;
+            }
+
+            div.description, span {
+                color: $black-color-3;
+                font-size: 0.875rem;
+            }
+        }
+    }
+
+    div.sub-content-container {
+        margin-left: 2rem;
+        
+    }
+
 }
