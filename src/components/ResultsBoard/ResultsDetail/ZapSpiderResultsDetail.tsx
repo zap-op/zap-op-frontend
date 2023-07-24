@@ -53,25 +53,37 @@ const ZapSpiderResultsDetail = (scanSessionWithTargetProps: TGeneralScanSessionW
 	const exportPdf: TOptionItem = {
 		name: "Export to PDF",
 		handle: () => {
-			const toastId = toast.loading(`Exporting PDF file for ZAP Spider of ${targetName}`);
-			const doc = new jsPDF();
+			toast.promise(
+				new Promise<void>((resolve, reject) => {
+					try {
+						const doc = new jsPDF();
 
-			if (!fullResults) {
-				return;
-			}
-			generateResultDetailDocument(
-				doc,
-				ScanType.ZAP_SPIDER,
-				scanSessionWithTargetProps,
+						if (!fullResults) {
+							reject();
+							return;
+						}
+						generateResultDetailDocument(
+							doc,
+							ScanType.ZAP_SPIDER,
+							scanSessionWithTargetProps,
+							{
+								scanConfig,
+							},
+							fullResults,
+						);
+						doc.save(`OWASP-ZAP-Spider_${targetName}_${id}_report.pdf`);
+						resolve();
+					} catch (error) {
+						console.log("error", error);
+						reject();
+					}
+				}),
 				{
-					scanConfig,
+					loading: `Exporting PDF file for ZAP Spider of ${targetName}`,
+					success: `Succeed export ${id} to PDF`,
+					error: `Error export ${id} to PDF`,
 				},
-				fullResults,
 			);
-			doc.save(`OWASP-ZAP-Spider_${targetName}_${id}_report.pdf`);
-			toast.success(`Succeed export ${id} to PDF`, {
-				id: toastId,
-			});
 		},
 	};
 

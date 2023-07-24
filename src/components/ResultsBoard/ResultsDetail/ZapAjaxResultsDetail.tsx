@@ -57,25 +57,37 @@ const ZapAjaxResultsDetail = (scanSessionWithTargetProps: TGeneralScanSessionWit
 	const exportPdf: TOptionItem = {
 		name: "Export to PDF",
 		handle: () => {
-			const toastId = toast.loading(`Exporting PDF file for ZAP Ajax of ${targetName}`);
-			const doc = new jsPDF();
+			toast.promise(
+				new Promise<void>((resolve, reject) => {
+					try {
+						const doc = new jsPDF();
 
-			if (!fullResults) {
-				return;
-			}
-			generateResultDetailDocument(
-				doc,
-				ScanType.ZAP_AJAX,
-				scanSessionWithTargetProps,
+						if (!fullResults) {
+							reject();
+							return;
+						}
+						generateResultDetailDocument(
+							doc,
+							ScanType.ZAP_AJAX,
+							scanSessionWithTargetProps,
+							{
+								scanConfig,
+							},
+							fullResults,
+						);
+						doc.save(`OWASP-ZAP-Ajax_${targetName}_${id}_report.pdf`);
+						resolve();
+					} catch (error) {
+						console.log("error", error);
+						reject();
+					}
+				}),
 				{
-					scanConfig,
+					loading: `Exporting PDF file for ZAP Ajax of ${targetName}`,
+					success: `Succeed export ${id} to PDF`,
+					error: `Error export ${id} to PDF`,
 				},
-				fullResults,
 			);
-			doc.save(`OWASP-ZAP-Ajax_${targetName}_${id}_report.pdf`);
-			toast.success(`Succeed export ${id} to PDF`, {
-				id: toastId,
-			});
 		},
 	};
 
