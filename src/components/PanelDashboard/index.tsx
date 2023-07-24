@@ -70,8 +70,7 @@ const PanelDashboard = () => {
 					<NavLink
 						to="results"
 						className="nav-item results-container"
-						draggable={false}
-						end>
+						draggable={false}>
 						<span className="icon"></span>
 						<h4 className="title">Results</h4>
 					</NavLink>
