@@ -61,7 +61,7 @@ const trialScanApi = createApi({
 					eventSource.addEventListener("id", (event: MessageEvent) => {
 						id = JSON.parse(event.data).id;
 
-						if (!id) {
+						if (id.length == 0) {
 							eventSource.close();
 							updateCachedData((draft) => {
 								draft.isScanning = false;
