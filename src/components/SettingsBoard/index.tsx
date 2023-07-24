@@ -19,6 +19,24 @@ const SettingsBoard = () => {
 	};
 	return (
 		<div className="settings-board-container">
+			<div className="avatar-section-container">
+				<img
+					className="user-avatar"
+					src={pictureUrl}
+					alt="user avatar"
+				/>
+			</div>
+			<ul className="info-list">
+				<li>
+					<span className="title">Email</span>
+					<span className="content">{email}</span>
+				</li>
+
+				<li>
+					<span className="title">Full name</span>
+					<span className="content">{name}</span>
+				</li>
+			</ul>
 			<div className="hr"></div>
 			<div
 				className="logout-button button secondary-button"
