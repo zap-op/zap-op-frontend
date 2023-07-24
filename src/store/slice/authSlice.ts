@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { getCookie } from "../../utils/cookieMgr";
 import { parseJwt } from "../../utils/tokenMgr";
 import authApi from "../services/authApi";
@@ -37,7 +37,7 @@ const authSlice = createSlice({
 		clearState: () => initialState,
 	},
 	extraReducers: (builder) => {
-		builder.addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
+		builder.addMatcher(isAnyOf(authApi.endpoints.login.matchFulfilled, authApi.endpoints.refreshCredentials.matchFulfilled) , (state, action) => {
 			const token = getCookie("accessToken");
 			if (!token) {
 				state.errorMessage = LOGIN_STATUS.TOKEN_INVALID["msg"];

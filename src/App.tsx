@@ -1,8 +1,7 @@
 import {
 	Route, //
 	Routes,
-	Navigate,
-	BrowserRouter,
+	useNavigate,
 } from "react-router-dom";
 
 import "./style/style.scss";
@@ -28,109 +27,109 @@ import {
 	SettingsBoard,
 } from "./components";
 
-import { useSelector } from "./store";
-import { useState } from "react";
+import { useRefreshCredentialsMutation, useSelector } from "./store";
+import { useEffect, useState } from "react";
 
 function App() {
+	const navigate = useNavigate();
+	const [refreshCredentials, { isError: isRefreshCredentialsError }] = useRefreshCredentialsMutation();
 	const isAuth = useSelector((state) => state.auth.isAuth);
+
+	useEffect(() => {
+		if (!isAuth) {
+			refreshCredentials();
+		}
+	}, [isAuth]);
+
+	useEffect(() => {
+		if (isRefreshCredentialsError) {
+			navigate("/");
+		}
+	}, [isRefreshCredentialsError]);
 
 	const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 	const [modalComponent, setModalComponent] = useState<JSX.Element | null>(null);
 
 	return (
 		<div className="App">
-			<BrowserRouter>
-				<Routes>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<>
+							<LandingWrap />
+						</>
+					}>
 					<Route
-						path="/"
+						index
+						element={<HomePage />}
+					/>
+					<Route
+						path="login"
+						element={<LogInPage />}
+					/>
+				</Route>
+				<Route
+					path="app"
+					element={
+						<>
+							<AppBoardPage />
+						</>
+					}>
+					<Route
+						index
+						element={<DashBoard />}
+					/>
+					<Route
+						path="targets"
 						element={
-							<>
-								{isAuth && (
-									<Navigate
-										to="app"
-										replace
-									/>
-								)}
-								<LandingWrap />
-							</>
-						}>
+							<ModalContext.Provider
+								value={{
+									isOpenModal,
+									handleOpenModal: setIsOpenModal,
+									setModalComponent,
+								}}>
+								<TargetsBoard />
+							</ModalContext.Provider>
+						}
+					/>
+					<Route
+						path="results"
+						element={<ResultsBoard />}>
 						<Route
 							index
-							element={<HomePage />}
+							element={<ResultsTable heightScrollWrap="80vh" />}
 						/>
 						<Route
-							path="login"
-							element={<LogInPage />}
+							path=":resultId"
+							element={<ResultsDetail />}
 						/>
 					</Route>
 					<Route
-						path="app"
+						path="addscan"
 						element={
-							<>
-								{!isAuth && (
-									<Navigate
-										to="/"
-										replace
-									/>
-								)}
-								<AppBoardPage />
-							</>
-						}>
-						<Route
-							index
-							element={<DashBoard />}
-						/>
-						<Route
-							path="targets"
-							element={
-								<ModalContext.Provider
-									value={{
-										isOpenModal,
-										handleOpenModal: setIsOpenModal,
-										setModalComponent,
-									}}>
-									<TargetsBoard />
-								</ModalContext.Provider>
-							}
-						/>
-						<Route
-							path="results"
-							element={<ResultsBoard />}>
-							<Route
-								index
-								element={<ResultsTable heightScrollWrap="80vh" />}
+							<AddScanBoard
+								configSteps={[
+									{
+										title: "Select Targets",
+										state: AddScanBoardLinkState.SelectTarget,
+									},
+									{
+										title: "Configure Scans",
+										state: AddScanBoardLinkState.ScanOptions,
+									},
+								]}
 							/>
-							<Route
-								path=":resultId"
-								element={<ResultsDetail />}
-							/>
-						</Route>
-						<Route
-							path="addscan"
-							element={
-								<AddScanBoard
-									configSteps={[
-										{
-											title: "Select Targets",
-											state: AddScanBoardLinkState.SelectTarget,
-										},
-										{
-											title: "Configure Scans",
-											state: AddScanBoardLinkState.ScanOptions,
-										},
-									]}
-								/>
-							}
-						/>
-						<Route
-							path="settings"
-							element={<SettingsBoard />}
-						/>
-					</Route>
-				</Routes>
-				<ToolkitPortal />
-				{isOpenModal ? <ModalPortal handleOpenModal={setIsOpenModal}>{modalComponent}</ModalPortal> : <></>}
-			</BrowserRouter>
+						}
+					/>
+					<Route
+						path="settings"
+						element={<SettingsBoard />}
+					/>
+				</Route>
+			</Routes>
+			<ToolkitPortal />
+			{isOpenModal ? <ModalPortal handleOpenModal={setIsOpenModal}>{modalComponent}</ModalPortal> : <></>}
 			<ToasterMgr />
 		</div>
 	);

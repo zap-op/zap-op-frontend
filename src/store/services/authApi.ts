@@ -22,8 +22,17 @@ const authApi = createApi({
 				document.cookie = `${TOKEN_TYPE.GOOGLE}=${_arg};domain=${window.location.hostname}`;
 			},
 		}),
+		refreshCredentials: builder.mutation<TStatusResponse, void>({
+			query: () => ({
+				url: "login/refreshToken",
+				method: "POST",
+			}),
+		}),
 	}),
 });
 
-export const { useLoginMutation } = authApi;
+export const {
+	useLoginMutation, //
+	useRefreshCredentialsMutation,
+} = authApi;
 export default authApi;
