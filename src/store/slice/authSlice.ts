@@ -1,9 +1,9 @@
-import { PayloadAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { getCookie } from "../../utils/cookieMgr";
 import { parseJwt } from "../../utils/tokenMgr";
 import authApi from "../services/authApi";
 import {
-	LOGIN_STATUS, //
+	AUTH_STATUS, //
 	UserTokenData,
 	TStatusResponse,
 } from "../../utils/types";
@@ -33,19 +33,17 @@ const initialState: TAuthState = {
 const authSlice = createSlice({
 	name: "authentication",
 	initialState,
-	reducers: {
-		clearState: () => initialState,
-	},
+	reducers: {},
 	extraReducers: (builder) => {
-		builder.addMatcher(isAnyOf(authApi.endpoints.login.matchFulfilled, authApi.endpoints.refreshCredentials.matchFulfilled) , (state, action) => {
+		builder.addMatcher(isAnyOf(authApi.endpoints.login.matchFulfilled, authApi.endpoints.refreshCredentials.matchFulfilled), (state, action) => {
 			const token = getCookie("accessToken");
 			if (!token) {
-				state.errorMessage = LOGIN_STATUS.TOKEN_INVALID["msg"];
+				state.errorMessage = AUTH_STATUS.TOKEN_INVALID["msg"];
 				return;
 			}
 			const userInfo = parseJwt<UserTokenData>(token);
 			if (!userInfo.userId) {
-				state.errorMessage = LOGIN_STATUS.TOKEN_INVALID["msg"];
+				state.errorMessage = AUTH_STATUS.TOKEN_INVALID["msg"];
 				return;
 			}
 			state.isAuth = true;
@@ -63,8 +61,9 @@ const authSlice = createSlice({
 			}
 			state.errorMessage = (action.payload.data as TStatusResponse).msg;
 		});
+		builder.addMatcher(authApi.endpoints.logout.matchFulfilled, (state, action) => initialState);
 	},
 });
 
 export default authSlice;
-export const { clearState } = authSlice.actions;
+export const {} = authSlice.actions;

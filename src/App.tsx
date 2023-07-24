@@ -1,6 +1,7 @@
 import {
 	Route, //
 	Routes,
+	useLocation,
 	useNavigate,
 } from "react-router-dom";
 
@@ -29,15 +30,26 @@ import {
 
 import { useRefreshCredentialsMutation, useSelector } from "./store";
 import { useEffect, useState } from "react";
+import { getCookie } from "./utils/cookieMgr";
+import { TOKEN_TYPE } from "./utils/types";
 
 function App() {
+	const location = useLocation();
 	const navigate = useNavigate();
 	const [refreshCredentials, { isError: isRefreshCredentialsError }] = useRefreshCredentialsMutation();
 	const isAuth = useSelector((state) => state.auth.isAuth);
 
 	useEffect(() => {
 		if (!isAuth) {
+			if (!getCookie(TOKEN_TYPE.ACCESS) && !getCookie(TOKEN_TYPE.REFRESH)) {
+				navigate("/");
+				return;
+			}
 			refreshCredentials();
+			return;
+		}
+		if (!location.pathname.includes("/app")) {
+			navigate("/app");
 		}
 	}, [isAuth]);
 

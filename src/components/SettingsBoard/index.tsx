@@ -1,11 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import { clearState, useDispatch } from "../../store";
+import { useLogoutMutation, useSelector } from "../../store";
 
 const SettingsBoard = () => {
-	const dispatch = useDispatch();
+	const [logout] = useLogoutMutation();
+	const userInfor = useSelector((state) => ({
+		pictureUrl: state.auth.picture,
+		email: state.auth.email,
+		name: state.auth.name,
+	}));
+
+	const {
+		email, //
+		name,
+		pictureUrl,
+	} = { ...userInfor };
 
 	const handleLogOut = () => {
-		dispatch(clearState());
+		logout();
 	};
 	return (
 		<div className="settings-board-container">
