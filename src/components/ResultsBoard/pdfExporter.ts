@@ -422,7 +422,7 @@ const generateAlertsDetailDocument = (doc: jsPDF, finalY: any, fullResults: TAct
 		.reverse()
 		.map(([key, valueRiskArray]) =>
 			valueRiskArray.map((risk) => {
-				const pioneerAlertDetail = alerts[parseInt(risk.value[0].id)];
+				const pioneerAlertDetail = alerts[parseInt(risk.value[0].id)] || alerts.find((alert) => alert.id === risk.value[0].id);
 				const riskStyleColor = getColorByRiskLevel(key);
 				const CWEIDHref = `https://cwe.mitre.org/data/definitions/${pioneerAlertDetail.cweid}.html`;
 				const pluginIdHref = `https://www.zaproxy.org/docs/alerts/${pioneerAlertDetail.pluginId}/`;
