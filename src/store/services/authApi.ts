@@ -5,11 +5,14 @@ import {
 	TOKEN_TYPE,
 	TGoogleCredentialResponse,
 } from "../../utils/types";
+import urlJoin from "url-join";
+
+const _URL = urlJoin(BaseURL, "auth");
 
 const authApi = createApi({
 	reducerPath: "authApi",
 	baseQuery: fetchBaseQuery({
-		baseUrl: BaseURL,
+		baseUrl: _URL,
 		credentials: "include",
 	}),
 	endpoints: (builder) => ({
