@@ -31,6 +31,7 @@ const MoreOptionsButton = ({
 	const [parentContainPortal, setParentContainPortal] = useState<HTMLElement>();
 
 	useEffect(() => {
+		console.log("ref_self.current?.offsetTop", ref_self.current?.offsetTop);
 		if (!ref_self.current) {
 			return;
 		}
@@ -43,7 +44,7 @@ const MoreOptionsButton = ({
 		setParentContainPortal(document.getElementById(id) || undefined);
 		setPortalTopPosition(30);
 		return;
-	}, []);
+	}, [ref_self.current?.offsetTop]);
 
 	const handleClickOpen = () => {
 		if (isOpen) {
