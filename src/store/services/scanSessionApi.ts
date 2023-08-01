@@ -3,8 +3,7 @@ import { BaseURL } from "../../utils/urlMgr";
 import urlJoin from "url-join";
 import { SCAN_SESSION_TAG } from "../../utils/settings";
 import {
-	TMgmtScanSessionsResponse,
-	TScanSession, //
+	TMgmtScanSessionsResponse, //
 } from "../../utils/types";
 
 const _URL = urlJoin(BaseURL, "management");

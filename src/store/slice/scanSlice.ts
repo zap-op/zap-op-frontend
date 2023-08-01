@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TScanSession, TTargetModel } from "../../utils/types";
-import authScanApi from "../services/authScanApi";
+import { TTargetModel } from "../../utils/types";
 
 export type TScanState = {
 	trial: Pick<TTargetModel, "target">;

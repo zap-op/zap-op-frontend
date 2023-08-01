@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ScanType } from "../../utils/types";
 import { TTargetModel } from "../../utils/types";
 import targetApi from "../services/targetApi";
 

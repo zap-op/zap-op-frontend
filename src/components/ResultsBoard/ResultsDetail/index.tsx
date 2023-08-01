@@ -1,32 +1,14 @@
 import {
 	useEffect, //
-	useMemo,
 	useState,
 } from "react";
-import toast from "react-hot-toast";
-import moment from "moment";
 import { Link, useParams } from "react-router-dom";
-import jsPDF from "jspdf";
-import { _assertCast, getScanOptionTitleByID } from "../../../utils/helpers";
+import { _assertCast } from "../../../utils/helpers";
 import {
 	ScanType, //
-	TMgmtScanSessionsResponse,
-	ExtractArrayItemType,
-	TZapSpiderScanConfig,
-	TZapAjaxScanConfig,
-	TZapActiveScanFullResults,
-	TZapPassiveScanFullResults,
-	TZapSpiderScanFullResults,
-	TZapAjaxScanFullResults,
 	TGeneralScanSessionWithTarget,
 } from "../../../utils/types";
 import { scanSessionApi, useDispatch } from "../../../store";
-import MoreOptionsButton, { TOptionItem } from "../../Buttons/MoreOptionsButton";
-import { generateResultDetailDocument } from "../pdfExporter";
-import ZapSpiderFullResultTable from "./ZapSpiderFullResultTable";
-import ZapAjaxFullResultTable from "./ZapAjaxFullResultTable";
-import ZapPassiveFullResultTable from "./ZapPassiveFullResultTable";
-import ZapActiveFullResultTable from "./ZapActiveFullResultTable";
 import ZapSpiderResultsDetail from "./ZapSpiderResultsDetail";
 import ZapAjaxResultsDetail from "./ZapAjaxResultsDetail";
 import ZapPassiveResultsDetail from "./ZapPassiveResultsDetail";

@@ -1,4 +1,4 @@
-import { MouseEventHandler, PropsWithChildren, useRef, useState } from "react";
+import { PropsWithChildren, useRef, useState } from "react";
 
 type TPartBoard = {
 	title: string;

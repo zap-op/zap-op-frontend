@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState } from "react";
 import { FONT_SIZE } from "../../utils/styleMgr";
 import { createPortal } from "react-dom";
 

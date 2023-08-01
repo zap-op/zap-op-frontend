@@ -3,7 +3,6 @@ import {
 	useState,
 	useContext,
 	createContext,
-	useEffect,
 } from "react";
 import toast from "react-hot-toast";
 import { ModalContext } from "../../toolkits/ModalPortal";
