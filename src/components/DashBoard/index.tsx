@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { scanSessionApi, useGetTargetQuery } from "../../store";
 import { ResultsTable } from "../ResultsBoard";
 import TargetsTable from "../TargetsBoard/TargetsTable";
+import { Link } from "react-router-dom";
 
 const TABLE_HEIGHT_SCROLL_WRAP = "32vh";
 
@@ -47,21 +48,41 @@ const DashBoard = () => {
 					<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
 					<hr />
 					<h3>Targets</h3>
-					<TargetsTable
-						listTarget={listTarget ? listTarget : []}
-						heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
-					/>
+					{listTarget && listTarget.length != 0 ? (
+						<TargetsTable
+							listTarget={listTarget}
+							heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
+						/>
+					) : (
+						<Link to="targets">
+							<div className="call-create-target">
+								<div className="call">Create a target and start exploring!</div>
+							</div>
+						</Link>
+					)}
 				</>
 			) : (
 				<>
 					<h3>Targets</h3>
-					<TargetsTable
-						listTarget={listTarget ? listTarget : []}
-						heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
-					/>
+					{listTarget && listTarget.length != 0 ? (
+						<TargetsTable
+							listTarget={listTarget}
+							heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP}
+						/>
+					) : (
+						<Link to="targets">
+							<div className="call-create-target">
+								<div className="call">Create a target and start exploring!</div>
+							</div>
+						</Link>
+					)}
 					<hr />
-					<h3>Results</h3>
-					<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
+					{listScanSession?.length != 0 && (
+						<>
+							<h3>Results</h3>
+							<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
+						</>
+					)}
 				</>
 			)}
 		</div>

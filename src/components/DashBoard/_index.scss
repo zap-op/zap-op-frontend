@@ -8,4 +8,22 @@ div.dashboard-container {
         margin: 1rem auto;
         width: 50%;
     }
+
+    a {
+        text-decoration: none;
+    }
+
+    div.call-create-target {
+        border: 1px dashed $black-color-3;
+        border-radius: $app-border-radius;
+        margin: 2rem;
+        padding: 5rem;
+        text-align: center;
+
+        div.call {
+            color: $black-color-3;
+            font-size: 0.875rem;
+
+        }
+    }
 }

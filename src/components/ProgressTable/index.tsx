@@ -1,5 +1,6 @@
 import { createRef, useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
+import Describable from "../toolkits/Describable";
 
 type TProgressTableProps = {
 	tableBody?: TItemRow[];
@@ -149,7 +150,16 @@ const ItemRow = ({
 	return (
 		<ul className="trow">
 			<li className="no">{number}</li>
-			<li className="url">{url}</li>
+			<li className="url">
+				<Describable dataTitle={url}>
+					<a
+						href={url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{url}
+					</a>
+				</Describable>
+			</li>
 		</ul>
 	);
 };
