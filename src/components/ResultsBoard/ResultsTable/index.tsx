@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { _assertCast } from "../../../utils/helpers";
+import { _assertCast, getScanOptionTitleByID } from "../../../utils/helpers";
 import {
 	TObject, //
 	ScanType,
@@ -170,6 +170,8 @@ const SpiderItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
+	const displayType = useMemo(() => getScanOptionTitleByID(type), []);
+
 	const { data: scanStatus } = useStreamSpiderScanQuery({
 		_id: sessionId,
 		zapScanId,
@@ -189,7 +191,7 @@ const SpiderItemRow = ({
 					</a>
 				</Describable>
 			</li>
-			<li className="type">{type}</li>
+			<li className="type">{displayType}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{(scanStatus && scanStatus.progress) || ""}</li>
 			<li className="first-seen">{displayCreateAt}</li>
@@ -212,6 +214,8 @@ const AjaxItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
+	const displayType = useMemo(() => getScanOptionTitleByID(type), []);
+
 	const { data: scanStatus } = useStreamAjaxScanQuery({
 		_id: sessionId,
 		zapClientId,
@@ -232,7 +236,7 @@ const AjaxItemRow = ({
 					</a>
 				</Describable>
 			</li>
-			<li className="type">{type}</li>
+			<li className="type">{displayType}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{scanStatus && scanStatus.progress}</li>
 			<li className="first-seen">{displayCreateAt}</li>
@@ -255,6 +259,8 @@ const PassiveItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
+	const displayType = useMemo(() => getScanOptionTitleByID(type), []);
+
 	const { data: scanStatus } = useStreamPassiveScanQuery({
 		_id: sessionId,
 		zapClientId,
@@ -275,7 +281,7 @@ const PassiveItemRow = ({
 					</a>
 				</Describable>
 			</li>
-			<li className="type">{type}</li>
+			<li className="type">{displayType}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{scanStatus && scanStatus.progress}</li>
 			<li className="first-seen">{displayCreateAt}</li>
@@ -298,6 +304,8 @@ const ActiveItemRow = ({
 	const displayCreateAt = useMemo(() => moment(createdAt).fromNow(), [createdAt]);
 	const displayUpdateAt = useMemo(() => moment(updatedAt).fromNow(), [updatedAt]);
 
+	const displayType = useMemo(() => getScanOptionTitleByID(type), []);
+
 	const { data: scanStatus } = useStreamActiveScanQuery({
 		_id: sessionId,
 		zapClientId,
@@ -318,7 +326,7 @@ const ActiveItemRow = ({
 					</a>
 				</Describable>
 			</li>
-			<li className="type">{type}</li>
+			<li className="type">{displayType}</li>
 			<li className={`state ${getStateStyle(state)}`}>{state}</li>
 			<li className="progress">{(scanStatus && scanStatus.progress) || ""}</li>
 			<li className="first-seen">{displayCreateAt}</li>

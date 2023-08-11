@@ -12,18 +12,18 @@ export type TScanOption = {
 export const ListScanOption: TScanOption[] = [
 	{
 		id: ScanType.ZAP_SPIDER,
-		title: "OWASP ZAP Spider",
+		title: "ZAP Spider",
 	},
 	{
 		id: ScanType.ZAP_AJAX,
-		title: "OWASP ZAP Ajax",
+		title: "ZAP Ajax",
 	},
 	{
 		id: ScanType.ZAP_ACTIVE,
-		title: "OWASP ZAP Active",
+		title: "ZAP Active",
 	},
 	{
 		id: ScanType.ZAP_PASSIVE,
-		title: "OWASP ZAP Passive",
+		title: "ZAP Passive",
 	},
 ];

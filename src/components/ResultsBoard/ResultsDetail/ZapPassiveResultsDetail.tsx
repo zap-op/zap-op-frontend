@@ -1,6 +1,4 @@
-import {
-	useMemo,
-} from "react";
+import { useMemo } from "react";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -179,11 +177,18 @@ const ZapPassiveConfig = ({
 	ajaxConfig,
 	spiderConfig,
 }: TZapPassiveScanConfig) => {
+	const displayExploreType = useMemo(() => {
+		if (exploreType == "spider") {
+			return getScanOptionTitleByID(ScanType.ZAP_SPIDER);
+		}
+		return getScanOptionTitleByID(ScanType.ZAP_AJAX);
+	}, []);
+
 	return (
 		<>
 			<li>
 				Explore Type
-				<span>{exploreType}</span>
+				<span>{displayExploreType}</span>
 			</li>
 			<ul className="config-container">
 				{exploreType === "ajax" && ajaxConfig && (

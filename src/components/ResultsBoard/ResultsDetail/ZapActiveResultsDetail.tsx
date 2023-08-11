@@ -181,11 +181,18 @@ const ZapActiveConfig = ({
 	spiderConfig,
 	scanConfig,
 }: TZapActiveScanConfig) => {
+	const displayExploreType = useMemo(() => {
+		if (exploreType == "spider") {
+			return getScanOptionTitleByID(ScanType.ZAP_SPIDER);
+		}
+		return getScanOptionTitleByID(ScanType.ZAP_AJAX);
+	}, []);
+
 	return (
 		<>
 			<li>
 				Explore Type
-				<span>{exploreType}</span>
+				<span>{displayExploreType}</span>
 			</li>
 			<ul className="config-container">
 				{exploreType === "ajax" && ajaxConfig && (
