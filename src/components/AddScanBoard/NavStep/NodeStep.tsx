@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 export type TNodeStepProps = {
@@ -8,12 +9,18 @@ export type TNodeStepProps = {
 
 const NodeStep = (props: TNodeStepProps) => {
 	const location = useLocation();
-	let isActive: boolean = false;
-	if (location.state && props.startNode) {
-		isActive = true;
-	} else if (location.state === props.state) {
-		isActive = true;
-	}
+	const [isActive, setIsActive] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (location.state === null && props.startNode) {
+			setIsActive(true);
+		} else if (location.state === props.state) {
+			setIsActive(true);
+		} else {
+			setIsActive(false);
+		}
+	}, [location.state]);
+
 	return (
 		<div className={`node-step-container ${isActive ? "isActive" : undefined}`}>
 			<div className="node-container">
