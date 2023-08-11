@@ -11,12 +11,17 @@ import {
 	scanSessionApi,
 	useActiveScanMutation,
 	usePassiveScanMutation,
+	clearScanConfig,
 } from "../store";
 import { SCAN_SESSION_TAG } from "../utils/settings";
 
 export const useDigestTargetsWithOptions = () => {
 	const dispatch = useDispatch();
-	const { listSelectedTarget, scanOption } = useSelector((state) => state.target);
+	const {
+		listSelectedTarget, //
+		scanOption,
+		scanConfig,
+	} = useSelector((state) => state.target);
 
 	const [spiderScan] = useSpiderScanMutation();
 	const [ajaxScan] = useAjaxScanMutation();
@@ -34,7 +39,7 @@ export const useDigestTargetsWithOptions = () => {
 				const toastId = toast.loading(`Initializing ${optionName} for ${target.name}`);
 				spiderScan({
 					_id: target._id,
-					scanConfig: {},
+					scanConfig: scanConfig.spider,
 				})
 					.unwrap()
 					.then((response) => {
@@ -63,7 +68,7 @@ export const useDigestTargetsWithOptions = () => {
 				const toastId = toast.loading(`Initializing ${optionName} for ${target.name}`);
 				ajaxScan({
 					_id: target._id,
-					scanConfig: {},
+					scanConfig: scanConfig.ajax,
 				})
 					.unwrap()
 					.then((response) => {
@@ -93,6 +98,8 @@ export const useDigestTargetsWithOptions = () => {
 				passiveScan({
 					_id: target._id,
 					exploreType: scanOption.passive.spider ? "spider" : "ajax",
+					spiderConfig: scanConfig.passive.spiderConfig,
+					ajaxConfig: scanConfig.passive.ajaxConfig,
 				})
 					.unwrap()
 					.then((response) => {
@@ -122,7 +129,9 @@ export const useDigestTargetsWithOptions = () => {
 				activeScan({
 					_id: target._id,
 					exploreType: scanOption.active.spider ? "spider" : "ajax",
-					scanConfig: {},
+					scanConfig: scanConfig.active.scanConfig,
+					spiderConfig: scanConfig.active.spiderConfig,
+					ajaxConfig: scanConfig.active.ajaxConfig,
 				})
 					.unwrap()
 					.then((response) => {
@@ -149,6 +158,7 @@ export const useDigestTargetsWithOptions = () => {
 		});
 		dispatch(clearScanOption());
 		dispatch(clearSelectTarget());
+		dispatch(clearScanConfig());
 	};
 
 	return {

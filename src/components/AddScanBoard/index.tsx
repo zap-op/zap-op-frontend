@@ -88,9 +88,7 @@ const AddScanBoard = () => {
 				)}
 			</div>
 			{currentLinkState == AddScanBoardLinkState.ScanOptions && ( //
-				<div className="additional-description is-required">
-					Select any options to able to configure details
-				</div>
+				<div className="additional-description is-required">Select any options to able to configure details</div>
 			)}
 			<div className="navigator-state-containter">
 				<div className="group-navigate-left">
@@ -108,7 +106,11 @@ const AddScanBoard = () => {
 				</div>
 				<div className="group-navigate-right">
 					{currentLinkState == AddScanBoardLinkState.ScanOptions && ( //
-						<div className="start-with-default-state button secondary-button">Start with Default</div>
+						<div
+							className="start-with-default-state button secondary-button"
+							onClick={handleStartScanWithOptions}>
+							Start with Default
+						</div>
 					)}
 					{nextLinkState ? (
 						<Link

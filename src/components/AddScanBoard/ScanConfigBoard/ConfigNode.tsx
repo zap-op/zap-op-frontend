@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type TConfigNode = {
 	id: string;
@@ -9,6 +9,7 @@ type TConfigNode = {
 	defaultValue?: number;
 	min?: number;
 	checked?: boolean;
+	handleChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const ConfigNode = ({
@@ -20,6 +21,7 @@ const ConfigNode = ({
 	checked,
 	defaultValue,
 	additionalInfor,
+	handleChangeValue,
 }: TConfigNode) => {
 	const ref_inputCheckBox = useRef<HTMLInputElement>(null);
 
@@ -28,6 +30,7 @@ const ConfigNode = ({
 			ref_inputCheckBox.current.checked = true;
 		}
 	}, []);
+
 	return (
 		<div className="config-node-container">
 			<label htmlFor={id}>
@@ -40,12 +43,14 @@ const ConfigNode = ({
 							type={type}
 							defaultValue={defaultValue}
 							min={min}
+							onChange={handleChangeValue}
 						/>
 					) : type == "checkbox" ? (
 						<input
 							ref={ref_inputCheckBox}
 							id={id}
 							type={type}
+							onChange={handleChangeValue}
 						/>
 					) : (
 						<></>
