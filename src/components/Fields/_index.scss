@@ -9,12 +9,6 @@ div.field-container {
         color: $black-color-1;
         font-size: 0.625rem;
         margin: 0.5rem 0;
-
-        &.is-required::after {
-            color: $error-color;
-            content: "\002A";
-            margin: 0 0.125rem;
-        }
     }
 
     div.message {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDigestTargetsWithOptions } from "../../hooks";
+import { useSelector } from "../../store";
 import NavStep from "./NavStep";
 import SelectTargetBoard from "./SelectTargetBoard";
 import ScanOptionsBoard from "./ScanOptionsBoard";
@@ -42,12 +43,27 @@ const AddScanBoard = () => {
 		}
 		if (currentLinkStateIndex > 0) {
 			setPreviousLinkState(CONFIG_STEPS[currentLinkStateIndex - 1].state);
+		} else {
+			setPreviousLinkState("");
 		}
 		if (currentLinkStateIndex < CONFIG_STEPS.length - 1) {
 			setNextLinkState(CONFIG_STEPS[currentLinkStateIndex + 1].state);
+		} else {
+			setNextLinkState("");
 		}
 		setCurrentLinkState(CONFIG_STEPS[currentLinkStateIndex].state);
 	}, [location.state]);
+
+	const scanOption = useSelector((state) => state.target.scanOption);
+	const [isAbleToConfigure, setIsAbleToConfigure] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (scanOption.spider || scanOption.ajax || scanOption.passive.checked || scanOption.active.checked) {
+			setIsAbleToConfigure(true);
+			return;
+		}
+		setIsAbleToConfigure(false);
+	}, [scanOption]);
 
 	const handleStartScanWithOptions = () => {
 		digest().then(() => {
@@ -71,6 +87,11 @@ const AddScanBoard = () => {
 					<></>
 				)}
 			</div>
+			{currentLinkState == AddScanBoardLinkState.ScanOptions && ( //
+				<div className="additional-description is-required">
+					Select any options to able to configure details
+				</div>
+			)}
 			<div className="navigator-state-containter">
 				<div className="group-navigate-left">
 					{previousLinkState ? (
@@ -86,12 +107,14 @@ const AddScanBoard = () => {
 					)}
 				</div>
 				<div className="group-navigate-right">
-					{currentLinkState == AddScanBoardLinkState.ScanOptions ? <div className="start-state button primary-button">asdasd</div> : <></>}
+					{currentLinkState == AddScanBoardLinkState.ScanOptions && ( //
+						<div className="start-with-default-state button secondary-button">Start with Default</div>
+					)}
 					{nextLinkState ? (
 						<Link
 							to=""
 							state={nextLinkState}
-							className="next-state button primary-button link-button"
+							className={`next-state button primary-button link-button ${currentLinkState == AddScanBoardLinkState.ScanOptions && !isAbleToConfigure ? "disable-button" : ""}`}
 							draggable={false}>
 							Next
 						</Link>

@@ -65,6 +65,16 @@ section {
     }
 }
 
+.is-required::after {
+    color: $error-color;
+    content: "\002A";
+    margin: 0 0.125rem;
+}
+
+.disable-button {
+    opacity: 0.5;
+    pointer-events: none;
+}
 
 a.link-button {
     font-weight: 300;
