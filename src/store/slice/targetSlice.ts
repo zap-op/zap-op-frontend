@@ -1,25 +1,35 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TTargetModel } from "../../utils/types";
+import { TTargetModel, TZapActiveScanConfig, TZapAjaxScanConfig, TZapPassiveScanConfig, TZapSpiderScanConfig } from "../../utils/types";
 import targetApi from "../services/targetApi";
 
 type TSelectedTarget = Pick<TTargetModel, "_id" | "name">;
 
-type TTargetState = {
-	listSelectedTarget: TSelectedTarget[];
-	scanOption: {
+type TScanOption = {
+	spider: boolean;
+	ajax: boolean;
+	passive: {
+		checked: boolean;
 		spider: boolean;
 		ajax: boolean;
-		passive: {
-			checked: boolean;
-			spider: boolean;
-			ajax: boolean;
-		};
-		active: {
-			checked: boolean;
-			spider: boolean;
-			ajax: boolean;
-		};
 	};
+	active: {
+		checked: boolean;
+		spider: boolean;
+		ajax: boolean;
+	};
+};
+
+type TScanConfig = {
+	spider: TZapSpiderScanConfig["scanConfig"];
+	ajax: TZapAjaxScanConfig["scanConfig"];
+	passive: Pick<TZapPassiveScanConfig, "spiderConfig" | "ajaxConfig">;
+	active: Pick<TZapActiveScanConfig, "spiderConfig" | "ajaxConfig" | "scanConfig">;
+};
+
+type TTargetState = {
+	listSelectedTarget: TSelectedTarget[];
+	scanOption: TScanOption;
+	scanConfig: TScanConfig;
 	listTargetTag: string[];
 };
 
@@ -37,6 +47,14 @@ const initialState: TTargetState = {
 			checked: false,
 			spider: true,
 			ajax: false,
+		},
+	},
+	scanConfig: {
+		spider: {},
+		ajax: {},
+		passive: {},
+		active: {
+			scanConfig: {},
 		},
 	},
 	listTargetTag: [],
@@ -71,6 +89,16 @@ const targetSlice = createSlice({
 				...initialState.scanOption,
 			};
 		},
+		updateScanConfig: (state, action: PayloadAction<TTargetState["scanConfig"]>) => {
+			state.scanConfig = {
+				...action.payload,
+			};
+		},
+		clearScanConfig: (state) => {
+			state.scanConfig = {
+				...initialState.scanConfig,
+			};
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addMatcher(targetApi.endpoints.getTarget.matchFulfilled, (state, action) => {
@@ -95,4 +123,6 @@ export const {
 	clearSelectTarget,
 	updateScanOption,
 	clearScanOption,
+	updateScanConfig,
+	clearScanConfig,
 } = targetSlice.actions;

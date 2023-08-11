@@ -1,6 +1,7 @@
 @use './NavStep';
 @use './ScanOptionsBoard';
 @use './SelectTargetBoard';
+@use './ScanConfigBoard';
 
 div.add-scan-board-container {
     div.add-scan-board_step-nav-container {
@@ -14,20 +15,32 @@ div.add-scan-board-container {
     div.navigator-state-containter {
         display: flex;
 
-        a.previous-state {
+        div.group-navigate-left {
             margin-left: 3rem;
             margin-right: auto;
         }
 
-        a.next-state {
+        div.group-navigate-right {
+            display: flex;
             margin-left: auto;
             margin-right: 3rem;
+
+            div.start-state {
+                font-weight: 500;
+                // margin-left: auto;
+                // margin-right: 3rem;
+            }
         }
 
-        div.start-state {
-            font-weight: 500;
-            margin-left: auto;
-            margin-right: 3rem;
-        }
+        // a.previous-state {
+        //     margin-left: 3rem;
+        //     margin-right: auto;
+        // }
+
+        // a.next-state {
+        //     margin-left: auto;
+        //     margin-right: 3rem;
+        // }
+
     }
 }

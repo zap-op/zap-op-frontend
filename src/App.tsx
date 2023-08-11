@@ -119,20 +119,7 @@ function App() {
 					</Route>
 					<Route
 						path="addscan"
-						element={
-							<AddScanBoard
-								configSteps={[
-									{
-										title: "Select Targets",
-										state: AddScanBoardLinkState.SelectTarget,
-									},
-									{
-										title: "Configure Scans",
-										state: AddScanBoardLinkState.ScanOptions,
-									},
-								]}
-							/>
-						}
+						element={<AddScanBoard />}
 					/>
 					<Route
 						path="settings"

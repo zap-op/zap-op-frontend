@@ -1,0 +1,63 @@
+@use '../../../style/variables' as *;
+
+div.scan-config-board-container {
+    margin: 1rem 0;
+
+    h1.title {
+        color: $black-color-2;
+        margin: 2rem 0;
+    }
+
+    div.config-container {
+        padding: 0.5rem 1rem;
+
+        h4.title span {
+            color: $black-color-3;
+            font-size: 0.875rem;
+
+            &::before {
+                content: "-";
+                margin: 0 0.5rem;
+            }
+        }
+
+        div.list-config-container {
+            margin: 0.75rem 0;
+        }
+    }
+
+    div.config-node-container {
+        padding: 0.25rem 1rem;
+
+        h5.config-title {
+            color: $black-color-1;
+        }
+
+        div.config-description {
+            color: $black-color-2;
+            font-size: 0.875rem;
+        }
+
+        label div.input-container {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            padding: 0.5rem 1rem;
+
+            input {
+                padding: 0.5rem;
+
+                &[type="number"] {
+                    text-align: center;
+                    width: 2rem;
+                }
+            }
+
+            span.input-infor {
+                color: $black-color-3;
+                font-size: 0.875rem;
+                margin-left: 1rem;
+            }
+        }
+    }
+}

@@ -3,6 +3,11 @@
 div.scan-options-board-container {
     margin: 1rem 0;
 
+    h1.title {
+        color: $black-color-2;
+        margin: 2rem 0;
+    }
+
     label {
         border-radius: $app-border-radius;
         display: flex;
@@ -25,7 +30,8 @@ div.scan-options-board-container {
                 margin-bottom: 0.5rem;
             }
 
-            div.description, span {
+            div.description,
+            span {
                 color: $black-color-3;
                 font-size: 0.875rem;
             }
@@ -34,7 +40,7 @@ div.scan-options-board-container {
 
     div.sub-content-container {
         margin-left: 2rem;
-        
+
     }
 
 }

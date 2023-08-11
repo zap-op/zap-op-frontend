@@ -3,17 +3,30 @@ import NavStep, { TNavStepProps } from "./NavStep";
 import SelectTargetBoard from "./SelectTargetBoard";
 import ScanOptionsBoard from "./ScanOptionsBoard";
 import { useDigestTargetsWithOptions } from "../../hooks";
+import ScanConfigBoard from "./ScanConfigBoard";
 
 export enum AddScanBoardLinkState {
 	SelectTarget = "select-target",
 	ScanOptions = "scan-options",
+	ScanConfig = "scan-config",
 }
 
-type TAddScanBoardProps = {
-	configSteps: TNavStepProps["steps"];
-};
+const CONFIG_STEPS = [
+	{
+		title: "Select Targets",
+		state: AddScanBoardLinkState.SelectTarget,
+	},
+	{
+		title: "Select Options",
+		state: AddScanBoardLinkState.ScanOptions,
+	},
+	{
+		title: "Configure Options",
+		state: AddScanBoardLinkState.ScanConfig,
+	},
+];
 
-const AddScanBoard = (props: TAddScanBoardProps) => {
+const AddScanBoard = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { digest } = useDigestTargetsWithOptions();
@@ -23,23 +36,24 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 	let nextLinkState: string = "";
 
 	const handleStartScanWithOptions = () => {
-		digest().then(()=>{
-			navigate("../results")
+		digest().then(() => {
+			navigate("../results");
 		});
 	};
 
 	if (location.state) {
-		/* === this.props.configSteps > 0 */ currentLinkStateIndex = props.configSteps.findIndex((item) => item.state === location.state);
+		/* === this.props.configSteps > 0 */
+		currentLinkStateIndex = CONFIG_STEPS.findIndex((item) => item.state === location.state);
 	}
 
-	currentLinkState = props.configSteps[currentLinkStateIndex].state;
+	currentLinkState = CONFIG_STEPS[currentLinkStateIndex].state;
 
 	if (currentLinkStateIndex > 0) {
-		previousLinkState = props.configSteps[currentLinkStateIndex - 1].state;
+		previousLinkState = CONFIG_STEPS[currentLinkStateIndex - 1].state;
 	}
 
-	if (currentLinkStateIndex < props.configSteps.length - 1) {
-		nextLinkState = props.configSteps[currentLinkStateIndex + 1].state;
+	if (currentLinkStateIndex < CONFIG_STEPS.length - 1) {
+		nextLinkState = CONFIG_STEPS[currentLinkStateIndex + 1].state;
 	}
 
 	const contentComponent = () => {
@@ -48,6 +62,8 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 				return <SelectTargetBoard />;
 			case AddScanBoardLinkState.ScanOptions:
 				return <ScanOptionsBoard />;
+			case AddScanBoardLinkState.ScanConfig:
+				return <ScanConfigBoard />;
 			default:
 				return <></>;
 		}
@@ -56,36 +72,41 @@ const AddScanBoard = (props: TAddScanBoardProps) => {
 	return (
 		<div className="add-scan-board-container">
 			<div className="add-scan-board_step-nav-container">
-				<NavStep steps={props.configSteps} />
+				<NavStep steps={CONFIG_STEPS} />
 			</div>
 			<div className="add-scan-board_content-container">{contentComponent()}</div>
 			<div className="navigator-state-containter">
-				{previousLinkState ? (
-					<Link
-						to=""
-						state={previousLinkState}
-						className="previous-state button secondary-button link-button"
-						draggable={false}>
-						Back
-					</Link>
-				) : (
-					<></>
-				)}
-				{nextLinkState ? (
-					<Link
-						to=""
-						state={nextLinkState}
-						className="next-state button primary-button link-button"
-						draggable={false}>
-						Next
-					</Link>
-				) : (
-					<div
-						className="start-state button primary-button"
-						onClick={handleStartScanWithOptions}>
-						Start
-					</div>
-				)}
+				<div className="group-navigate-left">
+					{previousLinkState ? (
+						<Link
+							to=""
+							state={previousLinkState}
+							className="previous-state button secondary-button link-button"
+							draggable={false}>
+							Back
+						</Link>
+					) : (
+						<></>
+					)}
+				</div>
+				<div className="group-navigate-right">
+					{currentLinkState == AddScanBoardLinkState.ScanOptions ? <div className="start-state button primary-button">asdasd</div> : <></>}
+					{nextLinkState ? (
+						<Link
+							to=""
+							state={nextLinkState}
+							className="next-state button primary-button link-button"
+							draggable={false}>
+							Next
+						</Link>
+					) : (
+						<div
+							className="start-state button primary-button"
+							onClick={handleStartScanWithOptions}>
+							Start
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

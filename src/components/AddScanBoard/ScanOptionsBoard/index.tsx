@@ -7,6 +7,7 @@ const ScanOptionsBoard = () => {
 
 	return (
 		<div className="scan-options-board-container">
+			<h1 className="title">Select Options</h1>
 			<label htmlFor={ScanType.ZAP_SPIDER}>
 				<input
 					type="checkbox"
@@ -22,7 +23,7 @@ const ScanOptionsBoard = () => {
 					defaultChecked={scanOption.spider}
 				/>
 				<div className="content-container">
-					<h5 className="title">OWASP ZAP Spider</h5>
+					<h5 className="title">ZAP Spider</h5>
 					<div className="description">Discover all resources (URLs) on your web application.</div>
 				</div>
 			</label>
@@ -41,7 +42,7 @@ const ScanOptionsBoard = () => {
 					defaultChecked={scanOption.ajax}
 				/>
 				<div className="content-container">
-					<h5 className="title">OWASP ZAP Ajax Spider</h5>
+					<h5 className="title">ZAP Ajax Spider</h5>
 					<div className="description">Crawler of AJAX rich sites called Crawljax.</div>
 				</div>
 			</label>
@@ -63,7 +64,7 @@ const ScanOptionsBoard = () => {
 					defaultChecked={scanOption.passive.checked}
 				/>
 				<div className="content-container">
-					<h5 className="title">OWASP ZAP Passive</h5>
+					<h5 className="title">ZAP Passive</h5>
 					<div className="description">Passive check your web application for cross-domain configuration, insecure cookies, vulnerable JS dependencies, and more vulnerabilities.</div>
 				</div>
 			</label>
@@ -88,7 +89,7 @@ const ScanOptionsBoard = () => {
 						defaultChecked={scanOption.passive.spider}
 					/>
 					<div className="content-container">
-						<span className="title">Explore with Spider (default)</span>
+						<span className="title">Explore with ZAP Spider (default)</span>
 					</div>
 				</label>
 				<label htmlFor={`sub-${ScanType.ZAP_PASSIVE}-${ScanType.ZAP_AJAX}`}>
@@ -111,7 +112,7 @@ const ScanOptionsBoard = () => {
 						defaultChecked={scanOption.passive.ajax}
 					/>
 					<div className="content-container">
-						<span className="title">Explore with Ajax</span>
+						<span className="title">Explore with ZAP Ajax Spider</span>
 					</div>
 				</label>
 			</div>
@@ -133,7 +134,7 @@ const ScanOptionsBoard = () => {
 					defaultChecked={scanOption.active.checked}
 				/>
 				<div className="content-container">
-					<h5 className="title">OWASP ZAP Active</h5>
+					<h5 className="title">ZAP Active</h5>
 					<div className="description">Active test your web application for SQL injection, remote command execution, XSS, and more.</div>
 				</div>
 			</label>
@@ -158,7 +159,7 @@ const ScanOptionsBoard = () => {
 						defaultChecked={scanOption.active.spider}
 					/>
 					<div className="content-container">
-						<span className="title">Explore with Spider (default)</span>
+						<span className="title">Explore with ZAP Spider (default)</span>
 					</div>
 				</label>
 				<label htmlFor={`sub-${ScanType.ZAP_ACTIVE}-${ScanType.ZAP_AJAX}`}>
@@ -181,7 +182,7 @@ const ScanOptionsBoard = () => {
 						defaultChecked={scanOption.active.ajax}
 					/>
 					<div className="content-container">
-						<span className="title">Explore with Ajax</span>
+						<span className="title">Explore with ZAP Ajax Spider</span>
 					</div>
 				</label>
 			</div>
