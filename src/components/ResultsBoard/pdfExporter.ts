@@ -170,6 +170,8 @@ const generateAjaxConfigInfomation = (
 			inScope, //
 			contextName,
 			subtreeOnly,
+			maxCrawlDepth,
+			maxDuration,
 		},
 	}: TZapAjaxScanConfig,
 ) => {
@@ -188,6 +190,8 @@ const generateAjaxConfigInfomation = (
 			],
 			["Context Name", contextName || ""],
 			["Subtree Only", `${subtreeOnly}`],
+			["Max Crawl Depth", `${maxCrawlDepth}`],
+			["Max Duration", `${maxDuration}`],
 		],
 	});
 };
@@ -201,6 +205,13 @@ const generatePassiveConfigInfomation = (
 		spiderConfig,
 	}: TZapPassiveScanConfig,
 ) => {
+	let printExploreType = "";
+	if (exploreType == "spider") {
+		printExploreType = getScanOptionTitleByID(ScanType.ZAP_SPIDER);
+	} else {
+		printExploreType = getScanOptionTitleByID(ScanType.ZAP_AJAX);
+	}
+
 	doc.text("Scan configurations", FONT_SIZE, finalY);
 	const bodyRows: RowInput[] = [];
 	bodyRows.push([
@@ -210,13 +221,15 @@ const generatePassiveConfigInfomation = (
 				cellWidth: 50,
 			},
 		},
-		exploreType,
+		printExploreType,
 	]);
 	if (exploreType === "ajax") {
 		bodyRows.push(
 			["In Scope", `${ajaxConfig?.inScope}`], //
 			["Context Name", ajaxConfig?.contextName || ""],
 			["Subtree Only", `${ajaxConfig?.subtreeOnly}`],
+			["Max Crawl Depth", `${ajaxConfig?.maxCrawlDepth}`],
+			["Max Duration", `${ajaxConfig?.maxDuration}`],
 		);
 	} else if (exploreType === "spider") {
 		bodyRows.push(
@@ -242,6 +255,13 @@ const generateActiveConfigInfomation = (
 		scanConfig,
 	}: TZapActiveScanConfig,
 ) => {
+	let printExploreType = "";
+	if (exploreType == "spider") {
+		printExploreType = getScanOptionTitleByID(ScanType.ZAP_SPIDER);
+	} else {
+		printExploreType = getScanOptionTitleByID(ScanType.ZAP_AJAX);
+	}
+
 	doc.text("Scan configurations", FONT_SIZE, finalY);
 	const bodyRows: RowInput[] = [];
 	bodyRows.push([
@@ -251,13 +271,15 @@ const generateActiveConfigInfomation = (
 				cellWidth: 50,
 			},
 		},
-		exploreType,
+		printExploreType,
 	]);
 	if (exploreType === "ajax") {
 		bodyRows.push(
 			["In Scope", `${ajaxConfig?.inScope}`], //
 			["Context Name", ajaxConfig?.contextName || ""],
 			["Subtree Only", `${ajaxConfig?.subtreeOnly}`],
+			["Max Crawl Depth", `${ajaxConfig?.maxCrawlDepth}`],
+			["Max Duration", `${ajaxConfig?.maxDuration}`],
 		);
 	} else if (exploreType === "spider") {
 		bodyRows.push(

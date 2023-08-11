@@ -170,6 +170,8 @@ const ZapAjaxConfig = ({
 		inScope, //
 		contextName,
 		subtreeOnly,
+		maxCrawlDepth,
+		maxDuration,
 	},
 }: TZapAjaxScanConfig) => (
 	<ul className="config-container">
@@ -184,6 +186,14 @@ const ZapAjaxConfig = ({
 		<li>
 			Subtree Only
 			<span>{`${subtreeOnly}`}</span>
+		</li>
+		<li>
+			Max Crawl Depth
+			<span>{`${maxCrawlDepth}`}</span>
+		</li>
+		<li>
+			Max Duration
+			<span>{`${maxDuration}`}</span>
 		</li>
 	</ul>
 );

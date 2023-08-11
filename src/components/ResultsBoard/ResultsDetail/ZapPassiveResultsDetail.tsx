@@ -205,6 +205,14 @@ const ZapPassiveConfig = ({
 							Subtree Only
 							<span>{`${ajaxConfig.subtreeOnly}`}</span>
 						</li>
+						<li>
+							Max Crawl Depth
+							<span>{`${ajaxConfig.maxCrawlDepth}`}</span>
+						</li>
+						<li>
+							Max Duration
+							<span>{`${ajaxConfig.maxDuration}`}</span>
+						</li>
 					</>
 				)}
 				{exploreType === "spider" && spiderConfig && (
