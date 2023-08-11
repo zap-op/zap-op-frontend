@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FONT_SIZE } from "../../utils/styleMgr";
 import { createPortal } from "react-dom";
 
@@ -31,7 +31,6 @@ const MoreOptionsButton = ({
 	const [parentContainPortal, setParentContainPortal] = useState<HTMLElement>();
 
 	useEffect(() => {
-		console.log("ref_self.current?.offsetTop", ref_self.current?.offsetTop);
 		if (!ref_self.current) {
 			return;
 		}
