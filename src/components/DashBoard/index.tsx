@@ -44,9 +44,13 @@ const DashBoard = () => {
 		<div className="dashboard-container">
 			{isResultTableInFirstOrder ? (
 				<>
-					<h3>Results</h3>
-					<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
-					<div className="hr"></div>
+					{listScanSession?.length != 0 && (
+						<>
+							<h3>Results</h3>
+							<ResultsTable heightScrollWrap={TABLE_HEIGHT_SCROLL_WRAP} />
+							<div className="hr"></div>
+						</>
+					)}
 					<h3>Targets</h3>
 					{listTarget && listTarget.length != 0 ? (
 						<TargetsTable
