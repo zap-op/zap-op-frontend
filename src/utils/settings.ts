@@ -27,3 +27,5 @@ export const ListScanOption: TScanOption[] = [
 		title: "ZAP Passive",
 	},
 ];
+
+export const TOAST_MAX_LOADING_DURATION = 240000;
